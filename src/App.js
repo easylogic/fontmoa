@@ -6,6 +6,7 @@ import './App.css';
 
 import Category from './component/category'
 import FontListView from './component/fontlistview'
+import fontdb from './util/fontdb'
 
 const os = window.require('os')
 
@@ -19,7 +20,6 @@ class App extends Component {
 
   getSystemFolders() {
     const platform = os.platform();
-    console.log(platform)
     switch (platform) {
       case "darwin" : 
         return [
@@ -35,7 +35,6 @@ class App extends Component {
   }
 
   updateDirectory = (files) => {
-    console.log(files)
     this.setState({
       files: files 
     })

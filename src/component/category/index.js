@@ -1,9 +1,5 @@
-
 import React, { Component } from 'react';
 import './default.css';
-
-const fs = window.require('fs');
-const path = window.require('path');
 
 class Category extends Component {
 
@@ -22,33 +18,6 @@ class Category extends Component {
         console.log(this.state.systemFolders)
     }
 
-    updateContent (dir, files) {
-        this.props.updateDirectory(
-            files.map((it) => {
-                return { 
-                    path : path.resolve(dir, it),
-                    dir : dir, 
-                    name : path.basename(it), 
-                    ext : path.extname(it) 
-                }
-            })
-        )
-        
-        
-    }
-
-    handleFolderItemClick = (e) => {
-
-        const filepath = e.target.getAttribute('data-path')
-
-        console.log(filepath);
-
-        console.log(fs)
-        fs.readdir(filepath, (err, files) => {
-            this.updateContent(filepath, files)
-        })
-
-    }
     render() {
         return (
             <div className="category">
@@ -64,8 +33,8 @@ class Category extends Component {
                         <div className="title">시스템 디렉토리</div>
                         <div className="folder-list">
                             {
-                                this.state.systemFolders.map((it) => {
-                                    return <div className="folder-item" data-path={it.path} data-name={it.name} onClick={this.handleFolderItemClick}></div>
+                                this.state.systemFolders.map((it, index) => {
+                                    return <div className="folder-item" key={index} data-path={it.path} data-name={it.name} onClick={this.handleFolderItemClick}></div>
                                 })
                             }
                             

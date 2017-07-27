@@ -6,7 +6,8 @@
   "homepage": "./",
   "dependencies": {
     "electron-is": "^2.4.0",
-    "opentype.js": "^0.7.3",
+    "fontkit": "^1.7.7",
+    "nedb": "^1.8.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-scripts": "1.0.10"

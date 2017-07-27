@@ -4,7 +4,12 @@ import './default.css';
 
 const FileItem = (props) => {
     const item = props.file; 
-    const index = props.index; 
+    const index = props.index;
+    const realpath = item.path;
+    const ext = item.ext;
+
+  
+
     return (
         <div className="font-item" data-dir={item.dir} data-index={index}>
             <div className="font-info">
