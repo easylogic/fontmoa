@@ -18,6 +18,16 @@ class Category extends Component {
         console.log(this.state.systemFolders)
     }
 
+
+    handleFolderItemClick = (e) => {
+
+        const directory = e.target.getAttribute('data-path')
+
+        fontdb.update(directory, () => {
+            this.props.refreshFiles();
+        });
+
+    }
     render() {
         return (
             <div className="category">
