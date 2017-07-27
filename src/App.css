@@ -1,0 +1,67 @@
+.app {
+  position:fixed;
+  left: 0px;
+  top:0px;
+  bottom:0px;
+  right:0px;
+}
+
+.app-header {
+  background-color: #222;
+  position:absolute;
+  left:0px;
+  top:0px;
+  right:0px;
+  height:50px;
+}
+
+.app-header .logo {
+  position:absolute;
+  left: 0px;
+  top:0px;
+  bottom:0px;
+  width:250px;
+  text-align:center;
+  box-sizing: border-box;
+  padding:10px;
+  color:yellow;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.app-header .navbar {
+  position:absolute;
+  left: 250px;
+  top:0px;
+  bottom:0px;
+  right: 0px;
+  background-color: gray;
+  text-align:center;
+}
+
+.app-menu {
+  background-color: yellow;
+  position:absolute;
+  left:0px;
+  top:50px;
+  right:0px;
+  height:50px;
+}
+
+.app-sidebar {
+  position: absolute;
+  left:0px;
+  top:100px;
+  bottom:0px;
+  width:250px;
+  background-color: red;
+}
+
+.app-content {
+  position: absolute;
+  left:250px;
+  top:100px;
+  right:0px;
+  bottom:0px;
+  overflow: auto;
+}

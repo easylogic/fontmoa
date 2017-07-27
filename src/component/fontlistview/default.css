@@ -1,0 +1,53 @@
+.font-list-view {
+    position: absolute;
+    left:0px;
+    right:0px;
+    
+    top:0px;
+    bottom: 0px;
+}
+
+.font-list-header {
+    position: absolute;
+    top:0px;
+    left:0px;
+    right:0px;
+    height:30px;
+    background-color: red;
+    color:white;
+}
+
+.font-list-content {
+    position: absolute;
+    left:0px;
+    top:30px;
+    right: 0px;
+    bottom:0px;
+    overflow: auto;
+}
+
+.font-item .font-info {
+    overflow: auto;
+    display: flex; 
+    padding:10px;
+    background-color: black;    
+}
+
+.font-info .font-name {
+    flex : 19 ; 
+
+    color: white; 
+    font-weight: bold;
+}
+
+.font-info .font-ext {
+    flex : 1 ;  
+    text-align: center;
+    color: yellow;
+}
+
+.font-item .font-item-preview {
+    height: 100px; 
+    background-color: blue; 
+    color: yellow; 
+}
