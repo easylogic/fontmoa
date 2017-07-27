@@ -14,12 +14,12 @@ class Category extends Component {
     }
 
     init () {
+        
         this.state = {
-            systemFolders : [
-                { name : '시스템 폴더', path : '/Library/Fonts'}
-            ],
+            systemFolders : this.props.systemFolders || [],
             files : [] 
         }
+        console.log(this.state.systemFolders)
     }
 
     updateContent (dir, files) {

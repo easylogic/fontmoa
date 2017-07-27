@@ -1,5 +1,7 @@
 // ./main.js
 const {app, BrowserWindow} = require('electron')
+const path  = require('path')
+const url = require('url') 
 
 let win = null;
 
@@ -8,7 +10,12 @@ function createWindow() {
   win = new BrowserWindow({width: 1000, height: 600});
 
   // Specify entry point
-  win.loadURL('http://localhost:3000');
+  const startUrl = process.env.ELECTRON_START_URL || url.format({
+    pathname: path.join(__dirname, '/../build/index.html'),
+    protocol: 'file:',
+    slashes : true
+  })
+  win.loadURL(startUrl);
 
   // Show dev tools
   // Remove this line before distributing
