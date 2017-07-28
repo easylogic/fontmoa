@@ -5,15 +5,24 @@ import './default.css';
 const getFontFamilyCollect = (font) => {
     let fontList = [];
 
+    //console.log(font);
+
     fontList.push(font.familyName);
-    fontList.push(font.fullName);
-    fontList.push(font.postscriptName);
+//    fontList.push(font.fullName);
+//    fontList.push(font.postscriptName);
+
 
     if (font.name) {
-        for(const lang in font.name.familyName) {
-            fontList.push(font.name.familyName[lang]);
+       // console.log(font.name)
+        for(const lang in font.name.fontFamily) {
+            fontList.push(font.name.fontFamily[lang]);
         }
+        for(const lang in font.name.preferredFamily) {
+            fontList.push(font.name.preferredFamily[lang]);
+        }
+        
 
+        /*
         for(const lang in font.name.uniqueSubfamily) {
             fontList.push(font.name.uniqueSubfamily[lang]);
         }
@@ -24,7 +33,7 @@ const getFontFamilyCollect = (font) => {
         
         for(const lang in font.name.postscriptName) {
             fontList.push(font.name.postscriptName[lang]);
-        }        
+        } */        
     }
 
 
@@ -50,12 +59,19 @@ const FileItem = (props) => {
 
     if (file.bold) {
         style.fontWeight = 'bold'
+    } else {
+        style.fontWeight = 'normal'
     }
 
     let message = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+";
 
     if (file.currentLanguage === 'ko') {
         message = "다람쥐 헌 쳇바퀴에 타고파. 1234567890"
+    } else if (file.currentLanguage === 'zh') {
+        message = "太阳像一件新瓷器，明晃晃地把老街照得鳞光闪闪。";
+    } else if (file.currentLanguage === 'ja') {
+        message = "いろはにほへと / ちりぬるを / わかよたれそ / つねならむ / うゐのおくやま / けふこえて / あさきゆめみし / ゑひもせす";
+
     }
 
     return (
@@ -73,7 +89,6 @@ const FileItem = (props) => {
 class FontListView extends Component {
 
     handleFontClick = (e) => {
-        console.log(e.target)
         const path = e.target.getAttribute('data-path')
         console.log(path)
     }

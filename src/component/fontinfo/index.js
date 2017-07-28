@@ -10,6 +10,8 @@ class FontInfo extends Component {
         { key : "version", title : "버전" },
         { key : "manufacturer", title : "제작사" },
         { key : "vendorURL", title : "URL" },
+        { key : "license", title : "라이센스" },        
+        { key : "licenseURL", title : "License URL" },        
         { key : 'trademark', title : '등록상표' },
         { key : "copyright", title : "저작권" },
     ]
@@ -21,7 +23,6 @@ class FontInfo extends Component {
         const size = filesize.partial({ round: 1, spacer: "" });
         const lang = font.currentLanguage;
         if (Object.keys(font).length) {
-            console.log(font)
             list.push({ title : '파일 이름', content : font.item.name })
 
             if (font.size) {

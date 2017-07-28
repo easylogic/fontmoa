@@ -49,14 +49,14 @@
   left:0px;
   top:100px;
   bottom:0px;
-  width:250px;
+  width:240px;
 }
 
 .app-content {
   position: absolute;
-  left:250px;
-  top:100px;
-  right:0px;
-  bottom:0px;
+  left:260px;
+  top:110px;
+  right:10px;
+  bottom:10px;
   overflow: auto;
 }

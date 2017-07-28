@@ -102,14 +102,23 @@ const createFont = function (file, directory, done) {
     if (exts.includes(ext)) {
     
         fontkit.open(realpath, null, function (err, font) {
+
+            if (err) {
+                done && done();
+                return;
+            }
+
+
             if (font.header) {
 
                 const nameList = font.fonts.map((f) => f.fontFamily);
 
                 font.fonts[0].nameList = nameList; 
                 insertFont(font.fonts[0], item, done);
-            } else {
+            } else if (font && font.directory.tables.glyf) {
                 insertFont(font, item, done);
+            } else {
+                done && done();
             }
         });
     } else {
