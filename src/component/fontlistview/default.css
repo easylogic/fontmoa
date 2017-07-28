@@ -13,8 +13,6 @@
     left:0px;
     right:0px;
     height:30px;
-    background-color: red;
-    color:white;
 }
 
 .font-list-content {
@@ -26,28 +24,39 @@
     overflow: auto;
 }
 
+.font-item:hover {
+    background-color: rgba(200, 200, 200, 0.5);
+}
+
+.font-item.selected {
+    background-color: rgba(200, 200, 200, 0.6);
+}
+
 .font-item .font-info {
     overflow: auto;
     display: flex; 
     padding:10px;
-    background-color: black;    
+    pointer-events: none;
 }
 
 .font-info .font-name {
-    flex : 19 ; 
+    flex : 10 ; 
 
-    color: white; 
+    font-weight: bold;
+}
+
+.font-info .font-family {
+    flex : 10 ; 
+
     font-weight: bold;
 }
 
 .font-info .font-ext {
     flex : 1 ;  
     text-align: center;
-    color: yellow;
 }
 
 .font-item .font-item-preview {
-    height: 100px; 
-    background-color: blue; 
-    color: yellow; 
+    padding: 10px 20px 30px;
+    pointer-events: none;
 }

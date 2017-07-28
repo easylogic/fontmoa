@@ -1,0 +1,24 @@
+.font-note {
+    position: absolute;
+    left:0px;
+    bottom: 0px;
+    right: 0px;
+    overflow-y: auto;
+    height:300px;
+    overflow:hidden;
+}
+
+.font-note-item {
+
+}
+
+.font-note-item .title {
+    font-weight:bold;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding:4px 10px;
+}
+
+.font-note-item .content {
+    padding: 4px 4px 4px 30px;
+    overflow:hidden;
+}

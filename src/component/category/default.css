@@ -1,9 +1,9 @@
 .category {
     position: absolute;
-    left:0px;
-    bottom: 0px;
-    right: 0px;
     top:0px;
+    left:0px;
+    right: 0px;
+    bottom:200px;
 }
 
 .category-header {
@@ -22,7 +22,6 @@
     left: 0px;
     right: 0px;
     height: 40px;
-    background-color: rgba(255, 255, 255, 0.5);
     box-sizing:border-box;
     padding:10px 10px;
     text-align: right;
@@ -36,16 +35,14 @@
     right: 0px;
     bottom:0px;
     overflow: auto;
-    background-color: blue; 
 }
 
 .category-content .folder {
-    background-color: rgba(255, 0, 0, 0.5);
+
 }
 
 .category-content .folder .title {
     padding: 5px; 
-    color: white;
     font-weight: bold;
 }
 
@@ -60,6 +57,5 @@
 }
 
 .category-content .folder-list .folder-item::before {
-    content: attr(data-name);
-    color: yellow;
+    content: '*' attr(data-name);
 }

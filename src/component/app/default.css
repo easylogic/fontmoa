@@ -7,7 +7,6 @@
 }
 
 .app-header {
-  background-color: #222;
   position:absolute;
   left:0px;
   top:0px;
@@ -24,7 +23,6 @@
   text-align:center;
   box-sizing: border-box;
   padding:10px;
-  color:yellow;
   font-size: 20px;
   font-weight: bold;
 }
@@ -35,12 +33,10 @@
   top:0px;
   bottom:0px;
   right: 0px;
-  background-color: gray;
   text-align:center;
 }
 
 .app-menu {
-  background-color: yellow;
   position:absolute;
   left:0px;
   top:50px;
@@ -54,7 +50,6 @@
   top:100px;
   bottom:0px;
   width:250px;
-  background-color: red;
 }
 
 .app-content {

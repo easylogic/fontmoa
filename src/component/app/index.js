@@ -1,11 +1,14 @@
 
 import React, { Component } from 'react';
-import './App.css';
+import './default.css';
 
 
 
-import Category from './component/category'
-import FontListView from './component/fontlistview'
+import Category from '../category'
+import FontListView from '../fontlistview'
+import FontInfo from '../fontinfo'
+
+import fontdb  from '../../util/fontdb'
 
 const os = window.require('os')
 
@@ -14,7 +17,7 @@ class App extends Component {
   constructor () {
     super();
 
-    this.state = { files : [], systemFolders : this.getSystemFolders(), userFolders: [] }
+    this.state = { files : [], directory : "", systemFolders : this.getSystemFolders(), userFolders: [], font :{} }
   }
 
   getSystemFolders() {
@@ -33,9 +36,16 @@ class App extends Component {
     }
   }
 
-  updateDirectory = (files) => {
-    this.setState({
-      files: files 
+  updateDirectory = (directory) => {
+    fontdb.list(directory, (files) => {
+      this.setState({ directory ,  files })
+    })
+
+  }
+
+  updateFontInfo = (path) => {
+     fontdb.findOne(path, (font) => {
+      this.setState({ font })
     })
   }
 
@@ -53,10 +63,11 @@ class App extends Component {
 
         </div>
         <div className="app-sidebar">
-          <Category updateDirectory={this.updateDirectory} systemFolders={this.state.systemFolders} />
+          <Category refreshFiles={this.updateDirectory} systemFolders={this.state.systemFolders} />
+          <FontInfo font={this.state.font} />
         </div>
         <div className="app-content">
-          <FontListView files={this.state.files} />
+          <FontListView files={this.state.files} directory={this.state.directory} refreshFontInfo={this.updateFontInfo} />
         </div>
       </div>
     );

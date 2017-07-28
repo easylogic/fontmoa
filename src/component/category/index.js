@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './default.css';
 
+import fontdb from '../../util/fontdb'
+
 class Category extends Component {
 
     constructor(props) {
@@ -15,17 +17,17 @@ class Category extends Component {
             systemFolders : this.props.systemFolders || [],
             files : [] 
         }
-        console.log(this.state.systemFolders)
     }
 
 
     handleFolderItemClick = (e) => {
 
         const directory = e.target.getAttribute('data-path')
-
-        fontdb.update(directory, () => {
-            this.props.refreshFiles();
-        });
+        if (directory) {
+            fontdb.update(directory, () => {
+                this.props.refreshFiles(directory);
+            });
+        }
 
     }
     render() {
@@ -41,10 +43,10 @@ class Category extends Component {
                 <div className="category-content" >
                     <div className="folder system-folder">
                         <div className="title">시스템 디렉토리</div>
-                        <div className="folder-list">
+                        <div className="folder-list"  onClick={this.handleFolderItemClick}>
                             {
                                 this.state.systemFolders.map((it, index) => {
-                                    return <div className="folder-item" key={index} data-path={it.path} data-name={it.name} onClick={this.handleFolderItemClick}></div>
+                                    return <div className="folder-item" key={index} data-path={it.path} data-name={it.name}></div>
                                 })
                             }
                             
