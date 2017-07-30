@@ -26,6 +26,7 @@
     flex-wrap:wrap;
 }
 
+
 .font-item {
     flex: 1 1 20%;
     box-sizing:border-box;
@@ -36,10 +37,6 @@
     background-color: rgb(255, 255, 255);
     cursor: pointer;
     user-select: none;
-}
-
-.font-item[data-row-last=true] {
-    /*border-right: 1px solid black; */
 }
 
 
@@ -98,3 +95,27 @@
     text-align:center;
     margin-bottom:10px;
 }
+
+.font-list-content.row-style .font-item {
+    flex: 1 1 100%;
+    text-align: left !important;
+    transition: none !important;
+}
+
+.font-list-content.row-style .font-item:hover {
+    transform: none;
+}
+
+.font-list-content.row-style .font-item .font-info {
+    text-align: left !important;
+}
+
+.font-list-content.row-style .font-item .font-name {
+    display: block;
+}
+
+.font-list-content.row-style .font-item .font-item-preview {
+    text-align: left !important;
+    padding:5px 20px;
+}
+

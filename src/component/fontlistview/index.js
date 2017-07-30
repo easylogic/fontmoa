@@ -127,7 +127,7 @@ class FontListView extends Component {
                 <div className="font-list-header" >
                     <div className="title">디렉토리 {this.props.directory} : {this.props.files.length}</div>
                 </div>
-                <div className="font-list-content" onDoubleClick={this.handleFontClick} onClick={this.selectFontClick}>
+                <div className="font-list-content row-style" onDoubleClick={this.handleFontClick} onClick={this.selectFontClick}>
                     {this.props.files.map((it, i) => {
                         return <FileItem file={it} key={i} index={i} fontStyle={this.props.fontStyle} />
                     })}
