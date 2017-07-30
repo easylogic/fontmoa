@@ -4,6 +4,7 @@
   top:0px;
   bottom:0px;
   right:0px;
+
 }
 
 .app-header {
@@ -12,6 +13,7 @@
   top:0px;
   right:0px;
   height:50px;
+  background-color: yellow;
 }
 
 .app-header .logo {
@@ -42,6 +44,7 @@
   top:50px;
   right:0px;
   height:50px;
+  background-color:blue;
 }
 
 .app-sidebar {

@@ -162,13 +162,13 @@ const updateFont = (directory, hash, done) => {
 
 const update = (directory, done) => {
     directoryDB.findOne({ directory }, (err, doc) => {
-        // if (doc) {
-        //     if (doc.hash === createMd5(directory).hash) {
-        //         //  변화 없음
-        //         //done && done();
-        //         //return; 
-        //     }
-        // }
+        if (doc) {
+             if (doc.hash === createMd5(directory).hash) {
+                 //  변화 없음
+                 done && done();
+                 return; 
+             }
+        }
 
         // 데이타 베이스 무조건 새로고침 
 

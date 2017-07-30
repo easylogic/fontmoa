@@ -22,31 +22,66 @@
     right: 0px;
     bottom:0px;
     overflow: auto;
+    display: flex; 
+    flex-wrap:wrap;
 }
 
+.font-item {
+    flex: 1 1 20%;
+    box-sizing:border-box;
+    border: 1px solid black; 
+    margin-left: -1px;
+    margin-top:-1px;
+    transition: 0.15s all linear; 
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+    user-select: none;
+}
+
+.font-item[data-row-last=true] {
+    /*border-right: 1px solid black; */
+}
+
+
 .font-item:hover {
-    background-color: rgba(200, 200, 200, 0.5);
+    background-color: rgb(200, 200, 200);    
+    transform: scale(1.3);
+    transform-origin: 50% 50%;
+    z-index: 100;       
+}
+
+.font-item[data-row-start=true]:hover {
+    transform-origin: 0% 50%;
+}
+
+.font-item[data-row-last=true]:hover {
+    transform-origin: 100% 50%;
+
 }
 
 .font-item.selected {
-    background-color: rgba(200, 200, 200, 0.6);
+    background-color: rgb(180, 180, 180);    
 }
+
 
 .font-item .font-info {
     overflow: auto;
     display: flex; 
     padding:10px;
     pointer-events: none;
+    text-align: center;
+    margin-bottom:10px;
 }
 
 .font-info .font-name {
     flex : 10 ; 
-
+    display:none;
     font-weight: bold;
 }
 
 .font-info .font-family {
     flex : 10 ; 
+
 
     font-weight: bold;
 }
@@ -54,10 +89,12 @@
 .font-info .font-ext {
     flex : 1 ;  
     text-align: center;
+    display: none;
 }
 
 .font-item .font-item-preview {
-    padding: 10px 20px 30px;
     pointer-events: none;
     word-break: break-all;
+    text-align:center;
+    margin-bottom:10px;
 }

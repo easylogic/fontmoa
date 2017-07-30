@@ -46,10 +46,12 @@ const getFontFamilyCollect = (font) => {
 
 const FileItem = (props) => {
     const file = props.file;
+    const index = props.index; 
     const item = file.item; 
 
     const style = {
         fontSize: 40,
+        lineHeight: '40px',
         fontFamily: getFontFamilyCollect(file)
     }
 
@@ -63,21 +65,24 @@ const FileItem = (props) => {
         style.fontWeight = 'normal'
     }
 
-    let message = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+";
+    let message = "Ag";
 
     if (file.currentLanguage === 'ko') {
-        message = "다람쥐 헌 쳇바퀴에 타고파. 1234567890"
+        message = "한글"
     } else if (file.currentLanguage === 'zh') {
-        message = "太阳像一件新瓷器，明晃晃地把老街照得鳞光闪闪。";
+        message = "太阳";
     } else if (file.currentLanguage === 'ja') {
-        message = "いろはにほへと / ちりぬるを / わかよたれそ / つねならむ / うゐのおくやま / けふこえて / あさきゆめみし / ゑひもせす";
+        message = "いろ";
 
     }
 
+    const rowStart = (index % 5 === 0) ? true : false; 
+    const rowLast = (index % 5 === 4) ? true : false; 
+
     return (
-        <div className="font-item" data-dir={item.dir} data-path={item.path}>
+        <div draggable={true} className="font-item" data-dir={item.dir} data-path={item.path} data-row-start={rowStart} data-row-last={rowLast} >
             <div className="font-info">
-                <div className="font-family">{file.currentFamilyName} (<span>{file.subfamilyName}</span>)</div>
+                <div className="font-family" title={file.subfamilyName}>{file.currentFamilyName}</div>
                 <div className="font-name">{item.name}</div>
               
             </div>
@@ -114,7 +119,7 @@ class FontListView extends Component {
                 </div>
                 <div className="font-list-content" onDoubleClick={this.handleFontClick} onClick={this.selectFontClick}>
                     {this.props.files.map((it, i) => {
-                        return <FileItem file={it} key={i} />
+                        return <FileItem file={it} key={i} index={i} />
                     })}
                 </div>
             </div>

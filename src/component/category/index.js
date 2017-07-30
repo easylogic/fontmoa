@@ -55,7 +55,10 @@ class Category extends Component {
                     <div className="folder user-folder">
                         <div className="title">사용자 디렉토리</div>
                         <div className="folder-list"></div>
-                    </div>                    
+                    </div>       
+                    <div className="folder favorite-folder">
+                        <div className="title">즐겨찾기</div>  
+                    </div>
                 </div>
             </div>
         )
