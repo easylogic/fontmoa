@@ -1,0 +1,10 @@
+.menubar {
+    text-align: right;
+    padding:10px;
+}
+
+.menubar input {
+    vertical-align: middle;
+    margin-right:10px;
+    height: 24px;
+}

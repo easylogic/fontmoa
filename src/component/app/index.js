@@ -7,17 +7,25 @@ import './default.css';
 import Category from '../category'
 import FontListView from '../fontlistview'
 import FontInfo from '../fontinfo'
+import Menubar from '../menubar'
 
 import fontdb  from '../../util/fontdb'
 
-const os = window.require('os')
+const os = window.require('os') 
 
 class App extends Component {
 
   constructor () {
     super();
 
-    this.state = { files : [], directory : "", systemFolders : this.getSystemFolders(), userFolders: [], font :{} }
+    this.state = { 
+      files : [], 
+      directory : "", 
+      systemFolders : this.getSystemFolders(), 
+      userFolders: [], 
+      font :{},
+      style: {} 
+    }
   }
 
   getSystemFolders() {
@@ -49,6 +57,10 @@ class App extends Component {
     })
   }
 
+  refreshFontView = (style) => {
+    this.setState({ style })
+  }
+
   render() {
     return (
       <div className="app">
@@ -60,14 +72,14 @@ class App extends Component {
           </div>
         </div>
         <div className="app-menu">
-
+          <Menubar refreshFontStyle={this.refreshFontView} />
         </div>
         <div className="app-sidebar">
           <Category refreshFiles={this.updateDirectory} systemFolders={this.state.systemFolders} />
           <FontInfo font={this.state.font} />
         </div>
         <div className="app-content">
-          <FontListView files={this.state.files} directory={this.state.directory} refreshFontInfo={this.updateFontInfo} />
+          <FontListView fontStyle={this.state.style} files={this.state.files} directory={this.state.directory} refreshFontInfo={this.updateFontInfo} />
         </div>
       </div>
     );

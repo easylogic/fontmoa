@@ -49,10 +49,15 @@ const FileItem = (props) => {
     const index = props.index; 
     const item = file.item; 
 
-    const style = {
-        fontSize: 40,
-        lineHeight: '40px',
+    const style = Object.assign({}, {
+        fontSize: props.fontStyle.fontSize,
+        lineHeight: props.fontStyle.fontSize,
         fontFamily: getFontFamilyCollect(file)
+    });
+
+    const itemStyle = {
+        color: props.fontStyle.color,
+        backgroundColor: props.fontStyle.backgroundColor,
     }
 
     if (file.italic) {
@@ -73,14 +78,19 @@ const FileItem = (props) => {
         message = "太阳";
     } else if (file.currentLanguage === 'ja') {
         message = "いろ";
-
+    } else if (file.currentLanguage === 'he') {
+        message = "רה";
+    } else if (file.currentLanguage === 'ar') {
+        message = "طارِ";        
     }
+
+    message = props.fontStyle.content || message; 
 
     const rowStart = (index % 5 === 0) ? true : false; 
     const rowLast = (index % 5 === 4) ? true : false; 
 
     return (
-        <div draggable={true} className="font-item" data-dir={item.dir} data-path={item.path} data-row-start={rowStart} data-row-last={rowLast} >
+        <div draggable={true} style={itemStyle} className="font-item" data-dir={item.dir} data-path={item.path} data-row-start={rowStart} data-row-last={rowLast} >
             <div className="font-info">
                 <div className="font-family" title={file.subfamilyName}>{file.currentFamilyName}</div>
                 <div className="font-name">{item.name}</div>
@@ -119,7 +129,7 @@ class FontListView extends Component {
                 </div>
                 <div className="font-list-content" onDoubleClick={this.handleFontClick} onClick={this.selectFontClick}>
                     {this.props.files.map((it, i) => {
-                        return <FileItem file={it} key={i} index={i} />
+                        return <FileItem file={it} key={i} index={i} fontStyle={this.props.fontStyle} />
                     })}
                 </div>
             </div>

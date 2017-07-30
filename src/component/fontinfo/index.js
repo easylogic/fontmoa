@@ -14,6 +14,7 @@ class FontInfo extends Component {
         { key : "licenseURL", title : "License URL" },        
         { key : 'trademark', title : '등록상표' },
         { key : "copyright", title : "저작권" },
+        { key : "language", title : "언어" },
     ]
 
     getViewInfo (font) {
