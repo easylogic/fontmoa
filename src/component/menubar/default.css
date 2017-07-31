@@ -1,3 +1,7 @@
 .navbar .inline input[type=text] {
     width: 300px;
 }
+
+.navbar .inline input[type=text].font-size {
+    width: 80px;
+}

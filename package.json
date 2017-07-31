@@ -11,6 +11,7 @@
     "fontkit": "^1.7.7",
     "nedb": "^1.8.0",
     "react": "^15.6.1",
+    "react-children-utilities": "^0.1.14",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
     "react-scripts": "1.0.10",

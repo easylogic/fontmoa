@@ -12,13 +12,30 @@
     top:0px;
     left:0px;
     right:0px;
-    height:30px;
+    height:40px;
+    box-sizing: border-box;
+    padding: 5px 2px;
+}
+
+.font-list-header .title {
+    float:left;
+    vertical-align: middle;
+    font-size:18px;
+}
+
+.font-list-header .tools {
+    float:right;
+    vertical-align: middle;    
+}
+
+.font-list-header .tools .pill {
+    margin:0px;
 }
 
 .font-list-content {
     position: absolute;
     left:0px;
-    top:30px;
+    top:40px;
     right: 0px;
     bottom:0px;
     overflow: auto;
@@ -30,10 +47,9 @@
 .font-item {
     flex: 1 1 20%;
     box-sizing:border-box;
-    border: 1px solid black; 
+    border: 1px solid rgba(200, 200, 200, 0.5); 
     margin-left: -1px;
     margin-top:-1px;
-    transition: 0.15s all linear; 
     background-color: rgb(255, 255, 255);
     cursor: pointer;
     user-select: none;
@@ -77,14 +93,10 @@
 
 .font-info .font-family {
     flex : 10 ; 
-
-
     font-weight: bold;
 }
 
-.font-info .font-ext {
-    flex : 1 ;  
-    text-align: center;
+.font-info .font-sub-family {
     display: none;
 }
 
@@ -95,25 +107,30 @@
     margin-bottom:10px;
 }
 
-.font-list-content.row-style .font-item {
+.font-list-content[data-content-style=row] .font-item {
     flex: 1 1 100%;
     text-align: left !important;
     transition: none !important;
 }
 
-.font-list-content.row-style .font-item:hover {
+.font-list-content[data-content-style=row] .font-item:hover {
     transform: none;
 }
 
-.font-list-content.row-style .font-item .font-info {
+.font-list-content[data-content-style=row] .font-item .font-info {
     text-align: left !important;
 }
 
-.font-list-content.row-style .font-item .font-name {
+.font-list-content[data-content-style=row] .font-item .font-name {
     display: block;
 }
+.font-list-content[data-content-style=row] .font-item .font-sub-family {
+    display: inline-block;
+    margin-left:10px;
+}
 
-.font-list-content.row-style .font-item .font-item-preview {
+
+.font-list-content[data-content-style=row] .font-item .font-item-preview {
     text-align: left !important;
     padding:5px 20px;
 }

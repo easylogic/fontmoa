@@ -11,12 +11,17 @@
     left:0px;
     right:0px;
     top:0px;
-    height: 40px;
+    height: 34px;
+    margin-bottom:0px;
+}
+
+.jui .tabs.full .tab li {
+    cursor:pointer;
 }
 
 .jui .tabs.full .tab-container {
     position:absolute;
-    top:50px;
+    top:44px;
     left:0px;
     right:0px;
     bottom:0px;

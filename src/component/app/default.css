@@ -60,7 +60,7 @@
 
 .app-sidebar {
   position: absolute;
-  left:0px;
+  left:10px;
   top:50px;
   bottom:0px;
   width:240px;
@@ -74,6 +74,8 @@
   right:10px;
   bottom:10px;
   overflow: auto;
+  box-sizing: border-box;
+  border-left: 1px solid rgba(200, 200, 200, 0.5); 
 }
 
 /* jui update */ 

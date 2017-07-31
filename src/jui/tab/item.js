@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 
 export default class TabItem extends Component {
+    constructor(props) {
+        super(props)
+
+        console.log(props);
+    }
     createItemClass = () => {
         let itemClass = ['tab-content'];
 

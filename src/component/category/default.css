@@ -5,36 +5,15 @@
     right: 0px;
     bottom:200px;
 }
-
-.category-header {
-    position: absolute;
-    top:0px;
-    left:0px;
-    right:0px;
-    height:30px;
-    font-size: 13px;
-    padding:10px;
-}
-
-.category-toolbar {
-    position: absolute;
-    top:30px;
-    left: 0px;
-    right: 0px;
-    height: 40px;
-    box-sizing:border-box;
-    padding:10px 10px;
-    text-align: right;
-
-}
-
 .category-content {
     position: absolute;
-    top: 70px;
+    top: 0px;
     left: 0px;
     right: 0px;
     bottom:0px;
     overflow: auto;
+    box-sizing:border-box;
+    padding-top:10px;
 }
 
 .category-content .folder {

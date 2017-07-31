@@ -36,7 +36,8 @@ class FontInfo extends Component {
                 if (font.name && font.name[field.key] && font.name[field.key][lang]) { 
                     list.push({ title : field.title, content : font.name[field.key][lang] })
                 } else if (font[field.key]) {
-                    list.push({ title : field.title, content : font[field.key] })
+                    const content = Array.isArray(font[field.key]) ? font[field.key].join(', ') : font[field.key];
+                    list.push({ title : field.title, content : content })
                 }
             })
         }

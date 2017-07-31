@@ -33,31 +33,22 @@ class Category extends Component {
     render() {
         return (
             <div className="category">
-                <div className="category-header" >
-                    <div className="title">디렉토리</div>
-                </div>
-                <div className="category-toolbar">
-                    <button type="button">추가</button>
-                    <button type="button">삭제</button>
-                </div>
-                <div className="category-content" >
-                    <div className="folder system-folder">
-                        <div className="title">시스템 디렉토리</div>
-                        <div className="folder-list"  onClick={this.handleFolderItemClick}>
-                            {
-                                this.state.systemFolders.map((it, index) => {
-                                    return <div className="folder-item" key={index} data-path={it.path} data-name={it.name}></div>
-                                })
-                            }
-                            
-                        </div>
-                    </div>
-                    <div className="folder user-folder">
-                        <div className="title">사용자 디렉토리</div>
-                        <div className="folder-list"></div>
-                    </div>       
-                    <div className="folder favorite-folder">
-                        <div className="title">즐겨찾기</div>  
+                <div className="category-content menu" >
+                    <div className="folder-list vmenu rect"  onClick={this.handleFolderItemClick}>
+                        <a className="title">시스템 디렉토리</a>
+                        <ul className="submenu">
+                        {
+                            this.state.systemFolders.map((it, index) => {
+                                return <li key={index}><a className="folder-item" key={index} data-path={it.path} data-name={it.name}></a></li>
+                            })
+                        }
+                        </ul>
+                        <a className="title">사용자 디렉토리</a>
+                        <ul className="submenu">
+                        </ul>                        
+                        <a className="title">즐겨찾기</a>
+                        <ul className="submenu">
+                        </ul>                                                
                     </div>
                 </div>
             </div>

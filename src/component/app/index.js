@@ -26,7 +26,9 @@ class App extends Component {
       systemFolders : this.getSystemFolders(), 
       userFolders: [], 
       font :{},
-      style: {} 
+      style: {
+        fontSize: '40px'
+      } 
     }
   }
 

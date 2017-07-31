@@ -41,16 +41,26 @@ class Menubar extends Component {
         this.change({ fontSize : e.target.value + 'px' });
     }
 
+    handleSearchFont = (e) => {
+
+    }
+
     render() {
         return (
             <div className="navbar">
+                <div className="inline">
+                    <span > Search: &nbsp;</span>
+                    <input type="text" className="input" placeholder="설치된 폰트 검색해보아요." onChange={this.handleSearchFont} />
+                </div>
                 <div className="inline right">
+                    <span>글자 변환</span>
                     <input type="text" className="input" onInput={this.onChangeText}  placeholder="텍스트를 입력하세요." />
                     <input type='color' className="input"  onChange={this.onChangeForeground} onInput={this.onChangeForeground} value="#000000" />
                     <input type='color' className="input"  onChange={this.onChangeBackground} onInput={this.onChangeBackground} value="#ffffff" />
                     <span style={{width: '200px'}}>
                         <input type='range' onInput={this.onChangeFontSize}  min="10" max="100" defaultValue="40" step="1" />
                     </span>
+                    <input type="text" className="input font-size" readOnly={true} value={this.state.fontSize} />
                 </div>
 
             </div>
