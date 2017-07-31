@@ -50,7 +50,7 @@ class Menubar extends Component {
             <div className="navbar">
                 <div className="inline">
                     <span > Search: &nbsp;</span>
-                    <input type="text" className="input" placeholder="설치된 폰트 검색해보아요." onChange={this.handleSearchFont} />
+                    <input type="text" className="input search-field" placeholder="설치된 폰트 검색해보아요." onChange={this.handleSearchFont} />
                 </div>
                 <div className="inline right">
                     <span>글자 변환</span>

@@ -160,6 +160,32 @@ const updateFont = (directory, hash, done) => {
     })
 }
 
+const addFolder = (directory, done) => {
+    directoryDB.findOne({ directory }, (err, doc) => {
+        if (doc) {
+                 done && done();
+                 return; 
+        }
+
+        // 데이타 베이스 무조건 새로고침 
+
+        const hash = createMd5(directory);
+
+        // 디렉토리 정보 다시 입력 
+        directoryDB.insert({
+            directory,
+            name: path.basename(directory),            
+            user: true,
+            hash: hash.hash,
+            files: hash.files 
+        });
+        
+        // 전체 폰트정보 업데이트 
+        updateFont(directory, hash, done)
+
+    })
+} 
+
 const update = (directory, done) => {
     directoryDB.findOne({ directory }, (err, doc) => {
         if (doc) {
@@ -173,23 +199,29 @@ const update = (directory, done) => {
         // 데이타 베이스 무조건 새로고침 
 
         const hash = createMd5(directory);
-        // 기존 디렉토리 지우고 
-        directoryDB.remove({ hash : hash.hash}, { multi : true}, function (err, num) {
 
-            // 디렉토리 정보 다시 입력 
-            directoryDB.insert({
-                directory,
-                hash: hash.hash,
-                files: hash.files 
-            });
-            
-            // 전체 폰트정보 업데이트 
-            updateFont(directory, hash, done)
-        })
-
+        // 디렉토리 정보 다시 입력 
+        directoryDB.insert({
+            directory,
+            name: path.basename(directory),
+            hash: hash.hash,
+            files: hash.files 
+        });
+        
+        // 전체 폰트정보 업데이트 
+        updateFont(directory, hash, done)
 
     })
 
+}
+
+const folderList = (callback) => {
+    directoryDB.find({ user : true}, (err, docs) => {
+        docs.sort(function(a, b) {
+            return a.name <  b.name ? -1 : 1;
+        })
+        callback && callback(docs);
+    })
 }
 
 const list = (directory, callback) => {
@@ -214,7 +246,9 @@ const findOne = (path, callback) => {
 const fontdb = {
     findOne: findOne,
     list: list,
-    update: update 
+    update: update,
+    addFolder: addFolder,
+    folderList: folderList,
 }
 
 export default fontdb

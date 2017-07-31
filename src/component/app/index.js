@@ -30,6 +30,8 @@ class App extends Component {
         fontSize: '40px'
       } 
     }
+
+    this.refreshFolder()
   }
 
   getSystemFolders() {
@@ -37,11 +39,11 @@ class App extends Component {
     switch (platform) {
       case "darwin" : 
         return [
-            { name : '시스템 폴더', path : '/Library/Fonts'}
+            { name : '시스템 폴더', directory : '/Library/Fonts'}
         ];
       case "win32" : 
         return [
-          { name : '시스템 폴더', path : 'c:\\Windows\\Fonts'}
+          { name : '시스템 폴더', directory : 'c:\\Windows\\Fonts'}
         ];
       default : 
         return []
@@ -65,7 +67,24 @@ class App extends Component {
     this.setState({ style })
   }
 
+  handleAddFolder = (directory) => {
+      console.log('add folder', directory);
+      fontdb.addFolder(directory, () => {
+          this.refreshFolder();
+      });
+  }
+
+  refreshFolder = () => {
+    fontdb.folderList((list) => {
+      console.log(list);
+      this.setState({
+        userFolders: list
+      })
+    })
+  }
+
   render() {
+
     return (
       <div className="app">
         <div className="app-header">
@@ -82,7 +101,7 @@ class App extends Component {
                     <Menubar refreshFontStyle={this.refreshFontView} />
                   </div>
                   <div className="app-sidebar">
-                    <Category refreshFiles={this.updateDirectory} systemFolders={this.state.systemFolders} />
+                    <Category refreshFiles={this.updateDirectory} systemFolders={this.state.systemFolders} handleAddFolder={this.handleAddFolder} userFolders={this.state.userFolders} />
                     <FontInfo font={this.state.font} />
                   </div>
                   <div className="app-content">

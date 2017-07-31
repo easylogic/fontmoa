@@ -71,7 +71,7 @@ const FileItem = (props) => {
         style.fontWeight = 'normal'
     }
 
-    const isGrid = contentstyle == 'grid';
+    const isGrid = contentstyle === 'grid';
 
     let message = isGrid ? "Ag" : "The quick brown fox jumps over the lazy dog";
 
