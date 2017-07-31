@@ -21,9 +21,11 @@ class FontInfo extends Component {
 
         let list = [];
 
-        const size = filesize.partial({ round: 1, spacer: "" });
-        const lang = font.currentLanguage;
-        if (Object.keys(font).length) {
+
+        if (font && Object.keys(font).length) {
+            const size = filesize.partial({ round: 1, spacer: "" });
+            const lang = font.currentLanguage;            
+
             list.push({ title : '파일 이름', content : font.item.name })
 
             if (font.size) {

@@ -1,0 +1,36 @@
+.jui .tabs.full {
+    position:absolute;
+    left:0px;
+    right:0px;
+    bottom:0px;
+    top: 0px;
+}
+
+.jui .tabs.full .tab {
+    position:absolute;
+    left:0px;
+    right:0px;
+    top:0px;
+    height: 40px;
+}
+
+.jui .tabs.full .tab-container {
+    position:absolute;
+    top:50px;
+    left:0px;
+    right:0px;
+    bottom:0px;
+}
+
+.jui .tabs.full .tab-content {
+    position:absolute;
+    display:none;
+    left:0px;
+    right:0px;
+    bottom:0px;
+    top:0px;
+}
+
+.jui .tabs.full .tab-content.active {
+    display:block;
+}

@@ -43,11 +43,16 @@ class Menubar extends Component {
 
     render() {
         return (
-            <div className="menubar">
-               <input type="text" onInput={this.onChangeText}  placeholder="텍스트를 입력하세요." />
-               <input type='color' onChange={this.onChangeForeground} onInput={this.onChangeForeground} value="#000000" />
-               <input type='color' onChange={this.onChangeBackground} onInput={this.onChangeBackground} value="#ffffff" />
-               <input type='range' onInput={this.onChangeFontSize}  min="10" max="100" defaultValue="40" step="1" />
+            <div className="navbar">
+                <div className="inline right">
+                    <input type="text" className="input" onInput={this.onChangeText}  placeholder="텍스트를 입력하세요." />
+                    <input type='color' className="input"  onChange={this.onChangeForeground} onInput={this.onChangeForeground} value="#000000" />
+                    <input type='color' className="input"  onChange={this.onChangeBackground} onInput={this.onChangeBackground} value="#ffffff" />
+                    <span style={{width: '200px'}}>
+                        <input type='range' onInput={this.onChangeFontSize}  min="10" max="100" defaultValue="40" step="1" />
+                    </span>
+                </div>
+
             </div>
         )
     }
