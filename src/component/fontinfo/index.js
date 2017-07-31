@@ -34,15 +34,19 @@ class FontInfo extends Component {
 
             this.fieldList.forEach((field) => {
                 if (font.name && font.name[field.key] && font.name[field.key][lang]) { 
-                    list.push({ title : field.title, content : font.name[field.key][lang] })
+                    list.push({ title : field.title, content : font.name[field.key][lang], key : field.key })
                 } else if (font[field.key]) {
                     const content = Array.isArray(font[field.key]) ? font[field.key].join(', ') : font[field.key];
-                    list.push({ title : field.title, content : content })
+                    list.push({ title : field.title, content : content, key : field.key })
                 }
             })
         }
 
         return list; 
+    }
+
+    onClickNoteItem = (e) => {
+        
     }
 
     render() {
@@ -54,10 +58,24 @@ class FontInfo extends Component {
         return (
             <div className="font-note">
                 {viewInfo.map((it, i) => {
+                    const key = (it.key || "").toLowerCase();
+
+                    let activeClass = "";
+                    let link = "";
+                    if (key === 'copyright') {
+                        activeClass = "active";
+                    } else if (key === 'license') {
+                        activeClass = "active";
+                    } else if (key === 'url' || key === 'licenseurl') {
+                        link = it.content; 
+                    }
+
+                    
+
                     return (
-                        <div className="font-note-item" key={i}>
-                            <div className="title">{it.title}</div>
-                            <div className="content">{it.content}</div>
+                        <div className="file-note-item vmenu flat" key={i} data-item={it} onClick={this.onClickNoteItem}>
+                            <a className={activeClass}>{it.title}</a>
+                            <ul className="submenu"><li className={activeClass}><a href={link} target="_blank">{it.content}</a></li></ul>
                         </div>
                     )
                 })}

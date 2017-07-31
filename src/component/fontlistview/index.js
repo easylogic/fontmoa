@@ -17,15 +17,16 @@ const getFontFamilyCollect = (font) => {
         for(const lang in font.name.fontFamily) {
             fontList.push(font.name.fontFamily[lang]);
         }
-        for(const lang in font.name.preferredFamily) {
-            fontList.push(font.name.preferredFamily[lang]);
-        }
+
+        //for(const lang in font.name.preferredFamily) {
+        //    fontList.push(font.name.preferredFamily[lang]);
+        //}
         
 
 
-        for(const lang in font.name.uniqueSubfamily) {
-            fontList.push(font.name.uniqueSubfamily[lang]);
-        }
+        //for(const lang in font.name.uniqueSubfamily) {
+        //    fontList.push(font.name.uniqueSubfamily[lang]);
+        //}
 
         for(const lang in font.name.fullName) {
             fontList.push(font.name.fullName[lang]);

@@ -13,7 +13,6 @@ class Category extends Component {
     handleFolderItemClick = (e) => {
 
         const directory = e.target.getAttribute('data-directory')
-        console.log(directory)
         if (directory) {
             fontdb.update(directory, () => {
                 this.props.refreshFiles(directory);
@@ -51,7 +50,6 @@ class Category extends Component {
                         <ul className="submenu">
                         {
                             this.props.userFolders.map((it, index) => {
-                                console.log(it, index)
                                 return <li key={index}><a className="folder-item" data-directory={it.directory}>{it.name}</a></li>
                             })
                         }

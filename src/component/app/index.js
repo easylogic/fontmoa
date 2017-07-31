@@ -68,7 +68,6 @@ class App extends Component {
   }
 
   handleAddFolder = (directory) => {
-      console.log('add folder', directory);
       fontdb.addFolder(directory, () => {
           this.refreshFolder();
       });
@@ -76,7 +75,6 @@ class App extends Component {
 
   refreshFolder = () => {
     fontdb.folderList((list) => {
-      console.log(list);
       this.setState({
         userFolders: list
       })
@@ -101,8 +99,15 @@ class App extends Component {
                     <Menubar refreshFontStyle={this.refreshFontView} />
                   </div>
                   <div className="app-sidebar">
-                    <Category refreshFiles={this.updateDirectory} systemFolders={this.state.systemFolders} handleAddFolder={this.handleAddFolder} userFolders={this.state.userFolders} />
-                    <FontInfo font={this.state.font} />
+
+                    <Tabs full={true} >
+                      <TabItem id="category" title="Directory" active={true}>
+                        <Category refreshFiles={this.updateDirectory} systemFolders={this.state.systemFolders} handleAddFolder={this.handleAddFolder} userFolders={this.state.userFolders} />
+                      </TabItem>
+                      <TabItem id="fontinfo" title="Font Info">
+                        <FontInfo font={this.state.font} />
+                      </TabItem>
+                    </Tabs>
                   </div>
                   <div className="app-content">
                     <FontListView fontStyle={this.state.style} files={this.state.files} directory={this.state.directory} refreshFontInfo={this.updateFontInfo} />

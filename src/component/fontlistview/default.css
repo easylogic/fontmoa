@@ -20,7 +20,7 @@
 .font-list-header .title {
     float:left;
     vertical-align: middle;
-    font-size:18px;
+    font-size:14px;
 }
 
 .font-list-header .tools {
@@ -57,7 +57,8 @@
 
 
 .font-item:hover {
-    background-color: rgb(180, 180, 180) !important;    
+    background-color:black !important;
+    color:white !important;    
     transform-origin: 50% 50%;
     z-index: 100;       
 }
@@ -72,7 +73,8 @@
 }
 
 .font-item.selected {
-    background-color: rgb(180, 180, 180)  !important;    
+    background-color:black !important;
+    color:white !important;    
 }
 
 

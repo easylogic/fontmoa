@@ -1,15 +1,18 @@
 .font-note {
     position: absolute;
     left:0px;
-    bottom: 0px;
+    bottom: 10px;
     right: 0px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    height:200px;
+    top:10px;
+    overflow:auto;
 }
 
 .font-note-item {
+    cursor:pointer;
+}
 
+.font-note-item  > *{
+    pointer-events: none;
 }
 
 .font-note-item .title {
