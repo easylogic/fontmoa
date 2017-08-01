@@ -5,6 +5,7 @@
     right: 0px;
     top:10px;
     overflow:auto;
+    padding-right:5px;
 }
 
 .font-note-item {
@@ -24,4 +25,9 @@
 .font-note-item .content {
     padding: 4px 4px 4px 30px;
     overflow:hidden;
+}
+
+
+.file-note-item ul li a {
+    word-break: break-all;
 }

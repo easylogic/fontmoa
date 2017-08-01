@@ -94,6 +94,7 @@ class FontManager extends Component {
                     <TabItem id="category" title="Directory" active={true}>
                         <Category 
                             refreshFiles={this.updateDirectory} 
+                            refreshDirectory={this.refreshFolder} 
                             handleAddFolder={this.handleAddFolder}                             
                             systemFolders={this.state.systemFolders} 
                             userFolders={this.state.userFolders} 

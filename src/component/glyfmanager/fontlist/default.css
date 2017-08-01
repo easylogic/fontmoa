@@ -1,0 +1,9 @@
+.font-tree {
+    padding: 5px;
+}
+
+.font-tree-node {
+    max-height: 200px;
+    overflow:auto;
+    font-size: 18px !important;
+}

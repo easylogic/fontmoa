@@ -40,7 +40,15 @@ export default class Tabs extends Component {
             <div className="tabs full">
                 <ul className="tab top" onClick={this.handleTabClick} >
                     {React.Children.map(this.props.children, (child) => {
-                        return (<li className={this.createItemClass(child)} data-id={child.props.id} onClick={this.onTabClick}>
+
+                        const style = {}
+
+                        if (child.props.right) {
+                            style.float = 'right';
+                            style.marginRight = '10px'
+                        }
+
+                        return (<li style={style} className={this.createItemClass(child)} data-id={child.props.id} onClick={this.onTabClick}>
                             <a href={'#' + child.props.id} style={{pointerEvents: 'none'}}>{child.props.title}</a>
                         </li>)
                     })}

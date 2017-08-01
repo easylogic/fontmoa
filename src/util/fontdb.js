@@ -1,3 +1,5 @@
+import common from './common'
+
 
 const fs = window.require('fs');
 const path = window.require('path');
@@ -88,6 +90,39 @@ const insertFont = (font, item, done) => {
     });
 }
 
+const fontInfo = function (realpath, done) {
+    fontkit.open(realpath, null, function (err, font) {
+        if (err) {
+            done && done();
+            return;
+        }
+
+        if (font.header) {
+
+            const nameList = font.fonts.map((f) => f.fontFamily);
+
+            font.fonts[0].nameList = nameList; 
+
+            done && done(font.fonts[0]);
+
+        } else if (font && font.directory.tables.glyf) {
+            done && done(font);
+        } else {
+            done && done();
+        }
+    });
+}
+
+const glyfInfo = function (realpath, done) {
+    fontInfo(realpath, (font) => {
+        if (font) {
+            done && done(font.characterSet);
+        } else {
+            done && done([]);
+        }
+    })
+}
+
 const createFont = function (file, directory, done) {
     const item = { 
         path : path.resolve(directory, file),
@@ -147,6 +182,9 @@ const updateFont = (directory, hash, done) => {
         //  전체 폰트 정보 다시 만들기 
         const total = hash.files.length;
         let count = 0;  
+
+        if (total === 0) { done && done(); return; }
+
         hash.files.forEach((file) => {
             createFont(file, directory, function () {
                 count++;
@@ -163,8 +201,8 @@ const updateFont = (directory, hash, done) => {
 const addFolder = (directory, done) => {
     directoryDB.findOne({ directory }, (err, doc) => {
         if (doc) {
-                 done && done();
-                 return; 
+            done && done();
+            return; 
         }
 
         // 데이타 베이스 무조건 새로고침 
@@ -179,9 +217,15 @@ const addFolder = (directory, done) => {
             hash: hash.hash,
             files: hash.files 
         });
+
+        if (hash.files.length){
+
+            // 전체 폰트정보 업데이트 
+            updateFont(directory, hash, done)
+        } else {
+            done && done()
+        }
         
-        // 전체 폰트정보 업데이트 
-        updateFont(directory, hash, done)
 
     })
 } 
@@ -224,12 +268,29 @@ const folderList = (callback) => {
     })
 }
 
+const removeDirectory = (directory, callback) => {
+    directoryDB.remove({ directory }, { multi : true}, (err, num) => {
+        callback && callback();
+    })
+}
+
 const list = (directory, callback) => {
     db.find({ 'item.directory' : directory}, (err, docs) => {
         docs.sort(function(a, b) {
             return a.currentFamilyName <  b.currentFamilyName ? -1 : 1;
         })
-        callback && callback(docs);
+
+        let filteredList = [];
+        let keys = {};
+
+        docs.forEach((doc) => {
+            if (!keys[doc.familyName]) {
+                filteredList[filteredList.length] = doc;
+                keys[doc.familyName] = doc; 
+            }
+        })
+
+        callback && callback(filteredList);
     })
 }
 
@@ -243,12 +304,53 @@ const findOne = (path, callback) => {
     })
 }
 
+const fontTree = (callback) => {
+
+    let tree = [];
+
+     directoryDB.find({ user : true}, (err, docs) => {
+        docs.sort(function(a, b) {
+            return a.name <  b.name ? -1 : 1;
+        })
+
+        // 시스템 폰트 목록이랑 합치기 
+        docs = common.getSystemFolders().concat(docs);
+
+        const total = docs.length;
+        let count = 0; 
+        docs.forEach((doc) => {
+
+            list(doc.directory, function (files) {
+
+                tree.push({
+                    directory : doc.directory, 
+                    name : doc.name,
+                    files : files
+                })
+
+                count++;
+
+                if (count === total) {
+                    callback && callback(tree);
+                }
+            })
+
+
+        })
+
+    })
+}
+
 const fontdb = {
-    findOne: findOne,
-    list: list,
-    update: update,
-    addFolder: addFolder,
-    folderList: folderList,
+    fontTree,
+    fontInfo,
+    glyfInfo,
+    findOne,
+    list,
+    update,
+    addFolder,
+    folderList,
+    removeDirectory
 }
 
 export default fontdb

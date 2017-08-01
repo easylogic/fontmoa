@@ -12,6 +12,7 @@
 
 # production
 /build/
+/dist/
 
 # misc
 .DS_Store
@@ -25,3 +26,4 @@ yarn-debug.log*
 yarn-error.log*
 data/font.data
 data/directory.data
+fontmoa-v0.1.0.tgz

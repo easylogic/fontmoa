@@ -9,6 +9,7 @@ import GlyfManager from '../glyfmanager'
 import StyleManager from '../stylemanager'
 import CssManager from '../cssmanager'
 import ExportManager from '../exportmanager'
+import LicenseManager from '../licensemanager'
 
 class App extends Component {
 
@@ -30,6 +31,7 @@ class App extends Component {
               <StyleManager id="style" title="꾸미기" />
               <CssManager id="css" title="CSS" />
               <ExportManager id="export "title="내보내기" />
+              <LicenseManager id="license "title="라이센스 관리" right={true} />              
             </Tabs>
         </div>
       </div>

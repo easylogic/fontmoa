@@ -58,11 +58,6 @@ const FileItem = (props) => {
         fontFamily: getFontFamilyCollect(file)
     });
 
-    const itemStyle = {
-        color: props.fontStyle.color,
-        backgroundColor: props.fontStyle.backgroundColor,
-    }
-
     if (file.italic) {
         style.fontStyle = 'italic';
     }
@@ -95,7 +90,7 @@ const FileItem = (props) => {
     const rowLast = (index % 5 === 4) ? true : false; 
 
     return (
-        <div draggable={true} style={itemStyle} className="font-item" data-dir={item.dir} data-path={item.path} data-row-start={rowStart} data-row-last={rowLast} >
+        <div draggable={true} className="font-item" data-dir={item.dir} data-path={item.path} data-row-start={rowStart} data-row-last={rowLast} >
             <div className="font-info">
                 <div className="font-family" title={file.subfamilyName}>{file.currentFamilyName}<span className="font-sub-family">({file.subfamilyName})</span></div>
                 <div className="font-name">{item.name}</div>
@@ -152,20 +147,30 @@ class FontListView extends Component {
     }
 
     render() {
+
+        const fontStyle = {
+            fontSize : this.props.fontStyle.fontSize
+        }
+
+        const colorStyle = {
+            color: this.props.fontStyle.color,
+            backgroundColor: this.props.fontStyle.backgroundColor,
+        }
+
         return (
             <div className="font-list-view">
                 <div className="font-list-header" >
                     <div className="title">디렉토리 {this.props.directory} : {this.props.files.length}</div>
                     <div className="tools">
                         <ul className="pill" onClick={this.handleTabClick}>
-                            <li className={this.state.selectedRow ? 'active' : ''}><a href="#row">Row</a></li>
-                            <li className={this.state.selectedRow ? '' : 'active'}><a href="#grid">Grid</a></li>
+                            <li className={this.state.selectedRow ? 'active' : ''}><a href="#row"><i className="icon icon-menu"></i></a></li>
+                            <li className={this.state.selectedRow ? '' : 'active'}><a href="#grid"><i className="icon icon-dashboardlist"></i></a></li>
                         </ul>
                     </div>
                 </div>
-                <div className="font-list-content" data-content-style={this.state.fontListContentStyle} onDoubleClick={this.handleFontClick} onClick={this.selectFontClick}>
+                <div className="font-list-content" style={colorStyle} data-content-style={this.state.fontListContentStyle} onDoubleClick={this.handleFontClick} onClick={this.selectFontClick}>
                     {this.props.files.map((it, i) => {
-                        return <FileItem file={it} key={i} index={i} fontStyle={this.props.fontStyle} contentstyle={this.state.fontListContentStyle} />
+                        return <FileItem file={it} key={i} index={i} fontStyle={fontStyle} contentstyle={this.state.fontListContentStyle} />
                     })}
                 </div>
             </div>

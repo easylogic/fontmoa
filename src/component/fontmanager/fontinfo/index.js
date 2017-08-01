@@ -68,12 +68,12 @@ class FontInfo extends Component {
                     } else if (key === 'license') {
                         activeClass = "active";
                     } else if (key === 'url' || key === 'licenseurl') {
-                        attrs.link =  it.content; 
+                        attrs.href =  it.content; 
                         attrs.target =  "_blank"; 
                     }
 
                     return (
-                        <div className="file-note-item vmenu flat" key={i} data-item={it} onClick={this.onClickNoteItem}>
+                        <div className="file-note-item vmenu flat" key={i} onClick={this.onClickNoteItem}>
                             <a className={activeClass}>{it.title}</a>
                             <ul className="submenu"><li className={activeClass}><a {...attrs} >{it.content}</a></li></ul>
                         </div>

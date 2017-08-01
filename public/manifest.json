@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "FontMoa",
+  "name": "Simple Font Manager for Cross Platform",
   "icons": [
     {
       "src": "favicon.ico",
