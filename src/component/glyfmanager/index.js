@@ -8,16 +8,20 @@ import GlyfList from './glyflist'
 import FontList from './fontlist'
 
 import fontdb  from '../../util/fontdb'
+import unicode from '../../util/unicode'
 
 class GlyfManager extends Component {
  constructor () {
     super();
 
     this.state = { 
+      blockList: [],
+      selectedBlock: {},
       selectedFont : {},
       fontTree : [], 
       favorite : [],
-      glyf :[]
+      glyf :[],
+      filteredGlyf: [] ,
     }
 
     this.refreshFontTree()
@@ -25,18 +29,39 @@ class GlyfManager extends Component {
 
   
   refreshGlyf = (f) => {
-
     this.updateGlyf(f.item.path);
     this.setState({
       selectedFont: f
     })
   }
 
+  filterGlyf = (index, glyf) => {
+    const block = unicode.getBlockForIndex(index);
+    return glyf.filter((unicode) => {
+      return block.start <= unicode && unicode <= block.end; 
+    })
+  }
+
+  changeUnicodeBlock = (blockIndex) => {
+    this.setState({
+      filteredGlyf : this.filterGlyf(blockIndex, this.state.glyf),
+    })
+  }
+
+  updateUnicodeBlock = (glyf) => {
+    const blockList = unicode.checkBlockList(glyf);
+
+    this.setState({
+      glyf: glyf,
+      filteredGlyf : this.filterGlyf(0, glyf),
+      blockList: blockList,
+      selectedBlock: blockList[0]
+    })
+  }
+
   updateGlyf = (path) => {
     fontdb.glyfInfo(path, (glyf) => {
-        this.setState({
-          glyf : glyf
-        })
+        this.updateUnicodeBlock(glyf);
     })
   }
 
@@ -53,7 +78,7 @@ class GlyfManager extends Component {
     return (
         <TabItem active={this.props.active}>
           <div className="gm-glyf-list">
-            <GlyfList   selectedFont={this.state.selectedFont}   glyf={this.state.glyf}/>
+            <GlyfList changeUnicodeBlock={this.changeUnicodeBlock} selectedBlock={this.state.selectedBlock} blockList={this.state.blockList} selectedFont={this.state.selectedFont}   glyf={this.state.filteredGlyf}/>
           </div>
           <div className="gm-font-list">
             <FontList  selectedFont={this.state.selectedFont} refreshGlyf={this.refreshGlyf} fontTree={this.state.fontTree}/>

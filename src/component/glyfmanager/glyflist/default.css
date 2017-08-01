@@ -1,12 +1,25 @@
 .glyf-list {
     position: absolute;
     left:10px;
-    top:10px;
+    top:50px;
     right: 10px;
     bottom:10px;
     overflow: auto;
     padding-right:5px;
     border-top:1px solid #ececec;
+    font-size: 35px;
+    line-height:50px;
+    vertical-align: middle;
+    word-break: break-all;
+    word-wrap: break-word;    
+}
+
+.glyf-search {
+    position: absolute;
+    left:10px;
+    top:10px;
+    right: 10px;
+    height:30px;
 }
 
 .glyf-item {
@@ -24,4 +37,10 @@
     text-align:center;
     vertical-align: middle;
     padding:10px;
+}
+
+.glyf-item:empty:before {
+    content: attr(data-char);
+    font-family: sans-serif, serif !important;
+    color: #aaa;
 }
