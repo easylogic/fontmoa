@@ -40,7 +40,8 @@ const getFontFamilyCollect = (font) => {
 
 
     return fontList.map((f) => {
-        return f;
+        // eslint-disable-next-line
+        return f.replace(/\-/g, ' ');
     }).join(', ');
     
 }
