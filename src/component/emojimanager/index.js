@@ -8,7 +8,6 @@ import EmojiList from './emojilist'
 import EmojiInfo from './emojiinfo'
 import FontList from './fontlist'
 
-import fontdb  from '../../util/fontdb'
 import emoji from '../../util/emoji'
 
 class EmojiManager extends Component {
@@ -24,10 +23,16 @@ class EmojiManager extends Component {
       emoji : emojiTree,
       emojiKeys,
       selectedEmojiKey,
-      selectedEmoji : 0,
+      selectedEmoji : filteredEmoji[0],
       filteredEmoji,
     }
 
+  }
+
+  changeSelectedGlyf = (emoji) => {
+    this.setState({
+      selectedEmoji : emoji
+    })
   }
 
   refreshEmoji = (emojiKey) => {
@@ -44,7 +49,7 @@ class EmojiManager extends Component {
     return (
         <TabItem active={this.props.active}>
           <div className="em-emoji-list">
-            <EmojiList glyf={this.state.filteredEmoji}/>
+            <EmojiList selectedEmoji={this.state.selectedEmoji} glyf={this.state.filteredEmoji} changeSelectedGlyf={this.changeSelectedGlyf}/>
           </div>
           <div className="em-font-list">
             <FontList  selectedEmojiKey={this.state.selectedEmojiKey} refreshEmoji={this.refreshEmoji} emojiKeys={this.state.emojiKeys}/>

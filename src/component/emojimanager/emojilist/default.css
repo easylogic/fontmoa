@@ -1,7 +1,7 @@
 .glyf-list {
     position: absolute;
     left:0px;
-    top:50px;
+    top:10px;
     right: 0px;
     bottom:0px;
     overflow: auto;
@@ -23,7 +23,7 @@
 
 .glyf-item {
     display: inline-block;
-    width: 70px;
+    width: 120px;
     height:70px;
     box-sizing:border-box;
     border: 1px solid rgba(200, 200, 200, 0.5); 

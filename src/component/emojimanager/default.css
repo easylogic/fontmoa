@@ -4,7 +4,7 @@
     left:0px;
     top:10px;
     bottom:10px;
-    width: 300px;
+    width: 240px;
     overflow: auto;
 }
 
@@ -13,7 +13,7 @@
     width:500px;
     top:10px;
     bottom:10px;
-    left: 310px;
+    left: 250px;
     overflow: auto;
 }
 
@@ -28,7 +28,7 @@
 
 .em-emoji-info {
     position:absolute;
-    left:820px;
+    left:760px;
     right:10px;
     top:10px;
     bottom:10px;

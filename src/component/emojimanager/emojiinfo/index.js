@@ -2,8 +2,6 @@
 import React, { Component } from 'react';
 import './default.css';
 
-import common from '../../../util/common'
-
 const { clipboard, remote } = window.require('electron');
 const dialog = remote.dialog;
 
@@ -28,13 +26,13 @@ class GlyfInfo extends Component {
     }
 
     render() {
-        const unicode = this.props.selectedEmoji;
-        const unicode16 = unicode.toString(16).toUpperCase();
-        const char = String.fromCodePoint(unicode || 0) || "";
+        const unicode16  = this.props.selectedEmoji.codepoints[0].split('+')[1];
+        const unicode = parseInt(unicode16, 16);
+        const char = this.props.selectedEmoji.emoji;
 
         return (
-            <div className='glyf-info-manager'>
-                <div className="glyf-info-code" onClick={this.onClickUnicode}>
+            <div className='emoji-info-manager'>
+                <div className="emoji-info-code" onClick={this.onClickUnicode}>
                     <span className="unicode unicode-dec" title={this.state.copyUnicodeMessage}>{unicode}</span>
                     <span className="unicode unicode-16" title={this.state.copyUnicodeMessage}>{unicode16}</span>
                     <span className="unicode unicode-string" title={this.state.copyUnicodeMessage}>\u{unicode16}</span>
@@ -42,13 +40,26 @@ class GlyfInfo extends Component {
                     <span className="unicode unicode-entity-16" title={this.state.copyUnicodeMessage}>&amp;#x{unicode16};</span>
                     <span className="unicode unicode-char" title={this.state.copyUnicodeMessage}>{char}</span>
                 </div>                
-                <div className="glyf-info-view">
+                <div className="emoji-info-view">
                     <span className="char-view">
                         {char}
                     </span>
-                    
+                    <div className="char-info">
+                        <div className="desc-item">
+                            <span className="cate cate-category">category</span>
+                            <span className="description">{this.props.selectedEmoji.category}</span>
+                        </div>
+                        <div className="desc-item">
+                            <span className="cate cate-description">description</span>
+                            <span className="description">{this.props.selectedEmoji.description}</span>
+                        </div>
+                        <div className="desc-item">
+                            <span className="cate cate-tags">tags</span>
+                            <span className="description">{this.props.selectedEmoji.tags.join(', ')}</span>
+                        </div>                                                
+                    </div>
                 </div>
-                <div className="glyf-info-selecte-text">
+                <div className="emoji-info-selecte-text">
 
                 </div>
             </div>

@@ -15,6 +15,7 @@
   "main": "main.js",
   "homepage": "./",
   "dependencies": {
+    "emojson": "^1.0.0",
     "filesize": "^3.5.10",
     "fontkit": "^1.7.7",
     "nedb": "^1.8.0",

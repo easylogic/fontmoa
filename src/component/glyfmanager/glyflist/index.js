@@ -2,8 +2,6 @@
 import React, { Component } from 'react';
 import './default.css';
 
-import common from '../../../util/common'
-
 class GlyfList extends Component {
 
     constructor() {

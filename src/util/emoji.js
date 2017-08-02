@@ -1,20 +1,18 @@
-const fs = window.require('fs');
-
-const emojiJson = JSON.parse(fs.readFileSync('resources/EmojiList.json') + "");
+const emojson = window.require('emojson');
 
 const getEmojiList = () => {
     let emojiData = {};
 
-     Object.keys(emojiJson).forEach((emojiKey) => {
-        let store = emojiData[emojiKey] = [];
+    emojson.getData().forEach((emo) => {
+        const category = emo.generalCAtegory || emo.generalCategory;
+        let a =  emojiData[category];
 
-        const list = emojiJson[emojiKey].split('');
-
-        const total = list.length;
-        for(let i = 0; i < total; i++) {
-            store[i] = list[i].codePointAt(0);
+        if (!a) {
+            a = emojiData[category] = [];
         }
-     });
+
+        a.push(emo);
+    })
 
     return emojiData;
 }

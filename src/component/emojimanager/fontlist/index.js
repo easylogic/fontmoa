@@ -25,7 +25,7 @@ class FontList extends Component {
 
         let className = "emoji-tree-node parent ";
 
-        if (this.state.selectedEmojiKey == emojiKey) {
+        if (this.state.selectedEmojiKey === emojiKey) {
             className += " active";
         }
 

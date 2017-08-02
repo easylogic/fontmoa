@@ -1,4 +1,4 @@
-.glyf-info-manager {
+.emoji-info-manager {
     position: absolute;
     left:0px;
     top:0px;
@@ -7,95 +7,87 @@
     overflow: auto;
 }
 
-.glyf-info-code {
+.emoji-info-code {
     display:flex;
     margin-bottom: 10px auto;
 }
 
-.glyf-info-code .unicode {
+.emoji-info-code .unicode {
     text-align: center;
     flex:1;
     cursor:pointer;
 }
 
-.glyf-info-code .unicode:before {
+.emoji-info-code .unicode:before {
     color: red; 
     display: block;
     padding:5px;
 }
 
-.glyf-info-code .unicode-dec:before {
+.emoji-info-code .unicode-dec:before {
     content: " DEC";
 }
 
-.glyf-info-code .unicode-16:before {
+.emoji-info-code .unicode-16:before {
     content: " HEX";
 }
 
-.glyf-info-code .unicode-string:before {
+.emoji-info-code .unicode-string:before {
     content : "UNICODE"
 }
 
-.glyf-info-code .unicode-entity:before {
+.emoji-info-code .unicode-entity:before {
     content : "ENTITY"
 }
 
-.glyf-info-code .unicode-entity-16:before {
+.emoji-info-code .unicode-entity-16:before {
     content : "HEX"
 }
 
-.glyf-info-code .unicode-char:before {
+.emoji-info-code .unicode-char:before {
     content : "CHAR"
 }
 
 
-.glyf-info-view {
+.emoji-info-view {
     text-align: center;
     vertical-align: middle;
     margin-top:20px;
 }
 
-.glyf-info-view .char-view {
+.emoji-info-view .char-view {
     position:relative;
     display: inline-block;
-    border:1px solid transparent; 
-    border-top:0px;
-    border-bottom:0px;
-    font-size: 250px;    
+    font-size: 125px;    
 }
 
-.glyf-info-view .font-unit:before {
-    position:absolute;
-    right:102%;
-    top:-10px;
-    content: attr(data-title);
+.emoji-info-view .char-info {
+    position:relative;
     display: block;
-    vertical-align: middle;
-    font-size: 13px !important;
-    font-family: serif, sans-serif !important;
+    width: 300px;
+    margin:0 auto;
 }
 
-.glyf-info-view .font-unit {
-    position:absolute;
-    display:none;
-    left:0px;
+.emoji-info-view .char-info .desc-item {
+    display:flex;
     width:100%;
-    font-size: 11px;
-    border-top:1px solid rgba(255, 0, 0, 0.5); 
-    box-sizing:border-box;
+    margin-bottom:10px;
 }
 
-
-.glyf-info-view:hover  .char-view {
-    border:1px solid rgba(0, 0, 0, 0.1); 
-    border-top:0px;
-    border-bottom:0px;
+.emoji-info-view .char-info .desc-item .cate {
+    flex: 1;
+    display:block;
+    text-align:right;
+    text-transform: capitalize;
 }
 
-.glyf-info-view:hover .font-unit {
-    display:inline-block;
+.emoji-info-view .char-info .desc-item .description {
+    flex: 1;
+    display:block;   
+    text-align: left;
+    padding-left: 20px; 
 }
 
-.glyf-info-select-text {
+.emoji-info-select-text {
 
 }

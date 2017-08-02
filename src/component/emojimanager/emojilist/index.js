@@ -2,8 +2,6 @@
 import React, { Component } from 'react';
 import './default.css';
 
-import common from '../../../util/common'
-
 class EmojiList extends Component {
 
     constructor() {
@@ -15,26 +13,28 @@ class EmojiList extends Component {
     }
 
     onClickGlyfItem = (e) => {
-        const unicode = parseInt(e.target.getAttribute('data-unicode'), 10) || 0;
+        const id = e.target.getAttribute('data-id');
+
+        const list = this.props.glyf.filter((it) => it.id === id)
+
         this.setState({
-            selectedUnicode : unicode
+            selectedUnicode : list[0]
         })
-        this.props.changeSelectedGlyf(unicode)
+        this.props.changeSelectedGlyf(list[0])
     }
 
     render() {
+
         return (
             <div className='glyf-list-manager'>
                 <div className="glyf-list" onClick={this.onClickGlyfItem}>
                 {
-                    this.props.glyf.map((unicode, index) => {
-                        const isStart = index % 7 === 0;
-                        const char = String.fromCodePoint(unicode) || "";
-                        const code = '\\u' + unicode.toString(16); 
+                    this.props.glyf.map((emo, index) => {
 
-                        const selected = unicode === this.state.selectedUnicode;
+                        const char = emo.emoji;
+                        const selected = emo.id === this.state.selectedUnicode.id;
 
-                        return <div key={index} className="glyf-item" data-selected={selected} data-is-start={isStart} data-unicode={unicode} data-char={code}>{char}</div>
+                        return <div key={index} className="glyf-item" data-selected={selected} data-id={emo.id} >{char}</div>
                     })
                 }
 
