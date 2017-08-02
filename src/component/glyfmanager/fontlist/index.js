@@ -6,15 +6,26 @@ import common from '../../../util/common'
 
 class FontList extends Component {
 
+    constructor () {
+        super()
+
+        this.state = {
+            selectedFont : {}
+        }
+    }
+
     onClickFontItem = (font) => {
         return () => {
+            this.setState({
+                selectedFont : font 
+            })
             this.props.refreshGlyf(font);
         }
     }
 
     createFontNames = (font) => {
         return (
-            <ul className="font-tree-node submenu">
+            <ul className="font-tree-node child submenu">
             {font.files.map((f, index) => {
                 const style = {
                     fontFamily: common.getFontFamilyCollect(f)
@@ -31,6 +42,10 @@ class FontList extends Component {
                 }
 
                 let className = "";
+
+                if (this.state.selectedFont.item && this.state.selectedFont.item.path === f.item.path ) {
+                    className += " active";
+                }
 
                 return (
                     <li className={className} key={index} onClick={this.onClickFontItem(f, index)}><a style={style}> {f.currentFamilyName} </a></li>

@@ -4,8 +4,10 @@ import common from './common'
 const fs = window.require('fs');
 const path = window.require('path');
 const fontkit = window.require('fontkit');
-const DataStore  = window.require('nedb'),
-        db = new DataStore({ filename : 'data/font.data' });
+const DataStore  = window.require('nedb');
+
+
+const db = new DataStore({ filename : 'data/font.data' });
 db.loadDatabase((err) => {});
 
 const directoryDB = new DataStore({ filename : 'data/directory.data' });
@@ -64,7 +66,7 @@ const insertFont = (font, item, done) => {
         nameList : font.nameList || [],
         item: item,
         name : getNames(font.name || {}),
-        language : getLanguage(font.name || {})
+        language : getLanguage(font.name || {}),
     }
 
 
@@ -84,6 +86,8 @@ const insertFont = (font, item, done) => {
     if (sub.includes('bold')) {
         fontObj.bold = true;
     }
+
+    fontObj.collectFontFamily = common.getFontFamilyCollect(font);
 
     db.insert(fontObj, (err, docs) => {
         done && done();
@@ -327,6 +331,8 @@ const fontTree = (callback) => {
                     name : doc.name,
                     files : files
                 })
+
+                console.log(files);
 
                 count++;
 

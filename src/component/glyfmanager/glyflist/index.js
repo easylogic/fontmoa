@@ -15,7 +15,6 @@ class GlyfList extends Component {
     }
 
     onChange = (e) => {
-        console.log(e.target);
         this.props.changeUnicodeBlock(e.target.value);
     }
 
@@ -29,7 +28,7 @@ class GlyfList extends Component {
 
     render() {
         const style = {
-            fontFamily : common.getFontFamilyCollect(this.props.selectedFont)
+            fontFamily : this.props.selectedFont.collectFontFamily
         }        
         return (
             <div className='glyf-list-manager'>

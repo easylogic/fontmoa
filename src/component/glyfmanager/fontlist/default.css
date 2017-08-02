@@ -5,5 +5,8 @@
 .font-tree-node {
     max-height: 200px;
     overflow:auto;
-    font-size: 18px !important;
+}
+
+.font-tree-node.child {
+    font-size: 20px;
 }

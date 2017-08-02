@@ -75,6 +75,7 @@ class GlyfManager extends Component {
 
   refreshFontTree = () => {
     fontdb.fontTree((tree) => {
+      this.sample = JSON.stringify(tree, null, 4);
       this.setState({
         fontTree: tree
       })
@@ -82,7 +83,6 @@ class GlyfManager extends Component {
   }
 
   render() {
-
     return (
         <TabItem active={this.props.active}>
           <div className="gm-glyf-list">
