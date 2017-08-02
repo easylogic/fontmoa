@@ -63,9 +63,35 @@ const getSystemFolders = () => {
     }
 }
 
+const caculateFontUnit = (font) => {
+
+    let pos = {};
+    const height = font.ascent + Math.abs(font.descent);
+    let baseline = (font.ascent / height) * 100;
+    //const lowUnit = 100 - baseline;
+
+    if (isNaN(baseline)) {
+        baseline = 0; 
+    }
+
+
+    ["ascent", "descent", "baseline", "lineGap", "capHeight", "xHeight"].forEach((field) => {
+        if (font[field]  > 0)  {
+            pos[field] = ((font.ascent - font[field]) / font.ascent) * 100;
+        } else if (font[field] < 0) {
+            pos[field] = ((font.ascent + Math.abs(font[field])) / height) * 100;
+        } else if (field === 'baseline') {
+            pos[field] = baseline; 
+        }
+    })
+
+    return pos; 
+}
+
 const common = {
     getSystemFolders,
     getFontFamilyCollect,
+    caculateFontUnit,
 }
 
 export default common

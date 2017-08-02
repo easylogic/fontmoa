@@ -4,7 +4,28 @@ import './default.css';
 
 import common from '../../../util/common'
 
+const { clipboard, remote } = window.require('electron');
+const dialog = remote.dialog;
+
 class GlyfInfo extends Component {
+
+    constructor () {
+        super();
+        this.state = {
+            copyUnicodeMessage : "유니코드를 복사합니다."
+        }
+    }
+
+    onClickUnicode = (e) => {
+        const copyText = e.target.innerText;
+        clipboard.writeText(copyText);
+
+        dialog.showMessageBox(null, {
+            type: "none",
+            title : "Information",
+            message: "유니코드 [" + copyText + "] 를 복사하였습니다."
+        })
+    }
 
     render() {
         const unicode = this.props.selectedGlyf;
@@ -15,23 +36,9 @@ class GlyfInfo extends Component {
             fontFamily : font.collectFontFamily
         }  
 
-        let pos = {};
+        let pos = common.caculateFontUnit(font);
 
-        const height = font.ascent + Math.abs(font.descent);
-        const baseline = (font.ascent / height) * 100;
-        const lowUnit = 100 - baseline;
-
-
-        ["ascent", "descent", "baseline", "lineGap", "capHeight", "xHeight"].forEach((field) => {
-            if (font[field]  > 0)  {
-                pos[field] = ((font.ascent - font[field]) / font.ascent) * 100;
-            } else if (font[field] < 0) {
-                pos[field] = ((font.ascent + Math.abs(font[field])) / font.height) * 100;
-            } else if (field == 'baseline') {
-                pos[field] = baseline; 
-            }
-        })
-
+/*
         let bboxStyle = {}
 
         if (font.bbox) {
@@ -45,16 +52,16 @@ class GlyfInfo extends Component {
                 bboxStyle[key] += '%';
             })
         }
-
+*/
 
         return (
             <div className='glyf-info-manager'>
-                <div className="glyf-info-code">
-                    <span className="unicode unicode-dec">{unicode}</span>
-                    <span className="unicode unicode-16">{unicode16}</span>
-                    <span className="unicode unicode-string">\u{unicode16}</span>
-                    <span className="unicode unicode-entity">&amp;#{unicode};</span>
-                    <span className="unicode unicode-entity-16">&amp;#x{unicode16};</span>                    
+                <div className="glyf-info-code" onClick={this.onClickUnicode}>
+                    <span className="unicode unicode-dec" title={this.state.copyUnicodeMessage}>{unicode}</span>
+                    <span className="unicode unicode-16" title={this.state.copyUnicodeMessage}>{unicode16}</span>
+                    <span className="unicode unicode-string" title={this.state.copyUnicodeMessage}>\u{unicode16}</span>
+                    <span className="unicode unicode-entity" title={this.state.copyUnicodeMessage}>&amp;#{unicode};</span>
+                    <span className="unicode unicode-entity-16" title={this.state.copyUnicodeMessage}>&amp;#x{unicode16};</span>                    
                 </div>                
                 <div className="glyf-info-view">
                     <span className="char-view" style={style}>
@@ -69,7 +76,6 @@ class GlyfInfo extends Component {
                                 
                             })
                         }
-                        {bboxStyle.top ?  <div className="font-unit bbox" style={bboxStyle}></div> : "" }
                         
                     </span>
                     
