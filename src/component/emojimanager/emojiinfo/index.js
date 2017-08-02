@@ -28,31 +28,9 @@ class GlyfInfo extends Component {
     }
 
     render() {
-        const unicode = this.props.selectedGlyf;
+        const unicode = this.props.selectedEmoji;
         const unicode16 = unicode.toString(16).toUpperCase();
-        const char = String.fromCodePoint(this.props.selectedGlyf || 0) || "";
-        const font = this.props.selectedFont;
-        const style = {
-            fontFamily : font.collectFontFamily
-        }  
-
-        let pos = common.caculateFontUnit(font);
-
-/*
-        let bboxStyle = {}
-
-        if (font.bbox) {
-            bboxStyle = {
-                left : (font.bbox.minX / font.unitsPerEm) * 100,
-                top : ((font.ascent - font.bbox.maxY) / font.ascent) * 100,
-                width: ((font.bbox.maxX - font.bbox.minX) / font.unitsPerEm) * 100, 
-                height: ((font.bbox.maxY - font.bbox.minY) / height) * 100,
-            }
-            Object.keys(bboxStyle).forEach(function(key) {
-                bboxStyle[key] += '%';
-            })
-        }
-*/
+        const char = String.fromCodePoint(unicode || 0) || "";
 
         return (
             <div className='glyf-info-manager'>
@@ -62,22 +40,11 @@ class GlyfInfo extends Component {
                     <span className="unicode unicode-string" title={this.state.copyUnicodeMessage}>\u{unicode16}</span>
                     <span className="unicode unicode-entity" title={this.state.copyUnicodeMessage}>&amp;#{unicode};</span>
                     <span className="unicode unicode-entity-16" title={this.state.copyUnicodeMessage}>&amp;#x{unicode16};</span>
-                    <span className="unicode unicode-char" style={style} title={this.state.copyUnicodeMessage}>{char}</span>
+                    <span className="unicode unicode-char" title={this.state.copyUnicodeMessage}>{char}</span>
                 </div>                
                 <div className="glyf-info-view">
-                    <span className="char-view" style={style}>
+                    <span className="char-view">
                         {char}
-                        {
-                            Object.keys(pos).map((field, index) => {
-                                const style ={ top :  pos[field] + '%' };
-
-                                return (
-                                    <div key={index} className={`font-unit ${field}`} data-pos={font[field]} data-title={field} style={style}></div>
-                                )
-                                
-                            })
-                        }
-                        
                     </span>
                     
                 </div>

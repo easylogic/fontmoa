@@ -6,6 +6,7 @@ import {Tabs} from '../../jui'
 
 import FontManager from '../fontmanager'
 import GlyfManager from '../glyfmanager'
+import EmojiManager from '../emojimanager'
 import StyleManager from '../stylemanager'
 import CssManager from '../cssmanager'
 import ExportManager from '../exportmanager'
@@ -28,6 +29,7 @@ class App extends Component {
             <Tabs full={true}>	
               <FontManager id="font" title="폰트" active={true} />
               <GlyfManager id="glyf" title="글자들" />              
+              <EmojiManager id="emoji" title="이모지" />              
               <StyleManager id="style" title="꾸미기" />
               <CssManager id="css" title="CSS" />
               <ExportManager id="export "title="내보내기" />

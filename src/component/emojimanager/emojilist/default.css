@@ -1,0 +1,52 @@
+.glyf-list {
+    position: absolute;
+    left:0px;
+    top:50px;
+    right: 0px;
+    bottom:0px;
+    overflow: auto;
+    border-top:1px solid #ececec;
+    font-size: 35px;
+    line-height:50px;
+    vertical-align: middle;
+    word-break: break-all;
+    word-wrap: break-word;    
+}
+
+.glyf-search {
+    position: absolute;
+    left:10px;
+    top:10px;
+    right: 10px;
+    height:30px;
+}
+
+.glyf-item {
+    display: inline-block;
+    width: 70px;
+    height:70px;
+    box-sizing:border-box;
+    border: 1px solid rgba(200, 200, 200, 0.5); 
+    cursor: pointer;
+    user-select: none;
+    font-size: 35px;
+    line-height:50px;
+    text-align:center;
+    vertical-align: middle;
+    padding:10px;
+}
+
+.glyf-item[data-is-start=true] {
+
+}
+
+.glyf-item[data-selected=true] {
+    background-color: black;
+    color:white;
+}
+
+.glyf-item:empty:before {
+    content: attr(data-char);
+    font-family: sans-serif, serif !important;
+    color: #aaa;
+}

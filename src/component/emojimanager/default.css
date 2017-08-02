@@ -1,0 +1,36 @@
+
+.em-font-list {
+    position:absolute;
+    left:0px;
+    top:10px;
+    bottom:10px;
+    width: 300px;
+    overflow: auto;
+}
+
+.em-emoji-list {
+    position:absolute;
+    width:500px;
+    top:10px;
+    bottom:10px;
+    left: 310px;
+    overflow: auto;
+}
+
+.em-view-setting {
+    position:absolute;
+    right:10px;
+    top:10px;
+    height: 40px; 
+    left: 310px;
+    background-color:rgba(255, 0, 0, 0.05);
+}
+
+.em-emoji-info {
+    position:absolute;
+    left:820px;
+    right:10px;
+    top:10px;
+    bottom:10px;
+    overflow: auto;
+}

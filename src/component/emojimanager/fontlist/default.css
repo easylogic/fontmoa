@@ -1,17 +1,17 @@
-.font-tree {
+.emoji-tree {
     padding: 5px;
 }
 
-.font-tree-node {
+.emoji-tree-node {
     max-height: 200px;
     overflow:auto;
 }
 
-.font-tree-node.child {
-    font-size: 20px;
+.emoji-tree-node.child {
+    emoji-size: 20px;
 }
 
-.font-tree-node.child li.active {
+.emoji-tree-node.child li.active {
     background-color: #740CD2;
     color:white !important;
 }
