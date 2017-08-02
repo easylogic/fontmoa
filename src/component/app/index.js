@@ -29,7 +29,7 @@ class App extends Component {
             <Tabs full={true}>	
               <FontManager id="font" title="폰트" active={true} />
               <GlyfManager id="glyf" title="글자들" />              
-              <EmojiManager id="emoji" title="Emoji" />              
+              <EmojiManager id="emoji" title="Emoji 5.0" />              
               <StyleManager id="style" title="꾸미기" />
               <CssManager id="css" title="CSS" />
               <ExportManager id="export "title="내보내기" />

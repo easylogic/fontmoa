@@ -34,7 +34,11 @@ class EmojiList extends Component {
                         const char = emo.emoji;
                         const selected = emo.id === this.state.selectedUnicode.id;
 
-                        return <div key={index} className="glyf-item" data-selected={selected} data-id={emo.id} >{char}</div>
+                        return (
+                        <div key={index} className="glyf-item" data-selected={selected} data-id={emo.id} >
+                            {char}
+                            <div className='desc'>{emo.description}</div>
+                        </div>)
                     })
                 }
 

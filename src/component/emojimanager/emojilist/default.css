@@ -24,7 +24,7 @@
 .glyf-item {
     display: inline-block;
     width: 120px;
-    height:70px;
+    height:120px;
     box-sizing:border-box;
     border: 1px solid rgba(200, 200, 200, 0.5); 
     cursor: pointer;
@@ -36,8 +36,11 @@
     padding:10px;
 }
 
-.glyf-item[data-is-start=true] {
-
+.glyf-item .desc {
+    text-align:center;
+    font-size:12px;
+    line-height:12px;
+    pointer-events: none;
 }
 
 .glyf-item[data-selected=true] {
