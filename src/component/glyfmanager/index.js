@@ -5,6 +5,7 @@ import './default.css';
 import {TabItem} from '../../jui'
 
 import GlyfList from './glyflist'
+import GlyfInfo from './glyfinfo'
 import FontList from './fontlist'
 
 import fontdb  from '../../util/fontdb'
@@ -21,6 +22,7 @@ class GlyfManager extends Component {
       fontTree : [], 
       favorite : [],
       glyf :[],
+      selectedGlyf: 0,
       filteredGlyf: [] ,
     }
 
@@ -45,6 +47,12 @@ class GlyfManager extends Component {
   changeUnicodeBlock = (blockIndex) => {
     this.setState({
       filteredGlyf : this.filterGlyf(blockIndex, this.state.glyf),
+    })
+  }
+
+  changeSelectedGlyf = (unicode) => {
+    this.setState({
+      selectedGlyf : unicode,
     })
   }
 
@@ -78,10 +86,13 @@ class GlyfManager extends Component {
     return (
         <TabItem active={this.props.active}>
           <div className="gm-glyf-list">
-            <GlyfList changeUnicodeBlock={this.changeUnicodeBlock} selectedBlock={this.state.selectedBlock} blockList={this.state.blockList} selectedFont={this.state.selectedFont}   glyf={this.state.filteredGlyf}/>
+            <GlyfList changeSelectedGlyf={this.changeSelectedGlyf} changeUnicodeBlock={this.changeUnicodeBlock} selectedBlock={this.state.selectedBlock} blockList={this.state.blockList} selectedFont={this.state.selectedFont}   glyf={this.state.filteredGlyf}/>
           </div>
           <div className="gm-font-list">
             <FontList  selectedFont={this.state.selectedFont} refreshGlyf={this.refreshGlyf} fontTree={this.state.fontTree}/>
+          </div>
+          <div className="gm-glyf-info">
+            <GlyfInfo selectedGlyf={this.state.selectedGlyf} selectedFont={this.state.selectedFont} />
           </div>
         </TabItem>
     );

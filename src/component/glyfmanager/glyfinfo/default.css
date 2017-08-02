@@ -1,0 +1,55 @@
+.glyf-info-manager {
+    position: absolute;
+    left:0px;
+    top:0px;
+    right: 0px;
+    bottom:0px;
+    overflow: auto;
+}
+
+.glyf-info-code {
+    display:flex;
+    margin-bottom: 10px auto;
+}
+
+.glyf-info-code .unicode {
+    text-align: center;
+    flex:1;
+}
+
+.glyf-info-code .unicode:before {
+    color: red; 
+    display: block;
+    padding:5px;
+}
+
+.glyf-info-code .unicode-dec:before {
+    content: " DEC";
+}
+
+.glyf-info-code .unicode-16:before {
+    content: " HEX";
+}
+
+.glyf-info-code .unicode-string:before {
+    content : "UNICODE"
+}
+
+.glyf-info-code .unicode-entity:before {
+    content : "ENTITY"
+}
+
+.glyf-info-code .unicode-entity-16:before {
+    content : "HEX"
+}
+
+
+.glyf-info-view {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 250px;
+}
+
+.glyf-info-select-text {
+
+}

@@ -30,8 +30,10 @@ class FontList extends Component {
                     style.fontWeight = 'normal'
                 }
 
+                let className = "";
+
                 return (
-                    <li key={index} onClick={this.onClickFontItem(f)}><a style={style}> {f.currentFamilyName} </a></li>
+                    <li className={className} key={index} onClick={this.onClickFontItem(f, index)}><a style={style}> {f.currentFamilyName} </a></li>
                 )
             })}
             </ul>
@@ -41,7 +43,7 @@ class FontList extends Component {
     createFontList = (font, index) => {
         return (
             <div className="font-tree-item vmenu flat" key={index}>
-                <a className="font-tree-node parent"><a >{font.name}</a></a>
+                <a className="font-tree-node parent">{font.name}</a>
                 {this.createFontNames(font)}
             </div>
         )

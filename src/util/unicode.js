@@ -1,6 +1,6 @@
 const fs = window.require('fs');
 
-const data = fs.readFileSync('src/resources/UnicodeBlocks.txt') + "";
+const data = fs.readFileSync('resources/UnicodeBlocks.txt') + "";
 let UNICODE_BLOCK = [ ]
 data.split('\n').forEach((line) => {
     const arr = line.split(";");

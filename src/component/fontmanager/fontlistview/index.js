@@ -149,7 +149,8 @@ class FontListView extends Component {
     render() {
 
         const fontStyle = {
-            fontSize : this.props.fontStyle.fontSize
+            fontSize : this.props.fontStyle.fontSize,
+            content : this.props.fontStyle.content,
         }
 
         const colorStyle = {
