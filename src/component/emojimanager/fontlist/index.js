@@ -8,7 +8,8 @@ class FontList extends Component {
         super(props)
 
         this.state = {
-            selectedEmojiKey : this.props.selectedEmojiKey
+            selectedEmojiKey : this.props.selectedEmojiKey,
+            selectedEmojiTag : this.props.selectedEmojiTag, 
         }
     }
 
@@ -21,9 +22,18 @@ class FontList extends Component {
         }
     }
 
+    onClickEmojiTag = (emojiTag) => {
+        return () => {
+            this.setState({
+                selectedemojiTag : emojiTag,
+            })
+            this.props.refreshEmojiTag(emojiTag);
+        }
+    }    
+
     createEmojiList = (emojiKey, index) => {
 
-        let className = "emoji-tree-node parent ";
+        let className = "emoji-tree-node category parent ";
 
         if (this.state.selectedEmojiKey === emojiKey) {
             className += " active";
@@ -36,12 +46,30 @@ class FontList extends Component {
         )
     }
 
+    createEmojiTagList = (emojiTagKey, index) => {
+
+        let className = "emoji-tree-node tag parent ";
+
+        if (this.state.selectedEmojiTagKey === emojiTagKey) {
+            className += " active";
+        }
+
+        return (
+            <div className="emoji-tree-item vmenu flat" key={index}>
+                <a className={className} onClick={this.onClickEmojiTag(emojiTagKey)}>{emojiTagKey}</a>
+            </div>
+        )
+    }    
+
     render() {
         return (
             <div className="emoji-tree">
                 {this.props.emojiKeys.map((emojiKey, index) => {
                     return this.createEmojiList(emojiKey, index)
                 })}
+                {this.props.emojiTagsKeys.map((emojiTag, index) => {
+                    return this.createEmojiTagList(emojiTag, index)
+                })}                
             </div>
         )
     }

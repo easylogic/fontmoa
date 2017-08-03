@@ -5,6 +5,8 @@
     right: 0px;
     bottom:0px;
     overflow: auto;
+    box-sizing:border-box;
+    border-left: 1px solid #ececec;
 }
 
 .emoji-info-code {
@@ -93,6 +95,7 @@
 
 .emoji-info-view .char-info .desc-item .description .label {
     margin-right: 2px;
+    margin-bottom:2px;
 }
 
 .emoji-info-select-text {

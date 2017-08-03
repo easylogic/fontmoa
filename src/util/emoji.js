@@ -1,5 +1,22 @@
 const emojson = window.require('emojson');
 
+const getEmojiTagList = () => {
+    let tags = {};
+
+    emojson.getData().forEach((emoji) => {
+        emoji.tags.forEach(tag => {
+            let store = tags[tag];
+            if (!store) {
+                store = tags[tag] = [];
+            }
+
+            store[store.length] = emoji; 
+        })
+    })
+
+    return tags;
+}
+
 const getEmojiList = () => {
     let emojiData = {};
 
@@ -18,5 +35,6 @@ const getEmojiList = () => {
 }
 
 export default {
-    getEmojiList
+    getEmojiList,
+    getEmojiTagList
 }
