@@ -55,7 +55,10 @@ class GlyfInfo extends Component {
                         </div>
                         <div className="desc-item">
                             <span className="cate cate-tags">tags</span>
-                            <span className="description">{this.props.selectedEmoji.tags.join(', ')}</span>
+                            <span className="description">
+                                {this.props.selectedEmoji.tags.map((tag, index) => {
+                                    return <span key={index} className="label small success">{tag}</span>
+                                })}</span>
                         </div>                                                
                     </div>
                 </div>

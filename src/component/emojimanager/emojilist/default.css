@@ -1,4 +1,4 @@
-.glyf-list {
+.emoji-glyf-list {
     position: absolute;
     left:0px;
     top:10px;
@@ -13,7 +13,7 @@
     word-wrap: break-word;    
 }
 
-.glyf-search {
+.emoji-glyf-search {
     position: absolute;
     left:10px;
     top:10px;
@@ -21,7 +21,7 @@
     height:30px;
 }
 
-.glyf-item {
+.emoji-glyf-item {
     display: inline-block;
     width: 120px;
     height:120px;
@@ -36,19 +36,19 @@
     padding:10px;
 }
 
-.glyf-item .desc {
+.emoji-glyf-item .desc {
     text-align:center;
     font-size:12px;
     line-height:12px;
     pointer-events: none;
 }
 
-.glyf-item[data-selected=true] {
+.emoji-glyf-item[data-selected=true] {
     background-color: black;
     color:white;
 }
 
-.glyf-item:empty:before {
+.emoji-glyf-item:empty:before {
     content: attr(data-char);
     font-family: sans-serif, serif !important;
     color: #aaa;

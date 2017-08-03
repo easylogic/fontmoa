@@ -52,13 +52,14 @@
 .emoji-info-view {
     text-align: center;
     vertical-align: middle;
-    margin-top:20px;
 }
 
 .emoji-info-view .char-view {
     position:relative;
     display: inline-block;
-    font-size: 125px;    
+    font-size: 125px;   
+    margin-top:30px;     
+    margin-bottom: 30px;
 }
 
 .emoji-info-view .char-info {
@@ -79,6 +80,7 @@
     display:block;
     text-align:right;
     text-transform: capitalize;
+    vertical-align: middle;    
 }
 
 .emoji-info-view .char-info .desc-item .description {
@@ -86,6 +88,11 @@
     display:block;   
     text-align: left;
     padding-left: 20px; 
+    vertical-align: middle;
+}
+
+.emoji-info-view .char-info .desc-item .description .label {
+    margin-right: 2px;
 }
 
 .emoji-info-select-text {

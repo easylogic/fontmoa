@@ -54,6 +54,9 @@ class GlyfManager extends Component {
     this.setState({
       selectedGlyf : unicode,
     })
+
+    this.props.appendInputText(String.fromCodePoint(unicode));
+
   }
 
   updateUnicodeBlock = (glyf) => {

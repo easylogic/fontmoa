@@ -319,7 +319,6 @@ const fontTree = (callback) => {
 
         // 시스템 폰트 목록이랑 합치기 
         docs = common.getSystemFolders().concat(docs);
-
         const total = docs.length;
         let count = 0; 
         docs.forEach((doc) => {
@@ -331,8 +330,6 @@ const fontTree = (callback) => {
                     name : doc.name,
                     files : files
                 })
-
-                console.log(files);
 
                 count++;
 

@@ -26,8 +26,8 @@ class EmojiList extends Component {
     render() {
 
         return (
-            <div className='glyf-list-manager'>
-                <div className="glyf-list" onClick={this.onClickGlyfItem}>
+            <div className='emoji-glyf-list-manager'>
+                <div className="emoji-glyf-list" onClick={this.onClickGlyfItem}>
                 {
                     this.props.glyf.map((emo, index) => {
 
@@ -35,7 +35,7 @@ class EmojiList extends Component {
                         const selected = emo.id === this.state.selectedUnicode.id;
 
                         return (
-                        <div key={index} className="glyf-item" data-selected={selected} data-id={emo.id} >
+                        <div key={index} className="emoji-glyf-item" data-selected={selected} data-id={emo.id} >
                             {char}
                             <div className='desc'>{emo.description}</div>
                         </div>)

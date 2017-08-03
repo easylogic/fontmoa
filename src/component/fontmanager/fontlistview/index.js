@@ -121,7 +121,7 @@ class FontListView extends Component {
                     <div className="tools">
                         <ul className="pill" onClick={this.handleTabClick}>
                             <li className={this.state.selectedRow ? 'active' : ''}><a href="#row"><i className="icon icon-menu"></i></a></li>
-                            <li className={this.state.selectedRow ? '' : 'active'}><a href="#grid"><i className="icon icon-dashboardlist"></i></a></li>
+                            <li className={this.state.selectedRow ? '' : 'active'}><a href="#grid"><i className="icon icon-list1"></i></a></li>
                         </ul>
                     </div>
                 </div>

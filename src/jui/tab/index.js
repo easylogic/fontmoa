@@ -38,7 +38,7 @@ export default class Tabs extends Component {
     render() {
         return (
             <div className="tabs full">
-                <ul className="tab top" onClick={this.handleTabClick} >
+                <ul className="tab top" style={this.props.styles} onClick={this.handleTabClick} >
                     {React.Children.map(this.props.children, (child) => {
 
                         const style = {}

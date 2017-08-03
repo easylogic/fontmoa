@@ -22,44 +22,50 @@
 
 }
 
-.app-header {
-  position:absolute;
-  left:0px;
-  top:0px;
-  right:0px;
-  height:50px;
-  background-color: black;
-  color:white;
-}
-
-.app-header .logo {
-  position:absolute;
-  left: 0px;
-  top:0px;
-  bottom:0px;
-  width:250px;
-  box-sizing: border-box;
-  padding:10px;
+.app .logo {
   font-size: 20px;
-  font-weight: bold;
-
-}
-
-.app-header .toolbar {
-  position:absolute;
-  left: 250px;
-  top:0px;
-  bottom:0px;
-  right: 0px;
-  text-align:left;
-  padding:10px;
+  padding:16px;
+  font-family: "Berlin Sans FB";
 }
 
 .container {
   position:absolute;
-  top:50px;
+  top:0px;
   left:0px;
   right:0px;
-  bottom:0px;
+  bottom:50px;
 }
 
+.app-input {
+  position:absolute;
+  height: 50px;
+  bottom:0px;
+  left:0px;
+  right:0px;
+  box-sizing:border-box;
+  border-top:1px solid #ececec;
+}
+
+.app-input .input-text {
+  position:absolute;
+  right:5px;
+  top:5px;
+  bottom:5px;
+  left: 100px;
+  background-color: rgba(0, 255, 255, .2);
+  font-size: 20px;
+}
+
+.app-input .input-copy {
+  position:absolute;
+  left:5px;
+  top:5px;
+  bottom:5px;
+  width: 90px;
+}
+
+.app-input .input-copy button {
+  width:100%;
+  text-align: center;
+  outline:none;
+}

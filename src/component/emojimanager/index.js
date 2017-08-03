@@ -33,6 +33,7 @@ class EmojiManager extends Component {
     this.setState({
       selectedEmoji : emoji
     })
+    this.props.appendInputText(emoji.emoji);
   }
 
   refreshEmoji = (emojiKey) => {
