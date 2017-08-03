@@ -16,6 +16,7 @@
     text-align: center;
     flex:1;
     cursor:pointer;
+    font-size: 20px;
 }
 
 .glyf-info-code .unicode:before {

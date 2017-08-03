@@ -1,16 +1,16 @@
-0000;007F;Basic Latin
-0080;00FF;Latin-1 Supplement
-0100;017F;Latin Extended-A
-0180;024F;Latin Extended-B
-0250;02AF;IPA Extensions
-02B0;02FF;Spacing Modifier Letters
-0300;036F;Combining Diacritical Marks
-0370;03FF;Greek and Coptic
-0400;04FF;Cyrillic
-0500;052F;Cyrillic Supplement
-0530;058F;Armenian
-0590;05FF;Hebrew
-0600;06FF;Arabic
+0000;007F;Basic Latin;ko,로마자 기본
+0080;00FF;Latin-1 Supplement;ko,라틴-1 보충
+0100;017F;Latin Extended-A;ko,로마자 확장 A
+0180;024F;Latin Extended-B;ko,로마자 확장 B
+0250;02AF;IPA Extensions;ko,IPA 확장 
+02B0;02FF;Spacing Modifier Letters;ko,수식문자
+0300;036F;Combining Diacritical Marks;ko,조합용 발음 구별 부호
+0370;03FF;Greek and Coptic;ko,그리스와 콥트 문자
+0400;04FF;Cyrillic;ko,키릴 문자
+0500;052F;Cyrillic Supplement;ko,키릴 문자 보충
+0530;058F;Armenian;ko,아르메니아 문자
+0590;05FF;Hebrew;ko,히브리 문자
+0600;06FF;Arabic;ko,아랍문자
 0700;074F;Syriac
 0750;077F;Arabic Supplement
 0780;07BF;Thaana
@@ -33,7 +33,7 @@
 0F00;0FFF;Tibetan
 1000;109F;Myanmar
 10A0;10FF;Georgian
-1100;11FF;Hangul Jamo
+1100;11FF;Hangul Jamo;ko,한글 자모
 1200;137F;Ethiopic
 1380;139F;Ethiopic Supplement
 13A0;13FF;Cherokee
@@ -68,20 +68,20 @@
 1E00;1EFF;Latin Extended Additional
 1F00;1FFF;Greek Extended
 2000;206F;General Punctuation
-2070;209F;Superscripts and Subscripts
-20A0;20CF;Currency Symbols
+2070;209F;Superscripts and Subscripts;ko,첨자
+20A0;20CF;Currency Symbols;ko,화폐 기호
 20D0;20FF;Combining Diacritical Marks for Symbols
 2100;214F;Letterlike Symbols
 2150;218F;Number Forms
-2190;21FF;Arrows
-2200;22FF;Mathematical Operators
+2190;21FF;Arrows;ko,화살표
+2200;22FF;Mathematical Operators;ko,수학 연산자
 2300;23FF;Miscellaneous Technical
 2400;243F;Control Pictures
 2440;245F;Optical Character Recognition
-2460;24FF;Enclosed Alphanumerics
-2500;257F;Box Drawing
+2460;24FF;Enclosed Alphanumerics;ko,원(괄호) 문자
+2500;257F;Box Drawing;ko,선문자
 2580;259F;Block Elements
-25A0;25FF;Geometric Shapes
+25A0;25FF;Geometric Shapes;ko,기하학 도형
 2600;26FF;Miscellaneous Symbols
 2700;27BF;Dingbats
 27C0;27EF;Miscellaneous Mathematical Symbols-A
@@ -102,20 +102,20 @@
 2E80;2EFF;CJK Radicals Supplement
 2F00;2FDF;Kangxi Radicals
 2FF0;2FFF;Ideographic Description Characters
-3000;303F;CJK Symbols and Punctuation
-3040;309F;Hiragana
-30A0;30FF;Katakana
+3000;303F;CJK Symbols and Punctuation;ko,한중일 문장부호
+3040;309F;Hiragana;ko,히라가나
+30A0;30FF;Katakana;ko,카타카나
 3100;312F;Bopomofo
-3130;318F;Hangul Compatibility Jamo
+3130;318F;Hangul Compatibility Jamo;ko,한글 호환 자모
 3190;319F;Kanbun
 31A0;31BF;Bopomofo Extended
 31C0;31EF;CJK Strokes
 31F0;31FF;Katakana Phonetic Extensions
 3200;32FF;Enclosed CJK Letters and Months
 3300;33FF;CJK Compatibility
-3400;4DBF;CJK Unified Ideographs Extension A
+3400;4DBF;CJK Unified Ideographs Extension A;ko,한중일 통합 한자 확장 A
 4DC0;4DFF;Yijing Hexagram Symbols
-4E00;9FFF;CJK Unified Ideographs
+4E00;9FFF;CJK Unified Ideographs;ko, 한중일 통합 한자
 A000;A48F;Yi Syllables
 A490;A4CF;Yi Radicals
 A4D0;A4FF;Lisu
@@ -131,7 +131,7 @@ A880;A8DF;Saurashtra
 A8E0;A8FF;Devanagari Extended
 A900;A92F;Kayah Li
 A930;A95F;Rejang
-A960;A97F;Hangul Jamo Extended-A
+A960;A97F;Hangul Jamo Extended-A;ko,한글 확장 자모A
 A980;A9DF;Javanese
 A9E0;A9FF;Myanmar Extended-B
 AA00;AA5F;Cham
@@ -142,8 +142,8 @@ AB00;AB2F;Ethiopic Extended-A
 AB30;AB6F;Latin Extended-E
 AB70;ABBF;Cherokee Supplement
 ABC0;ABFF;Meetei Mayek
-AC00;D7AF;Hangul Syllables
-D7B0;D7FF;Hangul Jamo Extended-B
+AC00;D7AF;Hangul Syllables;ko,한글 글자마디
+D7B0;D7FF;Hangul Jamo Extended-B;ko,한글 확장 자모B
 D800;DB7F;High Surrogates
 DB80;DBFF;High Private Use Surrogates
 DC00;DFFF;Low Surrogates
@@ -157,7 +157,7 @@ FE20;FE2F;Combining Half Marks
 FE30;FE4F;CJK Compatibility Forms
 FE50;FE6F;Small Form Variants
 FE70;FEFF;Arabic Presentation Forms-B
-FF00;FFEF;Halfwidth and Fullwidth Forms
+FF00;FFEF;Halfwidth and Fullwidth Forms;ko,반각 자모
 FFF0;FFFF;Specials
 10000;1007F;Linear B Syllabary
 10080;100FF;Linear B Ideograms

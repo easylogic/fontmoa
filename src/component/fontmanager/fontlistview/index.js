@@ -8,21 +8,12 @@ const FileItem = (props) => {
     const index = props.index; 
     const item = file.item; 
 
+    
+
     const style = Object.assign({}, {
         fontSize: props.fontStyle.fontSize,
         lineHeight: props.fontStyle.fontSize,
-        fontFamily: file.collectFontFamily
-    });
-
-    if (file.italic) {
-        style.fontStyle = 'italic';
-    }
-
-    if (file.bold) {
-        style.fontWeight = 'bold'
-    } else {
-        style.fontWeight = 'normal'
-    }
+    }, file.collectStyle);
 
     const isGrid = contentstyle === 'grid';
 

@@ -6,11 +6,11 @@ import common from '../../../util/common'
 
 class FontList extends Component {
 
-    constructor () {
-        super()
+    constructor (props) {
+        super(props)
 
         this.state = {
-            selectedFont : {}
+            selectedFont : this.props.selectedFont
         }
     }
 
@@ -27,23 +27,11 @@ class FontList extends Component {
         return (
             <ul className="font-tree-node child submenu">
             {font.files.map((f, index) => {
-                const style = {
-                    fontFamily: common.getFontFamilyCollect(f)
-                };
+                const style = f.collectStyle;
                 
-                if (f.italic) {
-                    style.fontStyle = 'italic';
-                }
-
-                if (f.bold) {
-                    style.fontWeight = 'bold'
-                } else {
-                    style.fontWeight = 'normal'
-                }
-
                 let className = "";
 
-                if (this.state.selectedFont.item && this.state.selectedFont.item.path === f.item.path ) {
+                if (this.state.selectedFont && this.state.selectedFont.item && this.state.selectedFont.item.path === f.item.path ) {
                     className += " active";
                 }
 

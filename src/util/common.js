@@ -47,6 +47,27 @@ const getFontFamilyCollect = (font) => {
     
 }
 
+
+const getFontStyleCollect = (font) => {
+    let style = {
+        fontFamily: getFontFamilyCollect(font),
+        
+    }
+
+    if (font.italic) {
+        style.fontStyle = 'italic';
+    }
+
+    if (font.bold) {
+        style.fontWeight = 'bold'
+    } else {
+        style.fontWeight = 'normal'
+    }
+
+    return style; 
+}
+
+
 const getSystemFolders = () => {
     const platform = os.platform();
     switch (platform) {
@@ -92,6 +113,7 @@ const common = {
     getSystemFolders,
     getFontFamilyCollect,
     caculateFontUnit,
+    getFontStyleCollect,
 }
 
 export default common

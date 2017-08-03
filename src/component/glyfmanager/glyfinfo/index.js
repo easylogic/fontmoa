@@ -32,27 +32,9 @@ class GlyfInfo extends Component {
         const unicode16 = unicode.toString(16).toUpperCase();
         const char = String.fromCodePoint(this.props.selectedGlyf || 0) || "";
         const font = this.props.selectedFont;
-        const style = {
-            fontFamily : font.collectFontFamily
-        }  
+        const style = font.collectStyle;
 
         let pos = common.caculateFontUnit(font);
-
-/*
-        let bboxStyle = {}
-
-        if (font.bbox) {
-            bboxStyle = {
-                left : (font.bbox.minX / font.unitsPerEm) * 100,
-                top : ((font.ascent - font.bbox.maxY) / font.ascent) * 100,
-                width: ((font.bbox.maxX - font.bbox.minX) / font.unitsPerEm) * 100, 
-                height: ((font.bbox.maxY - font.bbox.minY) / height) * 100,
-            }
-            Object.keys(bboxStyle).forEach(function(key) {
-                bboxStyle[key] += '%';
-            })
-        }
-*/
 
         return (
             <div className='glyf-info-manager'>

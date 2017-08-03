@@ -58,7 +58,6 @@ const insertFont = (font, item, done) => {
         descent: font.descent,
         lineGap: font.lineGap,
         underlinePosition: font.underlinePosition,
-        underlineThickness: font.underlineThickness,
         italicAngle: font.italicAngle,
         capHeight: font.capHeight,
         xHeight: font.xHeight,
@@ -68,7 +67,6 @@ const insertFont = (font, item, done) => {
         name : getNames(font.name || {}),
         language : getLanguage(font.name || {}),
     }
-
 
     const currentLanguage = fontObj.language.filter((l) => {
         return l !== 'en' && l !== '0-0'
@@ -87,7 +85,7 @@ const insertFont = (font, item, done) => {
         fontObj.bold = true;
     }
 
-    fontObj.collectFontFamily = common.getFontFamilyCollect(font);
+    fontObj.collectStyle = common.getFontStyleCollect(font);
 
     db.insert(fontObj, (err, docs) => {
         done && done();

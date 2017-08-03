@@ -10,8 +10,16 @@ data.split('\n').forEach((line) => {
         index: index,
         start : parseInt(arr[0], 16),
         end : parseInt(arr[1], 16),
-        name : arr[2]
+        name : arr[2],
+        alias : {}
     }
+
+    for(let i = 3, len = arr.length; i < len; i++) {
+        const temp = arr[i].split(",");
+
+        UNICODE_BLOCK[index].alias[temp[0]] = temp[1].trim();
+    }
+
 })
 
 const getBlockForIndex = (index) => {

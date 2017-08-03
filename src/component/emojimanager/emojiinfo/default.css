@@ -18,6 +18,7 @@
     text-align: center;
     flex:1;
     cursor:pointer;
+    font-size:20px;
 }
 
 .emoji-info-code .unicode:before {

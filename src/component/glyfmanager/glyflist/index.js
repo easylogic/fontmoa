@@ -25,23 +25,26 @@ class GlyfList extends Component {
     }
 
     render() {
-        const style = {
-            fontFamily : this.props.selectedFont.collectFontFamily
-        }        
+        const style = this.props.selectedFont.collectStyle;
         return (
             <div className='glyf-list-manager'>
                 <div className="glyf-search">
                     <select className="input" onChange={this.onChange} defaultValue="{this.props.selectedBlock.index}">
                     {
                         this.props.blockList.map((block, index) => {
-                            return (<option key={index} value={block.index}>{block.name}</option>)
+                            const arr = Object.keys(block.alias);
+                            let name = block.name;                            
+                            if (arr.length) {
+                               name = block.alias[arr[0]]
+                            }
+                            return (<option key={index} value={block.index}>{name}</option>)
                         })
                     }
                     </select>
 
                     <span className="block-count"> Count : {this.props.glyf.length}</span>
                 </div>
-                <div className="glyf-list" style={style} onClick={this.onClickGlyfItem}>
+                <div className="glyf-list" ref="glyfList" style={style} onClick={this.onClickGlyfItem}>
                 {
                     this.props.glyf.map((unicode, index) => {
                         const isStart = index % 7 === 0;

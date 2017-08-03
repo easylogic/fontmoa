@@ -26,7 +26,33 @@ class GlyfManager extends Component {
       filteredGlyf: [] ,
     }
 
-    this.refreshFontTree()
+    this.initFontTree();
+
+  }
+
+  initFontTree = () => {
+    fontdb.fontTree((tree) => {
+      const fontTree = tree; 
+      const f = fontTree[0].files[0];
+
+      if (f) {
+        fontdb.glyfInfo(f.item.path, (glyf) => {
+          const blockList = unicode.checkBlockList(glyf);
+
+          this.setState({
+            fontTree,
+            selectedFont : f,
+            glyf,
+            filteredGlyf : this.filterGlyf(0, glyf),
+            blockList,
+            selectedBlock : blockList[0],
+          })
+
+        })
+      }
+
+
+    })
   }
 
   
@@ -78,10 +104,13 @@ class GlyfManager extends Component {
 
   refreshFontTree = () => {
     fontdb.fontTree((tree) => {
-      this.sample = JSON.stringify(tree, null, 4);
+      const fontTree = tree; 
+
       this.setState({
-        fontTree: tree
+        fontTree,
       })
+
+      this.refreshGlyf(fontTree[0].files[0]);
     })
   }
 
