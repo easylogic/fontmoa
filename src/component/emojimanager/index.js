@@ -55,14 +55,14 @@ class EmojiManager extends Component {
     })
   }
 
-  refreshEmojiTag = (emojiTag) => {
-    const selectedEmojiTag = emojiTag;
-    const filteredEmoji = this.state.emojiTags[emojiTag];
+  refreshEmojiTagKey = (emojiTagKey) => {
+    const selectedEmojiTagKey = emojiTagKey;
+    const filteredEmoji = this.state.emojiTags[emojiTagKey];
     const selectedEmoji = filteredEmoji[0];
     this.setState({ 
-      selectedEmojiTag,
+      selectedEmojiTagKey,
       filteredEmoji,
-      selectedEmoji,      
+      selectedEmoji,
     })
   }  
 
@@ -80,7 +80,7 @@ class EmojiManager extends Component {
             <FontList  
               selectedEmojiTagKey={this.state.selectedEmojiTagKey} 
               selectedEmojiKey={this.state.selectedEmojiKey}
-              refreshEmojiTag={this.refreshEmojiTag} 
+              refreshEmojiTagKey={this.refreshEmojiTagKey} 
               refreshEmoji={this.refreshEmoji} 
               emojiKeys={this.state.emojiKeys} 
               emojiTagsKeys={this.state.emojiTagsKeys}

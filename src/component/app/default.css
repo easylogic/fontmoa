@@ -48,12 +48,24 @@
 
 .app-input .input-text {
   position:absolute;
-  right:5px;
+  right:60px;
   top:5px;
   bottom:5px;
   left: 100px;
-  background-color: rgba(0, 255, 255, .2);
+  background-color: rgba(116, 12, 210, 0.1);
+  padding:4px;
   font-size: 20px;
+  vertical-align: middle;
+  line-height:35px;
+  border-radius:3px;
+}
+
+.app-input .input-text:empty:before {
+  position:absolute;
+  display:block;
+  content: "문자나 이모지를 선택해주세요. 한번에 복사할 수 있습니다.";
+  width:100%;
+  height:100%;
 }
 
 .app-input .input-copy {
@@ -65,6 +77,20 @@
 }
 
 .app-input .input-copy button {
+  width:100%;
+  text-align: center;
+  outline:none;
+}
+
+.app-input .input-delete {
+  position:absolute;
+  right:5px;
+  top:5px;
+  bottom:5px;
+  width: 50px;
+}
+
+.app-input .input-delete button {
   width:100%;
   text-align: center;
   outline:none;

@@ -1,17 +1,68 @@
+.emoji-category-list-container {
+    position:absolute;
+    left:0px;
+    top:0px;
+    right:0px;
+    bottom:0px;
+}
+
+.emoji-key-search {
+    position:absolute;
+    left:0px;
+    top:0px;
+    right:0px;
+    height: 40px;
+    padding:5px;
+}
+
+.emoji-key-search input {
+    width: 100%;
+    height: 100%;
+    display:block;
+    border-radius:3px;
+    border:1px solid #ececec;
+    padding-left:10px;
+    box-sizing:border-box;
+}
+
 .emoji-tree {
-    padding: 5px;
+    position:absolute;
+    left:0px;
+    bottom:0px;
+    right:0px;
+    top: 50px;
+    overflow:auto;
+    padding:5px;
+}
+
+.emoji-tree .title {
+    font-weight: bold;
+    width:100%;
+    font-size:16px;
+    padding:10px 20px;
+    box-sizing:border-box;
+    display:block;
+    margin-bottom:5px;
 }
 
 .emoji-tree-node {
-    max-height: 200px;
-    overflow:auto;
+    display:block;
+    padding:10px 20px;
+    border: 1px solid #ececec;
+    border-radius: 3px;
+    margin-bottom: 5px;
+    cursor:pointer;
+    box-sizing:border-box;
+    margin-left:10px;
+    margin-right:10px;
 }
 
-.emoji-tree-node.child {
-    emoji-size: 20px;
+.emoji-tree-node.hide {
+    display:none;
 }
 
-.emoji-tree-node.child li.active {
+.emoji-tree-node.active {
     background-color: #740CD2;
-    color:white !important;
+    color:white;
+    font-weight:bold;
 }

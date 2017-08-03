@@ -41,6 +41,12 @@ class App extends Component {
     clipboard.writeText(copyText);
   }
 
+  handleDeleteText = (e) => {
+    this.setState({
+      inputText : ''
+    })
+  }  
+
   render() { 
 
     return (
@@ -62,6 +68,9 @@ class App extends Component {
             <button className="btn large" onClick={this.handleCopyText}>Copy</button>
           </div>
           <div className="input-text">{this.state.inputText}</div>
+          <div className="input-delete">
+            <button className="btn large" onClick={this.handleDeleteText}><i className="icon icon-trashcan"></i></button>
+          </div>          
         </div>
       </div>
     );
