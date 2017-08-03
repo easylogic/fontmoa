@@ -97,6 +97,7 @@
 .emoji-info-view .char-info .desc-item .description .label {
     margin-right: 2px;
     margin-bottom:2px;
+    cursor:pointer;
 }
 
 .emoji-info-select-text {

@@ -87,7 +87,10 @@ class EmojiManager extends Component {
             />
           </div>
           <div className="em-emoji-info">
-            <EmojiInfo selectedEmoji={this.state.selectedEmoji} />
+            <EmojiInfo 
+              selectedEmoji={this.state.selectedEmoji} 
+              refreshEmojiTagKey={this.refreshEmojiTagKey} 
+            />
           </div>
         </TabItem>
     );

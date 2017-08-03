@@ -41,7 +41,7 @@
 }
 
 .glyf-item[data-selected=true] {
-    background-color: black;
+    background-color: #740CD2;
     color:white;
 }
 

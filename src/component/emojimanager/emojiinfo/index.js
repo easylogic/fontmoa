@@ -25,6 +25,11 @@ class GlyfInfo extends Component {
         })
     }
 
+    onClickLabelItem = (e) => {
+        const emojiTagKey = e.target.getAttribute('data-tag');
+        this.props.refreshEmojiTagKey(emojiTagKey);
+    }
+
     render() {
         const unicode16  = this.props.selectedEmoji.codepoints[0].split('+')[1];
         const unicode = parseInt(unicode16, 16);
@@ -57,7 +62,7 @@ class GlyfInfo extends Component {
                             <span className="cate cate-tags">tags</span>
                             <span className="description">
                                 {this.props.selectedEmoji.tags.map((tag, index) => {
-                                    return <span key={index} className="label small success">{tag}</span>
+                                    return <span key={index} className="label small success" data-tag={tag} onClick={this.onClickLabelItem}>{tag}</span>
                                 })}</span>
                         </div>                                                
                     </div>

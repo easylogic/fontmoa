@@ -60,6 +60,19 @@
   border-radius:3px;
 }
 
+.app-input .input-text .item {
+  cursor: pointer;
+  display:inline-block;
+  height:100%;
+}
+
+.app-input .input-text .item:hover {
+  background-color: #740CD2;
+  color:white;
+  padding-left:5px;
+  padding-right:5px;
+}
+
 .app-input .input-text:empty:before {
   position:absolute;
   display:block;
