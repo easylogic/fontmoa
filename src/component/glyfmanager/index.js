@@ -26,6 +26,8 @@ class GlyfManager extends Component {
       filteredGlyf: [] ,
     }
 
+    this.cacheSpecialChars = {};
+
     this.initFontTree();
 
   }
@@ -65,9 +67,26 @@ class GlyfManager extends Component {
 
   filterGlyf = (index, glyf) => {
     const block = unicode.getBlockForIndex(index);
-    return glyf.filter((unicode) => {
-      return block.start <= unicode && unicode <= block.end; 
-    })
+
+    if (glyf.length) {
+      return glyf.filter((unicode) => {
+        return block.start <= unicode && unicode <= block.end; 
+      })
+    } else {
+
+      if (this.cacheSpecialChars[block.index]) {
+        return this.cacheSpecialChars[block.index];
+      }
+
+      glyf = [];
+      for(let start = block.start; start <= block.end; start++) {
+        glyf[glyf.length] = start; 
+      }
+
+      this.cacheSpecialChars[block.index] = glyf; 
+
+      return glyf; 
+    }
   }
 
   changeUnicodeBlock = (blockIndex) => {
@@ -87,12 +106,13 @@ class GlyfManager extends Component {
 
   updateUnicodeBlock = (glyf) => {
     const blockList = unicode.checkBlockList(glyf);
+    const selectedBlock = blockList[0];
 
     this.setState({
       glyf: glyf,
       filteredGlyf : this.filterGlyf(0, glyf),
-      blockList: blockList,
-      selectedBlock: blockList[0]
+      blockList,
+      selectedBlock,
     })
   }
 

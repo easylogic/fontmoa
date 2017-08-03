@@ -1,5 +1,5 @@
 0000;007F;Basic Latin;ko,로마자 기본
-0080;00FF;Latin-1 Supplement;ko,라틴-1 보충
+0080;00FF;Latin-1 Supplement;ko,로마자-1 보충
 0100;017F;Latin Extended-A;ko,로마자 확장 A
 0180;024F;Latin Extended-B;ko,로마자 확장 B
 0250;02AF;IPA Extensions;ko,IPA 확장 
@@ -34,8 +34,8 @@
 1000;109F;Myanmar
 10A0;10FF;Georgian
 1100;11FF;Hangul Jamo;ko,한글 자모
-1200;137F;Ethiopic
-1380;139F;Ethiopic Supplement
+1200;137F;Ethiopic;ko,에티오피아 문자
+1380;139F;Ethiopic Supplement;ko,에티오피아 문자 보충
 13A0;13FF;Cherokee
 1400;167F;Unified Canadian Aboriginal Syllabics
 1680;169F;Ogham
@@ -62,16 +62,16 @@
 1C80;1C8F;Cyrillic Extended-C
 1CC0;1CCF;Sundanese Supplement
 1CD0;1CFF;Vedic Extensions
-1D00;1D7F;Phonetic Extensions
-1D80;1DBF;Phonetic Extensions Supplement
+1D00;1D7F;Phonetic Extensions;ko,소리나는 확장문자
+1D80;1DBF;Phonetic Extensions Supplement;ko,소리나는 확장문자 보충
 1DC0;1DFF;Combining Diacritical Marks Supplement
-1E00;1EFF;Latin Extended Additional
-1F00;1FFF;Greek Extended
+1E00;1EFF;Latin Extended Additional;ko,로마자 확장 추가
+1F00;1FFF;Greek Extended;ko,그리스어 확장
 2000;206F;General Punctuation
 2070;209F;Superscripts and Subscripts;ko,첨자
 20A0;20CF;Currency Symbols;ko,화폐 기호
 20D0;20FF;Combining Diacritical Marks for Symbols
-2100;214F;Letterlike Symbols
+2100;214F;Letterlike Symbols;ko,문자같은 기호
 2150;218F;Number Forms
 2190;21FF;Arrows;ko,화살표
 2200;22FF;Mathematical Operators;ko,수학 연산자
@@ -85,15 +85,15 @@
 2600;26FF;Miscellaneous Symbols
 2700;27BF;Dingbats
 27C0;27EF;Miscellaneous Mathematical Symbols-A
-27F0;27FF;Supplemental Arrows-A
-2800;28FF;Braille Patterns
+27F0;27FF;Supplemental Arrows-A;ko,화살표 보충A
+2800;28FF;Braille Patterns;ko,점자 패턴
 2900;297F;Supplemental Arrows-B
 2980;29FF;Miscellaneous Mathematical Symbols-B
-2A00;2AFF;Supplemental Mathematical Operators
+2A00;2AFF;Supplemental Mathematical Operators;ko,수학 연산자 보충
 2B00;2BFF;Miscellaneous Symbols and Arrows
 2C00;2C5F;Glagolitic
-2C60;2C7F;Latin Extended-C
-2C80;2CFF;Coptic
+2C60;2C7F;Latin Extended-C;ko,로마자 확장 C
+2C80;2CFF;Coptic;ko, 콥트말
 2D00;2D2F;Georgian Supplement
 2D30;2D7F;Tifinagh
 2D80;2DDF;Ethiopic Extended
@@ -105,10 +105,10 @@
 3000;303F;CJK Symbols and Punctuation;ko,한중일 문장부호
 3040;309F;Hiragana;ko,히라가나
 30A0;30FF;Katakana;ko,카타카나
-3100;312F;Bopomofo
+3100;312F;Bopomofo;ko,주음 부호(중국어 발음기호)
 3130;318F;Hangul Compatibility Jamo;ko,한글 호환 자모
 3190;319F;Kanbun
-31A0;31BF;Bopomofo Extended
+31A0;31BF;Bopomofo Extended;ko,주음 부호 확장(중국어 발음기호)
 31C0;31EF;CJK Strokes
 31F0;31FF;Katakana Phonetic Extensions
 3200;32FF;Enclosed CJK Letters and Months
@@ -181,7 +181,7 @@ FFF0;FFFF;Specials
 10530;1056F;Caucasian Albanian
 10600;1077F;Linear A
 10800;1083F;Cypriot Syllabary
-10840;1085F;Imperial Aramaic
+10840;1085F;Imperial Aramaic;ko,제국어 아람어
 10860;1087F;Palmyrene
 10880;108AF;Nabataean
 108E0;108FF;Hatran
@@ -222,10 +222,10 @@ FFF0;FFFF;Specials
 11AC0;11AFF;Pau Cin Hau
 11C00;11C6F;Bhaiksuki
 11C70;11CBF;Marchen
-12000;123FF;Cuneiform
+12000;123FF;Cuneiform;ko,설형 문자
 12400;1247F;Cuneiform Numbers and Punctuation
-12480;1254F;Early Dynastic Cuneiform
-13000;1342F;Egyptian Hieroglyphs
+12480;1254F;Early Dynastic Cuneiform;ko,초기 왕위 제복
+13000;1342F;Egyptian Hieroglyphs;ko,이집트 상형문자
 14400;1467F;Anatolian Hieroglyphs
 16800;16A3F;Bamum Supplement
 16A40;16A6F;Mro
@@ -248,24 +248,24 @@ FFF0;FFFF;Specials
 1E000;1E02F;Glagolitic Supplement
 1E800;1E8DF;Mende Kikakui
 1E900;1E95F;Adlam
-1EE00;1EEFF;Arabic Mathematical Alphabetic Symbols
+1EE00;1EEFF;Arabic Mathematical Alphabetic Symbols;ko,아랍어 수학 알파벳 기호
 1F000;1F02F;Mahjong Tiles
 1F030;1F09F;Domino Tiles
 1F0A0;1F0FF;Playing Cards
 1F100;1F1FF;Enclosed Alphanumeric Supplement
 1F200;1F2FF;Enclosed Ideographic Supplement
-1F300;1F5FF;Miscellaneous Symbols and Pictographs
-1F600;1F64F;Emoticons
-1F650;1F67F;Ornamental Dingbats
+1F300;1F5FF;Miscellaneous Symbols and Pictographs;ko,기타 기호 및 그림
+1F600;1F64F;Emoticons;ko,이모티콘
+1F650;1F67F;Ornamental Dingbats;ko,장식용 딩벳
 1F680;1F6FF;Transport and Map Symbols
-1F700;1F77F;Alchemical Symbols
-1F780;1F7FF;Geometric Shapes Extended
-1F800;1F8FF;Supplemental Arrows-C
-1F900;1F9FF;Supplemental Symbols and Pictographs
-20000;2A6DF;CJK Unified Ideographs Extension B
-2A700;2B73F;CJK Unified Ideographs Extension C
-2B740;2B81F;CJK Unified Ideographs Extension D
-2B820;2CEAF;CJK Unified Ideographs Extension E
+1F700;1F77F;Alchemical Symbols;ko,화학기호
+1F780;1F7FF;Geometric Shapes Extended;ko,기하학적 모양 확장
+1F800;1F8FF;Supplemental Arrows-C;ko,화살표 보충 C
+1F900;1F9FF;Supplemental Symbols and Pictographs;ko, 기호 및 그림 보충
+20000;2A6DF;CJK Unified Ideographs Extension B;ko, 한중일 통합문자 확장B
+2A700;2B73F;CJK Unified Ideographs Extension C;ko, 한중일 통합문자 확장C
+2B740;2B81F;CJK Unified Ideographs Extension D;ko, 한중일 통합문자 확장D
+2B820;2CEAF;CJK Unified Ideographs Extension E;ko, 한중일 통합문자 확장E
 2F800;2FA1F;CJK Compatibility Ideographs Supplement
 E0000;E007F;Tags
 E0100;E01EF;Variation Selectors Supplement

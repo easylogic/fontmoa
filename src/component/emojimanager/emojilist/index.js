@@ -8,7 +8,7 @@ class EmojiList extends Component {
         super()
 
         this.state = {
-            selectedUnicode : 0
+            selectedUnicode : {id: ''}
         }
     }
 
@@ -32,7 +32,7 @@ class EmojiList extends Component {
                     this.props.glyf.map((emo, index) => {
 
                         const char = emo.emoji;
-                        const selected = emo.id === this.state.selectedUnicode.id;
+                        const selected = emo && this.state.selectedUnicode && emo.id === this.state.selectedUnicode.id;
 
                         return (
                         <div key={index} className="emoji-glyf-item" data-selected={selected} data-id={emo.id} >

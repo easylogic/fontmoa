@@ -56,7 +56,7 @@
   padding:4px;
   font-size: 20px;
   vertical-align: middle;
-  line-height:35px;
+  line-height:30px;
   border-radius:3px;
 }
 
@@ -64,6 +64,7 @@
   cursor: pointer;
   display:inline-block;
   height:100%;
+  vertical-align: middle;
 }
 
 .app-input .input-text .item:hover {
@@ -76,9 +77,11 @@
 .app-input .input-text:empty:before {
   position:absolute;
   display:block;
-  content: "문자나 이모지를 선택해주세요. 한번에 복사할 수 있습니다.";
+  content: attr(data-placeholder);
   width:100%;
   height:100%;
+  font-size: 15px;
+  color:rgba(0, 0, 0, 0.7)
 }
 
 .app-input .input-copy {

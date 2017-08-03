@@ -92,7 +92,7 @@ const caculateFontUnit = (font) => {
     //const lowUnit = 100 - baseline;
 
     if (isNaN(baseline)) {
-        baseline = 0; 
+        return pos;
     }
 
 

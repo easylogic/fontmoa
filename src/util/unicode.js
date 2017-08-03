@@ -19,8 +19,16 @@ data.split('\n').forEach((line) => {
 
         UNICODE_BLOCK[index].alias[temp[0]] = temp[1].trim();
     }
-
 })
+
+UNICODE_BLOCK = UNICODE_BLOCK.sort((a, b) => {
+    return a.name > b.name ? 1 : -1;
+}).map((code, index) => {
+    code.index = index; 
+    return code; 
+})
+
+
 
 const getBlockForIndex = (index) => {
     return UNICODE_BLOCK[index]
@@ -35,6 +43,10 @@ const getBlock = (unicode) => {
 const checkBlockList = (unicodeList) => {
     let blocks = {};
     let list = [];
+
+    if (!unicodeList || !unicodeList.length) {
+        return UNICODE_BLOCK;
+    }
 
     unicodeList.forEach((unicode) => {
         const tempBlock = getBlock(unicode);

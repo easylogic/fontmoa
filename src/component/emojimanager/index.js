@@ -38,10 +38,13 @@ class EmojiManager extends Component {
   }
 
   changeSelectedGlyf = (emoji) => {
-    this.setState({
-      selectedEmoji : emoji
-    })
-    this.props.appendInputText(emoji.emoji);
+    if (emoji) {
+      this.setState({
+        selectedEmoji : emoji
+      })
+      this.props.appendInputText(emoji.emoji);
+    }
+
   }
 
   refreshEmoji = (emojiKey) => {

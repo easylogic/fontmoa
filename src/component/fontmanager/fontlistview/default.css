@@ -62,7 +62,7 @@
 
 
 .font-item:hover {
-    background-color:black !important;
+    background-color:#740CD2 !important;
     color:white !important;    
     transform-origin: 50% 50%;
     z-index: 100;       
@@ -78,7 +78,7 @@
 }
 
 .font-item.selected {
-    background-color:black !important;
+    background-color:#740CD2 !important;
     color:white !important;    
 }
 

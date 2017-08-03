@@ -8,6 +8,20 @@ class FontList extends Component {
         super(props)
 
         this.state = {
+            specialChars: { 
+                type : 'specialChars', 
+                name: '특수문자',                 
+                files : [
+                    { 
+                        type : 'specialChars',
+                        currentFamilyName: '특수문자', 
+                        item : { path : ''},
+                        collectStyle : {
+                            fontFamily : 'serif, sans-serif'
+                        }
+                    }
+                ]
+            },
             selectedFont : this.props.selectedFont
         }
     }
@@ -44,7 +58,7 @@ class FontList extends Component {
     createFontList = (font, index) => {
         return (
             <div className="font-tree-item vmenu flat" key={index}>
-                <a className="font-tree-node parent">{font.name}</a>
+                {font.type === 'specialChars' ? '' : <a className="font-tree-node parent">{font.name}</a>}
                 {this.createFontNames(font)}
             </div>
         )
@@ -53,6 +67,7 @@ class FontList extends Component {
     render() {
         return (
             <div className="font-tree">
+                {this.createFontList(this.state.specialChars, 0)}
                 {this.props.fontTree.map((font, index) => {
                     return this.createFontList(font, index)
                 })}

@@ -24,7 +24,7 @@ class GlyfList extends Component {
         this.props.changeSelectedGlyf(unicode)
     }
 
-    render() {
+    renderGlyf = () => {
         const style = this.props.selectedFont.collectStyle;
         return (
             <div className='glyf-list-manager'>
@@ -46,20 +46,27 @@ class GlyfList extends Component {
                 </div>
                 <div className="glyf-list" ref="glyfList" style={style} onClick={this.onClickGlyfItem}>
                 {
+
+
+
                     this.props.glyf.map((unicode, index) => {
-                        const isStart = index % 7 === 0;
                         const char = String.fromCodePoint(unicode) || "";
                         const code = '\\u' + unicode.toString(16); 
 
                         const selected = unicode === this.state.selectedUnicode;
 
-                        return <div key={index} className="glyf-item" data-selected={selected} data-is-start={isStart} data-unicode={unicode} data-char={code}>{char}</div>
+                        return <div key={index} className="glyf-item" data-selected={selected} data-unicode={unicode} data-char={code}>{char}</div>
                     })
                 }
 
                 </div>
             </div>
         )
+    }
+
+
+    render() {
+        return this.renderGlyf();
     }
 }
 

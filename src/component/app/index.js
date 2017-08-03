@@ -82,7 +82,7 @@ class App extends Component {
           <div className="input-copy">
             <button className="btn large" onClick={this.handleCopyText}>Copy</button>
           </div>
-          <div className="input-text" onClick={this.handleDeleteTextItem}>
+          <div className="input-text" onClick={this.handleDeleteTextItem} data-placeholder="문자나 이모지를 선택해주세요. 한번에 복사할 수 있습니다.">
             {[...this.state.inputText].map((text, index) => {
               return <span key={index} className="item" data-index={index} title="클릭하면 지워집니다.">{text}</span>
             })}
@@ -90,7 +90,7 @@ class App extends Component {
           <div className="input-delete">
             <button className="btn large" onClick={this.handleDeleteText}><i className="icon icon-trashcan"></i></button>
           </div>          
-        </div>
+        </div> 
       </div>
     );
   }
