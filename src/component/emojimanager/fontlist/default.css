@@ -48,13 +48,17 @@
 .emoji-tree-node {
     display:block;
     padding:10px 20px;
-    border: 1px solid #ececec;
     border-radius: 3px;
     margin-bottom: 5px;
     cursor:pointer;
     box-sizing:border-box;
     margin-left:10px;
     margin-right:10px;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);            
+}
+
+.emoji-tree-node:hover {
+    background-color: rgba(116, 12, 210, 0.1);
 }
 
 .emoji-tree-node.hide {
@@ -65,4 +69,5 @@
     background-color: #740CD2;
     color:white;
     font-weight:bold;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);    
 }

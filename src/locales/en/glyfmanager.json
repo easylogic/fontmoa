@@ -1,0 +1,8 @@
+{
+    "glyfmanager.fontlist.specialChars.title": "Special Characters",
+
+    "glyfmanager.glyfinfo.alert.copyText" : "[{text}] was copied.",
+    "glyfmanager.glyfinfo.copyUnicodeMessage.title" : "Copy unicode if click",
+
+    "" : ""
+}

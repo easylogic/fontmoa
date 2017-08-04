@@ -1,4 +1,4 @@
-
+import intl from 'react-intl-universal'
 import React, { Component } from 'react';
 import './default.css';
 
@@ -12,6 +12,7 @@ class FontList extends Component {
             selectedEmojiTag : this.props.selectedEmojiTag, 
             filterKey : '',
         }
+
     }
 
     onInputSearchText = (e)  => {
@@ -38,7 +39,19 @@ class FontList extends Component {
         }
     }    
 
-    createEmojiList = (emojiKey, index) => {
+    checkHideList = (currentMessage, key) => {
+        const hasCheckFilter = this.state.filterKey !== '';
+        let hasEmojiKey = key.includes(this.state.filterKey) === false;
+        
+        const tempKey = currentMessage['emojimanager.fontlist.names.' + key];
+        if (hasEmojiKey && tempKey) {
+            hasEmojiKey = tempKey.includes(this.state.filterKey) === false;
+        }
+
+        return hasCheckFilter && hasEmojiKey;
+    }
+
+    createEmojiList = (emojiKey, index, currentMessage) => {
 
         let className = "emoji-tree-node cate";
 
@@ -46,16 +59,16 @@ class FontList extends Component {
             className += " active";
         }
 
-        if (this.state.filterKey !== '' && emojiKey.includes(this.state.filterKey) === false) {
+        if (this.checkHideList(currentMessage, emojiKey)) {
             className += " hide";
         }
 
         return (
-            <a key={index} className={className} onClick={this.onClickEmojiItem(emojiKey)}>{emojiKey}</a>
+            <a key={index} className={className} onClick={this.onClickEmojiItem(emojiKey)}>{currentMessage['emojimanager.fontlist.names.' + emojiKey] || emojiKey}</a>
         )
     }
 
-    createEmojiTagList = (emojiTagKey, index) => {
+    createEmojiTagList = (emojiTagKey, index, currentMessage) => {
 
         let className = "emoji-tree-node tag";
 
@@ -63,32 +76,36 @@ class FontList extends Component {
             className += " active";
         }
 
-        if (this.state.filterKey !== '' && emojiTagKey.includes(this.state.filterKey) === false) {
+        if (this.checkHideList(currentMessage, emojiTagKey)) {
             className += " hide";
         }        
 
         return (
-            <a key={index} className={className} onClick={this.onClickEmojiTag(emojiTagKey)}>{emojiTagKey}</a>
+            <a key={index} className={className} onClick={this.onClickEmojiTag(emojiTagKey)}>{currentMessage['emojimanager.fontlist.names.' + emojiTagKey] || emojiTagKey}</a>
         )
     }    
 
     render() {
+        const currentLocale = intl.options.currentLocale ;
+        const locales = intl.options.locales;
+        const currentMessage = locales[currentLocale];
+
         return (
             <div className="emoji-category-list-container">
                 <div className="emoji-key-search">
-                    <input type="search" onInput={this.onInputSearchText} placeholder="어떤 Emoji 를 찾으시나요?" />
+                    <input type="search" onInput={this.onInputSearchText} placeholder={intl.get('emojimanager.fontlist.search.inputText.placeholder')}/>
                 </div>
                 <div className="emoji-tree">
                     <div className="emoji-tree-level">
-                        <div className="title">Categories</div>                
+                        <div className="title">{intl.get('emojimanager.fontlist.category.title')}</div>                
                         {this.props.emojiKeys.map((emojiKey, index) => {
-                            return this.createEmojiList(emojiKey, index)
+                            return this.createEmojiList(emojiKey, index, currentMessage)
                         })}
                     </div>
                     <div className="emoji-tree-level">
-                        <div className="title">Tags</div>
+                        <div className="title">{intl.get('emojimanager.fontlist.tag.title')}</div>
                         {this.props.emojiTagsKeys.map((emojiTagKey, index) => {
-                            return this.createEmojiTagList(emojiTagKey, index)
+                            return this.createEmojiTagList(emojiTagKey, index, currentMessage)
                         })}                
                     </div>
                 </div>

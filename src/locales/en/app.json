@@ -1,0 +1,15 @@
+{
+    "app.title": "FontMOA",
+    "app.tab.font.title": "Font",
+    "app.tab.glyphs.title": "Glyphs",
+    "app.tab.emoji.title" : "Emoji 5.0",
+    "app.tab.style.title" : "Style Guide",
+    "app.tab.css.title" : "CSS",
+    "app.tab.export.title" : "Export",
+    "app.tab.license.title" : "License",    
+    "app.inputCopy.text" : "Copy",
+    "app.inputText.placeholder": "Select a glyph or emoji. You can copy once.",
+    "app.inputText.item.title" : "If click, it is delete",
+
+    "" : ""
+}

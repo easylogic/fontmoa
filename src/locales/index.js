@@ -1,5 +1,5 @@
-import en from './en.json'
-import ko from './ko.json'
+import en from './en'
+import ko from './ko'
 
 const locales = {
     en, ko

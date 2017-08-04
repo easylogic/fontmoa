@@ -1,0 +1,15 @@
+{
+    "app.title": "FontMOA",
+    "app.tab.font.title": "폰트",
+    "app.tab.glyphs.title": "글자들",
+    "app.tab.emoji.title" : "Emoji 5.0",
+    "app.tab.style.title" : "꾸미기",
+    "app.tab.css.title" : "CSS",
+    "app.tab.export.title" : "내보내기",
+    "app.tab.license.title" : "라이센스", 
+    "app.inputCopy.text" : "복사",
+    "app.inputText.placeholder": "문자나 이모지를 선택해주세요. 한번에 복사할 수 있습니다.",
+    "app.inputText.item.title" : "클릭하면 지워집니다.",
+
+    "" : ""
+}

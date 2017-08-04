@@ -1,0 +1,43 @@
+{
+   
+    "emojimanager.fontlist.search.inputText.placeholder" : "어떤 이모지를 찾으시나요?",
+
+    "emojimanager.fontlist.category.title": "카테고리",
+    "emojimanager.fontlist.tag.title": "태그",
+
+    "emojimanager.fontlist.names.Smileys & People" : "스마일리와 사람들",
+    "emojimanager.fontlist.names.Animals & Nature" : "동물과 자연",
+    "emojimanager.fontlist.names.Food & Drink" : "음식과 음료",
+    "emojimanager.fontlist.names.Travel & Places" : "여행과 장소",
+    "emojimanager.fontlist.names.Activities" : "활동성",
+    "emojimanager.fontlist.names.Objects" : "사물",
+    "emojimanager.fontlist.names.Symbols" : "심볼",
+    "emojimanager.fontlist.names.Flags" : "깃발",    
+
+    "emojimanager.fontlist.names.11:00" : "11시",    
+    "emojimanager.fontlist.names.ball" : "공",    
+    "emojimanager.fontlist.names.access" : "접근성", 
+    "emojimanager.fontlist.names.angel" : "천사", 
+    "emojimanager.fontlist.names.Africa" : "아프리카",     
+    "emojimanager.fontlist.names.earth" : "지구",     
+    "emojimanager.fontlist.names.face" : "얼굴",     
+    "emojimanager.fontlist.names.smile" : "웃음",     
+    "emojimanager.fontlist.names.eye" : "눈",     
+    "emojimanager.fontlist.names.joke" : "농담",     
+    "emojimanager.fontlist.names.wink" : "윙크",     
+    "emojimanager.fontlist.names.actor" : "배우",     
+    "emojimanager.fontlist.names.baby" : "아기",     
+    "emojimanager.fontlist.names.alarm" : "경보알림",    
+    "emojimanager.fontlist.names.archer" : "궁수",    
+    "emojimanager.fontlist.names.art" : "예술",    
+    "emojimanager.fontlist.names.artist" : "예술가",    
+    "emojimanager.fontlist.names.atom" : "원자",        
+    "emojimanager.fontlist.names.sick" : "아픈",    
+    "emojimanager.fontlist.names.bat" : "배트",    
+    "emojimanager.fontlist.names.bath" : "욕실",    
+    "emojimanager.fontlist.names.battery" : "배터리",   
+    "emojimanager.fontlist.names.vegetable" : "채소",   
+    
+
+    "" : ""
+}
