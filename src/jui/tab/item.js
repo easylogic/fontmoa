@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 
 export default class TabItem extends Component {
 
-    setActive (isActive) {
-        this.tabItem.classList.toggle('active', isActive);
+    setActive (id) {
+        this.tabItem.classList.toggle('active', this.props.id === id);
     }
 
     createItemClass = () => {

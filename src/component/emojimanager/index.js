@@ -70,11 +70,11 @@ class EmojiManager extends Component {
   }  
 
   setActive = (id) => {
-    this.refs.tabItem.setActive(id === this.props.id);
+    this.refs.tabItem.setActive(id);
   }
   render() {
     return (
-        <TabItem ref="tabItem" active={this.props.active}>
+        <TabItem ref="tabItem" id={this.props.id}  active={this.props.active}>
           <div className="em-emoji-list">
             <EmojiList 
                 selectedEmoji={this.state.selectedEmoji} 

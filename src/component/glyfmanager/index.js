@@ -99,7 +99,8 @@ class GlyfManager extends Component {
   changeSelectedGlyf = (unicode) => {
 
     this.refs.glyfInfo.setState({
-      selectedGlyf : unicode
+      selectedGlyf : unicode,
+      selectedFont : this.state.selectedFont
     });
 
     this.props.appendInputText(String.fromCodePoint(unicode));
@@ -136,12 +137,12 @@ class GlyfManager extends Component {
   }
 
   setActive = (id) => {
-    this.refs.tabItem.setActive(id === this.props.id);
+    this.refs.tabItem.setActive(id);
   }  
 
   render() {
     return (
-        <TabItem ref="tabItem" active={this.props.active}>
+        <TabItem ref="tabItem" id={this.props.id} active={this.props.active}>
           <div className="gm-glyf-list">
             <GlyfList changeSelectedGlyf={this.changeSelectedGlyf} changeUnicodeBlock={this.changeUnicodeBlock} selectedBlock={this.state.selectedBlock} blockList={this.state.blockList} selectedFont={this.state.selectedFont}   glyf={this.state.filteredGlyf}/>
           </div>

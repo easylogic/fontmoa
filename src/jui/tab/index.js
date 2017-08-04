@@ -28,7 +28,6 @@ export default class Tabs extends Component {
             selectedNode.classList.remove('active');
         }
         e.target.classList.add('active');
-
         for(let tab in this.tabs) {
             this.tabs[tab].setActive(id);
         }
