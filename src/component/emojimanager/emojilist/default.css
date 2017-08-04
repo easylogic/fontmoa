@@ -32,6 +32,7 @@
     text-align:center;
     vertical-align: middle;
     padding:10px;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);        
 }
 
 
@@ -49,7 +50,8 @@
 .emoji-glyf-item[data-selected=true] {
     background-color: #740CD2;
     color:white;
-    border-radius: 3px;    
+    border-radius: 5px;    
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
 .emoji-glyf-item:empty:before {

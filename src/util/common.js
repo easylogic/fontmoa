@@ -73,11 +73,11 @@ const getSystemFolders = () => {
     switch (platform) {
       case "darwin" : 
         return [
-            { name : '시스템 폴더', directory : '/Library/Fonts'}
+            { name : 'fontmanager.category.system.folder.name', directory : '/Library/Fonts'}
         ];
       case "win32" : 
         return [
-          { name : '시스템 폴더', directory : 'c:\\Windows\\Fonts'}
+          { name : 'fontmanager.category.system.folder.name', directory : 'c:\\Windows\\Fonts'}
         ];
       default : 
         return []
@@ -96,7 +96,7 @@ const caculateFontUnit = (font) => {
     }
 
 
-    ["ascent", "descent", "baseline", "lineGap", "capHeight", "xHeight"].forEach((field) => {
+    ["ascent", "descent", "baseline", "capHeight", "xHeight"].forEach((field) => {
         if (font[field]  > 0)  {
             pos[field] = ((font.ascent - font[field]) / font.ascent) * 100;
         } else if (font[field] < 0) {

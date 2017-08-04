@@ -68,15 +68,6 @@
     z-index: 100;       
 }
 
-.font-item[data-row-start=true]:hover {
-    transform-origin: 0% 50%;
-}
-
-.font-item[data-row-last=true]:hover {
-    transform-origin: 100% 50%;
-
-}
-
 .font-item.selected {
     background-color:#740CD2;
     color:white !important;    

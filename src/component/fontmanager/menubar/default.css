@@ -1,5 +1,5 @@
 .navbar .inline input[type=text] {
-    width: 300px;
+    width: 200px;
 }
 
 .navbar .inline input[type=text].search-field {
@@ -16,4 +16,27 @@
 
 .navbar .inline.right {
     z-index: 10;
+}
+
+.navbar .range-component {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.navbar .range-component input {
+    vertical-align: middle;
+}
+
+.navbar .range-component span {
+    padding-left: 2px;
+    padding-right: 2px;
+    vertical-align:middle;
+}
+
+.navbar .range-component span.small {
+    font-size: 12px;
+}
+
+.navbar .range-component span.big {
+    font-size: 17px;
 }

@@ -1,4 +1,4 @@
-
+import intl from 'react-intl-universal'
 import React, { Component } from 'react';
 import './default.css';
 
@@ -13,14 +13,25 @@ class FontList extends Component {
         }
     }
 
+    getMessage = (key) => {
+        if (
+            key === 'glyfmanager.fontlist.specialChars.title'
+            || key === 'fontmanager.category.system.folder.name'
+        ) {
+            return intl.get(key);
+        }
+
+        return key; 
+    }
+
     createSpecialChars = () => {
         return { 
             type : 'specialChars', 
-            name: '특수문자',                 
+            name: 'glyfmanager.fontlist.specialChars.title',                 
             files : [
                 { 
                     type : 'specialChars',
-                    currentFamilyName: '특수문자', 
+                    currentFamilyName: 'glyfmanager.fontlist.specialChars.title', 
                     item : { path : ''},
                     collectStyle : {
                         fontFamily : ''
@@ -52,7 +63,15 @@ class FontList extends Component {
                 }
 
                 return (
-                    <li className={className} key={index} onClick={this.onClickFontItem(f, index)}><a style={style}> {f.currentFamilyName} </a></li>
+                    <li 
+                        className={className} 
+                        key={index} 
+                        onClick={this.onClickFontItem(f, index)}
+                    >
+                        <a style={style}>
+                            {this.getMessage(f.currentFamilyName)} 
+                        </a>
+                    </li>
                 )
             })}
             </ul>
@@ -62,7 +81,7 @@ class FontList extends Component {
     createFontList = (font, index) => {
         return (
             <div className="font-tree-item vmenu flat" key={index}>
-                {font.type === 'specialChars' ? '' : <a className="font-tree-node parent">{font.name}</a>}
+                {font.type === 'specialChars' ? '' : <a className="font-tree-node parent"> {this.getMessage(font.name)} </a>}
                 {this.createFontNames(font)}
             </div>
         )

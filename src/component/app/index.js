@@ -1,3 +1,4 @@
+import intl from 'react-intl-universal'
 
 import React, { Component } from 'react';
 import './default.css';
@@ -12,7 +13,10 @@ import CssManager from '../cssmanager'
 import ExportManager from '../exportmanager'
 import LicenseManager from '../licensemanager'
 
-const { clipboard } = window.require('electron');
+import locales from '../../locales'
+
+
+const { clipboard, remote } = window.require('electron');
 
 class App extends Component {
 
@@ -20,8 +24,27 @@ class App extends Component {
     super();
 
     this.state = {
-      inputText : ""
+      inputText : "",
+      initDone: false,
+      locale : remote.app.getLocale()
     }
+  }
+
+  componentDidMount () {
+    this.loadLocales();
+  }
+
+  loadLocales(locale = this.state.locale) {
+    intl.init({
+      currentLocale: locale, // TODO: determine locale here
+      locales,
+    })
+    .then(() => {
+	    this.setState({
+        locale, 
+        initDone: true
+      });
+    });
   }
 
   appendInputText = (text) => {
@@ -62,29 +85,36 @@ class App extends Component {
     });
   }
 
+  onChangeLocale = () => {
+
+    const locale = this.state.locale === 'en' ? 'ko' : 'en'
+    this.loadLocales(locale);
+  }
+
   render() { 
 
     return (
+      this.state.initDone && 
       <div className="app">
         <div className="container">
-            <div className="logo">FontMOA</div>
+            <div className="logo" onClick={this.onChangeLocale}>{intl.get('app.title')}</div>
             <Tabs full={true} styles={{paddingLeft: '150px'}}>	
-              <FontManager id="font" title="폰트" active={true} appendInputText={this.appendInputText} />
-              <GlyfManager id="glyf" title="글자들"  appendInputText={this.appendInputText}/>              
-              <EmojiManager id="emoji" title="Emoji 5.0"  appendInputText={this.appendInputText}/>              
-              <StyleManager id="style" title="꾸미기"  appendInputText={this.appendInputText}/>
-              <CssManager id="css" title="CSS"  appendInputText={this.appendInputText}/>
-              <ExportManager id="export "title="내보내기"  appendInputText={this.appendInputText}/>
-              <LicenseManager id="license "title="라이센스 관리" right={true}  appendInputText={this.appendInputText}/>              
+              <FontManager id="font" title={intl.get('app.tab.font.title')} active={true} appendInputText={this.appendInputText} />
+              <GlyfManager id="glyf" title={intl.get('app.tab.glyphs.title')}  appendInputText={this.appendInputText}/>              
+              <EmojiManager id="emoji" title={intl.get('app.tab.emoji.title')}  appendInputText={this.appendInputText}/>              
+              <StyleManager id="style" title={intl.get('app.tab.style.title')}  appendInputText={this.appendInputText}/>
+              <CssManager id="css" title={intl.get('app.tab.css.title')}  appendInputText={this.appendInputText}/>
+              <ExportManager id="export "title={intl.get('app.tab.export.title')}  appendInputText={this.appendInputText}/>
+              <LicenseManager id="license "title={intl.get('app.tab.license.title')} right={true}  appendInputText={this.appendInputText}/>              
             </Tabs>
         </div>
         <div className="app-input">
           <div className="input-copy">
-            <button className="btn large" onClick={this.handleCopyText}>Copy</button>
+            <button className="btn large" onClick={this.handleCopyText}>{intl.get('app.inputCopy.text')}</button>
           </div>
-          <div className="input-text" onClick={this.handleDeleteTextItem} data-placeholder="문자나 이모지를 선택해주세요. 한번에 복사할 수 있습니다.">
+          <div className="input-text" onClick={this.handleDeleteTextItem} data-placeholder={intl.get('app.inputText.placeholder')}>
             {[...this.state.inputText].map((text, index) => {
-              return <span key={index} className="item" data-index={index} title="클릭하면 지워집니다.">{text}</span>
+              return <span key={index} className="item" data-index={index} title={intl.get('app.inputText.item.title')}>{text}</span>
             })}
           </div>
           <div className="input-delete">

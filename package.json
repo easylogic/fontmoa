@@ -23,6 +23,7 @@
     "react-children-utilities": "^0.1.14",
     "react-color": "^2.13.4",
     "react-dom": "^15.6.1",
+    "react-intl-universal": "^1.2.1",
     "react-redux": "^5.0.5",
     "react-scripts": "1.0.10",
     "reactcss": "^1.2.2",

@@ -1,3 +1,4 @@
+import intl from 'react-intl-universal'
 
 import React, { Component } from 'react';
 import './default.css';
@@ -61,11 +62,6 @@ class Menubar extends Component {
         this.setState({ displayColorPickerBackground: false })
     }
 
-
-    handleSearchFont = (e) => {
-
-    }
-
     render() {
 
         const styles = reactCSS({
@@ -111,13 +107,9 @@ class Menubar extends Component {
 
         return (
             <div className="navbar">
-                <div className="inline">
-                    <span > Search: &nbsp;</span>
-                    <input type="text" className="input search-field" placeholder="설치된 폰트 검색해보아요." onChange={this.handleSearchFont} />
-                </div>
                 <div className="inline right">
-                    <span>글자 변환</span>
-                    <input type="text" className="input" onInput={this.onChangeText}  placeholder="텍스트를 입력하세요." />
+                    <span>{intl.get('fontmanager.menubar.typing.title')}</span>
+                    <input type="text" className="input" onInput={this.onChangeText}  placeholder={intl.get('fontmanager.menubar.typing.inputText.placeholder')} />
                     <div style={ styles.colorBlock }>
                         <div style={ styles.swatch } onClick={ this.handleClickForeground}>
                             <div style={ styles.color } />
@@ -143,8 +135,10 @@ class Menubar extends Component {
                         }
                     </div>
                     
-                    <span style={{width: '200px'}}>
-                        <input type='range' onInput={this.onChangeFontSize}  min="10" max="100" defaultValue="40" step="1" />
+                    <span className="range-component" style={{width: '200px'}}>
+                        <span className="small">{intl.get('fontmanager.menubar.text.size.title')}</span> 
+                        <input type='range' onInput={this.onChangeFontSize}  min="10" max="100" defaultValue="40" step="1" /> 
+                        <span className="big">{intl.get('fontmanager.menubar.text.size.title')}</span>
                     </span>
                     <input type="text" className="input font-size" readOnly={true} value={this.state.fontSize} />
                 </div>

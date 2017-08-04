@@ -1,0 +1,42 @@
+{
+    "app.title": "FontMOA",
+    "app.tab.font.title": "폰트",
+    "app.tab.glyphs.title": "글자들",
+    "app.tab.emoji.title" : "Emoji 5.0",
+    "app.tab.style.title" : "꾸미기",
+    "app.tab.css.title" : "CSS",
+    "app.tab.export.title" : "내보내기",
+    "app.tab.license.title" : "라이센스", 
+    "app.inputCopy.text" : "복사",
+    "app.inputText.placeholder": "문자나 이모지를 선택해주세요. 한번에 복사할 수 있습니다.",
+    "app.inputText.item.title" : "클릭하면 지워집니다.",
+
+    "fontmanager.category.system.folder.name": "시스템 디렉토리",
+    "fontmanager.category.new.folder": "사용자 디렉토리",
+    "fontmanager.category.folder.list.plus.title": "디렉토리를 추가하세요.",
+    "fontmanager.category.favorite.title" : "즐겨찾기",
+    "fontmanager.category.delete.userfolder" : "디렉토리 삭제",
+    "fontmanager.category.alert.OK" : "확인",
+    "fontmanager.category.delete.folder.message" : "{{directory}} 디렉토리를 지우시겠습니까?\r\n디렉토리를 지우시면 기존에 가지고 있던 폰트 파일 목록도 같이 지워집니다.",
+
+    "fontmanager.fontinfo.fields.license.title" : "라이센스",
+    "fontmanager.fontinfo.fields.licenseURL.title" : "License URL",        
+    "fontmanager.fontinfo.fields.copyright.title" : "저작권",        
+    "fontmanager.fontinfo.fields.manufacturer.title" : "제작사" ,        
+    "fontmanager.fontinfo.fields.vendorURL.title" : "URL",        
+    "fontmanager.fontinfo.fields.version.title" : "버전",
+    "fontmanager.fontinfo.fields.trademark.title" : "등록상표",
+    "fontmanager.fontinfo.fields.language.title" : "언어",
+    "fontmanager.fontinfo.fields.size.title" : "파일 크기",
+    "fontmanager.fontinfo.fields.name.title" : "파일 이름",
+
+    "fontmanager.fontlistview.header.title" : "디렉토리",
+    
+    "fontmanager.menubar.typing.title": "글자 입력",   
+    "fontmanager.menubar.typing.inputText.placeholder": "텍스트를 입력하세요.",
+    "fontmanager.menubar.text.size.title": "가", 
+
+    "glyfmanager.fontlist.specialChars.title": "특수 문자",
+
+    "" : ""
+}

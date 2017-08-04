@@ -1,7 +1,7 @@
 
 .app-menu {
   position:absolute;
-  left:0px;
+  left:260px;
   top:10px;
   right:0px;
   height:40px;
@@ -12,7 +12,7 @@
 .app-sidebar {
   position: absolute;
   left:10px;
-  top:50px;
+  top:10px;
   bottom:0px;
   width:240px;
   background-color: white;

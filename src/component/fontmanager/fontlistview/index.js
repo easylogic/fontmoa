@@ -1,4 +1,4 @@
-
+import intl from 'react-intl-universal'
 import React, { Component } from 'react';
 import './default.css';
 
@@ -90,7 +90,7 @@ class FontListView extends Component {
         return (
             <div className="font-list-view">
                 <div className="font-list-header" >
-                    <div className="title">디렉토리 {this.props.directory} : {this.props.files.length}</div>
+                    <div className="title">{intl.get('fontmanager.fontlistview.header.title')} {this.props.directory} : {this.props.files.length}</div>
                     <div className="tools">
                         <ul className="pill" onClick={this.handleTabClick}>
                             <li className={this.state.selectedRow ? 'active' : ''}><a href="#row"><i className="icon icon-menu"></i></a></li>

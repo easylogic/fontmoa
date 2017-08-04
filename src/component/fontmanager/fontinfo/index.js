@@ -1,4 +1,4 @@
-
+import intl from 'react-intl-universal'
 import React, { Component } from 'react';
 import './default.css';
 
@@ -7,38 +7,39 @@ const filesize = window.require('filesize');
 class FontInfo extends Component {
 
     fieldList = [
-        { key : "license", title : "라이센스" },                
-        { key : "licenseURL", title : "License URL" },        
-        { key : "copyright", title : "저작권" },        
-        { key : "manufacturer", title : "제작사" },        
-        { key : "vendorURL", title : "URL" },        
-        { key : "version", title : "버전" },
-        { key : 'trademark', title : '등록상표' },
-        { key : "language", title : "언어" },
+        { key : "license", },                
+        { key : "licenseURL",  },        
+        { key : "copyright", },        
+        { key : "manufacturer", },        
+        { key : "vendorURL",  },        
+        { key : "version",  },
+        { key : 'trademark', },
+        { key : "language", },
     ]
 
     getViewInfo (font) {
 
         let list = [];
 
-
+        
         if (font && Object.keys(font).length) {
             const size = filesize.partial({ round: 1, spacer: "" });
             const lang = font.currentLanguage;            
 
             this.fieldList.forEach((field) => {
+                const fieldKey = "fontmanager.fontinfo.fields."+field.key+".title";
                 if (font.name && font.name[field.key] && font.name[field.key][lang]) { 
-                    list.push({ title : field.title, content : font.name[field.key][lang], key : field.key })
+                    list.push({ title : intl.get(fieldKey), content : font.name[field.key][lang], key : field.key })
                 } else if (font[field.key]) {
                     const content = Array.isArray(font[field.key]) ? font[field.key].join(', ') : font[field.key];
-                    list.push({ title : field.title, content : content, key : field.key })
+                    list.push({ title : intl.get(fieldKey), content : content, key : field.key })
                 }
             })
 
-            list.push({ title : '파일 이름', content : font.item.name })
+            list.push({ title : intl.get("fontmanager.fontinfo.fields.name.title"), content : font.item.name })
 
             if (font.size) {
-                list.push({ title : '파일 크기', content : size(font.size) })
+                list.push({ title : intl.get("fontmanager.fontinfo.fields.size.title"), content : size(font.size) })
             }            
         }
 
@@ -75,7 +76,7 @@ class FontInfo extends Component {
                     return (
                         <div className="file-note-item vmenu flat" key={i} onClick={this.onClickNoteItem}>
                             <a className={activeClass}>{it.title}</a>
-                            <ul className="submenu"><li className={activeClass}><a {...attrs} >{it.content}</a></li></ul>
+                            <ul className="submenu"><li ><a {...attrs} >{it.content}</a></li></ul>
                         </div>
                     )
                 })}

@@ -24,8 +24,12 @@
 }
 
 .app .logo {
+  position:absolute;
   font-size: 20px;
   padding:16px;
+  display: inline-block;
+  z-index: 100;
+  cursor:pointer;
   font-family: "Berlin Sans FB";
 }
 
@@ -129,6 +133,10 @@
 
 .jui .btn:focus {
   outline:none !important; 
+}
+
+.jui .tab.top li>a {
+  border-radius: 0px !important;
 }
 
 .jui .tab.top li.active>a {

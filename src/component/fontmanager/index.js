@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import './default.css';
 
@@ -23,7 +22,7 @@ class FontManager extends Component {
     this.state = { 
       files : [], 
       directory : "", 
-      systemFolders : this.getSystemFolders(), 
+      systemFolders: [],
       userFolders: [], 
       favorite : [],
       font :{},
@@ -40,11 +39,11 @@ class FontManager extends Component {
     switch (platform) {
       case "darwin" : 
         return [
-            { name : '시스템 폴더', directory : '/Library/Fonts'}
+            { name : 'fontmanager.category.system.folder.name', directory : '/Library/Fonts'}
         ];
       case "win32" : 
         return [
-          { name : '시스템 폴더', directory : 'c:\\Windows\\Fonts'}
+          { name : 'fontmanager.category.system.folder.name', directory : 'c:\\Windows\\Fonts'}
         ];
       default : 
         return []
@@ -77,6 +76,7 @@ class FontManager extends Component {
   refreshFolder = () => {
     fontdb.folderList((list) => {
       this.setState({
+        systemFolders : this.getSystemFolders(), 
         userFolders: list
       })
     })

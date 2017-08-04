@@ -1,3 +1,4 @@
+import intl from 'react-intl-universal'
 import React, { Component } from 'react';
 import './default.css';
 
@@ -15,25 +16,24 @@ class Category extends Component {
         if (e.target.classList.contains("icon-trashcan")) {
 
             const directory = e.target.parentNode.getAttribute("data-directory")
-            const message = directory + " 디렉토리를 지우시겠습니까?\r\n디렉토리를 지우시면 기존에 가지고 있던 폰트 파일 목록도 같이 지워집니다."
+            const message = intl.get("fontmanager.category.delete.folder.message", { directory})
 
             const self = this; 
             dialog.showMessageBox(null, {
                 "type" : 'question',
-                "title" : "확인",
+                "title" : intl.get('fontmanager.category.alert.OK'),
                 message,
                 buttons: ['Ok', 'Cancel'],
 
             }, function (buttonIndex) {
                 if (buttonIndex === 0) {
-                    // 확인 
                     if (directory) {
                         fontdb.removeDirectory(directory, () => {
                             self.props.refreshDirectory();
                         })
                     } 
                 } else {
-                    // 취소 
+                    
                 }
             })
 
@@ -69,7 +69,7 @@ class Category extends Component {
 
     createSystemFolderList = () => {
         return this.props.systemFolders.map((it, index) => {
-            return <a key={index} className="title" data-directory={it.directory}>{it.name}</a>
+            return <a key={index} className="title" data-directory={it.directory}>{intl.get(it.name).d(it.name)}</a>
         })
     }
 
@@ -78,7 +78,7 @@ class Category extends Component {
         return (<ul className="submenu">
             {
                 this.props.userFolders.map((it, index) => {
-                    return <li key={index}><a className="folder-item" data-directory={it.directory}>{it.name}<i className="icon icon-trashcan" title="Delete directory" style={{float: 'right'}}></i></a></li>
+                    return <li key={index}><a className="folder-item" data-directory={it.directory}>{it.name}<i className="icon icon-trashcan" title={intl.get('fontmanager.category.delete.userfolder')} style={{float: 'right'}}></i></a></li>
                 })
             }
         </ul>);
@@ -101,9 +101,9 @@ class Category extends Component {
                 <div className="category-content menu" >
                     <div className="folder-list vmenu rect"  onClick={this.handleFolderItemClick}>
                         { this.createSystemFolderList() }
-                        <a className="title" title="눌러서 디렉토리를 추가하세요." onClick={this.onAddFolder}><i className="icon icon-plus"></i> 사용자 디렉토리</a>
+                        <a className="title" title={intl.get('fontmanager.category.folder.list.plus.title')} onClick={this.onAddFolder}><i className="icon icon-plus"></i> {intl.get('fontmanager.category.new.folder')}</a>
                         { this.props.userFolders.length ? this.createUserFolderList() : "" }    
-                        <a className="title">즐겨찾기</a>
+                        <a className="title">{intl.get('fontmanager.category.favorite.title')}</a>
                         { this.props.favorite.length ? this.createFavoriteList() : "" }                            
                     </div>
                 </div>
