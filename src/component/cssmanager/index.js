@@ -5,10 +5,14 @@ import './default.css';
 import {TabItem} from '../../jui'
 
 class CssManager extends Component {
+
+  setActive = (id) => {
+    this.refs.tabItem.setActive(id === this.props.id);
+  }  
   render() {
 
     return (
-        <TabItem active={this.props.active}>
+        <TabItem ref="tabItem" active={this.props.active}>
           
         </TabItem>
     );

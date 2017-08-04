@@ -4,23 +4,19 @@ import './default.css';
 
 class GlyfList extends Component {
 
-    constructor() {
-        super()
-
-        this.state = {
-            selectedUnicode : 0
-        }
-    }
-
     onChange = (e) => {
         this.props.changeUnicodeBlock(e.target.value);
     }
 
     onClickGlyfItem = (e) => {
+        const selectedNode = e.target.parentNode.querySelector('[data-selected=true]');
+
+        if (selectedNode) {
+            selectedNode.removeAttribute('data-selected');
+        }
+        e.target.setAttribute('data-selected', 'true');
+
         const unicode = parseInt(e.target.getAttribute('data-unicode'), 10) || 0;
-        this.setState({
-            selectedUnicode : unicode
-        })
         this.props.changeSelectedGlyf(unicode)
     }
 
@@ -51,11 +47,14 @@ class GlyfList extends Component {
 
                     this.props.glyf.map((unicode, index) => {
                         const char = String.fromCodePoint(unicode) || "";
-                        const code = '\\u' + unicode.toString(16); 
 
-                        const selected = unicode === this.state.selectedUnicode;
+                        const tempAttrs = {
+                            'data-unicode' : unicode,
+                            className : 'glyf-item',
+                            key : index, 
+                        }
 
-                        return <div key={index} className="glyf-item" data-selected={selected} data-unicode={unicode} data-char={code}>{char}</div>
+                        return <div {...tempAttrs}>{char}</div>
                     })
                 }
 

@@ -15,14 +15,23 @@ export default class Tabs extends Component {
         this.state = {
             activeTab : activeTab || ""
         }
+
+        this.tabs = {}
     }
 
     onTabClick = (e) => {
+
         const id = e.target.getAttribute('data-id');
 
-        this.setState({
-            activeTab : id 
-        })
+        const selectedNode = e.target.parentNode.querySelector('.active');
+        if (selectedNode) {
+            selectedNode.classList.remove('active');
+        }
+        e.target.classList.add('active');
+
+        for(let tab in this.tabs) {
+            this.tabs[tab].setActive(id);
+        }
     }
 
     createItemClass = (child) => {
@@ -36,6 +45,7 @@ export default class Tabs extends Component {
     }
 
     render() {
+        const self = this; 
         return (
             <div className="tabs full">
                 <ul className="tab top" style={this.props.styles} onClick={this.handleTabClick} >
@@ -55,7 +65,12 @@ export default class Tabs extends Component {
                 </ul>
                 <div className="tab-container">
                     {React.Children.map(this.props.children, (child) => {
-                        return React.cloneElement(child, { active : this.state.activeTab === child.props.id })
+                        return React.cloneElement(child, { 
+                            ref : ((element) => {
+                                self.tabs[child.props.id] = element; 
+                            }),
+                            active : this.state.activeTab === child.props.id 
+                        })
                     })}
                 </div>
             </div>

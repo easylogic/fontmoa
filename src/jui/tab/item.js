@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 
 export default class TabItem extends Component {
+
+    setActive (isActive) {
+        this.tabItem.classList.toggle('active', isActive);
+    }
+
     createItemClass = () => {
         let itemClass = ['tab-content'];
 
@@ -12,7 +17,7 @@ export default class TabItem extends Component {
     }
     render () {
         return (
-            <div id={this.props.id} className={this.createItemClass()}>
+            <div ref={(tabItem) => {this.tabItem = tabItem;}} id={this.props.id} className={this.createItemClass()}>
                 {React.Children.map(this.props.children, (child) => {
                     return child;
                 })}

@@ -13,10 +13,12 @@ import CssManager from '../cssmanager'
 import ExportManager from '../exportmanager'
 import LicenseManager from '../licensemanager'
 
+import CopyText from './CopyText'
+
 import locales from '../../locales'
 
 
-const { clipboard, remote } = window.require('electron');
+const { remote } = window.require('electron');
 
 class App extends Component {
 
@@ -48,41 +50,7 @@ class App extends Component {
   }
 
   appendInputText = (text) => {
-    this.setState({
-      inputText : this.state.inputText + text 
-    })
-  }
-
-  handleInputText = (e) => {
-    this.setState({
-      inputText : e.target.innerHTML 
-    })
-  }
-
-  handleCopyText = (e) => {
-    const copyText = this.state.inputText;
-    clipboard.writeText(copyText);
-  }
-
-  handleDeleteText = (e) => {
-    this.setState({
-      inputText : ''
-    })
-  }  
-
-  handleDeleteTextItem = (e) => {
-    const index = parseInt(e.target.getAttribute('data-index') || '-1', 10);
-
-    let chars = [...this.state.inputText];
-    
-    if (index > -1) {
-      chars.splice(index, 1);
-    }
-
-
-    this.setState({
-      inputText : chars.join('')
-    });
+    this.refs.copyText.appendInputText(text);
   }
 
   onChangeLocale = () => {
@@ -92,7 +60,6 @@ class App extends Component {
   }
 
   render() { 
-
     return (
       this.state.initDone && 
       <div className="app">
@@ -108,19 +75,7 @@ class App extends Component {
               <LicenseManager id="license "title={intl.get('app.tab.license.title')} right={true}  appendInputText={this.appendInputText}/>              
             </Tabs>
         </div>
-        <div className="app-input">
-          <div className="input-copy">
-            <button className="btn large" onClick={this.handleCopyText}>{intl.get('app.inputCopy.text')}</button>
-          </div>
-          <div className="input-text" onClick={this.handleDeleteTextItem} data-placeholder={intl.get('app.inputText.placeholder')}>
-            {[...this.state.inputText].map((text, index) => {
-              return <span key={index} className="item" data-index={index} title={intl.get('app.inputText.item.title')}>{text}</span>
-            })}
-          </div>
-          <div className="input-delete">
-            <button className="btn large" onClick={this.handleDeleteText}><i className="icon icon-trashcan"></i></button>
-          </div>          
-        </div> 
+        <CopyText ref="copyText" />
       </div>
     );
   }

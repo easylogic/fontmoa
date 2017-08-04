@@ -52,17 +52,19 @@
 }
 
 .app-input .input-text {
-  position:absolute;
-  right:60px;
-  top:5px;
-  bottom:5px;
+  position: absolute;
+  right: 60px;
+  top: 0px;
+  bottom: 5px;
   left: 100px;
   background-color: rgba(116, 12, 210, 0.1);
-  padding:4px;
+  padding: 0px 4px;
   font-size: 20px;
   vertical-align: middle;
-  line-height:30px;
-  border-radius:3px;
+  line-height: 200%;
+  border-radius: 3px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .app-input .input-text .item {

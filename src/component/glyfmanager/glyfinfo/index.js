@@ -9,6 +9,14 @@ const { clipboard, remote } = window.require('electron');
 const dialog = remote.dialog;
 
 class GlyfInfo extends Component {
+    constructor (props) {
+        super(props) 
+
+        this.state = {
+            selectedGlyf : this.props.selectedGlyf,
+            selectedFont : this.props.selectedFont,
+        }
+    }
 
     onClickUnicode = (e) => {
         const copyText = e.target.innerText;
@@ -22,10 +30,10 @@ class GlyfInfo extends Component {
     }
 
     render() {
-        const unicode = this.props.selectedGlyf;
+        const unicode = this.state.selectedGlyf;
         const unicode16 = unicode.toString(16).toUpperCase();
-        const char = String.fromCodePoint(this.props.selectedGlyf || 0) || "";
-        const font = this.props.selectedFont;
+        const char = String.fromCodePoint(this.state.selectedGlyf || 0) || "";
+        const font = this.state.selectedFont;
         const style = font.collectStyle;
 
         let pos = common.caculateFontUnit(font);

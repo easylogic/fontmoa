@@ -12,11 +12,26 @@
     border:0px !important;
 }
 
-.font-tree-node.child {
+.jui .vmenu.flat>* {
+    border: 0px !important;
+}
+
+.font-tree-node.child  {
     font-size: 15px;
+
+}
+
+.font-tree-node.child li {
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);    
+    padding: 10px 20px !important;
+    margin-right:10px;
+    margin-left:10px;
+    box-sizing:border-box;
+    border-radius: 3px;
 }
 
 .font-tree-node.child li.active {
     background-color: #740CD2;
     color:white !important;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);    
 }

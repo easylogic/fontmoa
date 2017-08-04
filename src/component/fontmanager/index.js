@@ -50,6 +50,10 @@ class FontManager extends Component {
     }
   }
 
+  setActive = (id) => {
+    this.refs.tabItem.setActive(id === this.props.id);
+  }
+
   updateDirectory = (directory) => {
     fontdb.list(directory, (files) => {
       this.setState({ directory ,  files })
@@ -85,7 +89,7 @@ class FontManager extends Component {
   render() {
 
     return (
-        <TabItem active={this.props.active}>
+        <TabItem ref="tabItem" active={this.props.active}>
             <div className="app-menu">
                 <Menubar refreshFontStyle={this.refreshFontView} />
             </div>
