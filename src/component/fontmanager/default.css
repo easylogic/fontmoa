@@ -4,9 +4,9 @@
   left:0px;
   top:10px;
   right:0px;
-  height:50px;
-  padding-left:10px;
-  padding-right:10px;
+  height:40px;
+  border-bottom: 1px solid #ececec;
+  box-sizing:border-box;
 }
 
 .app-sidebar {
@@ -31,8 +31,9 @@
 
 
 /* jui update */ 
-.navbar {
+.jui .navbar {
     overflow: auto !important;
+    border:0px !important;
 }
 
 input[type=range] {

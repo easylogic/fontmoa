@@ -25,7 +25,6 @@
     width: 120px;
     height:120px;
     box-sizing:border-box;
-    border: 1px solid rgba(200, 200, 200, 0.5); 
     cursor: pointer;
     user-select: none;
     font-size: 35px;
@@ -33,6 +32,11 @@
     text-align:center;
     vertical-align: middle;
     padding:10px;
+}
+
+
+.emoji-glyf-item:hover {
+    background-color: rgba(116, 12, 210, 0.1);
 }
 
 .emoji-glyf-item .desc {
@@ -45,6 +49,7 @@
 .emoji-glyf-item[data-selected=true] {
     background-color: #740CD2;
     color:white;
+    border-radius: 3px;    
 }
 
 .emoji-glyf-item:empty:before {

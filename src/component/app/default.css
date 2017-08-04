@@ -1,10 +1,11 @@
 
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
+  height: 6px;
 }
  
 ::-webkit-scrollbar-thumb {
-  background: #666;
+  background: rgba(116, 12, 210, 0.7);
   border-radius: 20px;
 }
 
@@ -110,4 +111,35 @@
   width:100%;
   text-align: center;
   outline:none;
+}
+
+.jui .btn,
+.jui .btn:hover,
+.jui .vmenu > *,
+.jui .tab li > a,
+.jui .navbar,
+.jui .vmenu.flat > .submenu
+ {
+  background-image: none !important;
+}
+
+.jui .navbar {
+  box-shadow: none !important;
+}
+
+.jui .btn:focus {
+  outline:none !important; 
+}
+
+.jui .tab.top li.active>a {
+  border-top: 2px solid #740CD2 !important;
+}
+
+.jui .vmenu.flat > .submenu {
+  padding: 2px 0px !important;
+  background-color: #fff !important;
+}
+
+.jui .vmenu.flat>.submenu>li:hover:not(.active) {
+    background-color: rgba(116, 12, 210, 0.1);
 }

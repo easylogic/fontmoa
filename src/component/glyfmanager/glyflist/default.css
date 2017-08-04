@@ -5,7 +5,7 @@
     right: 0px;
     bottom:0px;
     overflow: auto;
-    border-top:1px solid #ececec;
+    border:1px solid #ececec;
     font-size: 35px;
     line-height:50px;
     vertical-align: middle;
@@ -26,7 +26,6 @@
     width: 70px;
     height:70px;
     box-sizing:border-box;
-    border: 1px solid rgba(200, 200, 200, 0.5); 
     cursor: pointer;
     user-select: none;
     font-size: 35px;
@@ -36,13 +35,14 @@
     padding:10px;
 }
 
-.glyf-item[data-is-start=true] {
-
+.glyf-item:hover {
+    background-color: rgba(116, 12, 210, 0.1);
 }
 
 .glyf-item[data-selected=true] {
     background-color: #740CD2;
     color:white;
+    border-radius: 3px;
 }
 
 .glyf-item:empty:before {

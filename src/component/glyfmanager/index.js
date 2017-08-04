@@ -40,14 +40,15 @@ class GlyfManager extends Component {
       if (f) {
         fontdb.glyfInfo(f.item.path, (glyf) => {
           const blockList = unicode.checkBlockList(glyf);
-
+          const selectedBlock = blockList[0];
+          const filteredGlyf = this.filterGlyf(selectedBlock.index, glyf);
           this.setState({
             fontTree,
             selectedFont : f,
             glyf,
-            filteredGlyf : this.filterGlyf(0, glyf),
+            filteredGlyf,
             blockList,
-            selectedBlock : blockList[0],
+            selectedBlock,
           })
 
         })
@@ -107,10 +108,9 @@ class GlyfManager extends Component {
   updateUnicodeBlock = (glyf) => {
     const blockList = unicode.checkBlockList(glyf);
     const selectedBlock = blockList[0];
-
     this.setState({
       glyf: glyf,
-      filteredGlyf : this.filterGlyf(0, glyf),
+      filteredGlyf : this.filterGlyf(selectedBlock.index, glyf),
       blockList,
       selectedBlock,
     })

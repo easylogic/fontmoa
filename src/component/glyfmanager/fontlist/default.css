@@ -1,5 +1,5 @@
 .font-tree {
-    padding: 5px;
+    padding: 5px 10px;
 }
 
 .font-tree-node {
@@ -7,8 +7,13 @@
     overflow:auto;
 }
 
+.jui .vmenu.flat> .font-tree-node.parent {
+    font-size: 15px;
+    border:0px !important;
+}
+
 .font-tree-node.child {
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .font-tree-node.child li.active {

@@ -7,18 +7,26 @@
     overflow: auto;
     box-sizing:border-box;
     border-left: 1px solid #ececec;
+    display: flex;
+    flex-direction: row-reverse;    
 }
 
 .emoji-info-code {
-    display:flex;
+    flex:1;
     margin-bottom: 10px auto;
 }
 
 .emoji-info-code .unicode {
+    display:block;
     text-align: center;
-    flex:1;
     cursor:pointer;
-    font-size:20px;
+    font-size:15px;
+    vertical-align: middle;
+    padding:10px;
+}
+
+.emoji-info-code .unicode:hover {
+    background-color: rgba(116, 12, 210, 0.1);
 }
 
 .emoji-info-code .unicode:before {
@@ -26,6 +34,7 @@
     display: block;
     padding:5px;
 }
+
 
 .emoji-info-code .unicode-dec:before {
     content: " DEC";
@@ -53,6 +62,7 @@
 
 
 .emoji-info-view {
+    flex:3;
     text-align: center;
     vertical-align: middle;
 }
@@ -90,7 +100,7 @@
     flex: 1;
     display:block;   
     text-align: left;
-    padding-left: 20px; 
+    padding-left: 15px; 
     vertical-align: middle;
 }
 

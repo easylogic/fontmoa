@@ -2,13 +2,12 @@
 import React, { Component } from 'react';
 import './default.css';
 
+import common from '../../../util/common'
+
 const FileItem = (props) => {
     const contentstyle = props.contentstyle;
     const file = props.file;
-    const index = props.index; 
     const item = file.item; 
-
-    
 
     const style = Object.assign({}, {
         fontSize: props.fontStyle.fontSize,
@@ -17,27 +16,10 @@ const FileItem = (props) => {
 
     const isGrid = contentstyle === 'grid';
 
-    let message = isGrid ? "Ag" : "The quick brown fox jumps over the lazy dog";
-
-    if (file.currentLanguage === 'ko') {
-        message = isGrid ? "한글" : "닭 잡아서 치킨파티 함."
-    } else if (file.currentLanguage === 'zh') {
-        message = "太阳";
-    } else if (file.currentLanguage === 'ja') {
-        message = isGrid ? "いろ" : "いろはにほへとちりぬるを";
-    } else if (file.currentLanguage === 'he') {
-        message = isGrid ? "רה" : 'דג סקרן שט בים מאוכזב ולפתע מצא לו חברה איך הקליטה';
-    } else if (file.currentLanguage === 'ar') {
-        message = "طارِ";        
-    }
-
-    message = props.fontStyle.content || message; 
-
-    const rowStart = (index % 5 === 0) ? true : false; 
-    const rowLast = (index % 5 === 4) ? true : false; 
+    let message = props.fontStyle.content || common.getPangramMessage(file.currentLanguage, isGrid); 
 
     return (
-        <div draggable={true} className="font-item" data-dir={item.dir} data-path={item.path} data-row-start={rowStart} data-row-last={rowLast} >
+        <div draggable={true} className="font-item" data-dir={item.dir} data-path={item.path}>
             <div className="font-info">
                 <div className="font-family" title={file.subfamilyName}>{file.currentFamilyName}<span className="font-sub-family">({file.subfamilyName})</span></div>
                 <div className="font-name">{item.name}</div>

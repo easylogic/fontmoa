@@ -21,6 +21,7 @@
     float:left;
     vertical-align: middle;
     font-size:14px;
+    padding:4px;
 }
 
 .font-list-header .tools {
@@ -62,8 +63,7 @@
 
 
 .font-item:hover {
-    background-color:#740CD2 !important;
-    color:white !important;    
+    background-color: rgba(116, 12, 210, 0.1);
     transform-origin: 50% 50%;
     z-index: 100;       
 }
@@ -78,7 +78,7 @@
 }
 
 .font-item.selected {
-    background-color:#740CD2 !important;
+    background-color:#740CD2;
     color:white !important;    
 }
 

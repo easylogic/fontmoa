@@ -109,11 +109,30 @@ const caculateFontUnit = (font) => {
     return pos; 
 }
 
+const getPangramMessage = (lang, isShort) => {
+    let message = isShort ? "Ag" : "The quick brown fox jumps over the lazy dog";
+
+    if (lang === 'ko') {
+        message = isShort ? "한글" : "닭 잡아서 치킨파티 함."
+    } else if (lang === 'zh') {
+        message = "太阳";
+    } else if (lang === 'ja') {
+        message = isShort ? "いろ" : "いろはにほへとちりぬるを";
+    } else if (lang === 'he') {
+        message = isShort ? "רה" : 'דג סקרן שט בים מאוכזב ולפתע מצא לו חברה איך הקליטה';
+    } else if (lang === 'ar') {
+        message = "طارِ";        
+    }
+
+    return message;
+}
+
 const common = {
     getSystemFolders,
     getFontFamilyCollect,
     caculateFontUnit,
     getFontStyleCollect,
+    getPangramMessage,
 }
 
 export default common
