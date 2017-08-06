@@ -21,7 +21,6 @@
     text-align: center;
     cursor:pointer;
     font-size:15px;
-    vertical-align: middle;
     padding:10px;
 }
 
@@ -93,7 +92,6 @@
     display:block;
     text-align:right;
     text-transform: capitalize;
-    vertical-align: middle;    
 }
 
 .emoji-info-view .char-info .desc-item .description {
@@ -101,15 +99,10 @@
     display:block;   
     text-align: left;
     padding-left: 15px; 
-    vertical-align: middle;
 }
 
 .emoji-info-view .char-info .desc-item .description .label {
     margin-right: 2px;
     margin-bottom:2px;
     cursor:pointer;
-}
-
-.emoji-info-select-text {
-
 }

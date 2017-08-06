@@ -37,7 +37,6 @@ class GlyfInfo extends Component {
         const style = font.collectStyle;
 
         let pos = common.caculateFontUnit(font);
-        console.log(font);
 
         const copyUnicodeMessage = intl.get('glyfmanager.glyfinfo.copyUnicodeMessage.title')
 

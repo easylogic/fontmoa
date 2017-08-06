@@ -119,9 +119,23 @@ class GlyfManager extends Component {
   }
 
   updateGlyf = (path) => {
-    fontdb.glyfInfo(path, (glyf) => {
+    fontdb.glyfInfo(path, (font, css, glyf) => {
+      console.log(font, css, glyf);
+        this.insertFontFaceCss(css);
         this.updateUnicodeBlock(glyf);
     })
+  }
+
+  insertFontFaceCss = (css) => {
+
+    if (!document.getElementById(css.fontFamily)) {
+      // css 로드 
+      let link = document.createElement('link');
+      link.id = css.fontFamily;
+      link.rel = 'stylesheet';
+      link.href =  css.csspath;
+      document.head.appendChild(link);
+    }
   }
 
   refreshFontTree = () => {

@@ -1,4 +1,5 @@
 import common from './common'
+import cssMaker from './cssMaker'
 
 
 const fs = window.require('fs');
@@ -118,7 +119,9 @@ const fontInfo = function (realpath, done) {
 const glyfInfo = function (realpath, done) {
     fontInfo(realpath, (font) => {
         if (font) {
-            done && done(font.characterSet);
+            const css = cssMaker.createFontCss(realpath, font);
+            console.log(css);
+            done && done(font, css, font.characterSet);
         } else {
             done && done([]);
         }
