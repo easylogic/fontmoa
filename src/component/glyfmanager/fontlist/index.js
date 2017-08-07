@@ -42,10 +42,9 @@ class FontList extends Component {
     }
 
     onClickFontItem = (font) => {
-        return () => {
-            this.setState({
-                selectedFont : font 
-            })
+        return (e) => {
+
+            this.setState({ selectedFont : font  })
             this.props.refreshGlyf(font);
         }
     }
@@ -62,15 +61,15 @@ class FontList extends Component {
                     className += " active";
                 }
 
+                const message = this.getMessage(f.currentFamilyName) ;
+
                 return (
                     <li 
                         className={className} 
                         key={index} 
                         onClick={this.onClickFontItem(f, index)}
                     >
-                        <a style={style}>
-                            {this.getMessage(f.currentFamilyName)} 
-                        </a>
+                        <a style={style} href={`#${message}`}>{message}</a>
                     </li>
                 )
             })}

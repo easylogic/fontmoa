@@ -110,6 +110,7 @@ class GlyfManager extends Component {
   updateUnicodeBlock = (glyf) => {
     const blockList = unicode.checkBlockList(glyf);
     const selectedBlock = blockList[0];
+
     this.setState({
       glyf: glyf,
       filteredGlyf : this.filterGlyf(selectedBlock.index, glyf),
@@ -120,7 +121,6 @@ class GlyfManager extends Component {
 
   updateGlyf = (path) => {
     fontdb.glyfInfo(path, (font, css, glyf) => {
-      console.log(font, css, glyf);
         this.insertFontFaceCss(css);
         this.updateUnicodeBlock(glyf);
     })

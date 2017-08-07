@@ -120,7 +120,6 @@ const glyfInfo = function (realpath, done) {
     fontInfo(realpath, (font) => {
         if (font) {
             const css = cssMaker.createFontCss(realpath, font);
-            console.log(css);
             done && done(font, css, font.characterSet);
         } else {
             done && done([]);

@@ -15,7 +15,7 @@
   "main": "main.js",
   "homepage": "./",
   "dependencies": {
-    "7zip-bin-mac": "^1.0.1",
+    "datauri": "^1.0.5",
     "emojson": "^1.0.0",
     "filesize": "^3.5.10",
     "fontkit": "^1.7.7",
@@ -48,7 +48,7 @@
   },
   "build": {
     "productName": "FontMoa",
-    "appId": "com.fontmoa.manager",
+    "appId": "com.fontmoa.fontmanager",
     "files": [
       "node_modules/",
       "main.js",

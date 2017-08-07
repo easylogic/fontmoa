@@ -56,9 +56,9 @@ class CopyText extends Component {
             <div className="input-copy">
             <button className="btn large" onClick={this.handleCopyText}>{intl.get('app.inputCopy.text')}</button>
             </div>
-            <div className="input-text" onClick={this.handleDeleteTextItem} data-placeholder={intl.get('app.inputText.placeholder')}>
+            <div title={intl.get('app.inputText.item.title')} className="input-text" onClick={this.handleDeleteTextItem} data-placeholder={intl.get('app.inputText.placeholder')}>
             {[...this.state.inputText].map((text, index) => {
-                return <span key={index} className="item" data-index={index} title={intl.get('app.inputText.item.title')}>{text}</span>
+                return <span key={index} className="item" data-index={index} >{text}</span>
             })}
             </div>
             <div className="input-delete">

@@ -1,5 +1,7 @@
 const os = window.require('os') 
 
+const PROTOCOL_PREFIX = 'fontmoa'
+
 const getFontFamilyCollect = (font) => {
 
     if (!font.familyName) return "";
@@ -133,6 +135,7 @@ const common = {
     caculateFontUnit,
     getFontStyleCollect,
     getPangramMessage,
+    PROTOCOL_PREFIX,
 }
 
 export default common

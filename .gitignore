@@ -13,8 +13,6 @@
 # production
 /build/
 /dist/
-/public/css/
-/public/fonts/
 
 # misc
 .DS_Store

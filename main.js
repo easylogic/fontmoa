@@ -5,7 +5,27 @@ const url = require('url')
 
 let win = null;
 
+// define protocol for inner file system 
+const PROTOCOL_PREFIX = 'fontmoa'
+
+function devToolsLog(s) {
+  console.log(s)
+  if (win && win.webContents) {
+    win.webContents.executeJavaScript(`console.log("${s}")`)
+  }
+}
+
 function createWindow() {
+  // register protocol
+  protocol.registerFileProtocol(PROTOCOL_PREFIX, (req, callback) => {
+    const url = unescape(req.url.substring(10));
+    devToolsLog('full url to open ' + url)
+    callback({path: path.normalize(`${__dirname}/data/${url}`)})
+  }, (error) => {
+    if (error) console.error('failed to register protocol');
+  })
+
+
   // Initialize the window to our specified dimensions
   win = new BrowserWindow({width: 1000, height: 600});
 
@@ -19,7 +39,9 @@ function createWindow() {
 
   // Show dev tools
   // Remove this line before distributing
-  //win.webContents.openDevTools()
+  win.webContents.openDevTools()
+  //devToolsLog('process args ' + process.argv.join(','))
+
 
   // Remove window once app is closed
   win.on('closed', function () {
