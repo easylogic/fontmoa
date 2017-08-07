@@ -26,7 +26,7 @@ class App extends Component {
     super();
 
     this.state = {
-      mini: true,
+      mini: false,
       inputText : "",
       initDone: false,
       locale : remote.app.getLocale()
@@ -86,8 +86,8 @@ class App extends Component {
             <div className="logo" onClick={this.onChangeLocale}>{intl.get('app.title')}</div>
             <Tabs full={true} styles={tabStyle}>	
               <FontManager style={{display: this.state.mini ? 'none' : 'block'}} mini={this.state.mini}  id="font" title={intl.get('app.tab.font.title')} active={fontManagerActive} appendInputText={this.appendInputText} />
-              <GlyfManager style={{display: this.state.mini ? 'block' : 'none'}} mini={this.state.mini}  id="glyf" title={intl.get('app.tab.glyphs.title')}  appendInputText={this.appendInputText}/>              
-              <EmojiManager style={{display: this.state.mini ? 'block' : 'none'}} mini={this.state.mini}  id="emoji" title={intl.get('app.tab.emoji.title')} active={emojiManagerActive}  appendInputText={this.appendInputText}/>              
+              <GlyfManager style={{display: 'block'}} mini={this.state.mini}  id="glyf" title={intl.get('app.tab.glyphs.title')}  appendInputText={this.appendInputText}/>              
+              <EmojiManager style={{display: 'block'}} mini={this.state.mini}  id="emoji" title={intl.get('app.tab.emoji.title')} active={emojiManagerActive}  appendInputText={this.appendInputText}/>              
               <StyleManager style={{display: this.state.mini ? 'none' : 'block'}} mini={this.state.mini}  id="style" title={intl.get('app.tab.style.title')}  appendInputText={this.appendInputText}/>
               <CssManager style={{display: this.state.mini ? 'none' : 'block'}} mini={this.state.mini}  id="css" title={intl.get('app.tab.css.title')}  appendInputText={this.appendInputText}/>
               <ExportManager style={{display: this.state.mini ? 'none' : 'block'}} mini={this.state.mini}  id="export "title={intl.get('app.tab.export.title')}  appendInputText={this.appendInputText}/>
