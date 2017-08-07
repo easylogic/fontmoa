@@ -9,13 +9,15 @@ class CopyText extends Component {
 
     this.state = {
       inputText : "",
+      fontFamily : []
     }
   }
 
-  appendInputText = (text) => {
+  appendInputText = (text, fontFamily) => {
 
     this.setState({
-      inputText : this.state.inputText + text 
+      inputText : this.state.inputText + text,
+      fontFamily : this.state.fontFamily.concat([fontFamily]),
     })
   }
 
@@ -58,7 +60,11 @@ class CopyText extends Component {
             </div>
             <div title={intl.get('app.inputText.item.title')} className="input-text" onClick={this.handleDeleteTextItem} data-placeholder={intl.get('app.inputText.placeholder')}>
             {[...this.state.inputText].map((text, index) => {
-                return <span key={index} className="item" data-index={index} >{text}</span>
+
+                const style = {
+                  fontFamily : this.state.fontFamily[index]
+                }
+                return <span style={style} key={index} className="item" data-index={index} >{text}</span>
             })}
             </div>
             <div className="input-delete">

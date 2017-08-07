@@ -49,8 +49,8 @@ class App extends Component {
     });
   }
 
-  appendInputText = (text) => {
-    this.refs.copyText.appendInputText(text);
+  appendInputText = (text, fontFamily) => {
+    this.refs.copyText.appendInputText(text, fontFamily);
   }
 
   onChangeLocale = () => {

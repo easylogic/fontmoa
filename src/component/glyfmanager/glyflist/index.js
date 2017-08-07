@@ -17,7 +17,11 @@ class GlyfList extends Component {
         e.target.setAttribute('data-selected', 'true');
 
         const unicode = parseInt(e.target.getAttribute('data-unicode'), 10) || 0;
-        this.props.changeSelectedGlyf(unicode)
+
+        if (unicode > 0) {
+            this.props.changeSelectedGlyf(unicode, this.props.selectedFont.collectStyle.fontFamily)
+        }
+
     }
 
     renderGlyf = () => {

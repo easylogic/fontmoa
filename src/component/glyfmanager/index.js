@@ -96,14 +96,14 @@ class GlyfManager extends Component {
     })
   }
 
-  changeSelectedGlyf = (unicode) => {
+  changeSelectedGlyf = (unicode, fontFamily) => {
 
     this.refs.glyfInfo.setState({
       selectedGlyf : unicode,
       selectedFont : this.state.selectedFont
     });
 
-    this.props.appendInputText(String.fromCodePoint(unicode));
+    this.props.appendInputText(String.fromCodePoint(unicode), fontFamily);
 
   }
 
