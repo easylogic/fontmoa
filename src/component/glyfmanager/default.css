@@ -8,6 +8,10 @@
     overflow: auto;
 }
 
+.app.mini .gm-font-list {
+    display:none;
+}
+
 .gm-glyf-list {
     position:absolute;
     width:500px;
@@ -15,6 +19,14 @@
     bottom:10px;
     left: 310px;
     overflow: auto;
+}
+
+.app.mini .gm-glyf-list {
+    left:2px;
+    right:2px;
+    width:auto;
+    bottom:2px;
+    top:2px;
 }
 
 .gm-view-setting {

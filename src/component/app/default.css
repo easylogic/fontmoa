@@ -41,6 +41,11 @@
   bottom:50px;
 }
 
+.app.mini .container {
+  bottom:0px;
+  top:32px;
+}
+
 .app-input {
   position:absolute;
   height: 50px;
@@ -51,11 +56,17 @@
   border-top:1px solid #ececec;
 }
 
+.app.mini .app-input {
+  bottom:auto;
+  top:0px;
+  height: 32px;
+}
+
 .app-input .input-text {
   position: absolute;
   right: 60px;
   top: 5px;
-  bottom: 5px;
+  bottom: 0px;
   left: 100px;
   background-color: rgba(116, 12, 210, 0.1);
   padding: 0px 4px;
@@ -66,6 +77,10 @@
   overflow-y: auto;
   overflow-x: hidden;
   user-select:none;
+}
+
+.app.mini .app-input .input-text {
+  font-size:20px;
 }
 
 .app-input .input-text .item {
@@ -100,10 +115,23 @@
   width: 90px;
 }
 
+
+.app.mini .app-input .input-copy {
+  bottom:0px;
+}
+
 .app-input .input-copy button {
   width:100%;
   text-align: center;
   outline:none;
+}
+
+
+.app.mini .app-input .input-copy button{
+  height: 100% !important;
+  line-height:1;
+  font-size:13px;
+  padding: 5px 5px;
 }
 
 .app-input .input-delete {
@@ -114,10 +142,20 @@
   width: 50px;
 }
 
+.app.mini .app-input .input-delete {
+  bottom:0px;
+}
+
 .app-input .input-delete button {
   width:100%;
   text-align: center;
   outline:none;
+}
+
+.app.mini .app-input .input-delete button {
+  font-size:13px;
+  height:100%;
+  line-height:1;
 }
 
 .jui .btn,

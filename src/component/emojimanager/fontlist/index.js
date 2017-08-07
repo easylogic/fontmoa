@@ -66,13 +66,15 @@ class FontList extends Component {
         const mini = this.props.mini || false; 
 
         let message = currentMessage['emojimanager.fontlist.names.' + emojiKey] || emojiKey;
-
+        let title = message;
         if (mini) {
-            message = "&nbsp;";
+            message = "";
+        } else {
+            title = "";
         }
 
         return (
-            <a key={index} className={className} onClick={this.onClickEmojiItem(emojiKey)}>{}</a>
+            <a key={index} className={className} title={title} onClick={this.onClickEmojiItem(emojiKey)}>{message}</a>
         )
     }
 

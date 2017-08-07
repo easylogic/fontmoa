@@ -13,12 +13,38 @@
     word-wrap: break-word;    
 }
 
+.app.mini .glyf-list {
+    top:2px;
+    border:0px;
+    bottom:32px;
+    left:2px;
+    right:2px;
+}
+
 .glyf-search {
     position: absolute;
     left:10px;
     top:10px;
     right: 10px;
     height:30px;
+}
+
+.app.mini .glyf-search {
+    top:auto;
+    bottom:2px;
+    left:0px;
+    right:0px;
+    border-top:1px solid #ececec;
+}
+
+.app.mini .glyf-search select.input {
+    border:0px;
+    width:100%;
+    box-shadow:none !important;
+}
+
+.app.mini .glyf-search .block-count {
+    display:none;
 }
 
 .glyf-item {
@@ -34,6 +60,14 @@
     vertical-align: middle;
     padding:10px;
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);            
+}
+
+.app.mini .glyf-item {
+    width:30px;
+    height:30px;
+    font-size:20px;
+    line-height: 1;
+    padding:2px;
 }
 
 .glyf-item:hover {

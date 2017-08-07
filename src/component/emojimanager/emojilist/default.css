@@ -12,6 +12,12 @@
     word-wrap: break-word;    
 }
 
+.app.mini .emoji-glyf-list {
+    font-size: 13px;
+    line-height:1;
+    top:2px;
+}
+
 .emoji-glyf-search {
     position: absolute;
     left:10px;
@@ -32,7 +38,8 @@
     text-align:center;
     vertical-align: middle;
     padding:10px;
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);        
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);   
+    border-radius:3px;     
 }
 
 
@@ -63,9 +70,11 @@
 .app.mini .emoji-glyf-item {
     width: auto;
     height:auto;
-    font-size: 20px;
+    font-size: 25px;
     line-height:1.2;
-    padding:3px 0px;
+    padding:2px 4px;
+    margin-bottom:1px;
+    box-sizing:border-box;
 
 }
 

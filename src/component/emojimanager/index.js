@@ -84,6 +84,7 @@ class EmojiManager extends Component {
           </div>
           <div className="em-font-list">
             <FontList  
+              mini={this.props.mini}
               selectedEmojiTagKey={this.state.selectedEmojiTagKey} 
               selectedEmojiKey={this.state.selectedEmojiKey}
               refreshEmojiTagKey={this.refreshEmojiTagKey} 

@@ -71,6 +71,7 @@ class App extends Component {
     let tabStyle = {paddingLeft: '150px'};
     if (this.state.mini) {
       tabStyle.paddingLeft = '0px';
+      tabStyle.marginTop = '5px';
     }
 
     let fontManagerActive = (this.state.mini ? false : true); 

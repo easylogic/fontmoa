@@ -37,10 +37,10 @@
 
 .app.mini .em-emoji-list {
     width:auto;
-    left:10px;
-    right:10px;
-    top:10px;
-    bottom:50px;
+    left:2px;
+    right:2px;
+    top:2px;
+    bottom:40px;
 }
 
 .app.mini .em-emoji-info {
@@ -53,6 +53,6 @@
     top:auto;
     width:auto;
     bottom:0px;
-    height: 50px;
+    height: 40px;
     overflow:hidden;
 }
