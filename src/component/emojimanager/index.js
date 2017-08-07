@@ -74,7 +74,7 @@ class EmojiManager extends Component {
   }
   render() {
     return (
-        <TabItem ref="tabItem" id={this.props.id}  active={this.props.active}>
+        <TabItem ref="tabItem"  id={this.props.id}  active={this.props.active}>
           <div className="em-emoji-list">
             <EmojiList 
                 selectedEmoji={this.state.selectedEmoji} 

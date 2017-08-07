@@ -154,3 +154,7 @@
 .jui .vmenu.flat>.submenu>li:hover:not(.active) {
     background-color: rgba(116, 12, 210, 0.1);
 }
+
+.app.mini .logo {
+  display:none;
+}

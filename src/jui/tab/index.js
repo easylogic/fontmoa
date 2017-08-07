@@ -50,7 +50,7 @@ export default class Tabs extends Component {
                 <ul className="tab top" style={this.props.styles} onClick={this.handleTabClick} >
                     {React.Children.map(this.props.children, (child) => {
 
-                        const style = {}
+                        const style = Object.assign({}, child.props.style || {});
 
                         if (child.props.right) {
                             style.float = 'right';

@@ -53,7 +53,7 @@ class FontList extends Component {
 
     createEmojiList = (emojiKey, index, currentMessage) => {
 
-        let className = "emoji-tree-node cate";
+        let className = "emoji-tree-node cate node-" + index;
 
         if (this.state.selectedEmojiKey === emojiKey) {
             className += " active";
@@ -63,8 +63,16 @@ class FontList extends Component {
             className += " hide";
         }
 
+        const mini = this.props.mini || false; 
+
+        let message = currentMessage['emojimanager.fontlist.names.' + emojiKey] || emojiKey;
+
+        if (mini) {
+            message = "&nbsp;";
+        }
+
         return (
-            <a key={index} className={className} onClick={this.onClickEmojiItem(emojiKey)}>{currentMessage['emojimanager.fontlist.names.' + emojiKey] || emojiKey}</a>
+            <a key={index} className={className} onClick={this.onClickEmojiItem(emojiKey)}>{}</a>
         )
     }
 
@@ -102,7 +110,7 @@ class FontList extends Component {
                             return this.createEmojiList(emojiKey, index, currentMessage)
                         })}
                     </div>
-                    <div className="emoji-tree-level">
+                    <div className="emoji-tree-level tags">
                         <div className="title">{intl.get('emojimanager.fontlist.tag.title')}</div>
                         {this.props.emojiTagsKeys.map((emojiTagKey, index) => {
                             return this.createEmojiTagList(emojiTagKey, index, currentMessage)

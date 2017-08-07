@@ -12,7 +12,7 @@ class CssManager extends Component {
   render() {
 
     return (
-        <TabItem ref="tabItem" id={this.props.id}  active={this.props.active}>
+        <TabItem ref="tabItem"  id={this.props.id}  active={this.props.active}>
           
         </TabItem>
     );

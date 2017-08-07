@@ -59,3 +59,16 @@
     font-family: sans-serif, serif !important;
     color: #aaa;
 }
+
+.app.mini .emoji-glyf-item {
+    width: auto;
+    height:auto;
+    font-size: 20px;
+    line-height:1.2;
+    padding:3px 0px;
+
+}
+
+.app.mini .emoji-glyf-item .desc {
+    display:none;
+}   

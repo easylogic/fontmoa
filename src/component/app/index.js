@@ -26,6 +26,7 @@ class App extends Component {
     super();
 
     this.state = {
+      mini: true,
       inputText : "",
       initDone: false,
       locale : remote.app.getLocale()
@@ -60,19 +61,36 @@ class App extends Component {
   }
 
   render() { 
+
+    let className = 'app';
+
+    if (this.state.mini) {
+      className += ' mini';
+    }
+
+    let tabStyle = {paddingLeft: '150px'};
+    if (this.state.mini) {
+      tabStyle.paddingLeft = '0px';
+    }
+
+    let fontManagerActive = (this.state.mini ? false : true); 
+    let emojiManagerActive = (this.state.mini ? true : false); 
+ 
+
+
     return (
       this.state.initDone && 
-      <div className="app">
+      <div className={className}>
         <div className="container">
             <div className="logo" onClick={this.onChangeLocale}>{intl.get('app.title')}</div>
-            <Tabs full={true} styles={{paddingLeft: '150px'}}>	
-              <FontManager id="font" title={intl.get('app.tab.font.title')} active={true} appendInputText={this.appendInputText} />
-              <GlyfManager id="glyf" title={intl.get('app.tab.glyphs.title')}  appendInputText={this.appendInputText}/>              
-              <EmojiManager id="emoji" title={intl.get('app.tab.emoji.title')}  appendInputText={this.appendInputText}/>              
-              <StyleManager id="style" title={intl.get('app.tab.style.title')}  appendInputText={this.appendInputText}/>
-              <CssManager id="css" title={intl.get('app.tab.css.title')}  appendInputText={this.appendInputText}/>
-              <ExportManager id="export "title={intl.get('app.tab.export.title')}  appendInputText={this.appendInputText}/>
-              <LicenseManager id="license "title={intl.get('app.tab.license.title')} right={true}  appendInputText={this.appendInputText}/>              
+            <Tabs full={true} styles={tabStyle}>	
+              <FontManager style={{display: this.state.mini ? 'none' : 'block'}} mini={this.state.mini}  id="font" title={intl.get('app.tab.font.title')} active={fontManagerActive} appendInputText={this.appendInputText} />
+              <GlyfManager style={{display: this.state.mini ? 'block' : 'none'}} mini={this.state.mini}  id="glyf" title={intl.get('app.tab.glyphs.title')}  appendInputText={this.appendInputText}/>              
+              <EmojiManager style={{display: this.state.mini ? 'block' : 'none'}} mini={this.state.mini}  id="emoji" title={intl.get('app.tab.emoji.title')} active={emojiManagerActive}  appendInputText={this.appendInputText}/>              
+              <StyleManager style={{display: this.state.mini ? 'none' : 'block'}} mini={this.state.mini}  id="style" title={intl.get('app.tab.style.title')}  appendInputText={this.appendInputText}/>
+              <CssManager style={{display: this.state.mini ? 'none' : 'block'}} mini={this.state.mini}  id="css" title={intl.get('app.tab.css.title')}  appendInputText={this.appendInputText}/>
+              <ExportManager style={{display: this.state.mini ? 'none' : 'block'}} mini={this.state.mini}  id="export "title={intl.get('app.tab.export.title')}  appendInputText={this.appendInputText}/>
+              <LicenseManager style={{display: this.state.mini ? 'none' : 'block'}} mini={this.state.mini}  id="license "title={intl.get('app.tab.license.title')} right={true}  appendInputText={this.appendInputText}/>              
             </Tabs>
         </div>
         <CopyText ref="copyText" />
