@@ -155,7 +155,7 @@ FB50;FDFF;Arabic Presentation Forms-A;ko,아랍어 프리젠 테이션 양식 -A
 FE00;FE0F;Variation Selectors
 FE10;FE1F;Vertical Forms;ko,수직 서식
 FE20;FE2F;Combining Half Marks
-FE30;FE4F;CJK Compatibility Forms
+FE30;FE4F;CJK Compatibility Forms;ko,한중일 호환 서식문자
 FE50;FE6F;Small Form Variants
 FE70;FEFF;Arabic Presentation Forms-B
 FF00;FFEF;Halfwidth and Fullwidth Forms;ko,반각 자모
