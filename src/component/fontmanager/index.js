@@ -1,3 +1,5 @@
+import intl from 'react-intl-universal'
+
 import React, { Component } from 'react';
 import './default.css';
 
@@ -63,12 +65,21 @@ class FontManager extends Component {
 
   updateFontInfo = (path) => {
      fontdb.findOne(path, (font) => {
-      this.setState({ font })
+      //this.setState({ font })
+      this.refs.fontInfo.updateFontInfo(font);
     })
   }
 
   refreshFontView = (style) => {
     this.setState({ style })
+  }
+
+  refreshFontSize = (fontSize) => {
+    this.refs.fontlistview.refreshFontSize(fontSize);
+  }
+
+  refreshFontContent = (content) => {
+    this.refs.fontlistview.refreshFontCont(content);
   }
 
   handleAddFolder = (directory) => {
@@ -87,15 +98,14 @@ class FontManager extends Component {
   }
 
   render() {
-
     return (
         <TabItem ref="tabItem" id={this.props.id}  active={this.props.mini !== true && this.props.active}>
             <div className="app-menu">
-                <Menubar refreshFontStyle={this.refreshFontView} />
+                <Menubar refreshFontStyle={this.refreshFontView} refreshFontSize={this.refreshFontSize} refreshFontContent={this.refreshFontContent} />
             </div>
             <div className="app-sidebar">
                 <Tabs full={true} >
-                    <TabItem id="category" title="Directory" active={true}>
+                    <TabItem id="category" title={intl.get('fontmanager.category.directory.title')} active={true}>
                         <Category 
                             refreshFiles={this.updateDirectory} 
                             refreshDirectory={this.refreshFolder} 
@@ -105,13 +115,13 @@ class FontManager extends Component {
                             favorite={this.state.favorite} 
                         />
                     </TabItem>
-                    <TabItem id="fontinfo" title="Font Info">
-                        <FontInfo font={this.state.font} />
+                    <TabItem id="fontinfo" title={intl.get('fontmanager.category.fontinfo.title')}>
+                        <FontInfo ref="fontInfo" />
                     </TabItem>
                 </Tabs>
             </div>
             <div className="app-content">
-                <FontListView fontStyle={this.state.style} files={this.state.files} directory={this.state.directory} refreshFontInfo={this.updateFontInfo} />
+                <FontListView ref="fontlistview" fontStyle={this.state.style} files={this.state.files} directory={this.state.directory} refreshFontInfo={this.updateFontInfo} />
             </div>
         </TabItem>
     );

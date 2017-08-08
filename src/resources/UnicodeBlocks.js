@@ -1,3 +1,4 @@
+export default `
 0000;007F;Basic Latin;ko,로마자 기본
 0080;00FF;Latin-1 Supplement;ko,로마자-1 보충
 0100;017F;Latin Extended-A;ko,로마자 확장 A
@@ -271,3 +272,4 @@ E0000;E007F;Tags
 E0100;E01EF;Variation Selectors Supplement
 F0000;FFFFF;Supplementary Private Use Area-A
 100000;10FFFF;Supplementary Private Use Area-B
+`

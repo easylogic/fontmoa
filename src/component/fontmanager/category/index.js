@@ -59,9 +59,12 @@ class Category extends Component {
         dialog.showOpenDialog({
             properties: ['openDirectory']
         }, (path) => {
-            const realPath = path[0]
 
-            this.handleAddFolder(realPath);
+            if (path) {
+                this.handleAddFolder(path[0]);
+            }
+
+
         });
 
         

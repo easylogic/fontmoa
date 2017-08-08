@@ -1,4 +1,6 @@
 {
+    "fontmanager.category.directory.title": "디렉토리",    
+    "fontmanager.category.fontinfo.title": "폰트 정보",            
     "fontmanager.category.system.folder.name": "시스템 디렉토리",
     "fontmanager.category.new.folder": "사용자 디렉토리",
     "fontmanager.category.folder.list.plus.title": "디렉토리를 추가하세요.",

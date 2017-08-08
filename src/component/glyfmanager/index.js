@@ -121,8 +121,10 @@ class GlyfManager extends Component {
 
   updateGlyf = (path) => {
     fontdb.glyfInfo(path, (font, css, glyf) => {
+      if (glyf.length > 0) {
         this.insertFontFaceCss(css);
-        this.updateUnicodeBlock(glyf);
+      }
+      this.updateUnicodeBlock(glyf);              
     })
   }
 

@@ -24,6 +24,10 @@ class Menubar extends Component {
         }
     }
 
+    componentDidMount () {
+        this.refs.fontSize.value = this.state.fontSize;
+    }
+
     change = (obj) => {
         this.setState(obj);
 
@@ -31,7 +35,7 @@ class Menubar extends Component {
     }
 
     onChangeText = (e) => {
-        this.change({ content : e.target.value });
+        this.props.refreshFontContent(e.target.value);
     }
 
     onChangeForeground = (color) => {
@@ -43,7 +47,9 @@ class Menubar extends Component {
     }
 
     onChangeFontSize = (e) => {
-        this.change({ fontSize : e.target.value + 'px' });
+        const fontSize = e.target.value + 'px';
+        this.refs.fontSize.value = fontSize;
+        this.props.refreshFontSize(fontSize);
     }
 
     handleClickForeground = () => {
@@ -140,7 +146,7 @@ class Menubar extends Component {
                         <input type='range' onInput={this.onChangeFontSize}  min="10" max="100" defaultValue="40" step="1" /> 
                         <span className="big">{intl.get('fontmanager.menubar.text.size.title')}</span>
                     </span>
-                    <input type="text" className="input font-size" readOnly={true} value={this.state.fontSize} />
+                    <input type="text" className="input font-size" ref="fontSize" readOnly={true} />
                 </div>
 
             </div>

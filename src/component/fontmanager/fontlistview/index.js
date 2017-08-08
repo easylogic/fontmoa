@@ -6,26 +6,22 @@ import common from '../../../util/common'
 
 const FileItem = (props) => {
     const contentstyle = props.contentstyle;
-    const file = props.file;
-    const item = file.item; 
+    const font = props.font;
+    const item = font.item; 
 
-    const style = Object.assign({}, {
-        fontSize: props.fontStyle.fontSize,
-        lineHeight: props.fontStyle.fontSize,
-    }, file.collectStyle);
+    const style = Object.assign({}, font.collectStyle);
 
     const isGrid = contentstyle === 'grid';
 
-    let message = props.fontStyle.content || common.getPangramMessage(file.currentLanguage, isGrid); 
+    let message = props.fontStyle.content || common.getPangramMessage(font.currentLanguage, isGrid); 
 
     return (
         <div draggable={true} className="font-item" data-dir={item.dir} data-path={item.path}>
             <div className="font-info">
-                <div className="font-family" title={file.subfamilyName}>{file.currentFamilyName}<span className="font-sub-family">({file.subfamilyName})</span></div>
+                <div className="font-family" title={font.subfamilyName}>{font.currentFamilyName}<span className="font-sub-family">({font.subfamilyName})</span></div>
                 <div className="font-name">{item.name}</div>
-              
             </div>
-            <div className="font-item-preview" style={style}> {message}</div>
+            <div className="font-item-preview" style={style}>{message}</div>
         </div>        
     )
 }
@@ -75,6 +71,24 @@ class FontListView extends Component {
         })
     }
 
+    refreshFontSize (fontSize) {
+        this.refs.fontListContent.style.fontSize = fontSize;
+    }
+
+    refreshFontCont (content) {
+        if (content) {
+            const nodes = this.refs.fontListContent.querySelectorAll(".font-item-preview");
+
+            if (nodes) {
+                [...nodes].forEach((el) => {
+                    el.textContent = content; 
+                })
+            }
+
+        }
+
+    }
+
     render() {
 
         const fontStyle = {
@@ -82,10 +96,10 @@ class FontListView extends Component {
             content : this.props.fontStyle.content,
         }
 
-        const colorStyle = {
+        const colorStyle = Object.assign({
             color: this.props.fontStyle.color,
             backgroundColor: this.props.fontStyle.backgroundColor,
-        }
+        }, fontStyle);
 
         return (
             <div className="font-list-view">
@@ -98,9 +112,9 @@ class FontListView extends Component {
                         </ul>
                     </div>
                 </div>
-                <div className="font-list-content" style={colorStyle} data-content-style={this.state.fontListContentStyle} onDoubleClick={this.handleFontClick} onClick={this.selectFontClick}>
+                <div ref="fontListContent" className="font-list-content" style={colorStyle} data-content-style={this.state.fontListContentStyle} onDoubleClick={this.handleFontClick} onClick={this.selectFontClick}>
                     {this.props.files.map((it, i) => {
-                        return <FileItem file={it} key={i} index={i} fontStyle={fontStyle} contentstyle={this.state.fontListContentStyle} />
+                        return <FileItem font={it} key={i} index={i} fontStyle={fontStyle} contentstyle={this.state.fontListContentStyle} />
                     })}
                 </div>
             </div>

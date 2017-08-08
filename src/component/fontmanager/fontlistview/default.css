@@ -81,6 +81,7 @@
     pointer-events: none;
     text-align: center;
     margin-bottom:10px;
+    font-size: 13px !important;
 }
 
 .font-info .font-name {

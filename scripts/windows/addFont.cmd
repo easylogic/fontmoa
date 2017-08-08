@@ -1,0 +1,9 @@
+SET FONT_FILE=%1
+SET FONT_NAME=%2
+SET FILE_NAME=%3
+SET DEST_FONTS_DIR=%SystemRoot%\Fonts\
+
+REM Copy Font File
+COPY /Y "%FONT_FILE%" "%DEST_FONTS_DIR%"
+
+REG ADD "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "%FONT_NAME% (TrueType)" /t REG_SZ /d "%FILE_NAME%" /f

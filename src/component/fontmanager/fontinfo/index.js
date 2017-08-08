@@ -17,6 +17,13 @@ class FontInfo extends Component {
         { key : "language", },
     ]
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            font : {}
+        }
+    }
+
     getViewInfo (font) {
 
         let list = [];
@@ -50,9 +57,13 @@ class FontInfo extends Component {
         
     }
 
+    updateFontInfo = (font) => {
+        this.setState({ font })
+    }
+
     render() {
 
-        const font = this.props.font;
+        const font = this.props.font || this.state.font;
 
         const viewInfo = this.getViewInfo(font);
 

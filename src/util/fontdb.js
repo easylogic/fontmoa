@@ -122,7 +122,7 @@ const glyfInfo = function (realpath, done) {
             const css = cssMaker.createFontCss(realpath, font);
             done && done(font, css, font.characterSet);
         } else {
-            done && done([]);
+            done && done({}, {}, []);
         }
     })
 }

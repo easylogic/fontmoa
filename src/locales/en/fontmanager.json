@@ -1,4 +1,6 @@
 {
+    "fontmanager.category.directory.title": "Directory",    
+    "fontmanager.category.fontinfo.title": "Font Info",        
     "fontmanager.category.system.folder.name": "System Folder",
     "fontmanager.category.new.folder": "User Directory",
     "fontmanager.category.folder.list.plus.title": "Add User Folder",

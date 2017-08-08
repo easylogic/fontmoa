@@ -1,4 +1,4 @@
-const fs = window.require('fs');
+import data from '../resources/UnicodeBlocks';
 
 let UNICODE_BLOCK = [ ]
 
@@ -6,24 +6,28 @@ const createUnicodeBlockListCache = () => {
     if (UNICODE_BLOCK.length) return;
 
     let unicodeList = [];
-    const data = fs.readFileSync('resources/UnicodeBlocks.txt') + "";
     data.split('\n').forEach((line) => {
-        const arr = line.split(";");
 
-        const index = unicodeList.length;
-        unicodeList[index] = {
-            index: index,
-            start : parseInt(arr[0], 16),
-            end : parseInt(arr[1], 16),
-            name : arr[2],
-            alias : {}
+        if (line.trim()) {
+            const arr = line.split(";");
+
+            const index = unicodeList.length;
+            unicodeList[index] = {
+                index: index,
+                start : parseInt(arr[0], 16),
+                end : parseInt(arr[1], 16),
+                name : arr[2],
+                alias : {}
+            }
+
+            for(let i = 3, len = arr.length; i < len; i++) {
+                const temp = arr[i].split(",");
+
+                unicodeList[index].alias[temp[0]] = temp[1].trim();
+            }
         }
 
-        for(let i = 3, len = arr.length; i < len; i++) {
-            const temp = arr[i].split(",");
 
-            unicodeList[index].alias[temp[0]] = temp[1].trim();
-        }
     })
 
     UNICODE_BLOCK = unicodeList.sort((a, b) => {
