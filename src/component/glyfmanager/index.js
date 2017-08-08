@@ -10,15 +10,19 @@ import FontList from './fontlist'
 
 import fontdb  from '../../util/fontdb'
 import unicode from '../../util/unicode'
+import common from '../../util/common'
 
 class GlyfManager extends Component {
  constructor () {
     super();
 
+    const specialChars = common.createSpecialChars();
+
     this.state = { 
+      specialChars : specialChars,
       blockList: [],
       selectedBlock: {},
-      selectedFont : {},
+      selectedFont : specialChars.files[0],
       fontTree : [], 
       favorite : [],
       glyf :[],
@@ -35,16 +39,16 @@ class GlyfManager extends Component {
   initFontTree = () => {
     fontdb.fontTree((tree) => {
       const fontTree = tree; 
-      const f = fontTree[0].files[0];
+      const font = fontTree[0].files[0];
 
-      if (f) {
-        fontdb.glyfInfo(f.item.path, (glyf) => {
+      if (font) {
+        fontdb.glyfInfo(font.item.path, (glyf) => {
           const blockList = unicode.checkBlockList(glyf);
           const selectedBlock = blockList[0];
           const filteredGlyf = this.filterGlyf(selectedBlock.index, glyf);
           this.setState({
             fontTree,
-            selectedFont : f,
+            //f : font,       // 제일 처음에는 특수문자를 보여줄꺼라 font 를 설정하지 않음. 
             glyf,
             filteredGlyf,
             blockList,
@@ -163,7 +167,7 @@ class GlyfManager extends Component {
             <GlyfList changeSelectedGlyf={this.changeSelectedGlyf} changeUnicodeBlock={this.changeUnicodeBlock} selectedBlock={this.state.selectedBlock} blockList={this.state.blockList} selectedFont={this.state.selectedFont}   glyf={this.state.filteredGlyf}/>
           </div>
           <div className="gm-font-list">
-            <FontList  selectedFont={this.state.selectedFont} refreshGlyf={this.refreshGlyf} fontTree={this.state.fontTree}/>
+            <FontList specialChars={this.state.specialChars} selectedFont={this.state.selectedFont} refreshGlyf={this.refreshGlyf} fontTree={this.state.fontTree}/>
           </div>
           <div className="gm-glyf-info">
             <GlyfInfo ref="glyfInfo" selectedGlyf={this.state.selectedGlyf} selectedFont={this.state.selectedFont} />

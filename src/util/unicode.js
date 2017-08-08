@@ -21,18 +21,19 @@ const createUnicodeBlockListCache = () => {
             }
 
             for(let i = 3, len = arr.length; i < len; i++) {
-                const temp = arr[i].split(",");
+                if (arr[i] && arr[i].trim()) {
+                    const temp = arr[i].split(",");
 
-                unicodeList[index].alias[temp[0]] = temp[1].trim();
+                    unicodeList[index].alias[temp[0]] = temp[1].trim();
+                }
+
             }
         }
 
 
     })
 
-    UNICODE_BLOCK = unicodeList.sort((a, b) => {
-        return a.name > b.name ? 1 : -1;
-    }).map((code, index) => {
+    UNICODE_BLOCK = unicodeList.map((code, index) => {
         code.index = index; 
         return code; 
     })

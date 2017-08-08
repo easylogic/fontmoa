@@ -8,9 +8,13 @@ class FontList extends Component {
         super(props)
 
         this.state = {
-            specialChars: this.createSpecialChars(),
+            specialChars: this.props.specialChars,
             selectedFont : this.props.selectedFont
         }
+    }
+
+    componentWillMount = () => {
+        this.props.refreshGlyf(this.state.selectedFont);
     }
 
     getMessage = (key) => {
@@ -24,22 +28,6 @@ class FontList extends Component {
         return key; 
     }
 
-    createSpecialChars = () => {
-        return { 
-            type : 'specialChars', 
-            name: 'glyfmanager.fontlist.specialChars.title',                 
-            files : [
-                { 
-                    type : 'specialChars',
-                    currentFamilyName: 'glyfmanager.fontlist.specialChars.title', 
-                    item : { path : ''},
-                    collectStyle : {
-                        fontFamily : ''
-                    }
-                }
-            ]
-        };
-    }
 
     onClickFontItem = (font) => {
         return (e) => {

@@ -11,10 +11,8 @@ import FontInfo from './fontinfo'
 import Menubar from './menubar'
 
 import fontdb  from '../../util/fontdb'
+import common  from '../../util/common'
 
-
-
-const os = window.require('os') 
 
 class FontManager extends Component {
 
@@ -24,7 +22,7 @@ class FontManager extends Component {
     this.state = { 
       files : [], 
       directory : "", 
-      systemFolders: [],
+      systemFolders: common.getSystemFolders(),
       userFolders: [], 
       favorite : [],
       font :{},
@@ -34,22 +32,6 @@ class FontManager extends Component {
     }
 
     this.refreshFolder()
-  }
-
-  getSystemFolders() {
-    const platform = os.platform();
-    switch (platform) {
-      case "darwin" : 
-        return [
-            { name : 'fontmanager.category.system.folder.name', directory : '/Library/Fonts'}
-        ];
-      case "win32" : 
-        return [
-          { name : 'fontmanager.category.system.folder.name', directory : 'c:\\Windows\\Fonts'}
-        ];
-      default : 
-        return []
-    }
   }
 
   setActive = (id) => {
@@ -91,7 +73,6 @@ class FontManager extends Component {
   refreshFolder = () => {
     fontdb.folderList((list) => {
       this.setState({
-        systemFolders : this.getSystemFolders(), 
         userFolders: list
       })
     })

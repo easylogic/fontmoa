@@ -86,6 +86,23 @@ const getSystemFolders = () => {
     }
 }
 
+const createSpecialChars = () => {
+    return { 
+        type : 'specialChars', 
+        name: 'glyfmanager.fontlist.specialChars.title',                 
+        files : [
+            { 
+                type : 'specialChars',
+                currentFamilyName: 'glyfmanager.fontlist.specialChars.title', 
+                item : { path : ''},
+                collectStyle : {
+                    fontFamily : ''
+                }
+            }
+        ]
+    };
+}
+
 const caculateFontUnit = (font) => {
 
     let pos = {};
@@ -135,6 +152,7 @@ const common = {
     caculateFontUnit,
     getFontStyleCollect,
     getPangramMessage,
+    createSpecialChars,
     PROTOCOL_PREFIX,
 }
 

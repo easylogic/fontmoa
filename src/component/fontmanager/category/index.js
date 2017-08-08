@@ -10,6 +10,15 @@ var dialog = remote.dialog;
 
 class Category extends Component {
 
+    componentDidMount = () => {
+        if (this.props.systemFolders[0]) {
+            const directory = this.props.systemFolders[0].directory; 
+            fontdb.update(directory, () => {
+                this.props.refreshFiles(directory);
+            });
+        }
+
+    }
 
     handleFolderItemClick = (e) => {
 
