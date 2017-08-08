@@ -19,6 +19,10 @@ export default class Tabs extends Component {
         this.tabs = {}
     }
 
+    setActive (id) {
+        this.setState({ activeTab : id })
+    }
+
     onTabClick = (e) => {
 
         const id = e.target.getAttribute('data-id');

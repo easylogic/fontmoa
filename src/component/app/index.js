@@ -16,6 +16,7 @@ import LicenseManager from '../licensemanager'
 import CopyText from './CopyText'
 
 import locales from '../../locales'
+import menu from '../../menu'
 
 
 const { remote } = window.require('electron');
@@ -35,6 +36,29 @@ class App extends Component {
 
   componentDidMount () {
     this.loadLocales();
+    this.loadMenu();
+    this.changeSettings();
+  }
+
+  changeMode (mode) {
+    this.setState({ mini : mode === 'mini' })
+
+    this.changeSettings();
+
+  }
+
+  changeSettings () {
+    if (this.state.mini) {
+      if (this.refs.tabs) this.refs.tabs.setActive('emoji');
+      remote.getCurrentWindow().setSize(400, 400, true);
+    } else {
+      if (this.refs.tabs) this.refs.tabs.setActive('font');
+      remote.getCurrentWindow().setSize(1000, 700, true);
+    }
+  }
+
+  loadMenu () {
+    menu.make(this);
   }
 
   loadLocales(locale = this.state.locale) {
@@ -43,10 +67,8 @@ class App extends Component {
       locales,
     })
     .then(() => {
-	    this.setState({
-        locale, 
-        initDone: true
-      });
+      this.setState({ locale,  initDone: true });
+      this.loadMenu();
     });
   }
 
@@ -84,7 +106,7 @@ class App extends Component {
       <div className={className}>
         <div className="container">
             <div className="logo" onClick={this.onChangeLocale}>{intl.get('app.title')}</div>
-            <Tabs full={true} styles={tabStyle}>	
+            <Tabs ref="tabs" full={true} styles={tabStyle}>	
               <FontManager style={{display: this.state.mini ? 'none' : 'block'}} mini={this.state.mini}  id="font" title={intl.get('app.tab.font.title')} active={fontManagerActive} appendInputText={this.appendInputText} />
               <GlyfManager style={{display: 'block'}} mini={this.state.mini}  id="glyf" title={intl.get('app.tab.glyphs.title')}  appendInputText={this.appendInputText}/>              
               <EmojiManager style={{display: 'block'}} mini={this.state.mini}  id="emoji" title={intl.get('app.tab.emoji.title')} active={emojiManagerActive}  appendInputText={this.appendInputText}/>              

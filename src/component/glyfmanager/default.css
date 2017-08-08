@@ -46,3 +46,7 @@
     bottom:10px;
     overflow: auto;
 }
+
+.app.mini .gm-glyf-info {
+    display:none;
+}

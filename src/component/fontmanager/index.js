@@ -89,7 +89,7 @@ class FontManager extends Component {
   render() {
 
     return (
-        <TabItem ref="tabItem" id={this.props.id}  active={this.props.active}>
+        <TabItem ref="tabItem" id={this.props.id}  active={this.props.mini !== true && this.props.active}>
             <div className="app-menu">
                 <Menubar refreshFontStyle={this.refreshFontView} />
             </div>

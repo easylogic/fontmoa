@@ -1,0 +1,9 @@
+{
+    "menu.view.label": "View",
+    "menu.view.mode.label": "Mode",
+    "menu.view.mode.mini.label": "Mini Mode",        
+    "menu.view.mode.normal.label": "Normal Mode",    
+    "menu.view.language.label": "Language",
+
+    "" : ""
+}
