@@ -8,9 +8,6 @@ import {Tabs} from '../../jui'
 import FontManager from '../fontmanager'
 import GlyfManager from '../glyfmanager'
 import EmojiManager from '../emojimanager'
-import StyleManager from '../stylemanager'
-import CssManager from '../cssmanager'
-import ExportManager from '../exportmanager'
 import LicenseManager from '../licensemanager'
 
 import CopyText from './CopyText'
@@ -110,9 +107,6 @@ class App extends Component {
               <FontManager style={{display: this.state.mini ? 'none' : 'block'}} mini={this.state.mini}  id="font" title={intl.get('app.tab.font.title')} active={fontManagerActive} appendInputText={this.appendInputText} />
               <GlyfManager style={{display: 'block'}} mini={this.state.mini}  id="glyf" title={intl.get('app.tab.glyphs.title')}  appendInputText={this.appendInputText}/>              
               <EmojiManager style={{display: 'block'}} mini={this.state.mini}  id="emoji" title={intl.get('app.tab.emoji.title')} active={emojiManagerActive}  appendInputText={this.appendInputText}/>              
-              <StyleManager style={{display: this.state.mini ? 'none' : 'block'}} mini={this.state.mini}  id="style" title={intl.get('app.tab.style.title')}  appendInputText={this.appendInputText}/>
-              <CssManager style={{display: this.state.mini ? 'none' : 'block'}} mini={this.state.mini}  id="css" title={intl.get('app.tab.css.title')}  appendInputText={this.appendInputText}/>
-              <ExportManager style={{display: this.state.mini ? 'none' : 'block'}} mini={this.state.mini}  id="export "title={intl.get('app.tab.export.title')}  appendInputText={this.appendInputText}/>
               <LicenseManager style={{display: this.state.mini ? 'none' : 'block'}} mini={this.state.mini}  id="license "title={intl.get('app.tab.license.title')} right={true}  appendInputText={this.appendInputText}/>              
             </Tabs>
         </div>

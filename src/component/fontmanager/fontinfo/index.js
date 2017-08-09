@@ -24,6 +24,16 @@ class FontInfo extends Component {
         }
     }
 
+    convertContent = (obj) => {
+        if (typeof obj.content !== 'string') {
+            const list = Object.keys(obj.content).map((key) => {
+                return obj.content[key];
+            })
+
+            obj.content = new Buffer(list, 'utf8').toString().replace(/\0/g, '');
+        }
+    }
+
     getViewInfo (font) {
 
         let list = [];
@@ -36,10 +46,18 @@ class FontInfo extends Component {
             this.fieldList.forEach((field) => {
                 const fieldKey = "fontmanager.fontinfo.fields."+field.key+".title";
                 if (font.name && font.name[field.key] && font.name[field.key][lang]) { 
-                    list.push({ title : intl.get(fieldKey), content : font.name[field.key][lang], key : field.key })
+                    let obj = { title : intl.get(fieldKey), content : font.name[field.key][lang], key : field.key };
+
+                    this.convertContent(obj);
+
+                    list.push(obj)
                 } else if (font[field.key]) {
                     const content = Array.isArray(font[field.key]) ? font[field.key].join(', ') : font[field.key];
-                    list.push({ title : intl.get(fieldKey), content : content, key : field.key })
+                    let obj = { title : intl.get(fieldKey), content : content, key : field.key };
+                    
+                    this.convertContent(obj);
+
+                    list.push(obj)
                 }
             })
 
@@ -66,6 +84,8 @@ class FontInfo extends Component {
         const font = this.props.font || this.state.font;
 
         const viewInfo = this.getViewInfo(font);
+
+        console.log(viewInfo);
 
         return (
             <div className="font-note">
