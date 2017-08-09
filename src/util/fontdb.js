@@ -212,11 +212,12 @@ const addFolder = (directory, done) => {
         // 데이타 베이스 무조건 새로고침 
 
         const hash = createMd5(directory);
-
+        const name = path.basename(directory);
         // 디렉토리 정보 다시 입력 
         directoryDB.insert({
             directory,
-            name: path.basename(directory),            
+            alias : name,
+            name: name,            
             user: true,
             hash: hash.hash,
             files: hash.files 

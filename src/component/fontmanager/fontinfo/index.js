@@ -85,8 +85,6 @@ class FontInfo extends Component {
 
         const viewInfo = this.getViewInfo(font);
 
-        console.log(viewInfo);
-
         return (
             <div className="font-note">
                 {viewInfo.map((it, i) => {

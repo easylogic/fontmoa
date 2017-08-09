@@ -19,7 +19,7 @@ function createWindow() {
   // register protocol
   protocol.registerFileProtocol(PROTOCOL_PREFIX, (req, callback) => {
     const url = unescape(req.url.substring(10));
-    devToolsLog('full url to open ' + url)
+    //devToolsLog('full url to open ' + url)
     callback({path: path.normalize(`${__dirname}/data/${url}`)})
   }, (error) => {
     if (error) console.error('failed to register protocol');
