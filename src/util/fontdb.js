@@ -215,6 +215,7 @@ const addFolder = (directory, done) => {
         const name = path.basename(directory);
         // 디렉토리 정보 다시 입력 
         directoryDB.insert({
+            type: 'directory',
             directory,
             alias : name,
             name: name,            
