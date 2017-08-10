@@ -14,6 +14,10 @@ class Category extends Component {
         }
     }
 
+    toggleFavorite = (path, isAdd) => {
+        this.refs.favorite.toggleFavorite(path, isAdd);
+    }
+
     render() {
         return (
             <div className="category">

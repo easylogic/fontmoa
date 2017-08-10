@@ -59,6 +59,10 @@ class FontManager extends Component {
     this.refs.fontlistview.refreshFontCont(content);
   }
 
+  toggleFavorite = (path, isAdd) => {
+    this.refs.category.toggleFavorite(path, isAdd);
+  }
+
   render() {
     return (
         <TabItem ref="tabItem" id={this.props.id}  active={this.props.mini !== true && this.props.active}>
@@ -68,7 +72,7 @@ class FontManager extends Component {
             <div className="app-sidebar">
                 <Tabs full={true} >
                     <TabItem id="category" title={intl.get('fontmanager.category.directory.title')} active={true}>
-                        <Category  refreshFiles={this.refreshFiles} />
+                        <Category ref="category" refreshFiles={this.refreshFiles} />
                     </TabItem>
                     <TabItem id="fontinfo" title={intl.get('fontmanager.category.fontinfo.title')}>
                         <FontInfo ref="fontInfo" />
@@ -76,7 +80,7 @@ class FontManager extends Component {
                 </Tabs>
             </div>
             <div className="app-content">
-                <FontListView ref="fontlistview" fontStyle={this.state.style} files={this.state.files} refreshFontInfo={this.updateFontInfo} />
+                <FontListView ref="fontlistview" toggleFavorite={this.toggleFavorite} fontStyle={this.state.style} files={this.state.files} refreshFontInfo={this.updateFontInfo} />
             </div>
         </TabItem>
     );

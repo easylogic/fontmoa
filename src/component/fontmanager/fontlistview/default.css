@@ -78,10 +78,25 @@
     overflow: auto;
     display: flex; 
     padding:10px;
-    pointer-events: none;
     text-align: center;
     margin-bottom:10px;
     font-size: 13px !important;
+}
+
+.font-item .font-info .font-family,
+.font-item .font-info .font-sub-family,
+.font-item .font-info .font-name,
+.font-item .font-info .tools .icon
+{
+    pointer-events: none;
+}
+
+.font-item .font-info .tools {
+    z-index: 100;
+}
+
+.font-item .font-info .tools .selected {
+    color: red; 
 }
 
 .font-info .font-name {

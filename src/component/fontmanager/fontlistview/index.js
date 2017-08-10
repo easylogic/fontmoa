@@ -2,44 +2,7 @@ import React, { Component } from 'react';
 import './default.css';
 
 import common from '../../../util/common'
-
-const checkFavorite = (path) => {
-    return true; 
-}
-
-const FileItem = (props) => {
-    const contentstyle = props.contentstyle;
-    const font = props.font;
-    const item = font.item; 
-
-    const style = Object.assign({}, font.collectStyle);
-
-    const isGrid = contentstyle === 'grid';
-
-    let message = props.fontStyle.content || common.getPangramMessage(font.currentLanguage, isGrid); 
-
-    let favoriteClass = "add-favorite";
-
-    if (checkFavorite(item.path)) {
-        favoriteClass += " selected";
-    }
-
-    return (
-        <div draggable={true} className="font-item" data-dir={item.dir} data-path={item.path}>
-            <div className="font-info">
-                <div className="font-family" title={font.subfamilyName}>
-                    {font.currentFamilyName}
-                    <span className="font-sub-family">({font.subfamilyName})</span>
-                </div>
-                <div className="font-name">{item.name}</div>
-                <div className="tools">
-                    <span className={favoriteClass}><i className="icon icon-connection"></i></span>
-                </div>
-            </div>
-            <div className="font-item-preview" style={style}>{message}</div>
-        </div>        
-    )
-}
+import fontdb from '../../../util/fontdb'
 
 class FontListView extends Component {
 
@@ -49,8 +12,23 @@ class FontListView extends Component {
         this.state = {
             files: this.props.files || [],
             selectedRow: false, 
-            fontListContentStyle : 'grid'
+            fontListContentStyle : 'grid',
+            faroviteFiles : []
         }
+
+        this.init()
+    }
+
+    init = () => {
+        this.loadFavoriteFiles();
+    }
+
+    loadFavoriteFiles = () => {
+        fontdb.getFavoriteFilesPathList((faroviteFiles) => {
+            this.setState({
+                faroviteFiles
+            })
+        })
     }
 
     handleFontClick = (e) => {
@@ -60,17 +38,29 @@ class FontListView extends Component {
 
     selectFontClick = (e) => {
 
-        console.log(e.target);
+        
+        if (e.target.classList.contains('add-favorite')) {
 
-        [...document.querySelectorAll('.font-list-view .font-item.selected')].forEach((node) => {
-            node.classList.remove('selected');  
-        });
+            const isSelected = e.target.classList.contains('selected');
+            const isToggleSelected = !isSelected; 
+            e.target.classList.toggle('selected', isToggleSelected);
 
-        e.target.classList.add('selected');
+            const path = e.target.getAttribute('data-path');
 
-        const path = e.target.getAttribute('data-path');
+            this.props.toggleFavorite(path, isToggleSelected);
+        } else {
+            [...document.querySelectorAll('.font-list-view .font-item.selected')].forEach((node) => {
+                node.classList.remove('selected');  
+            });
 
-        this.props.refreshFontInfo(path);
+            e.target.classList.add('selected');
+
+            const path = e.target.getAttribute('data-path');
+
+            this.props.refreshFontInfo(path);
+        }
+
+
     }
 
     handleTabClick = (e) => {
@@ -90,7 +80,12 @@ class FontListView extends Component {
     }
 
     refreshFiles = (files) => {
-        this.setState({ files });
+         fontdb.getFavoriteFilesPathList((faroviteFiles) => {
+            this.setState({
+                faroviteFiles,
+                files
+            })
+        })
     }
 
     refreshFontSize (fontSize) {
@@ -109,6 +104,44 @@ class FontListView extends Component {
 
         }
 
+    }
+
+
+    checkFavorite = (path) => {
+        return this.state.faroviteFiles.includes(path); 
+    }
+
+
+    renderItem = (font, index, fontStyle) => {
+        const contentstyle = this.state.fontListContentStyle;
+        const item = font.item; 
+
+        const style = Object.assign({}, font.collectStyle);
+        const isGrid = contentstyle === 'grid';
+
+        let message = fontStyle.content || common.getPangramMessage(font.currentLanguage, isGrid); 
+
+        let favoriteClass = "add-favorite";
+
+        if (this.checkFavorite(item.path)) {
+            favoriteClass += " selected";
+        }
+
+        return (
+            <div draggable={true} key={index} className="font-item" data-dir={item.dir} data-path={item.path}>
+                <div className="font-info">
+                    <div className="font-family" title={font.subfamilyName}>
+                        {font.currentFamilyName}
+                        <span className="font-sub-family">({font.subfamilyName})</span>
+                    </div>
+                    <div className="font-name">{item.name}</div>
+                    <div className="tools">
+                        <span className={favoriteClass} data-path={item.path}><i className="icon icon-connection"></i></span>
+                    </div>
+                </div>
+                <div className="font-item-preview" style={style}>{message}</div>
+            </div>        
+        )
     }
 
     render() {
@@ -135,7 +168,7 @@ class FontListView extends Component {
                 </div>
                 <div ref="fontListContent" className="font-list-content" style={colorStyle} data-content-style={this.state.fontListContentStyle} onDoubleClick={this.handleFontClick} onClick={this.selectFontClick}>
                     {this.state.files.map((it, i) => {
-                        return <FileItem font={it} key={i} index={i} fontStyle={fontStyle} contentstyle={this.state.fontListContentStyle} />
+                        return this.renderItem(it, i, fontStyle);
                     })}
                 </div>
             </div>

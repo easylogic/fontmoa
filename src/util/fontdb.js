@@ -256,6 +256,43 @@ const addLibrary = (library, done) => {
     })
 } 
 
+const toggleFavorite = (path, isAdd, done) => {
+
+    directoryDB.findOne({ type: 'favorite' }, (err, favorite) => {
+
+        if (favorite) {
+
+            // 이미 있고 ,  isAdd 가 false 인 경우 favorite 에서 뺀다. 
+            if (favorite.files.includes(path) && !isAdd) {
+                // path 가 아닌 것만 
+                favorite.files = favorite.files.filter((p) => {
+                    return path !== p; 
+                })
+            } else {
+                // 아닌 경우 path 를 추가한다. 
+                favorite.files.push(path);
+            }
+
+            // 최종 db 를 업데이트 한다. 
+            directoryDB.update({ type : 'favorite'}, { $set : { files : favorite.files } }, {multi : true },  (err, count) => {
+                done && done();
+            });
+        } else {
+            // 디렉토리 정보 다시 입력 
+            if (isAdd) {
+                directoryDB.insert({ type: 'favorite', files : [path] }, (err) => {
+                    done && done();
+                });
+            } else {    // 아무것도 없는데 isAdd 가 false 인 경우 (지우는 경우 )
+
+            }
+
+            done && done()
+        }
+
+    })
+} 
+
 const appendFileToLibrary = (library, filepath, done) => {
     directoryDB.findOne({ type: 'library',  library }, (err, doc) => {
         if (doc) {
@@ -396,7 +433,7 @@ const getUserFiles = (directory, callback) => {
     directoryDB.findOne({ type: 'user', $or : [ {directory}, {_id : directory} ]  }, (err, doc) => {
         if (doc) {
             getFiles(doc.directory, (files) => {
-                callback && callback(files);
+                callback && callback(filterFiles(files));
             })
         } else {
             callback && callback([]);
@@ -409,7 +446,7 @@ const getLibraryFiles = (library, callback) => {
     directoryDB.findOne({ type: 'library', $or : [ {library}, {_id : library} ]  }, (err, library) => {
         if (library) {
             db.find({ 'item.path' : { $in : library.files }  }, (err2, files) => {
-                callback && callback(files);
+                callback && callback(filterFiles(files));
             })
         } else {
             callback && callback([]);
@@ -419,8 +456,35 @@ const getLibraryFiles = (library, callback) => {
 }
 
 const getFavoriteFiles = (callback) => {
-    db.find({ 'item.favorite' : true }, (err, files) => {
-        callback && callback(filterFiles(files));
+    directoryDB.findOne({ type : 'favorite' }, (err, favorite) => {
+
+        if (favorite) {
+            db.find({ 'item.path' : { $in : favorite.files }  }, (err2, files) => {
+                callback && callback(filterFiles(files));
+            })
+        } else {
+            callback && callback([]);
+        }
+    })
+}
+
+const getFavoriteFilesPathList = (callback) => {
+    directoryDB.findOne({ type : 'favorite' }, (err, favorite) => {
+
+        if (favorite) {
+            callback && callback(favorite.files);
+        } else {
+            callback && callback([]);
+        }
+    })
+}
+
+
+
+const getFavoriteCount = (callback) => {
+    directoryDB.findOne({ type : 'favorite' }, (err, favorite) => {
+        const count = (favorite) ? favorite.files.length : 0;
+        callback && callback(count);
     })
 }
 
@@ -439,7 +503,7 @@ const fontTree = (callback) => {
 
     let tree = [];
 
-     directoryDB.find({ user : true}, (err, docs) => {
+     directoryDB.find({ type : 'user' }, (err, docs) => {
         docs.sort(function(a, b) {
             return a.name <  b.name ? -1 : 1;
         })
@@ -472,7 +536,9 @@ const fontTree = (callback) => {
 }
 
 const fontdb = {
+    /* load  directories with files for tree Structure  */
     fontTree,
+
     fontInfo,
     glyfInfo,
     findOne,
@@ -480,6 +546,10 @@ const fontdb = {
     /* add user resource */
     addFolder,
     addLibrary,
+    toggleFavorite,
+
+    /* get count */
+    getFavoriteCount,
 
     /* append to library */
     appendFileToLibrary,
@@ -495,6 +565,7 @@ const fontdb = {
     getUserFiles,
     getLibraryFiles,
     getFavoriteFiles,
+    getFavoriteFilesPathList,
 
     update,
 
