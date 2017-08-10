@@ -1,3 +1,5 @@
+import emojiFilter from './emojiFilter'
+
 const emojson = window.require('emojson');
 
 const getEmojiTagList = () => {
@@ -17,6 +19,15 @@ const getEmojiTagList = () => {
     return tags;
 }
 
+const filterEmoji = (emojiData) => {
+
+    switch(window.process.platform) {
+        case 'darwin':  return emojiFilter.darwin(emojiData);
+        case 'linux':  return emojiFilter.linux(emojiData);
+        default: return emojiFilter.win32(emojiData);
+    }
+}
+
 const getEmojiList = () => {
     let emojiData = {};
 
@@ -31,7 +42,7 @@ const getEmojiList = () => {
         a.push(emo);
     })
 
-    return emojiData;
+    return filterEmoji(emojiData);
 }
 
 export default {

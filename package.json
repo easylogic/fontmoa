@@ -16,9 +16,10 @@
   "homepage": "./",
   "dependencies": {
     "datauri": "^1.0.5",
-    "emojson": "^1.0.0",
+    "emojson": "^1.1.0",
     "filesize": "^3.5.10",
     "fontkit": "^1.7.7",
+    "lodash": "^4.17.4",
     "nedb": "^1.8.0",
     "react": "^15.6.1",
     "react-children-utilities": "^0.1.14",

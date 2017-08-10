@@ -5,6 +5,8 @@ import './default.css';
 import reactCSS from 'reactcss'
 import { SketchPicker } from 'react-color'
 
+const _ = window.require('lodash');
+
 class Menubar extends Component {
     constructor(props) {
         super(props)
@@ -22,6 +24,10 @@ class Menubar extends Component {
             backgroundColor: 'white',
             displayColorPickerBackground: false,
         }
+
+        this.refreshFontSize = _.debounce((fontSize) => {
+            this.props.refreshFontSize(fontSize);
+        }, 200);
     }
 
     componentDidMount () {
@@ -49,7 +55,8 @@ class Menubar extends Component {
     onChangeFontSize = (e) => {
         const fontSize = e.target.value + 'px';
         this.refs.fontSize.value = fontSize;
-        this.props.refreshFontSize(fontSize);
+
+        this.refreshFontSize(fontSize);
     }
 
     handleClickForeground = () => {

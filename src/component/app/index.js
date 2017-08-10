@@ -89,7 +89,7 @@ class App extends Component {
 
     let tabStyle = {paddingLeft: '150px'};
     if (this.state.mini) {
-      tabStyle.paddingLeft = '0px';
+      tabStyle.paddingLeft = '10px';
       tabStyle.marginTop = '5px';
     }
 
