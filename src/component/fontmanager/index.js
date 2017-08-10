@@ -21,28 +21,23 @@ class FontManager extends Component {
 
     this.state = { 
       files : [], 
-      directory : "", 
       systemFolders: common.getSystemFolders(),
       userFolders: [], 
       favorite : [],
+      library : [],
       font :{},
       style: {
         fontSize: '40px'
       } 
     }
-
-    this.refreshFolder()
   }
 
   setActive = (id) => {
     this.refs.tabItem.setActive(id);
   }
 
-  updateDirectory = (directory) => {
-    fontdb.list(directory, (files) => {
-      this.setState({ directory ,  files })
-    })
-
+  refreshFiles = (files) => {
+    this.refs.fontlistview.refreshFiles(files);
   }
 
   updateFontInfo = (path) => {
@@ -64,20 +59,6 @@ class FontManager extends Component {
     this.refs.fontlistview.refreshFontCont(content);
   }
 
-  handleAddFolder = (directory) => {
-      fontdb.addFolder(directory, () => {
-          this.refreshFolder();
-      });
-  }
-
-  refreshFolder = () => {
-    fontdb.folderList((list) => {
-      this.setState({
-        userFolders: list
-      })
-    })
-  }
-
   render() {
     return (
         <TabItem ref="tabItem" id={this.props.id}  active={this.props.mini !== true && this.props.active}>
@@ -87,14 +68,7 @@ class FontManager extends Component {
             <div className="app-sidebar">
                 <Tabs full={true} >
                     <TabItem id="category" title={intl.get('fontmanager.category.directory.title')} active={true}>
-                        <Category 
-                            refreshFiles={this.updateDirectory} 
-                            refreshDirectory={this.refreshFolder} 
-                            handleAddFolder={this.handleAddFolder}                             
-                            systemFolders={this.state.systemFolders} 
-                            userFolders={this.state.userFolders} 
-                            favorite={this.state.favorite} 
-                        />
+                        <Category  refreshFiles={this.refreshFiles} />
                     </TabItem>
                     <TabItem id="fontinfo" title={intl.get('fontmanager.category.fontinfo.title')}>
                         <FontInfo ref="fontInfo" />
@@ -102,7 +76,7 @@ class FontManager extends Component {
                 </Tabs>
             </div>
             <div className="app-content">
-                <FontListView ref="fontlistview" fontStyle={this.state.style} files={this.state.files} directory={this.state.directory} refreshFontInfo={this.updateFontInfo} />
+                <FontListView ref="fontlistview" fontStyle={this.state.style} files={this.state.files} refreshFontInfo={this.updateFontInfo} />
             </div>
         </TabItem>
     );

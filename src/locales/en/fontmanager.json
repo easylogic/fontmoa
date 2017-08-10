@@ -5,9 +5,11 @@
     "fontmanager.category.new.folder": "User Directory",
     "fontmanager.category.folder.list.plus.title": "Add User Folder",
     "fontmanager.category.favorite.title" : "Favorite",
+    "fontmanager.category.library.title" : "Library",    
     "fontmanager.category.delete.userfolder" : "Delete a directory",
     "fontmanager.category.alert.OK" : "OK",
     "fontmanager.category.delete.folder.message" : "Delete a {directory}?\r\nIf you delete a directory, it will be removes all file informations in {directory}",
+    "fontmanager.category.delete.library.message" : "Delete a {library}?",        
 
     "fontmanager.fontinfo.fields.license.title" : "License",
     "fontmanager.fontinfo.fields.licenseURL.title" : "License URL",        

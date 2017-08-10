@@ -1,8 +1,11 @@
-import intl from 'react-intl-universal'
 import React, { Component } from 'react';
 import './default.css';
 
 import common from '../../../util/common'
+
+const checkFavorite = (path) => {
+    return true; 
+}
 
 const FileItem = (props) => {
     const contentstyle = props.contentstyle;
@@ -15,11 +18,23 @@ const FileItem = (props) => {
 
     let message = props.fontStyle.content || common.getPangramMessage(font.currentLanguage, isGrid); 
 
+    let favoriteClass = "add-favorite";
+
+    if (checkFavorite(item.path)) {
+        favoriteClass += " selected";
+    }
+
     return (
         <div draggable={true} className="font-item" data-dir={item.dir} data-path={item.path}>
             <div className="font-info">
-                <div className="font-family" title={font.subfamilyName}>{font.currentFamilyName}<span className="font-sub-family">({font.subfamilyName})</span></div>
+                <div className="font-family" title={font.subfamilyName}>
+                    {font.currentFamilyName}
+                    <span className="font-sub-family">({font.subfamilyName})</span>
+                </div>
                 <div className="font-name">{item.name}</div>
+                <div className="tools">
+                    <span className={favoriteClass}><i className="icon icon-connection"></i></span>
+                </div>
             </div>
             <div className="font-item-preview" style={style}>{message}</div>
         </div>        
@@ -32,6 +47,7 @@ class FontListView extends Component {
         super(props);
 
         this.state = {
+            files: this.props.files || [],
             selectedRow: false, 
             fontListContentStyle : 'grid'
         }
@@ -43,6 +59,8 @@ class FontListView extends Component {
     }
 
     selectFontClick = (e) => {
+
+        console.log(e.target);
 
         [...document.querySelectorAll('.font-list-view .font-item.selected')].forEach((node) => {
             node.classList.remove('selected');  
@@ -69,6 +87,10 @@ class FontListView extends Component {
             selectedRow: id === "row",
             fontListContentStyle: id || "grid"
         })
+    }
+
+    refreshFiles = (files) => {
+        this.setState({ files });
     }
 
     refreshFontSize (fontSize) {
@@ -104,7 +126,6 @@ class FontListView extends Component {
         return (
             <div className="font-list-view">
                 <div className="font-list-header" >
-                    <div className="title">{intl.get('fontmanager.fontlistview.header.title')} {this.props.directory} : {this.props.files.length}</div>
                     <div className="tools">
                         <ul className="pill" onClick={this.handleTabClick}>
                             <li className={this.state.selectedRow ? 'active' : ''}><a href="#row"><i className="icon icon-menu"></i></a></li>
@@ -113,7 +134,7 @@ class FontListView extends Component {
                     </div>
                 </div>
                 <div ref="fontListContent" className="font-list-content" style={colorStyle} data-content-style={this.state.fontListContentStyle} onDoubleClick={this.handleFontClick} onClick={this.selectFontClick}>
-                    {this.props.files.map((it, i) => {
+                    {this.state.files.map((it, i) => {
                         return <FileItem font={it} key={i} index={i} fontStyle={fontStyle} contentstyle={this.state.fontListContentStyle} />
                     })}
                 </div>

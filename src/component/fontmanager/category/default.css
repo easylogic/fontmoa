@@ -13,7 +13,7 @@
     bottom:0px;
     overflow: auto;
     box-sizing:border-box;
-    padding-top:10px;
+    padding-top:20px;
 }
 
 .category-content .folder {
@@ -35,4 +35,107 @@
     width:100%;
     display:inline-block;
     box-sizing: border-box;
+}
+
+.category-content .group-label {
+    font-weight: bold;
+    padding:2px;
+    font-size: 15px;
+    margin-bottom:10px;
+    cursor:pointer;
+}
+
+
+.category-content .splitter {
+    margin-bottom:10px;
+    border-bottom:1px solid #ececec;
+}
+
+
+.category-content .system-folders .item {
+    font-size: 15px;
+    cursor:pointer;
+}
+
+.category-content .library-items {
+    padding:5px;
+}
+
+.category-content .library-items .item {
+    display:block;
+    font-size: 15px;    
+    position:relative;
+    padding:10px;
+    border-radius:3px;
+    margin-left:0px;
+    margin-right:0px;
+    margin-bottom:5px;
+    cursor:pointer;
+    overflow:auto;
+    transition: 0.3s all linear;    
+}
+
+.category-content .library-items .item:hover {
+    background-color: rgba(116, 12, 210, 0.1);
+}
+
+.category-content .library-items .item.active {
+    background-color: #740CD2;
+    color:white;
+    font-weight:bold;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);    
+}
+
+.category-content .library-items .item a {
+    display: block;
+    width:100%;
+    padding-right: 50px;
+    pointer-events: none;
+    box-sizing:border-box;
+}
+
+
+.category-content .library-items .item > a .label {
+    border-radius:30px;
+    vertical-align: middle;
+    display:inline;
+    line-height:1;
+    padding:2px 6px;
+    font-size:11px;
+}
+
+.category-content .library-items .item > span {
+    position:absolute;
+    top:10px;
+    right:0px;
+    margin-right:2px;
+    color: red;
+    padding:3px;
+    cursor:pointer;
+    z-index:10;
+    display:none;
+}
+
+.category-content .library-items .item:hover > span {
+    display:inline-block;
+}
+
+
+.category-content .library-items .item > span i {
+    pointer-events: none;
+}
+
+.category-content .library-input {
+    margin-top:3px;
+    margin-bottom:10px;
+}
+.category-content .library-input input {
+    width:100%;
+    padding:5px;
+    box-sizing:border-box;
+    height:30px;
+    font-size:15px;
+    border:0px;
+    box-shadow: none !important;
+
 }

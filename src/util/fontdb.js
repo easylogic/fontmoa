@@ -203,19 +203,18 @@ const updateFont = (directory, hash, done) => {
 }
 
 const addFolder = (directory, done) => {
-    directoryDB.findOne({ directory }, (err, doc) => {
+    directoryDB.findOne({ type : 'user', directory }, (err, doc) => {
         if (doc) {
             done && done();
             return; 
         }
 
         // 데이타 베이스 무조건 새로고침 
-
         const hash = createMd5(directory);
         const name = path.basename(directory);
         // 디렉토리 정보 다시 입력 
         directoryDB.insert({
-            type: 'directory',
+            type: 'user',
             directory,
             alias : name,
             name: name,            
@@ -231,10 +230,83 @@ const addFolder = (directory, done) => {
         } else {
             done && done()
         }
-        
 
     })
 } 
+
+const addLibrary = (library, done) => {
+    directoryDB.findOne({ type: 'library',  library }, (err, doc) => {
+        if (doc) {
+            done && done();
+            return; 
+        }
+
+        directoryDB.count({ type: 'library'}, (err2, count) => {
+            // 디렉토리 정보 다시 입력 
+            directoryDB.insert({
+                type: 'library',
+                index: count,
+                library,
+                files: []
+            });
+
+            done && done()
+        })
+
+    })
+} 
+
+const appendFileToLibrary = (library, filepath, done) => {
+    directoryDB.findOne({ type: 'library',  library }, (err, doc) => {
+        if (doc) {
+
+            if (!doc.files.includes(filepath)) {
+                directoryDB.update({ 
+                    type: 'library',  library 
+                }, { 
+                    $push: { 
+                        files: filepath 
+                    } 
+                }, {}, function () {
+                    done && done(true);
+                });
+            } else {
+                done && done(true);
+            }
+        } else {
+            done && done(false)
+        }
+
+    })
+}
+
+const removeFileInLibrary = (library, filepath, done) => {
+    directoryDB.findOne({ type: 'library',  library }, (err, doc) => {
+        if (doc) {
+            if (doc.files.includes(filepath)) { // 파일 리스트가 포함이 되어 있으면 리스트에서 삭제한다. 
+                const files = doc.files.filter((file) => {
+                    return filepath !== file; 
+                })
+
+                directoryDB.update({ 
+                    type: 'library',  library 
+                }, { 
+                    $set: { 
+                        files: files        // 새로운 리스트를 셋팅 
+                    } 
+                }, {}, function () {
+                    done && done(true);
+                });
+            } else {
+                done && done(true);
+            }
+        } else {
+            done && done(false)
+        }
+
+    })
+}
+
 
 const update = (directory, done) => {
     directoryDB.findOne({ directory }, (err, doc) => {
@@ -252,6 +324,7 @@ const update = (directory, done) => {
 
         // 디렉토리 정보 다시 입력 
         directoryDB.insert({
+
             directory,
             name: path.basename(directory),
             hash: hash.hash,
@@ -265,8 +338,8 @@ const update = (directory, done) => {
 
 }
 
-const folderList = (callback) => {
-    directoryDB.find({ user : true}, (err, docs) => {
+const getUserFolders = (callback) => {
+    directoryDB.find({ type : 'user' }, (err, docs) => {
         docs.sort(function(a, b) {
             return a.name <  b.name ? -1 : 1;
         })
@@ -274,31 +347,83 @@ const folderList = (callback) => {
     })
 }
 
+const getLibraryList = (callback) => {
+    directoryDB.find({ type : 'library' }, (err, libraries) => {
+        libraries.sort(function(a, b) {
+            return (a.index || 0) <  (b.index || 0) ? -1 : 1;
+        })
+        callback && callback(libraries);
+    })
+}
+
+const filterFiles = (files) => {
+    files.sort(function(a, b) {
+        return a.currentFamilyName <  b.currentFamilyName ? -1 : 1;
+    })
+
+    let filteredList = [];
+    let keys = {};
+
+    files.forEach((doc) => {
+        if (!keys[doc.familyName]) {
+            filteredList[filteredList.length] = doc;
+            keys[doc.familyName] = doc; 
+        }
+    })
+
+    return filteredList;
+}
+
 const removeDirectory = (directory, callback) => {
-    directoryDB.remove({ directory }, { multi : true}, (err, num) => {
+    directoryDB.remove({ type : 'user', $or : [ {directory}, {_id : directory}  ]  }, { multi : true}, (err, num) => {
         callback && callback();
     })
 }
 
-const list = (directory, callback) => {
-    db.find({ 'item.directory' : directory}, (err, docs) => {
-        docs.sort(function(a, b) {
-            return a.currentFamilyName <  b.currentFamilyName ? -1 : 1;
-        })
-
-        let filteredList = [];
-        let keys = {};
-
-        docs.forEach((doc) => {
-            if (!keys[doc.familyName]) {
-                filteredList[filteredList.length] = doc;
-                keys[doc.familyName] = doc; 
-            }
-        })
-
-        callback && callback(filteredList);
+const removeLibrary = (library, callback) => {
+    directoryDB.remove({ type: 'library', $or : [{library}, { _id : library }] }, { multi : true}, (err, num) => {
+        callback && callback();
     })
 }
+
+const getFiles = (directory, callback) => {
+    db.find({ 'item.directory' : directory}, (err, files) => {
+        callback && callback(filterFiles(files));
+    })
+}
+
+const getUserFiles = (directory, callback) => {
+    directoryDB.findOne({ type: 'user', $or : [ {directory}, {_id : directory} ]  }, (err, doc) => {
+        if (doc) {
+            getFiles(doc.directory, (files) => {
+                callback && callback(files);
+            })
+        } else {
+            callback && callback([]);
+        }
+        
+    })
+}
+
+const getLibraryFiles = (library, callback) => {
+    directoryDB.findOne({ type: 'library', $or : [ {library}, {_id : library} ]  }, (err, library) => {
+        if (library) {
+            db.find({ 'item.path' : { $in : library.files }  }, (err2, files) => {
+                callback && callback(files);
+            })
+        } else {
+            callback && callback([]);
+        }
+        
+    })
+}
+
+const getFavoriteFiles = (callback) => {
+    db.find({ 'item.favorite' : true }, (err, files) => {
+        callback && callback(filterFiles(files));
+    })
+}
+
 
 const findOne = (path, callback) => {
     db.findOne({ 'item.path' : path}, (err, doc) => {
@@ -325,7 +450,7 @@ const fontTree = (callback) => {
         let count = 0; 
         docs.forEach((doc) => {
 
-            list(doc.directory, function (files) {
+            getFiles(doc.directory, function (files) {
 
                 tree.push({
                     directory : doc.directory, 
@@ -351,11 +476,33 @@ const fontdb = {
     fontInfo,
     glyfInfo,
     findOne,
-    list,
-    update,
+
+    /* add user resource */
     addFolder,
-    folderList,
-    removeDirectory
+    addLibrary,
+
+    /* append to library */
+    appendFileToLibrary,
+
+    /* get user folders */
+    getUserFolders,
+
+    /* get library list */
+    getLibraryList,
+    
+    /* get files */
+    getFiles,
+    getUserFiles,
+    getLibraryFiles,
+    getFavoriteFiles,
+
+    update,
+
+    /* remove resource */
+    removeDirectory,
+    removeLibrary,
+    removeFileInLibrary,
+
 }
 
 export default fontdb
