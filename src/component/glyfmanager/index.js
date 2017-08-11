@@ -70,12 +70,12 @@ class GlyfManager extends Component {
     })
   }
 
-  filterGlyf = (index, glyf) => {
-    const block = unicode.getBlockForIndex(index);
+  filterGlyf = (blockIndex, glyf) => {
+    const block = unicode.getBlockForIndex(blockIndex);
 
     if (glyf.length) {
       return glyf.filter((unicode) => {
-        return block.start <= unicode && unicode <= block.end; 
+        return block.start <= unicode && unicode <= block.end;
       })
     } else {
 
@@ -85,7 +85,8 @@ class GlyfManager extends Component {
 
       glyf = [];
       for(let start = block.start; start <= block.end; start++) {
-        glyf[glyf.length] = start; 
+        console.log()
+        glyf[glyf.length] = start;
       }
 
       this.cacheSpecialChars[block.index] = glyf; 
