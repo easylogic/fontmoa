@@ -93,10 +93,11 @@
 
 .font-item .font-info .tools {
     z-index: 100;
+    color: #b6b6b6;
 }
 
 .font-item .font-info .tools .selected {
-    color: red; 
+    color: #740CD2; 
 }
 
 .font-info .font-name {

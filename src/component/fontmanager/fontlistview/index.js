@@ -136,7 +136,7 @@ class FontListView extends Component {
                     </div>
                     <div className="font-name">{item.name}</div>
                     <div className="tools">
-                        <span className={favoriteClass} data-path={item.path}><i className="icon icon-connection"></i></span>
+                        <span className={favoriteClass} data-path={item.path} title="Click if add to favorite"><i className="icon icon-connection"></i></span>
                     </div>
                 </div>
                 <div className="font-item-preview" style={style}>{message}</div>

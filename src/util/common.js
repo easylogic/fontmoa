@@ -1,3 +1,6 @@
+import Pangram from '../resources/pangram'
+import SystemFolder from '../resources/systemfolder'
+
 const os = window.require('os') 
 
 const PROTOCOL_PREFIX = 'fontmoa'
@@ -72,18 +75,8 @@ const getFontStyleCollect = (font) => {
 
 const getSystemFolders = () => {
     const platform = os.platform();
-    switch (platform) {
-      case "darwin" : 
-        return [
-            { name : 'fontmanager.category.system.folder.name', directory : '/Library/Fonts'}
-        ];
-      case "win32" : 
-        return [
-          { name : 'fontmanager.category.system.folder.name', directory : 'c:\\Windows\\Fonts'}
-        ];
-      default : 
-        return []
-    }
+
+    return SystemFolder[platform] || [];
 }
 
 const createSpecialChars = () => {
@@ -129,21 +122,10 @@ const caculateFontUnit = (font) => {
 }
 
 const getPangramMessage = (lang, isShort) => {
-    let message = isShort ? "Ag" : "The quick brown fox jumps over the lazy dog";
 
-    if (lang === 'ko') {
-        message = isShort ? "한글" : "닭 잡아서 치킨파티 함."
-    } else if (lang === 'zh') {
-        message = "太阳";
-    } else if (lang === 'ja') {
-        message = isShort ? "いろ" : "いろはにほへとちりぬるを";
-    } else if (lang === 'he') {
-        message = isShort ? "רה" : 'דג סקרן שט בים מאוכזב ולפתע מצא לו חברה איך הקליטה';
-    } else if (lang === 'ar') {
-        message = "طارِ";        
-    }
+    const message = Pangram[lang] || Pangram['en']
 
-    return message;
+    return message[isShort ? 'short' : 'long'];
 }
 
 const common = {
