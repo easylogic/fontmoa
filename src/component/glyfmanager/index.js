@@ -164,7 +164,14 @@ class GlyfManager extends Component {
     return (
         <TabItem ref="tabItem"  id={this.props.id} active={this.props.active}>
           <div className="gm-glyf-list">
-            <GlyfList changeSelectedGlyf={this.changeSelectedGlyf} changeUnicodeBlock={this.changeUnicodeBlock} selectedBlock={this.state.selectedBlock} blockList={this.state.blockList} selectedFont={this.state.selectedFont}   glyf={this.state.filteredGlyf}/>
+            <GlyfList 
+                changeSelectedGlyf={this.changeSelectedGlyf} 
+                changeUnicodeBlock={this.changeUnicodeBlock} 
+                selectedBlock={this.state.selectedBlock} 
+                blockList={this.state.blockList} 
+                selectedFont={this.state.selectedFont}   
+                glyf={this.state.filteredGlyf}
+            />
           </div>
           <div className="gm-font-list">
             <FontList specialChars={this.state.specialChars} selectedFont={this.state.selectedFont} refreshGlyf={this.refreshGlyf} fontTree={this.state.fontTree}/>

@@ -73,12 +73,6 @@ class App extends Component {
     this.refs.copyText.appendInputText(text, fontFamily);
   }
 
-  onChangeLocale = () => {
-
-    const locale = this.state.locale === 'en' ? 'ko' : 'en'
-    this.loadLocales(locale);
-  }
-
   render() { 
 
     let className = 'app';
@@ -102,7 +96,7 @@ class App extends Component {
       this.state.initDone && 
       <div className={className}>
         <div className="container">
-            <div className="logo" onClick={this.onChangeLocale}>{intl.get('app.title')}</div>
+            <div className="logo">{intl.get('app.title')}</div>
             <Tabs ref="tabs" full={true} styles={tabStyle}>	
               <FontManager style={{display: this.state.mini ? 'none' : 'block'}} mini={this.state.mini}  id="font" title={intl.get('app.tab.font.title')} active={fontManagerActive} appendInputText={this.appendInputText} />
               <GlyfManager style={{display: 'block'}} mini={this.state.mini}  id="glyf" title={intl.get('app.tab.glyphs.title')}  appendInputText={this.appendInputText}/>              
