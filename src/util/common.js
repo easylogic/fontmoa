@@ -79,6 +79,17 @@ const getSystemFolders = () => {
     return SystemFolder[platform] || [];
 }
 
+const isInSystemFolders = (path) => {
+    const folders = getSystemFolders();
+
+    const realpath = path.toLowerCase();
+    const checkList = folders.filter((folder) => {
+        return realpath.indexOf(folder.directory) === 0;
+    })
+
+    return !!checkList.length;
+}
+
 const createSpecialChars = () => {
     return { 
         type : 'specialChars', 
@@ -130,6 +141,7 @@ const getPangramMessage = (lang, isShort) => {
 
 const common = {
     getSystemFolders,
+    isInSystemFolders,
     getFontFamilyCollect,
     caculateFontUnit,
     getFontStyleCollect,

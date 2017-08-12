@@ -49,11 +49,19 @@ class FontListView extends Component {
 
             this.props.toggleFavorite(path, isToggleSelected);
         } else {
-            [...document.querySelectorAll('.font-list-view .font-item.selected')].forEach((node) => {
-                node.classList.remove('selected');  
-            });
 
-            e.target.classList.add('selected');
+            if (e.shiftKey) {
+                //multi select 
+
+                e.target.classList.toggle('selected');                
+            } else {
+                [...document.querySelectorAll('.font-list-view .font-item.selected')].forEach((node) => {
+                    node.classList.remove('selected');  
+                });
+
+                e.target.classList.add('selected');                
+            }
+
 
             const path = e.target.getAttribute('data-path');
 
@@ -61,6 +69,29 @@ class FontListView extends Component {
         }
 
 
+    }
+
+    onDragStart = (e) => {
+        const filepath = e.target.getAttribute('data-path');
+        const nodes = this.refs.fontListContent.querySelectorAll('.font-item.selected');
+        if (nodes) {
+            const files = [...nodes].map((el) => {
+                return el.getAttribute('data-path')
+            })
+
+            const dragFiles = files.filter((f) => {
+                return f === filepath; 
+            })
+
+            if (dragFiles.length) {
+                //이미 선택되어져 있는 리스트에 있는 아이템은 선택된 것들 모두 드래그 
+                e.dataTransfer.setData("text", files.join(","));
+            } else {
+                // 선택되지 않은 아이템이 드래그 되었을 때 드래그 아이템 하나만 추가 
+                e.dataTransfer.setData("text", [filepath]);
+            }
+
+        }
     }
 
     handleTabClick = (e) => {
@@ -128,7 +159,7 @@ class FontListView extends Component {
         }
 
         return (
-            <div draggable={true} key={index} className="font-item" data-dir={item.dir} data-path={item.path}>
+            <div draggable={true} onDragStart={this.onDragStart} key={index} className="font-item" data-dir={item.dir} data-path={item.path}>
                 <div className="font-info">
                     <div className="font-family" title={font.subfamilyName}>
                         {font.currentFamilyName}

@@ -6,6 +6,7 @@ const fs = window.require('fs');
 const path = window.require('path');
 const fontkit = window.require('fontkit');
 const DataStore  = window.require('nedb');
+const _ = window.require('lodash')
 
 
 const db = new DataStore({ filename : 'data/font.data' });
@@ -89,6 +90,13 @@ const insertFont = (font, item, done) => {
     fontObj.collectStyle = common.getFontStyleCollect(font);
 
     db.insert(fontObj, (err, docs) => {
+        if (common.isInSystemFolders(item.path)) {
+            // 시스템 폰트는 따로 생각해보자. 
+        } else {
+            // 시스템 폰트가 아닐 경우만 css 를 만든다 
+            cssMaker.createFontCss(item.path, fontObj);
+        }
+
         done && done();
     });
 }
@@ -119,6 +127,7 @@ const fontInfo = function (realpath, done) {
 const glyfInfo = function (realpath, done) {
     fontInfo(realpath, (font) => {
         if (font) {
+            
             const css = cssMaker.createFontCss(realpath, font);
             done && done(font, css, font.characterSet);
         } else {
@@ -146,7 +155,6 @@ const createFont = function (file, directory, done) {
                 done && done();
                 return;
             }
-
 
             if (font.header) {
 
@@ -294,22 +302,24 @@ const toggleFavorite = (path, isAdd, done) => {
 } 
 
 const appendFileToLibrary = (library, filepath, done) => {
-    directoryDB.findOne({ type: 'library',  library }, (err, doc) => {
+    directoryDB.findOne({ type: 'library',  $or : [{library}, { _id : library }]  }, (err, doc) => {
         if (doc) {
 
-            if (!doc.files.includes(filepath)) {
-                directoryDB.update({ 
-                    type: 'library',  library 
-                }, { 
-                    $push: { 
-                        files: filepath 
-                    } 
-                }, {}, function () {
-                    done && done(true);
-                });
-            } else {
-                done && done(true);
+            if (!Array.isArray(filepath)) {
+                filepath = [filepath]
             }
+
+            doc.files = _.uniq(doc.files.concat(filepath));
+
+
+            directoryDB.update({ 
+                type: 'library', 
+                $or : [{library}, { _id : library }] 
+            }, { 
+                $set: {   files: doc.files } 
+            }, {multi : true }, function () {
+                done && done(true);
+            });
         } else {
             done && done(false)
         }
@@ -455,6 +465,10 @@ const getLibraryFiles = (library, callback) => {
     })
 }
 
+const getCssInfo = (files, callback) => {
+
+}
+
 const getFavoriteFiles = (callback) => {
     directoryDB.findOne({ type : 'favorite' }, (err, favorite) => {
 
@@ -559,6 +573,9 @@ const fontdb = {
 
     /* get library list */
     getLibraryList,
+
+    /* get css information */ 
+    getCssInfo,
     
     /* get files */
     getFiles,

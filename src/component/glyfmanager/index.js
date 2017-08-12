@@ -36,7 +36,7 @@ class GlyfManager extends Component {
 
   }
 
-  initFontTree = () => {
+  initFontTree = (done) => {
     fontdb.fontTree((tree) => {
       const fontTree = tree; 
       const font = fontTree[0].files[0];
@@ -158,7 +158,11 @@ class GlyfManager extends Component {
   }
 
   setActive = (id) => {
-    this.refs.tabItem.setActive(id);
+    this.refs.tabItem.setActive(id);    
+
+    if (!this.state.fontTree.length) {
+      this.initFontTree();
+    }
   }  
 
   render() {

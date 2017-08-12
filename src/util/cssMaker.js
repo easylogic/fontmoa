@@ -42,12 +42,9 @@ const createFontCss = (realpath, font) => {
     const startdir = obj.dir.replace(obj.root, '');
 
     const cssdir = path.join('css', './' + startdir);
-    const fontdir = path.join('fonts', './' + startdir);
     const csspath = path.resolve(path.join('data', cssdir), cssname);
-    const fontpath = path.resolve(path.join('data', fontdir), obj.base);    
 
     createCssDir(path.join('data', cssdir));
-    createCssDir(path.join('data', fontdir));
 
     const ext = obj.ext.split('.').pop();
 
@@ -62,13 +59,10 @@ const createFontCss = (realpath, font) => {
 
     const fontFamily = font.familyName;
 
-    const css_fontpath = path.join(fontdir, path.sep, obj.base).replace(/\\/g, '/');
+    const css_fontpath = encodeURIComponent(encodeURIComponent(realpath));
 
     const data = `@font-face { font-family: '${fontFamily}'; src: url('${common.PROTOCOL_PREFIX}://${escape(css_fontpath)}') format('${fonttype}'); }`;
     fs.writeFileSync(csspath, data);
-    if (!fs.existsSync(fontpath)) { // 이미 생성되어 있으면 다시 생성하지 않음. 
-        fs.writeFileSync(fontpath, fs.readFileSync(realpath));
-    }
 
     datauri.format('.css', data);
 
@@ -76,7 +70,6 @@ const createFontCss = (realpath, font) => {
 
     return {
         csspath : common.PROTOCOL_PREFIX + '://' + path.join(cssdir, cssname).replace(/\\/g, '/'),
-        fontpath : path.join(fontdir, obj.base),
         fontFamily,
         realpath,
         fonttype

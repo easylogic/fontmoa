@@ -2,6 +2,7 @@
 const {app, BrowserWindow, protocol } = require('electron')
 const path  = require('path')
 const url = require('url') 
+const fs = require('fs');
 
 let win = null;
 
@@ -18,9 +19,17 @@ function devToolsLog(s) {
 function createWindow() {
   // register protocol
   protocol.registerFileProtocol(PROTOCOL_PREFIX, (req, callback) => {
-    const url = unescape(req.url.substring(10));
-    //devToolsLog('full url to open ' + url)
-    callback({path: path.normalize(`${__dirname}/data/${url}`)})
+    const url = req.url.substring(10);
+    devToolsLog('full url to open ' + url)
+
+    let p = path.normalize(`${__dirname}/data/${url}`);
+
+    if (!fs.existsSync(p) ) {
+      p = path.normalize(decodeURIComponent(decodeURIComponent(unescape(url)))); 
+      devToolsLog(decodeURIComponent(p));
+    }
+
+    callback({path: p})
   }, (error) => {
     if (error) console.error('failed to register protocol');
   })

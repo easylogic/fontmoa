@@ -100,6 +100,10 @@
     color: #740CD2; 
 }
 
+.font-item.selected .font-info .tools .selected {
+    color: #0deca8;
+}
+
 .font-info .font-name {
     flex : 10 ; 
     display:none;

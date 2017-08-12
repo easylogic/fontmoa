@@ -5776,6 +5776,10 @@ react-error-overlay@^1.0.9:
     settle-promise "1.0.0"
     source-map "0.5.6"
 
+react-intersection-observer@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-intersection-observer/-/react-intersection-observer-1.0.0.tgz#e5edef3786fb427b3bb48f56c3faf46861e75a85"
+
 react-intl-universal@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/react-intl-universal/-/react-intl-universal-1.2.1.tgz#9fc5b80eb2b42d2ba00d9d94741b40c85a3320d5"

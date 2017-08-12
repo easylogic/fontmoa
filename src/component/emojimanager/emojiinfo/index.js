@@ -1,6 +1,7 @@
-
 import React, { Component } from 'react';
 import './default.css';
+
+import TagInfo from './TagInfo'
 
 const { clipboard, remote } = window.require('electron');
 const dialog = remote.dialog;
@@ -60,10 +61,7 @@ class GlyfInfo extends Component {
                         </div>
                         <div className="desc-item">
                             <span className="cate cate-tags">tags</span>
-                            <span className="description">
-                                {this.props.selectedEmoji.tags.map((tag, index) => {
-                                    return <span key={index} className="label small success" data-tag={tag} onClick={this.onClickLabelItem}>{tag}</span>
-                                })}</span>
+                            <TagInfo tags={this.props.selectedEmoji.tags} refreshEmojiTagKey={this.props.refreshEmojiTagKey} />
                         </div>                                                
                     </div>
                 </div>

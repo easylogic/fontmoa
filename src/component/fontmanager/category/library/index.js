@@ -45,9 +45,10 @@ class Library extends Component {
         })
     }
 
-    appendFileToLibrary = (library, file) => {
-        fontdb.appendFileToLibrary(library, file, () => {
+    appendFileToLibrary = (library, files) => {
+        fontdb.appendFileToLibrary(library, files, () => {
             // 라이브러리를 추가 할 때는 화면이 다른 화면이라 따로 상태를 업데이트 하지 않음. 
+            this.refreshLibrary();
         })
     }
 
@@ -107,6 +108,30 @@ class Library extends Component {
         )
     }
 
+    preventDefault = (event) => {
+        event.preventDefault()
+    }
+
+    onDropItem = (e) => {
+        e.preventDefault();
+        var files = e.dataTransfer.getData("text").split(',');
+        const libraryId = e.target.getAttribute('data-library-id');
+        this.appendFileToLibrary(libraryId, files);
+        this.onDragLeaveItem(e);        
+    }
+
+    onDragEnterItem = (e) => {
+        if (e.target) {
+            e.target.classList.add('drop-item');
+        }
+    }
+
+    onDragLeaveItem = (e) => {
+        if (e.target) {
+            e.target.classList.remove('drop-item');
+        }
+    }    
+
     renderItem = (item, index) => {
         if (item.library) {
 
@@ -116,7 +141,7 @@ class Library extends Component {
             }
             
             return (
-                <div className={className} key={index}   data-library-id={item._id}>
+                <div className={className} key={index} onDragEnter={this.onDragEnterItem} onDragLeave={this.onDragLeaveItem} onDrop={this.onDropItem} onDragOver={this.preventDefault}  data-library-id={item._id}>
                     <a className="library-item">{item.library} {this.renderCountLabel(item)}</a>
                     <span title="Delete a library" className="delete-library" data-library-id={item._id} data-library={item.library}><i className="icon icon-x-mark"></i></span>
                 </div>

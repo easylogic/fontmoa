@@ -95,6 +95,11 @@
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);    
 }
 
+.category-content .library-items .item.drop-item {
+    background-color: black;
+    color:white;
+}
+
 .category-content .library-items .item a {
     display: block;
     width:100%;
