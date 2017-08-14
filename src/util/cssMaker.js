@@ -76,6 +76,18 @@ const createFontCss = (realpath, font) => {
     }
 }
 
+const loadCss = (css) => {
+    if (!document.getElementById(css.fontFamily)) {
+        // css 로드 
+        let link = document.createElement('link');
+        link.id = css.fontFamily;
+        link.rel = 'stylesheet';
+        link.href =  css.csspath;
+        document.head.appendChild(link);
+    }
+}
+
 export default {
-    createFontCss
+    createFontCss,
+    loadCss
 }

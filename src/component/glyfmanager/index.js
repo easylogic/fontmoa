@@ -11,6 +11,7 @@ import FontList from './fontlist'
 import fontdb  from '../../util/fontdb'
 import unicode from '../../util/unicode'
 import common from '../../util/common'
+import cssMaker from '../../util/cssMaker'
 
 class GlyfManager extends Component {
  constructor () {
@@ -126,23 +127,11 @@ class GlyfManager extends Component {
 
   updateGlyf = (path) => {
     fontdb.glyfInfo(path, (font, css, glyf) => {
-      if (glyf.length > 0) {
-        this.insertFontFaceCss(css);
+      if (glyf.length > 0 && common.isInSystemFolders(path) === false) {
+        cssMaker.loadCss(css)
       }
       this.updateUnicodeBlock(glyf);              
     })
-  }
-
-  insertFontFaceCss = (css) => {
-
-    if (!document.getElementById(css.fontFamily)) {
-      // css 로드 
-      let link = document.createElement('link');
-      link.id = css.fontFamily;
-      link.rel = 'stylesheet';
-      link.href =  css.csspath;
-      document.head.appendChild(link);
-    }
   }
 
   refreshFontTree = () => {

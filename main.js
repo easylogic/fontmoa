@@ -20,13 +20,13 @@ function createWindow() {
   // register protocol
   protocol.registerFileProtocol(PROTOCOL_PREFIX, (req, callback) => {
     const url = req.url.substring(10);
-    devToolsLog('full url to open ' + url)
+    //devToolsLog('full url to open ' + url)
 
     let p = path.normalize(`${__dirname}/data/${url}`);
 
     if (!fs.existsSync(p) ) {
       p = path.normalize(decodeURIComponent(decodeURIComponent(unescape(url)))); 
-      devToolsLog(decodeURIComponent(p));
+      //devToolsLog(decodeURIComponent(p));
     }
 
     callback({path: p})
