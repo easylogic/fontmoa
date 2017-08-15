@@ -8,6 +8,7 @@ import {Tabs} from '../../jui'
 import FontManager from '../fontmanager'
 import GlyfManager from '../glyfmanager'
 import EmojiManager from '../emojimanager'
+import GoogleFontManager from '../googlefontmanager'
 import LicenseManager from '../licensemanager'
 
 import CopyText from './CopyText'
@@ -101,7 +102,8 @@ class App extends Component {
               <FontManager style={{display: this.state.mini ? 'none' : 'block'}} mini={this.state.mini}  id="font" title={intl.get('app.tab.font.title')} active={fontManagerActive} appendInputText={this.appendInputText} />
               <GlyfManager style={{display: 'block'}} mini={this.state.mini}  id="glyf" title={intl.get('app.tab.glyphs.title')}  appendInputText={this.appendInputText}/>              
               <EmojiManager style={{display: 'block'}} mini={this.state.mini}  id="emoji" title={intl.get('app.tab.emoji.title')} active={emojiManagerActive}  appendInputText={this.appendInputText}/>              
-              <LicenseManager style={{display: this.state.mini ? 'none' : 'block'}} mini={this.state.mini}  id="license "title={intl.get('app.tab.license.title')} right={true}  appendInputText={this.appendInputText}/>              
+              <GoogleFontManager style={{display: this.state.mini ? 'none' : 'block'}} mini={this.state.mini}  id="googlefont" title={intl.get('app.tab.googlefont.title')}  appendInputText={this.appendInputText}/>      
+              <LicenseManager style={{display: this.state.mini ? 'none' : 'block'}} mini={this.state.mini}  id="license" title={intl.get('app.tab.license.title')} right={true}  appendInputText={this.appendInputText}/>              
             </Tabs>
         </div>
         <CopyText ref="copyText" />

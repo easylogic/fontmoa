@@ -5,6 +5,7 @@
     "app.tab.glyphs.title": "Glyphs",
     "app.tab.emoji.title" : "😀 Emoji",
     "app.tab.license.title" : "License",    
+    "app.tab.googlefont.title" : "Google Fonts",    
 
     "app.inputCopy.text" : "Copy",
     "app.inputText.placeholder": "Select a glyph or emoji. You can copy once.",

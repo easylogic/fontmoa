@@ -1,0 +1,30 @@
+.google-font-list {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    top: 0px; 
+}
+
+.google-font-list .font-list {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    bottom:10px;
+    width: 240px;
+    overflow:auto;
+}
+
+.google-font-list .font-view {
+    position: absolute;
+    left: 260px;
+    top: 10px;
+    bottom:10px;
+    right: 10px;
+    overflow:auto;
+}
+
+.google-font-list .font-list .font-item {
+    padding: 5px 10px;
+    border:0px;
+}

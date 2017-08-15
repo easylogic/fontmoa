@@ -16,6 +16,7 @@
   "homepage": "./",
   "dependencies": {
     "datauri": "^1.0.5",
+    "electron-fetch": "^1.0.0",
     "emojson": "^1.1.0",
     "filesize": "^3.5.10",
     "fontkit": "^1.7.7",
@@ -23,7 +24,6 @@
     "nedb": "^1.8.0",
     "react": "^15.6.1",
     "react-children-utilities": "^0.1.14",
-    "react-color": "^2.13.4",
     "react-dom": "^15.6.1",
     "react-intersection-observer": "^1.0.0",
     "react-intl-universal": "^1.2.1",
