@@ -28,7 +28,7 @@ const analysisEarlyAccessFont = (text) => {
     $div.innerHTML = text; 
 
     const items = [...$div.querySelectorAll('.early-access-contents-main > ol > li')].map(($li) => {
-        let fontObj = { type : 'early-access'}
+        let fontObj = { }
 
         const $dom = $li.querySelector("h2");
 
@@ -58,9 +58,6 @@ const analysisEarlyAccessFont = (text) => {
                 fontObj.downloadUrl = url.link;
             }
         })
-
-        console.log(fontObj.downloadUrl)
-
 
         return fontObj; 
     }).sort((a, b) => {
@@ -108,7 +105,6 @@ const analysisFont = (json) => {
     let language = new Set();
 
     json.items.forEach((font, index) => {
-        json.items[index].type = 'google';
         category.add(font.category)
         font.subsets.forEach((subset) => { 
             language.add(subset);
@@ -178,15 +174,22 @@ const createDir = (dirname) => {
     }, '');
 }
 
-const downloadMainFont = (link, callback) => {
-    createDir(path.dirname(path.join(google_font_dir, '.temp')));
-    const targetFile = path.resolve(google_font_dir, path.basename(link));
-    // copy 하기 
-    
-    request.downloadFile(link, targetFile, () => {
-        console.log(targetFile);
+const downloadGoogleFont = (font, callback) => {
+    const font_dir = path.join(google_font_dir, font.family.replace(/ /g, '_'));
+    createDir(path.dirname(path.join(font_dir, '.temp')));
 
-        callback && callback(targetFile);
+    const total = font.files.length; 
+    let count = 0; 
+    Object.keys(font.files).forEach(v => {
+        const link = font.files[v];
+        const targetFile = path.resolve(font_dir, v + '.ttf');
+        request.downloadFile(link, targetFile, () => {
+            count++;
+
+            if (count === total) {
+                callback && callback();
+            }
+        })
     })
 }
 
@@ -214,5 +217,6 @@ export default {
     loadGoogleFontEarlyAccessList,
     getGoogleFontEarlyAccessList,
     load,
+    downloadGoogleFont,
     downloadEarlyAccess,
 }

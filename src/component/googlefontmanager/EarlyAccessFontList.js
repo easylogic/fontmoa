@@ -26,7 +26,7 @@ class EarlyAccessFontList extends Component {
     const list = this.state.items;
     const index = parseInt(e.target.getAttribute('data-index'), 10);
 
-    this.props.refreshFontView(list[index]);
+    this.props.refreshFontView(Object.assign({ type : 'early-access'}, list[index]));
   }
 
   render() {

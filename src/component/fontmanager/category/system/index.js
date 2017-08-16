@@ -15,9 +15,11 @@ class SystemFolders extends Component {
         }
     }
 
-    loadFiles = (directory) => {
+    loadFiles = (directory, type) => {
         directory = directory || this.state.systemFolders[0].directory; 
-        fontdb.update(directory, () => {
+        type = type || "";
+
+        fontdb.update(directory, type, () => {
             this.refreshFiles(directory);
         });
     }
@@ -32,15 +34,16 @@ class SystemFolders extends Component {
     handleItemClick = (e) => {
 
         const directory = e.target.getAttribute('data-directory')
+        const type = e.target.getAttribute('data-type')
         if (directory) {
-            this.loadFiles(directory);
+            this.loadFiles(directory, type);
         }
 
     }
 
     renderItem = (item, index) => {
         return (
-            <div className="item" data-directory={item.directory}  key={index}>
+            <div className="item" data-type={item.type} data-directory={item.directory}  key={index}>
                 <a key={index} className="title" ><i className="icon icon-tool"></i>  {intl.get(item.name).d(item.name)}</a>
             </div>
         )

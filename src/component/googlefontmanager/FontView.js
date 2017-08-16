@@ -9,27 +9,29 @@ class FontView extends Component {
     super(props);
 
     this.state = {
-      font : [],
+      font : {},
     }
 
   }
 
   refreshFontView = (font) => {
-      this.setState({
-          font
-      })
+      this.setState({ font })
+  }
+
+  downloadGoogleFont = (e) => {
+    googlefont.downloadGoogleFont(this.state.font, () => {
+        console.log('구글 폰트를 다운로드 받았습니다.')
+    });
   }
 
   downloadEarlyAccess = (e) => {
     const downloadLink = e.target.getAttribute('data-download-link');
-    console.log('download link', downloadLink, e.target);
     googlefont.downloadEarlyAccess(downloadLink, () => {
         console.log('다운로드한 목록은 Font 탭에서 화인하실 수 있습니다.');
     });
   }
 
   renderEarlyAccessItem = () => {
-      console.log(this.state.font, this.state.font.downloadUrl)
     return (
         <div className="early-access-item">
             <h2>{this.state.font.family}</h2>
@@ -48,11 +50,23 @@ class FontView extends Component {
   }
 
   renderGoogleFontItem = () => {
-      return <pre>{JSON.stringify(this.state.font, null, 4)}</pre>
+    return (
+        <div className="google-font-item">
+            <h2>{this.state.font.family}</h2>
+            <h3>Category</h3>
+            <p>{this.state.font.category}</p>
+            <h3>Subsets</h3>
+            <p>{this.state.font.subsets.join(',')}</p>
+            <h3>Weight</h3>
+            {this.state.font.variants.map((v, index) => {
+                return <div key={index} className="variant-item">{v}</div>
+            })}
+            <a className="download" data-family={this.state.font.family} onClick={this.downloadGoogleFont}>Download</a>
+        </div>
+    )
   }
 
   renderItem = () => {
-
     if (this.state.font.type === 'google') {
         return this.renderGoogleFontItem();
     } else {

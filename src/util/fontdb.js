@@ -175,13 +175,28 @@ const createFont = function (file, directory, done) {
     }
 }
 
-const createMd5 = (path) => {
-    var files = fs.readdirSync(path);
+const createMd5 = (font_path, type) => {
+    if (fs.existsSync(font_path) === false) {
+        return { }
+    }
+    var files = fs.readdirSync(font_path);
 
-    files = files.filter((f) => {
-        const ext = f.toLowerCase().split('.').pop();
-        return exts.includes(ext);
-    })
+    if (type === 'googlefont') {
+        // 구글 폰트의 경우 디렉토리에 폰트 디렉토리가 있어서 폰트 디렉토리 첫번째 파일을 리스트화 한다. 
+
+        files = files.map(font_dir => {
+            const temp_dir = path.resolve(font_path, font_dir);
+            const list = fs.readdirSync(temp_dir);
+            return path.resolve(temp_dir, list[0]);
+        })
+
+    } else {
+        //디렉토리에 폰트가 다 보여있다. 
+        files = files.filter((f) => {
+            const ext = f.toLowerCase().split('.').pop();
+            return exts.includes(ext);
+        })
+    }
 
     var data = files.join(':');
 
@@ -355,10 +370,10 @@ const removeFileInLibrary = (library, filepath, done) => {
 }
 
 
-const update = (directory, done) => {
+const update = (directory, type, done) => {
     directoryDB.findOne({ directory }, (err, doc) => {
         if (doc) {
-             if (doc.hash === createMd5(directory).hash) {
+             if (doc.hash === createMd5(directory, type).hash) {
                  //  변화 없음
                  done && done();
                  return; 
@@ -367,12 +382,13 @@ const update = (directory, done) => {
 
         // 데이타 베이스 무조건 새로고침 
 
-        const hash = createMd5(directory);
+        const hash = createMd5(directory, type);
 
         // 디렉토리 정보 다시 입력 
         directoryDB.insert({
 
             directory,
+            type,
             name: path.basename(directory),
             hash: hash.hash,
             files: hash.files 
@@ -513,6 +529,12 @@ const findOne = (path, callback) => {
     })
 }
 
+const getAllDirectories = (docs) => {
+    docs = common.getSystemFolders().concat(docs);
+
+    return docs; 
+}
+
 const fontTree = (callback) => {
 
     let tree = [];
@@ -523,7 +545,7 @@ const fontTree = (callback) => {
         })
 
         // 시스템 폰트 목록이랑 합치기 
-        docs = common.getSystemFolders().concat(docs);
+        docs = getAllDirectories(docs);
         const total = docs.length;
         let count = 0; 
         docs.forEach((doc) => {
