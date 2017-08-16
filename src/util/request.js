@@ -4,6 +4,7 @@ const { net } = electron.remote;
 const fetch = (url, callback) => {
 
     const request = net.request(url)
+    request.setHeader('User-Agent', 'Fontmoa v1.0.9')
     request.on('response', (response) => {
         let responseData = "";
         response.on('data',  (chunk) => {
