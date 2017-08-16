@@ -3,19 +3,15 @@ import React, { Component } from 'react';
 import './default.css';
 
 import {TabItem} from '../../jui'
-import googlefont from '../../util/googlefont'
+
+import MainFontList from './MainFontList'
+import EarlyAccessFontList from './EarlyAccessFontList'
+import FontView from './FontView'
 
 class GoogleFontManager extends Component {
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      font : {},
-      items : [],
-      categories : [],
-      languages : [],
-    }
 
     this.loadFontList();
   }
@@ -29,20 +25,12 @@ class GoogleFontManager extends Component {
   }
 
   loadFontList = () => {
-    googlefont.loadGoogleFontList(() => {
-      googlefont.getGoogleFontList((json) => {
-        console.log(json); 
-        this.setState(json)
-      })
-    });
+    if (this.refs.mainList) this.refs.mainList.loadFontList()
+    if (this.refs.earlyList) this.refs.earlyList.loadFontList()
   }
 
-  onClickFontItem = (e) => {
-    const index = parseInt(e.target.getAttribute('data-index'), 10);
-
-    this.setState({
-      font : this.state.items[index],
-    })
+  refreshFontView = (font) => {
+    if (this.refs.fontView) this.refs.fontView.refreshFontView(font);
   }
 
   render() {
@@ -50,14 +38,11 @@ class GoogleFontManager extends Component {
     return (
         <TabItem ref="tabItem" id={this.props.id}  active={this.props.active}>
           <div className="google-font-list">
-            <div className="font-list" onClick={this.onClickFontItem}>
-              {this.state.items.map((font, index) => {
-                  return <div className="font-item" key={index} data-index={index}>{font.family}</div>
-              })}
+            <div className="font-list">
+              <MainFontList ref="mainList" refreshFontView={this.refreshFontView} />
+              <EarlyAccessFontList ref="earlyList" refreshFontView={this.refreshFontView} />
             </div>
-            <div className="font-view">
-              <pre>{JSON.stringify(this.state.font, null, 4)}</pre>
-            </div>
+            <FontView ref="fontView" />
           </div>
         </TabItem>
     );

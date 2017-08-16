@@ -15,6 +15,24 @@
     overflow:auto;
 }
 
+.google-font-list .font-list .main-list {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom:200px;
+    right: 0px;
+    overflow:auto;
+}
+
+.google-font-list .font-list .early-access-list {
+    position: absolute;
+    left: 0px;
+    height:200px;
+    bottom:0px;
+    right: 0px;
+    overflow:auto;
+}
+
 .google-font-list .font-view {
     position: absolute;
     left: 260px;
