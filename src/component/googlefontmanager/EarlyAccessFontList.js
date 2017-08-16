@@ -32,10 +32,13 @@ class EarlyAccessFontList extends Component {
   render() {
 
     return (
-        <div className="early-access-list" onClick={this.onClickFontItem}>
-        {this.state.items.map((font, index) => {
-            return <div className="font-item" key={index} data-index={index}>{font.family}</div>
-        })}
+        <div className="early-access-list">
+            <div className="title">Early Access</div>
+            <div className="fonts" onClick={this.onClickFontItem}>
+            {this.state.items.map((font, index) => {
+                return <div className="font-item" key={index} data-index={index}>{font.family}</div>
+            })}
+            </div>
         </div>
     );
   }

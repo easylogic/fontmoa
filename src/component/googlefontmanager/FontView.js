@@ -18,11 +18,29 @@ class FontView extends Component {
       })
   }
 
+  renderEarlyAccessItem = () => {
+    return <pre>{JSON.stringify(this.state.font, null, 4)}</pre>
+  }
+
+  renderGoogleFontItem = () => {
+      return <pre>{JSON.stringify(this.state.font, null, 4)}</pre>
+  }
+
+  renderItem = () => {
+
+    if (this.state.font.type === 'google') {
+        return this.renderGoogleFontItem();
+    } else {
+        return this.renderEarlyAccessItem();
+    }
+
+  }
+
   render() {
 
     return (
         <div className="font-view">
-            <pre>{JSON.stringify(this.state.font, null, 4)}</pre>
+            { this.renderItem() }
         </div>
     );
   }

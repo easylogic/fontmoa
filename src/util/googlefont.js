@@ -22,10 +22,16 @@ const analysisEarlyAccessFont = (text) => {
     $div.innerHTML = text; 
 
     const items = [...$div.querySelectorAll('.early-access-contents-main > ol > li')].map(($li) => {
-        let fontObj = {}
-        fontObj.family = $li.querySelector("h2").id.split('+').join(' ');
-        fontObj.name = $li.querySelector("h2").textContent;
-        fontObj.description = $li.querySelector('p').textContent;
+        let fontObj = { type : 'early-access'}
+
+        const $dom = $li.querySelector("h2");
+
+        const family = $dom.id || $dom.getAttribute('name');
+
+
+        fontObj.family = family.split('+').join(' ');
+        fontObj.name = $dom.textContent;
+        fontObj.description = $li.querySelector('p').innerHTML.trim();
 
         if ($li.querySelector('h3')) {
             fontObj.cssImport = $li.querySelector('h3').nextElementSibling.textContent.trim();
@@ -49,6 +55,8 @@ const analysisEarlyAccessFont = (text) => {
 
 
         return fontObj; 
+    }).sort((a, b) => {
+        return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1;
     })
 
     return {items}; 
@@ -91,7 +99,8 @@ const analysisFont = (json) => {
     let category = new Set();
     let language = new Set();
 
-    json.items.forEach((font) => {
+    json.items.forEach((font, index) => {
+        json.items[index].type = 'google';
         category.add(font.category)
         font.subsets.forEach((subset) => { 
             language.add(subset);

@@ -32,10 +32,13 @@ class MainFontList extends Component {
   render() {
 
     return (
-        <div className="main-list" onClick={this.onClickFontItem}>
-        {this.state.items.map((font, index) => {
-            return <div className="font-item" key={index} data-index={index}>{font.family}</div>
-        })}
+        <div className="main-list">
+            <div className="title">Google Fonts</div>
+            <div className="fonts" onClick={this.onClickFontItem}>
+                {this.state.items.map((font, index) => {
+                    return <div className="font-item" key={index} data-index={index}>{font.family}</div>
+                })}
+            </div>
         </div>
     );
   }
