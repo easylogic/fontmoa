@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { render } from 'react-dom'
 import Observer from 'react-intersection-observer'
 import './default.css';
 
@@ -8,15 +9,20 @@ import cssMaker from '../../../util/cssMaker'
 
 class FontListView extends Component {
 
+    static MAX_ITEM_COUNT = 30
+    
+
     constructor (props) {
         super(props);
 
         this.state = {
             files: this.props.files || [],
             selectedRow: false, 
-            fontListContentStyle : 'grid',
+            fontListContentStyle : 'row',
             faroviteFiles : []
         }
+
+        this.fontContent = ""
 
         this.init()
     }
@@ -39,7 +45,6 @@ class FontListView extends Component {
     }
 
     selectFontClick = (e) => {
-
         
         if (e.target.classList.contains('add-favorite')) {
 
@@ -125,7 +130,7 @@ class FontListView extends Component {
         this.refs.fontListContent.style.fontSize = fontSize;
     }
 
-    refreshFontCont (content) {
+    refreshFontContent (content) {
         if (content) {
             const nodes = this.refs.fontListContent.querySelectorAll(".font-item-preview");
 
@@ -134,6 +139,8 @@ class FontListView extends Component {
                     el.textContent = content; 
                 })
             }
+
+            this.fontContent = content; 
 
         }
 
@@ -165,6 +172,42 @@ class FontListView extends Component {
         }
     }
 
+    loadFontList = (inView) => {
+        if (inView) {
+            const lastItemFont = this.refs.fontListContent.lastElementChild.previousElementSibling;
+            if (!lastItemFont) return; 
+
+            const start = parseInt(lastItemFont.getAttribute('data-index'), 10) + 1
+            const end = start + FontListView.MAX_ITEM_COUNT; 
+
+            const fontStyle = {
+                fontSize : this.props.fontStyle.fontSize,
+                content : this.props.fontStyle.content,
+            }
+
+            console.log(fontStyle)
+
+            const items = this.state.files.filter((it, index) => {
+                return start <= index && index <= end; 
+            })
+
+            if (items.length) {
+                let frag = document.createDocumentFragment()
+
+                items.forEach((font, index) => {
+                    let $div = document.createElement('div');
+
+                    render(this.renderItem(font, start + index, fontStyle), $div)
+                    $div.firstChild.classList.add('scrolled');
+                    frag.appendChild($div.firstChild)
+                })
+
+                this.refs.fontListContent.insertBefore(frag, this.refs.fontListContent.lastElementChild)
+            }
+
+        }
+    }    
+
     renderItem = (font, index, fontStyle) => {
         const contentstyle = this.state.fontListContentStyle;
         const item = font.item; 
@@ -172,7 +215,7 @@ class FontListView extends Component {
         const style = Object.assign({}, font.collectStyle);
         const isGrid = contentstyle === 'grid';
 
-        let message = fontStyle.content || common.getPangramMessage(font.currentLanguage, isGrid); 
+        let message = this.fontContent || fontStyle.content || common.getPangramMessage(font.currentLanguage, isGrid); 
 
         let favoriteClass = "add-favorite";
         let activeClass = "activation";
@@ -191,6 +234,7 @@ class FontListView extends Component {
                 onDragStart={this.onDragStart} 
                 key={item.path} 
                 className="font-item" 
+                data-index={index}
                 data-dir={item.dir} 
                 data-path={item.path}  
                 data-family={font.currentFamilyName} 
@@ -200,13 +244,14 @@ class FontListView extends Component {
                         {font.currentFamilyName}
                         <span className="font-sub-family">({font.subfamilyName})</span>
                     </div>
-                    <div className="tools">
-                        <span className={favoriteClass} data-path={item.path} title="Add Favorite"><i className="icon icon-connection"></i></span>
-                    </div>
-                    <div className="activation">
-                        <span className={activeClass} data-path={item.path} title="Activation">●</span>
-                    </div>                    
                 </div>
+                <div className="tools">
+                    <span className={favoriteClass} data-path={item.path} title="Add Favorite"><i className="icon icon-connection"></i></span>
+                </div>
+                <div className="activation">
+                    <span className={activeClass} data-path={item.path} title="Activation">●</span>
+                </div>                    
+
                 <div className="font-item-preview" style={style}>
                     <div>{message}</div>
                 </div>
@@ -226,6 +271,19 @@ class FontListView extends Component {
             backgroundColor: this.props.fontStyle.backgroundColor,
         }, fontStyle);
 
+        const items = this.state.files.filter((it, index) => {
+            return index < FontListView.MAX_ITEM_COUNT;
+        })
+
+        if (this.refs.fontListContent) {
+            const scrolled = this.refs.fontListContent.querySelectorAll('.scrolled');
+
+            [...scrolled].forEach((node) => {
+                node.parentNode.removeChild(node);
+            })
+
+        }
+
         return (
             <div className="font-list-view">
                 <div className="font-list-header" >
@@ -237,9 +295,10 @@ class FontListView extends Component {
                     </div>
                 </div>
                 <div ref="fontListContent" className="font-list-content" style={colorStyle} data-content-style={this.state.fontListContentStyle} onDoubleClick={this.handleFontClick} onClick={this.selectFontClick}>
-                    {this.state.files.map((it, i) => {
+                    {items.map((it, i) => {
                         return this.renderItem(it, i, fontStyle);
                     })}
+                    <Observer ref="observer" className="font-item" onChange={(inView) => { this.loadFontList(inView) }}>{inView => ''}</Observer>                    
                 </div>
             </div>
         )

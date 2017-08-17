@@ -7,7 +7,7 @@ export default class TabItem extends Component {
     }
 
     createItemClass = () => {
-        let itemClass = ['tab-content'];
+        let itemClass = ['tab-content', this.props.className || ""];
 
         if (this.props.active) {
             itemClass.push('active')

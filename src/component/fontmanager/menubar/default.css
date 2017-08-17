@@ -6,10 +6,6 @@
     width: 150px;
 }
 
-.navbar .inline input[type=text].font-size {
-    width: 80px;
-}
-
 .navbar .inline {
     z-index: 100;
 }
@@ -21,10 +17,14 @@
 .navbar .range-component {
     padding-left: 10px;
     padding-right: 10px;
+    width:160px;
 }
 
 .navbar .range-component input {
     vertical-align: middle;
+    width: 60px !important;
+    margin-left:5px;
+    margin-right:5px;
 }
 
 .navbar .range-component span {
@@ -39,4 +39,13 @@
 
 .navbar .range-component span.big {
     font-size: 17px;
+}
+
+.navbar .font-only-view {
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.navbar .font-only-view .icon {
+    pointer-events: none;
 }

@@ -28,6 +28,7 @@ class Favorite extends Component {
     }        
 
     toggleFavorite = (path, isAdd) => {
+        console.log(path, isAdd);
         fontdb.toggleFavorite(path, isAdd, () => {
             this.loadCount();
         })

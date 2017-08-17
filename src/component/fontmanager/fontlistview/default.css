@@ -93,16 +93,25 @@
     pointer-events: none;
 }
 
-.font-item .font-info .tools {
+.font-item .tools {
+    position: absolute;
+    right: 10px;
+    top:10px;
+    display:inline-block;
+    font-size:13px;
     z-index: 100;
     color: #b6b6b6;
 }
 
-.font-item .font-info .tools .selected {
+.font-item .tools .icon {
+    pointer-events: none;
+}
+
+.font-item .tools .selected {
     color: #740CD2; 
 }
 
-.font-item.selected .font-info .tools .selected {
+.font-item.selected .tools .selected {
     color: #0deca8;
 }
 

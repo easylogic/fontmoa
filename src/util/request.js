@@ -2,20 +2,17 @@ const electron = window.require('electron')
 const { net } = electron.remote; 
 
 const fs = window.require('fs')
-const url = window.require('url')
 
 const fetch = (url, callback) => {
 
     const request = net.request(url)
     request.setHeader('User-Agent', 'Fontmoa v1.0.9')
     request.on('response', (response) => {
-        console.log(response.headers);
         let responseData = "";
         response.on('data',  (chunk) => {
             responseData += chunk;
         })
         response.on('end', () => {
-            console.log('end');
             callback && callback(responseData);
         })
     })
@@ -28,7 +25,7 @@ const fetch = (url, callback) => {
 const downloadFile = (link, target, callback, opt) => {
     //let urlObj = url.parse(link);
     //urlObj.cache = 'no-cache'
-    opt = opt || { delay : 100 }
+    opt = opt || { delay : 200 }
 
     const request = net.request(link)
     request.setHeader('User-Agent', 'Fontmoa v1.0.9')
@@ -50,7 +47,7 @@ const downloadFile = (link, target, callback, opt) => {
         })
 
         const timer = setInterval(() => {
-            if (status.count > 0) {
+            if (status.count > 3) {
                 clearInterval(timer);
                 response.emit('end');
                 return;
@@ -59,7 +56,7 @@ const downloadFile = (link, target, callback, opt) => {
             if (status.isDone) {
                 status.count++;
             }
-        }, opt.delay || 100);
+        }, opt.delay || 200);
     })
     request.on('error', (err) => {
         console.log(err)

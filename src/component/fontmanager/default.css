@@ -1,12 +1,17 @@
 
+.font-manager {
+
+}
+
 .app-menu {
   position:absolute;
-  left:320px;
+  left:260px;
   top:10px;
   right:0px;
   height:40px;
   border-bottom: 1px solid #ececec;
   box-sizing:border-box;
+  transition: all 0.3s linear;  
 }
 
 .app-sidebar {
@@ -14,21 +19,32 @@
   left:10px;
   top:10px;
   bottom:0px;
-  width:300px;
+  width:240px;
   background-color: white;
+  transition: all 0.3s linear;  
 }
 
 .app-content {
   position: absolute;
-  left:320px;
+  left:260px;
   top:50px;
   right:2px;
   bottom:0px;
   overflow: auto;
   box-sizing: border-box;
   border-left: 1px solid rgba(200, 200, 200, 0.5); 
+  transition: all 0.1s linear;
 }
 
+.font-manager.only-font .app-menu,
+.font-manager.only-font .app-content
+ {
+  left: 10px;
+}
+
+.font-manager.only-font .app-sidebar {
+  left: -300px;
+}
 
 /* jui update */ 
 .jui .navbar {

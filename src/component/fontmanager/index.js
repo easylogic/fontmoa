@@ -56,18 +56,26 @@ class FontManager extends Component {
   }
 
   refreshFontContent = (content) => {
-    this.refs.fontlistview.refreshFontCont(content);
+    this.refs.fontlistview.refreshFontContent(content);
   }
 
   toggleFavorite = (path, isAdd) => {
     this.refs.category.toggleFavorite(path, isAdd);
   }
 
+  toggleView = () => {
+    if (this.refs.tabItem) {
+      console.log(this.refs.tabItem);
+      this.refs.tabItem.tabItem.classList.toggle('only-font')
+    }
+
+  }
+
   render() {
     return (
-        <TabItem ref="tabItem" id={this.props.id}  active={this.props.mini !== true && this.props.active}>
+        <TabItem ref="tabItem" className="font-manager" id={this.props.id}  active={this.props.mini !== true && this.props.active}>
             <div className="app-menu">
-                <Menubar refreshFontStyle={this.refreshFontView} refreshFontSize={this.refreshFontSize} refreshFontContent={this.refreshFontContent} />
+                <Menubar toggleView={this.toggleView} refreshFontStyle={this.refreshFontView} refreshFontSize={this.refreshFontSize} refreshFontContent={this.refreshFontContent} />
             </div>
             <div className="app-sidebar">
                 <Tabs full={true} >
