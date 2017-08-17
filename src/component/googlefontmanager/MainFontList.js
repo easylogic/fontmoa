@@ -28,12 +28,16 @@ class MainFontList extends Component {
 
     this.props.refreshFontView(Object.assign({ type : 'google'}, list[index]));
   }
+  
+  downloadAll = () => {
+    this.props.downloadAll()
+  }
 
   render() {
 
     return (
         <div className="main-list">
-            <div className="title">Google Fonts</div>
+            <div className="title">Google Fonts <a href="#sync" onClick={this.downloadAll}>All Sync</a></div>
             <div className="fonts" onClick={this.onClickFontItem}>
                 {this.state.items.map((font, index) => {
                     return <div className="font-item" key={index} data-index={index}>{font.family}</div>

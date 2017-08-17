@@ -164,7 +164,6 @@ const load = (callback) => {
 const createDir = (dirname) => {
     dirname.split(path.sep).reduce((prevDir, dir, index, array) => {
         const temppath = path.resolve(prevDir, dir);
-        console.log(temppath);
         if (fs.existsSync(temppath)) {
             // NOOP 
         } else {
@@ -178,20 +177,43 @@ const downloadGoogleFont = (font, callback) => {
     const font_dir = path.join(google_font_dir);
     createDir(path.dirname(path.join(font_dir, '.temp')));
 
-    const total = font.files.length; 
+    const total = Object.keys(font.files).length; 
     let count = 0; 
-    Object.keys(font.files).forEach(v => {
+    Object.keys(font.files).forEach((v, index) => {
         const link = font.files[v];
         const targetFile = path.resolve(font_dir, font.family.replace(/ /g, '_') + '_' + v + '.ttf');
+
         request.downloadFile(link, targetFile, () => {
             count++;
-
             if (count === total) {
                 callback && callback();
             }
         })
+
+
     })
 }
+
+const downloadAllGoogleFont = (progress, callback) => {
+    getGoogleFontList((list) => {
+
+        const total = list.items.length;
+        let count = 0; 
+
+        list.items.forEach((font) => {
+            progress && progress (font);
+            downloadGoogleFont(font, () => {
+                count++;
+
+                if (count === total) {
+                    callback && callback();
+                }
+            })
+
+        })
+    })
+}
+
 
 const downloadEarlyAccess = (link, callback) => {
     createDir(path.dirname(path.join(early_access_dir, '.temp')));
@@ -199,13 +221,31 @@ const downloadEarlyAccess = (link, callback) => {
 
     // copy 하기 
     request.downloadFile(link, targetFile, () => {
-        console.log(targetFile);
 
         // 여기는 압축 풀어줘야할 것 같음. 
         extract(targetFile, {dir: path.dirname(targetFile)}, function (err) {
             fs.unlink(targetFile, () => {
                 callback && callback();
             });
+
+        })
+    })
+}
+
+const downloadAllEarlyAccess = (progress, callback) => {
+    getGoogleFontEarlyAccessList((list) => {
+        const total = list.items.length;
+        let count = 0; 
+
+        list.items.forEach((font) => {
+            progress && progress (font);
+            downloadEarlyAccess(font.downloadUrl, () => {
+                count++;
+
+                if (count === total) {
+                    callback && callback();
+                }
+            })
 
         })
     })
@@ -218,5 +258,7 @@ export default {
     getGoogleFontEarlyAccessList,
     load,
     downloadGoogleFont,
+    downloadAllGoogleFont,
     downloadEarlyAccess,
+    downloadAllEarlyAccess,
 }

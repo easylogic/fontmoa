@@ -4,6 +4,8 @@ import './default.css';
 
 import {TabItem} from '../../jui'
 
+import googlefont from '../../util/googlefont'
+
 import MainFontList from './MainFontList'
 import EarlyAccessFontList from './EarlyAccessFontList'
 import FontView from './FontView'
@@ -33,14 +35,30 @@ class GoogleFontManager extends Component {
     if (this.refs.fontView) this.refs.fontView.refreshFontView(font);
   }
 
+  downloadAllGoogleFont = () => {
+    googlefont.downloadAllGoogleFont(/* progress */ (targetFile, progress, total) => {
+      //console.log(targetFile, progress, total);
+    },/* done */ () => {
+        console.log('구글 폰트를 다운로드 받았습니다.')
+    });
+  }
+
+  downloadAllEarlyAccess = () => {
+    googlefont.downloadAllEarlyAccess(/* progress */ (targetFile, progress, total) => {
+      //console.log(targetFile, progress, total);
+    },/* done */ () => {
+        console.log('구글 Early Access 폰트를 다운로드 받았습니다.')
+    });
+  }  
+
   render() {
 
     return (
         <TabItem ref="tabItem" id={this.props.id}  active={this.props.active}>
           <div className="google-font-list">
             <div className="font-list">
-              <MainFontList ref="mainList" refreshFontView={this.refreshFontView} />
-              <EarlyAccessFontList ref="earlyList" refreshFontView={this.refreshFontView} />
+              <MainFontList ref="mainList" refreshFontView={this.refreshFontView} downloadAll={this.downloadAllGoogleFont} />
+              <EarlyAccessFontList ref="earlyList" refreshFontView={this.refreshFontView} downloadAll={this.downloadAllEarlyAccess} />
             </div>
             <FontView ref="fontView" />
           </div>
