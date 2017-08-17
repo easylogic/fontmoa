@@ -181,22 +181,11 @@ const createMd5 = (font_path, type) => {
     }
     var files = fs.readdirSync(font_path);
 
-    if (type === 'googlefont') {
-        // 구글 폰트의 경우 디렉토리에 폰트 디렉토리가 있어서 폰트 디렉토리 첫번째 파일을 리스트화 한다. 
-
-        files = files.map(font_dir => {
-            const temp_dir = path.resolve(font_path, font_dir);
-            const list = fs.readdirSync(temp_dir);
-            return path.resolve(temp_dir, list[0]);
-        })
-
-    } else {
-        //디렉토리에 폰트가 다 보여있다. 
-        files = files.filter((f) => {
-            const ext = f.toLowerCase().split('.').pop();
-            return exts.includes(ext);
-        })
-    }
+    //디렉토리에 폰트가 다 보여있다. 
+    files = files.filter((f) => {
+        const ext = f.toLowerCase().split('.').pop();
+        return exts.includes(ext);
+    })
 
     var data = files.join(':');
 
@@ -207,7 +196,7 @@ const updateFont = (directory, hash, done) => {
     // 폰트 정보 모두 지우고 
     db.remove({'item.directory' : directory}, {multi: true}, function (err, num) {
         //  전체 폰트 정보 다시 만들기 
-        const total = hash.files.length;
+        const total = (hash.files) ? hash.files.length : 0;
         let count = 0;  
 
         if (total === 0) { done && done(); return; }

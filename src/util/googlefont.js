@@ -175,14 +175,14 @@ const createDir = (dirname) => {
 }
 
 const downloadGoogleFont = (font, callback) => {
-    const font_dir = path.join(google_font_dir, font.family.replace(/ /g, '_'));
+    const font_dir = path.join(google_font_dir);
     createDir(path.dirname(path.join(font_dir, '.temp')));
 
     const total = font.files.length; 
     let count = 0; 
     Object.keys(font.files).forEach(v => {
         const link = font.files[v];
-        const targetFile = path.resolve(font_dir, v + '.ttf');
+        const targetFile = path.resolve(font_dir, font.family.replace(/ /g, '_') + '_' + v + '.ttf');
         request.downloadFile(link, targetFile, () => {
             count++;
 

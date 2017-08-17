@@ -99,6 +99,7 @@ class GlyfList extends Component {
                                 'data-unicode' : unicode,
                                 className : 'glyf-item',
                                 key : index, 
+                                draggable : true, 
                                 'data-index' : index 
                             }
 

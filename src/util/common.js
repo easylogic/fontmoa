@@ -84,7 +84,7 @@ const isInSystemFolders = (path) => {
 
     const realpath = path.toLowerCase();
     const checkList = folders.filter((folder) => {
-        return realpath.indexOf(folder.directory) === 0;
+        return folder.type === 'system' && realpath.toLowerCase().indexOf(folder.directory.toLowerCase()) === 0;
     })
 
     return !!checkList.length;

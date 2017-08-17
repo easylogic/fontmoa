@@ -60,6 +60,7 @@
     margin-top:-1px;
     cursor: pointer;
     user-select: none;
+    position:relative;
 }
 
 .font-item:hover {
@@ -81,6 +82,7 @@
     text-align: center;
     margin-bottom:10px;
     font-size: 13px !important;
+    pointer-events: none;
 }
 
 .font-item .font-info .font-family,
@@ -113,6 +115,11 @@
 .font-info .font-family {
     flex : 10 ; 
     font-weight: bold;
+    display: inline-block;
+    overflow: hidden;
+    text-align: left;
+    height:15px;
+    text-overflow: ellipsis;
 }
 
 .font-info .font-sub-family {
@@ -126,8 +133,27 @@
     margin-bottom:10px;
 }
 
+.font-item .activation {
+    position: absolute;
+    left: 0px;
+    top:50%;
+    transform: translateY(-10%);
+    font-size:24px;
+    padding-left:10px;
+    box-sizing:border-box;
+    color: #BDBDBD;
+}
+
+.font-item .activation .selected {
+    color: #5cb85c;
+}
+
+.font-list-content[data-content-style=row] {
+    display: block;
+}
+
 .font-list-content[data-content-style=row] .font-item {
-    flex: 1 1 100%;
+    flex: none;
     text-align: left !important;
     transition: none !important;
 }
@@ -138,6 +164,7 @@
 
 .font-list-content[data-content-style=row] .font-item .font-info {
     text-align: left !important;
+    margin-bottom:0px;
 }
 
 .font-list-content[data-content-style=row] .font-item .font-name {
@@ -151,6 +178,15 @@
 
 .font-list-content[data-content-style=row] .font-item .font-item-preview {
     text-align: left !important;
-    padding:5px 20px;
+    padding:0px 30px;
+    box-sizing:border-box;
+    overflow:hidden;
+    display:block;
+}
+
+.font-list-content[data-content-style=row] .font-item .font-item-preview div {
+    white-space: nowrap;
+    overflow: hidden;
+    width:100%;
 }
 

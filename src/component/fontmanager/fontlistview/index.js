@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import Observer from 'react-intersection-observer'
 import './default.css';
 
 import common from '../../../util/common'
 import fontdb from '../../../util/fontdb'
+import cssMaker from '../../../util/cssMaker'
 
 class FontListView extends Component {
 
@@ -142,6 +144,26 @@ class FontListView extends Component {
         return this.state.faroviteFiles.includes(path); 
     }
 
+    checkActive = (path) => {
+        return false; 
+    }
+
+    loadFontCss = (inView, path, font) => {
+        if (inView) {
+            if (common.isInSystemFolders(path) === false) {
+                const css = cssMaker.createFontCss(path, font);
+                cssMaker.loadCss(css)
+            }
+
+        }
+
+    }
+
+    changeViewStatus = (path, font) => {
+        return (inView) => {
+            this.loadFontCss(inView, path, font) 
+        }
+    }
 
     renderItem = (font, index, fontStyle) => {
         const contentstyle = this.state.fontListContentStyle;
@@ -153,25 +175,42 @@ class FontListView extends Component {
         let message = fontStyle.content || common.getPangramMessage(font.currentLanguage, isGrid); 
 
         let favoriteClass = "add-favorite";
+        let activeClass = "activation";
 
         if (this.checkFavorite(item.path)) {
             favoriteClass += " selected";
         }
 
+        if (this.checkActive(item.path)) {
+            activeClass += " selected";
+        }        
+
         return (
-            <div draggable={true} onDragStart={this.onDragStart} key={index} className="font-item" data-dir={item.dir} data-path={item.path}>
+            <Observer 
+                draggable={true} 
+                onDragStart={this.onDragStart} 
+                key={item.path} 
+                className="font-item" 
+                data-dir={item.dir} 
+                data-path={item.path}  
+                data-family={font.currentFamilyName} 
+                onChange={this.changeViewStatus(item.path, font)}>
                 <div className="font-info">
                     <div className="font-family" title={font.subfamilyName}>
                         {font.currentFamilyName}
                         <span className="font-sub-family">({font.subfamilyName})</span>
                     </div>
-                    <div className="font-name">{item.name}</div>
                     <div className="tools">
-                        <span className={favoriteClass} data-path={item.path} title="Click if add to favorite"><i className="icon icon-connection"></i></span>
+                        <span className={favoriteClass} data-path={item.path} title="Add Favorite"><i className="icon icon-connection"></i></span>
                     </div>
+                    <div className="activation">
+                        <span className={activeClass} data-path={item.path} title="Activation">●</span>
+                    </div>                    
                 </div>
-                <div className="font-item-preview" style={style}>{message}</div>
-            </div>        
+                <div className="font-item-preview" style={style}>
+                    <div>{message}</div>
+                </div>
+            </Observer>
         )
     }
 

@@ -2,9 +2,9 @@ import common from './common'
 
 const fs = window.require('fs');
 const path = window.require('path');
-const Datauri = window.require('datauri');
+//const Datauri = window.require('datauri');
 
-const datauri = new Datauri();
+//const datauri = new Datauri();
 
 const changeExt = (file, ext) => {
     let arr = file.split(".");
@@ -43,8 +43,17 @@ const createFontCss = (realpath, font) => {
 
     const cssdir = path.join('css', './' + startdir);
     const csspath = path.resolve(path.join('data', cssdir), cssname);
+    const isCss = fs.existsSync(csspath);
 
-    createCssDir(path.join('data', cssdir));
+    if (isCss) {
+        return {
+            csspath : common.PROTOCOL_PREFIX + '://' + path.join(cssdir, cssname).replace(/\\/g, '/'),
+        }
+    }
+
+    if (!isCss) {
+        createCssDir(path.join('data', cssdir));
+    }
 
     const ext = obj.ext.split('.').pop();
 
@@ -61,10 +70,13 @@ const createFontCss = (realpath, font) => {
 
     const css_fontpath = encodeURIComponent(encodeURIComponent(realpath));
 
-    const data = `@font-face { font-family: '${fontFamily}'; src: url('${common.PROTOCOL_PREFIX}://${escape(css_fontpath)}') format('${fonttype}'); }`;
-    fs.writeFileSync(csspath, data);
+    if (!isCss) {
+        const data = `@font-face { font-family: '${fontFamily}'; src: url('${common.PROTOCOL_PREFIX}://${escape(css_fontpath)}') format('${fonttype}'); }`;
+        fs.writeFileSync(csspath, data);
 
-    datauri.format('.css', data);
+        //datauri.format('.css', data);        
+    }
+
 
 //    shell.openItem(fontpath);
 
@@ -77,10 +89,10 @@ const createFontCss = (realpath, font) => {
 }
 
 const loadCss = (css) => {
-    if (!document.getElementById(css.fontFamily)) {
+    if (!document.getElementById(css.csspath)) {
         // css 로드 
         let link = document.createElement('link');
-        link.id = css.fontFamily;
+        link.id = css.csspath;
         link.rel = 'stylesheet';
         link.href =  css.csspath;
         document.head.appendChild(link);
