@@ -2,11 +2,13 @@ const electron = window.require('electron')
 const { net } = electron.remote; 
 
 const fs = window.require('fs')
+const url = window.require('url')
 
 const fetch = (url, callback) => {
 
     const request = net.request(url)
     request.setHeader('User-Agent', 'Fontmoa v1.0.9')
+    request.setHeader('Cache-Control', 'no-cache')    
     request.on('response', (response) => {
         let responseData = "";
         response.on('data',  (chunk) => {
@@ -22,44 +24,42 @@ const fetch = (url, callback) => {
     request.end();
 }
 
-const downloadFile = (link, target, callback, opt) => {
-    //let urlObj = url.parse(link);
-    //urlObj.cache = 'no-cache'
-    opt = opt || { delay : 200 }
+const downloadFile = (link, target, callback) => {
 
-    const request = net.request(link)
+    const urlObj = url.parse(link);
+
+    const request = net.request(urlObj)
+    request.setHeader('Connection', 'keep-alive, close')
     request.setHeader('User-Agent', 'Fontmoa v1.0.9')
-    //console.log(urlObj);
+    request.setHeader('Cache-Control', 'no-cache')
+    request.setHeader('Accept-Encoding', '*')
+    //console.log('download', link, target, 'start');
     request.on('response', (response, a) => {
 
         let stream = fs.createWriteStream(target, { flag : 'w+' });
 
-        let status = { isDone : false, count : 0 };
+        //console.log('response', JSON.stringify(response.headers), target);
+        //response.pipe(stream);
 
         response.on('data', (chunk) => {
             stream.write(chunk);
-            status.isDone = true; 
-
+            //console.log('data', chunk.length, target);
         })
+
         response.on('end', () => {
+            //console.log('end', target);
             stream.end();
-            callback && callback();
+            
         })
 
-        const timer = setInterval(() => {
-            if (status.count > 3) {
-                clearInterval(timer);
-                response.emit('end');
-                return;
-            }
-
-            if (status.isDone) {
-                status.count++;
-            }
-        }, opt.delay || 200);
+        response.on('close', () => {
+            //console.log('waiting, close', target);
+            stream.close();
+            setTimeout(callback, 10);
+        })
     })
-    request.on('error', (err) => {
-        console.log(err)
+    request.on('error', (e) => {
+        console.log(e, target);
     })
     request.end();
 }

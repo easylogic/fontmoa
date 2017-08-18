@@ -7,6 +7,7 @@ const PROTOCOL_PREFIX = 'fontmoa'
 
 const getFontFamilyCollect = (font) => {
 
+    if (!font.name) return "";
     if (!font.familyName) return "";
 
     let fontList = [];

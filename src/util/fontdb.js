@@ -47,20 +47,24 @@ const getNames = (name) => {
 
 const insertFont = (font, item, done) => {
 
+    try {
+        const units = font.unitsPerEm;
+    } catch (e) {
+        return done && done();
+    }
+
     const fontObj = {
         size: font.stream.length,
-        postscriptName : font.postscriptName,
-        fullName: font.fullName,
-        familyName: font.familyName,
-        subfamilyName: font.subfamilyName,
-        copyright: font.copyright, 
-        version: font.version,
+        postscriptName : (font.name ? font.postscriptName : ''),
+        fullName: (font.name ? font.fullName : ''),
+        familyName: (font.name ? font.familyName : ''),
+        subfamilyName: (font.name ? font.subfamilyName : ''),
+        copyright: (font.name ? font.copyright : ''), 
+        version: (font.name ? font.version : ''),
         unitsPerEm: font.unitsPerEm,
         ascent: font.ascent,
         descent: font.descent,
         lineGap: font.lineGap,
-        underlinePosition: font.underlinePosition,
-        italicAngle: font.italicAngle,
         capHeight: font.capHeight,
         xHeight: font.xHeight,
         bbox: font.bbox,
@@ -73,19 +77,26 @@ const insertFont = (font, item, done) => {
     const currentLanguage = fontObj.language.filter((l) => {
         return l !== 'en' && l !== '0-0'
     }).pop() || 'en';
-    const familyName = fontObj.name.fontFamily[currentLanguage] || fontObj.familyName;    
 
-    fontObj.currentFamilyName = familyName;
+    if (fontObj.name.fontFamily) {
+        const familyName = fontObj.name.fontFamily[currentLanguage] || fontObj.familyName;    
+
+        fontObj.currentFamilyName = familyName;
+    }
+
     fontObj.currentLanguage = currentLanguage;
 
-    const sub = fontObj.subfamilyName.toLowerCase();
-    if (sub.includes('italic')) {
-        fontObj.italic = true;
+    if (fontObj.subfamilyName) {
+        const sub = fontObj.subfamilyName.toLowerCase();
+        if (sub.includes('italic')) {
+            fontObj.italic = true;
+        }
+    
+        if (sub.includes('bold')) {
+            fontObj.bold = true;
+        }
     }
 
-    if (sub.includes('bold')) {
-        fontObj.bold = true;
-    }
 
     fontObj.collectStyle = common.getFontStyleCollect(font);
 
@@ -149,15 +160,16 @@ const createFont = function (file, directory, done) {
 
     if (exts.includes(ext)) {
     
+
         fontkit.open(realpath, null, function (err, font) {
 
             if (err) {
+                console.log(err);
                 done && done();
                 return;
             }
-
+            console.log(realpath);
             if (font.header) {
-
                 const nameList = font.fonts.map((f) => f.fontFamily);
 
                 font.fonts[0].nameList = nameList; 

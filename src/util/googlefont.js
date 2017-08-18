@@ -167,7 +167,7 @@ const createDir = (dirname) => {
         if (fs.existsSync(temppath)) {
             // NOOP 
         } else {
-            fs.mkdirSync(temppath, 0o777);
+            fs.mkdirSync(temppath);
         }
         return temppath;
     }, '');
@@ -177,19 +177,24 @@ const downloadGoogleFont = (font, callback) => {
     const font_dir = path.join(google_font_dir);
     createDir(path.dirname(path.join(font_dir, '.temp')));
 
-    const total = Object.keys(font.files).length; 
-    let count = 0; 
-    Object.keys(font.files).forEach((v, index) => {
-        const link = font.files[v];
-        const targetFile = path.resolve(font_dir, font.family.replace(/ /g, '_') + '_' + v + '.ttf');
+    const keys = Object.keys(font.files);
+    let result = [];
+    const total = keys.length; 
 
+
+    keys.forEach(key => {
+
+        const link = font.files[key];
+        const targetFile = path.resolve(font_dir, font.family.replace(/ /g, '_') + '_' + key + '.ttf');
+        
         request.downloadFile(link, targetFile, () => {
-            count++;
-            if (count === total) {
+            //console.log('downloaded', targetFile);
+            result.push(true);
+
+            if (result.length === total) {
                 callback && callback();
             }
         })
-
 
     })
 }
@@ -198,19 +203,23 @@ const downloadAllGoogleFont = (progress, callback) => {
     getGoogleFontList((list) => {
 
         const total = list.items.length;
-        let count = 0; 
 
-        list.items.forEach((font) => {
-            progress && progress (font);
-            downloadGoogleFont(font, () => {
-                count++;
+        list.items.forEach((font, index) => {
+            progress && progress ('start', font, index, total);            
 
-                if (count === total) {
-                    callback && callback();
-                }
-            })
+
+            ((f, i) => {
+                downloadGoogleFont(f, () => {
+                    progress && progress ('end', f, i + 1, total);
+    
+                    if (i + 1 === total) {
+                        callback && callback();
+                    }
+                })
+            })(font, index)
 
         })
+
     })
 }
 

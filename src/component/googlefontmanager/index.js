@@ -36,16 +36,16 @@ class GoogleFontManager extends Component {
   }
 
   downloadAllGoogleFont = () => {
-    googlefont.downloadAllGoogleFont(/* progress */ (targetFile, progress, total) => {
-      //console.log(targetFile, progress, total);
+    googlefont.downloadAllGoogleFont(/* progress */ (type, font, progress, total) => {
+      console.log(type, progress, total);
     },/* done */ () => {
         console.log('구글 폰트를 다운로드 받았습니다.')
     });
   }
 
   downloadAllEarlyAccess = () => {
-    googlefont.downloadAllEarlyAccess(/* progress */ (targetFile, progress, total) => {
-      //console.log(targetFile, progress, total);
+    googlefont.downloadAllEarlyAccess(/* progress */ (type, font, progress, total) => {
+      console.log(type, progress, total);
     },/* done */ () => {
         console.log('구글 Early Access 폰트를 다운로드 받았습니다.')
     });
