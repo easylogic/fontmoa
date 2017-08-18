@@ -17,7 +17,7 @@ class SystemFolders extends Component {
 
     loadFiles = (directory, type) => {
         directory = directory || this.state.systemFolders[0].directory; 
-        type = type || "";
+        type = type || this.state.systemFolders[0].type;
 
         fontdb.update(directory, type, () => {
             this.refreshFiles(directory);

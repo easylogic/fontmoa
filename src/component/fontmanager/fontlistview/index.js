@@ -208,10 +208,9 @@ class FontListView extends Component {
         }
     }    
 
-    renderItem = (font, index, fontStyle) => {
+    renderItem = (fontObj, index, fontStyle) => {
         const contentstyle = this.state.fontListContentStyle;
-        const item = font.item; 
-
+        const font = fontObj.font; 
         const style = Object.assign({}, font.collectStyle);
         const isGrid = contentstyle === 'grid';
 
@@ -220,11 +219,11 @@ class FontListView extends Component {
         let favoriteClass = "add-favorite";
         let activeClass = "activation";
 
-        if (this.checkFavorite(item.path)) {
+        if (fontObj.favorite) {
             favoriteClass += " selected";
         }
 
-        if (this.checkActive(item.path)) {
+        if (fontObj.activation) {
             activeClass += " selected";
         }        
 
@@ -232,13 +231,12 @@ class FontListView extends Component {
             <Observer 
                 draggable={true} 
                 onDragStart={this.onDragStart} 
-                key={item.path} 
+                key={fontObj.file} 
                 className="font-item" 
                 data-index={index}
-                data-dir={item.dir} 
-                data-path={item.path}  
+                data-path={fontObj.file}  
                 data-family={font.currentFamilyName} 
-                onChange={this.changeViewStatus(item.path, font)}>
+                onChange={this.changeViewStatus(fontObj.file, font)}>
                 <div className="font-info">
                     <div className="font-family" title={font.subfamilyName}>
                         {font.currentFamilyName}
@@ -246,10 +244,10 @@ class FontListView extends Component {
                     </div>
                 </div>
                 <div className="tools">
-                    <span className={favoriteClass} data-path={item.path} title="Add Favorite"><i className="icon icon-connection"></i></span>
+                    <span className={favoriteClass} data-id={fontObj._id} title="Add Favorite"><i className="icon icon-connection"></i></span>
                 </div>
                 <div className="activation">
-                    <span className={activeClass} data-path={item.path} title="Activation">●</span>
+                    <span className={activeClass} data-id={fontObj._id} title="Activation">●</span>
                 </div>                    
 
                 <div className="font-item-preview" style={style}>

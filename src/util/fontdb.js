@@ -17,7 +17,7 @@ directoryDB.loadDatabase((err) => {})
 
 const crypto = require('crypto');
 
-const exts = ['ttf', 'otf', 'woff', 'ttc'];
+const exts = ['.ttf', '.otf', '.woff', '.ttc'];
 
 const getLanguage = (name) => {
     let list = ['en'];
@@ -45,7 +45,7 @@ const getNames = (name) => {
     return list; 
 }
 
-const insertFont = (font, item, done) => {
+const insertFont = (font, fontObj, done) => {
 
     try {
         const units = font.unitsPerEm;
@@ -53,7 +53,7 @@ const insertFont = (font, item, done) => {
         return done && done();
     }
 
-    const fontObj = {
+    const fontItem = {
         size: font.stream.length,
         postscriptName : (font.name ? font.postscriptName : ''),
         fullName: (font.name ? font.fullName : ''),
@@ -69,45 +69,40 @@ const insertFont = (font, item, done) => {
         xHeight: font.xHeight,
         bbox: font.bbox,
         nameList : font.nameList || [],
-        item: item,
         name : getNames(font.name || {}),
         language : getLanguage(font.name || {}),
     }
 
-    const currentLanguage = fontObj.language.filter((l) => {
+    const currentLanguage = fontItem.language.filter((l) => {
         return l !== 'en' && l !== '0-0'
     }).pop() || 'en';
 
-    if (fontObj.name.fontFamily) {
-        const familyName = fontObj.name.fontFamily[currentLanguage] || fontObj.familyName;    
+    if (fontItem.name.fontFamily) {
+        const familyName = fontItem.name.fontFamily[currentLanguage] || fontItem.familyName;    
 
-        fontObj.currentFamilyName = familyName;
+        fontItem.currentFamilyName = familyName;
     }
 
-    fontObj.currentLanguage = currentLanguage;
+    fontItem.currentLanguage = currentLanguage;
 
-    if (fontObj.subfamilyName) {
-        const sub = fontObj.subfamilyName.toLowerCase();
+    if (fontItem.subfamilyName) {
+        const sub = fontItem.subfamilyName.toLowerCase();
         if (sub.includes('italic')) {
-            fontObj.italic = true;
+            fontItem.italic = true;
         }
     
         if (sub.includes('bold')) {
-            fontObj.bold = true;
+            fontItem.bold = true;
         }
     }
 
 
-    fontObj.collectStyle = common.getFontStyleCollect(font);
+    fontItem.collectStyle = common.getFontStyleCollect(font);
+
+    fontObj.font = fontItem; 
 
     db.insert(fontObj, (err, docs) => {
-        if (common.isInSystemFolders(item.path)) {
-            // 시스템 폰트는 따로 생각해보자. 
-        } else {
-            // 시스템 폰트가 아닐 경우만 css 를 만든다 
-            cssMaker.createFontCss(item.path, fontObj);
-        }
-
+        // 최종 폰트를 입력한 이후 callback 수행 
         done && done();
     });
 }
@@ -147,35 +142,32 @@ const glyfInfo = function (realpath, done) {
     })
 }
 
-const createFont = function (file, directory, done) {
-    const item = { 
-        path : path.resolve(directory, file),
-        directory : directory, 
-        name : path.basename(file), 
-        ext : path.extname(file).split('.').pop()
-    }
+const createFont = function (fontObj, done) {
 
-    const ext = item.ext.toLowerCase(); 
-    const realpath = item.path; 
+
+    const ext = path.extname(fontObj.file).toLowerCase(); 
+    const realpath = fontObj.file; 
 
     if (exts.includes(ext)) {
-    
 
         fontkit.open(realpath, null, function (err, font) {
 
             if (err) {
+                //폰트 정보를 로드를 못하면 데이타를 추가 하지 않는다. 
                 console.log(err);
                 done && done();
                 return;
             }
-            console.log(realpath);
-            if (font.header) {
+
+            if (font.header) {  // ttc 의 경우 가장 첫번째 폰트를 기준으로 데이타를 저장한다. 
                 const nameList = font.fonts.map((f) => f.fontFamily);
 
                 font.fonts[0].nameList = nameList; 
-                insertFont(font.fonts[0], item, done);
+
+                insertFont(font.fonts[0], fontObj, done);
             } else if (font && font.directory.tables.glyf) {
-                insertFont(font, item, done);
+                // 개별 폰트가 있을 때 
+                insertFont(font, fontObj, done);
             } else {
                 done && done();
             }
@@ -187,11 +179,11 @@ const createFont = function (file, directory, done) {
     }
 }
 
-const createMd5 = (font_path, type) => {
-    if (fs.existsSync(font_path) === false) {
+const createMd5 = (directory, type) => {
+    if (fs.existsSync(directory) === false) {
         return { }
     }
-    var files = fs.readdirSync(font_path);
+    var files = fs.readdirSync(directory);
 
     //디렉토리에 폰트가 다 보여있다. 
     files = files.filter((f) => {
@@ -199,31 +191,49 @@ const createMd5 = (font_path, type) => {
         return exts.includes(ext);
     })
 
-    var data = files.join(':');
-
-    return { hash : crypto.createHash('md5').update(data).digest("hex"), files : files };
+    return { files : files };
 }
 
-const updateFont = (directory, hash, done) => {
-    // 폰트 정보 모두 지우고 
-    db.remove({'item.directory' : directory}, {multi: true}, function (err, num) {
-        //  전체 폰트 정보 다시 만들기 
-        const total = (hash.files) ? hash.files.length : 0;
-        let count = 0;  
+const initializeFontFile = (file, category_id) => {
+    return {
+        file,                   // 이건 font 파일 패스 
+        category : category_id, // 카테고리는 system, googlefont, userfolder 로 고정이군 
+        labels : [],            // 라벨은 여러개 지정 될 수 있으니 
+        activation : false,     // 활성화 여부 
+        favorite : false,       // 기본 값 fasle 
+    }
+}
 
-        if (total === 0) { done && done(); return; }
+const updateFont = (_id, done) => {
 
-        hash.files.forEach((file) => {
-            createFont(file, directory, function () {
-                count++;
+    db.find({ category : _id }, (err, docs) => {
+        if (docs && docs.length) {
+            done && done();
+            return; 
+        }
 
-                if (count === total) {
-                    done && done();
-                }
-            });
+        directoryDB.findOne({ _id }, (err2, category) => {
+            const hash = createMd5(category.directory); 
+            const total = (hash.files) ? hash.files.length : 0;
+            let count = 0;  
+
+            if (total === 0) {
+                done && done();
+                return;
+            }
+
+            hash.files.forEach((file) => {
+                createFont(initializeFontFile(file, _id), function () {
+                    count++;
+    
+                    if (count === total) {
+                        done && done();
+                    }
+                });
+            })
         })
-
     })
+
 }
 
 const addFolder = (directory, done) => {
@@ -372,31 +382,25 @@ const removeFileInLibrary = (library, filepath, done) => {
 
 
 const update = (directory, type, done) => {
-    directoryDB.findOne({ directory }, (err, doc) => {
+    directoryDB.findOne({ directory, type }, (err, doc) => {
         if (doc) {
-             if (doc.hash === createMd5(directory, type).hash) {
-                 //  변화 없음
-                 done && done();
-                 return; 
-             }
+            done && done(doc._id);
+        } else {
+            // 디렉토리 정보 다시 입력 
+            directoryDB.insert({    
+                directory,
+                type,
+                name: path.basename(directory),
+            }, (err, doc) => {
+        
+            // 전체 폰트정보 업데이트 
+            updateFont(doc._id, () => {
+                done && done (doc._id);
+            })                
+            
+            });
         }
 
-        // 데이타 베이스 무조건 새로고침 
-
-        const hash = createMd5(directory, type);
-
-        // 디렉토리 정보 다시 입력 
-        directoryDB.insert({
-
-            directory,
-            type,
-            name: path.basename(directory),
-            hash: hash.hash,
-            files: hash.files 
-        });
-        
-        // 전체 폰트정보 업데이트 
-        updateFont(directory, hash, done)
 
     })
 
@@ -450,9 +454,14 @@ const removeLibrary = (library, callback) => {
     })
 }
 
-const getFiles = (directory, callback) => {
-    db.find({ 'item.directory' : directory}, (err, files) => {
-        callback && callback(filterFiles(files));
+const getFiles = (directoryOrId, callback) => {
+    directoryDB.findOne({ $or : [
+        {directory : directoryOrId},
+        { _id : directoryOrId }
+    ] }, (err, category) => {
+        db.fine({ category : category._id}, (err2, files) => {
+            callback && callback(filterFiles(files));
+        })
     })
 }
 
