@@ -17,6 +17,11 @@ class FontList extends Component {
         this.props.refreshGlyf(this.state.selectedFont);
     }
 
+
+    onChangeUnicodeBlock = (e) => {
+        this.props.changeUnicodeBlock(+e.target.getAttribute('data-value'));
+    }    
+
     getMessage = (key) => {
         if (
             key === 'glyfmanager.fontlist.specialChars.title'
@@ -37,50 +42,19 @@ class FontList extends Component {
         }
     }
 
-    createFontNames = (font) => {
-        return (
-            <ul className="font-tree-node child submenu">
-            {font.files.map((f, index) => {
-                const style = f.collectStyle;
-                
-                let className = "";
-
-                if (this.state.selectedFont && this.state.selectedFont.item && this.state.selectedFont.item.path === f.item.path ) {
-                    className += " active";
-                }
-
-                const message = this.getMessage(f.currentFamilyName) ;
-
-                return (
-                    <li 
-                        className={className} 
-                        key={index} 
-                        onClick={this.onClickFontItem(f, index)}
-                    >
-                        <a style={style} href={`#${message}`}>{message}</a>
-                    </li>
-                )
-            })}
-            </ul>
-        )
-    }
-
-    createFontList = (font, index) => {
-        return (
-            <div className="font-tree-item vmenu flat" key={index}>
-                {font.type === 'specialChars' ? '' : <a className="font-tree-node parent"> {this.getMessage(font.name)} </a>}
-                {this.createFontNames(font)}
-            </div>
-        )
-    }
-
     render() {
         return (
-            <div className="font-tree">
-                {this.createFontList(this.state.specialChars, 0)}
-                {this.props.fontTree.map((font, index) => {
-                    return this.createFontList(font, index)
-                })}
+            <div className="font-tree" onClick={this.onChangeUnicodeBlock}>
+            {
+                this.props.blockList.map((block, index) => {
+                    const arr = Object.keys(block.alias);
+                    let name = block.name;                            
+                    if (arr.length) {
+                        name = block.alias[arr[0]]
+                    }
+                    return (<div className="font-tree-item " key={index} data-value={block.index}>{name}</div>)
+                })
+            }
             </div>
         )
     }

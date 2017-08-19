@@ -13,10 +13,13 @@
     top:0px;
     height: 34px;
     margin-bottom:0px;
+    display: flex;
 }
 
 .jui .tabs.full .tab li {
     cursor:pointer;
+    flex:1;
+    text-align: center;
 }
 
 .jui .tabs.full .tab-container {

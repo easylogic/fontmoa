@@ -7,40 +7,11 @@
     bottom: 0px;
 }
 
-.font-list-header {
-    position: absolute;
-    top:0px;
-    left:0px;
-    right:0px;
-    height:40px;
-    box-sizing: border-box;
-    padding: 5px 2px;
-}
-
-.font-list-header .title {
-    float:left;
-    vertical-align: middle;
-    font-size:14px;
-    padding:4px;
-}
-
-.font-list-header .tools {
-    float:right;
-    vertical-align: middle;    
-}
-
-.font-list-header .tools .pill {
-    margin:0px;
-}
-
-.font-list-header .tools .pill i {
-    pointer-events: none;
-}
 
 .font-list-content {
     position: absolute;
     left:0px;
-    top:40px;
+    top:0px;
     right: 0px;
     bottom:0px;
     overflow: auto;

@@ -19,7 +19,6 @@
     text-align: center;
     cursor:pointer;
     font-size:15px;
-    vertical-align: middle;
     padding:10px;
 }
 
@@ -80,7 +79,6 @@
     top:-10px;
     content: attr(data-title);
     display: block;
-    vertical-align: middle;
     font-size: 13px !important;
     font-family: serif, sans-serif !important;
 }
@@ -97,7 +95,7 @@
 
 
 .glyf-info-view:hover  .char-view {
-    border:1px solid rgba(0, 0, 0, 0.1); 
+    //border:1px solid rgba(0, 0, 0, 0.1); 
     border-top:0px;
     border-bottom:0px;
 }

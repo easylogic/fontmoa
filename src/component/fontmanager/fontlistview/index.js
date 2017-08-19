@@ -17,7 +17,6 @@ class FontListView extends Component {
 
         this.state = {
             files: this.props.files || [],
-            selectedRow: false, 
             fontListContentStyle : 'row',
             faroviteFiles : []
         }
@@ -69,10 +68,6 @@ class FontListView extends Component {
                 e.target.classList.add('selected');                
             }
 
-
-            const path = e.target.getAttribute('data-path');
-
-            this.props.refreshFontInfo(path);
         }
 
 
@@ -101,23 +96,9 @@ class FontListView extends Component {
         }
     }
 
-    handleTabClick = (e) => {
-        
-
-        let href = e.target.getAttribute('href');
-
-        if (!href) {
-            href = e.target.querySelector("a").getAttribute("href");
-        }
-        const id = href.split('#').pop();
-
-        this.setState({
-            selectedRow: id === "row",
-            fontListContentStyle: id || "grid"
-        })
-    }
 
     refreshFiles = (files) => {
+        console.log(files, 'favorite');
          fontdb.getFavoriteFilesPathList((faroviteFiles) => {
             this.setState({
                 faroviteFiles,
@@ -128,6 +109,12 @@ class FontListView extends Component {
 
     refreshFontSize (fontSize) {
         this.refs.fontListContent.style.fontSize = fontSize;
+    }
+
+    refreshRowStyle = (fontListContentStyle) => {
+        this.setState( {
+            fontListContentStyle
+        })
     }
 
     refreshFontContent (content) {
@@ -269,9 +256,13 @@ class FontListView extends Component {
             backgroundColor: this.props.fontStyle.backgroundColor,
         }, fontStyle);
 
+        console.log(this.state.files);
+
         const items = this.state.files.filter((it, index) => {
             return index < FontListView.MAX_ITEM_COUNT;
         })
+
+        console.log(items);
 
         if (this.refs.fontListContent) {
             const scrolled = this.refs.fontListContent.querySelectorAll('.scrolled');
@@ -284,14 +275,6 @@ class FontListView extends Component {
 
         return (
             <div className="font-list-view">
-                <div className="font-list-header" >
-                    <div className="tools">
-                        <ul className="pill" onClick={this.handleTabClick}>
-                            <li className={this.state.selectedRow ? 'active' : ''}><a href="#row"><i className="icon icon-menu"></i></a></li>
-                            <li className={this.state.selectedRow ? '' : 'active'}><a href="#grid"><i className="icon icon-list1"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
                 <div ref="fontListContent" className="font-list-content" style={colorStyle} data-content-style={this.state.fontListContentStyle} onDoubleClick={this.handleFontClick} onClick={this.selectFontClick}>
                     {items.map((it, i) => {
                         return this.renderItem(it, i, fontStyle);

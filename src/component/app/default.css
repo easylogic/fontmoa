@@ -70,7 +70,7 @@
   left: 100px;
   background-color: rgba(116, 12, 210, 0.1);
   padding: 4px;
-  font-size: 30px;
+  font-size: 24px;
   line-height:1;
   vertical-align: middle;
   border-radius: 3px;
@@ -80,21 +80,21 @@
 }
 
 .app.mini .app-input .input-text {
-  font-size:20px;
+  font-size:15px;
+  line-height: 1;
 }
 
 .app-input .input-text .item {
   cursor: pointer;
   display:inline-block;
-  height:100%;
   vertical-align: middle;
+  border-color: transparent;  
+  border-width:1px;
+  border-style: solid;
 }
 
 .app-input .input-text .item:hover {
-  background-color: #740CD2;
-  color:white;
-  padding-left:5px;
-  padding-right:5px;
+  border-color: #740CD2;
 }
 
 .app-input .input-text:empty:before {

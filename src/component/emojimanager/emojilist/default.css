@@ -5,8 +5,7 @@
     right: 0px;
     bottom:0px;
     overflow: auto;
-    font-size: 35px;
-    line-height:50px;
+    font-size: 20px;
     vertical-align: middle;
     word-break: break-all;
     word-wrap: break-word;    
@@ -28,16 +27,17 @@
 
 .emoji-glyf-item {
     display: inline-block;
-    width: 120px;
-    height:120px;
+    width: 40px;
+    height:40px;
     box-sizing:border-box;
     cursor: pointer;
     user-select: none;
-    font-size: 35px;
-    line-height:50px;
+    font-size: 25px;
+    line-height:2;
     text-align:center;
+    margin-right:2px;
     vertical-align: middle;
-    padding:10px;
+    padding:0px;
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);   
     border-radius:3px;     
 }
@@ -45,13 +45,6 @@
 
 .emoji-glyf-item:hover {
     background-color: rgba(116, 12, 210, 0.1);
-}
-
-.emoji-glyf-item .desc {
-    text-align:center;
-    font-size:12px;
-    line-height:12px;
-    pointer-events: none;
 }
 
 .emoji-glyf-item[data-selected=true] {
@@ -77,7 +70,3 @@
     box-sizing:border-box;
 
 }
-
-.app.mini .emoji-glyf-item .desc {
-    display:none;
-}   

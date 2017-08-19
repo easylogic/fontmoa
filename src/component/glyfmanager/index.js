@@ -24,7 +24,6 @@ class GlyfManager extends Component {
       blockList: [],
       selectedBlock: {},
       selectedFont : specialChars.files[0],
-      fontTree : [], 
       favorite : [],
       glyf :[],
       selectedGlyf: 0,
@@ -33,36 +32,7 @@ class GlyfManager extends Component {
 
     this.cacheSpecialChars = {};
 
-    this.initFontTree();
-
   }
-
-  initFontTree = (done) => {
-    fontdb.fontTree((tree) => {
-      const fontTree = tree; 
-      const font = fontTree[0].files[0];
-
-      if (font) {
-        fontdb.glyfInfo(font.item.path, (glyf) => {
-          const blockList = unicode.checkBlockList(glyf);
-          const selectedBlock = blockList[0];
-          const filteredGlyf = this.filterGlyf(selectedBlock.index, glyf);
-          this.setState({
-            fontTree,
-            //f : font,       // 제일 처음에는 특수문자를 보여줄꺼라 font 를 설정하지 않음. 
-            glyf,
-            filteredGlyf,
-            blockList,
-            selectedBlock,
-          })
-
-        })
-      }
-
-
-    })
-  }
-
   
   refreshGlyf = (f) => {
     this.updateGlyf(f.item.path);
@@ -86,7 +56,6 @@ class GlyfManager extends Component {
 
       glyf = [];
       for(let start = block.start; start <= block.end; start++) {
-        console.log()
         glyf[glyf.length] = start;
       }
 
@@ -134,24 +103,9 @@ class GlyfManager extends Component {
     })
   }
 
-  refreshFontTree = () => {
-    fontdb.fontTree((tree) => {
-      const fontTree = tree; 
-
-      this.setState({
-        fontTree,
-      })
-
-      this.refreshGlyf(fontTree[0].files[0]);
-    })
-  }
 
   setActive = (id) => {
     this.refs.tabItem.setActive(id);    
-
-    if (!this.state.fontTree.length) {
-      this.initFontTree();
-    }
   }  
 
   render() {
@@ -160,15 +114,19 @@ class GlyfManager extends Component {
           <div className="gm-glyf-list">
             <GlyfList 
                 changeSelectedGlyf={this.changeSelectedGlyf} 
-                changeUnicodeBlock={this.changeUnicodeBlock} 
-                selectedBlock={this.state.selectedBlock} 
-                blockList={this.state.blockList} 
                 selectedFont={this.state.selectedFont}   
                 glyf={this.state.filteredGlyf}
             />
           </div>
           <div className="gm-font-list">
-            <FontList specialChars={this.state.specialChars} selectedFont={this.state.selectedFont} refreshGlyf={this.refreshGlyf} fontTree={this.state.fontTree}/>
+            <FontList 
+              specialChars={this.state.specialChars} 
+              selectedFont={this.state.selectedFont} 
+              changeUnicodeBlock={this.changeUnicodeBlock}               
+              selectedBlock={this.state.selectedBlock}               
+              blockList={this.state.blockList} 
+              refreshGlyf={this.refreshGlyf}
+            />
           </div>
           <div className="gm-glyf-info">
             <GlyfInfo ref="glyfInfo" selectedGlyf={this.state.selectedGlyf} selectedFont={this.state.selectedFont} />

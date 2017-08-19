@@ -7,9 +7,6 @@ class GlyfList extends Component {
 
     static MAX_ITEM_COUNT = 1000
 
-    onChange = (e) => {
-        this.props.changeUnicodeBlock(e.target.value);
-    }
 
     onClickGlyfItem = (e) => {
         const selectedNode = e.target.parentNode.querySelector('[data-selected=true]');
@@ -74,22 +71,6 @@ class GlyfList extends Component {
 
         return (
             <div className='glyf-list-manager'>
-                <div className="glyf-search">
-                    <select className="input" onChange={this.onChange} defaultValue="{this.props.selectedBlock.index}">
-                    {
-                        this.props.blockList.map((block, index) => {
-                            const arr = Object.keys(block.alias);
-                            let name = block.name;                            
-                            if (arr.length) {
-                               name = block.alias[arr[0]]
-                            }
-                            return (<option key={index} value={block.index}>{name}</option>)
-                        })
-                    }
-                    </select>
-
-                    <span className="block-count"> Count : {this.props.glyf.length}</span>
-                </div>
                 <div className="glyf-list" ref="glyfList" style={style} onClick={this.onClickGlyfItem}>
                     {
                         items.map((unicode, index) => {

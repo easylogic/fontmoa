@@ -10,6 +10,16 @@
     z-index: 100;
 }
 
+.navbar .inline ul {
+    display: inline-block;
+    margin: 0px;
+    vertical-align: middle;
+}
+
+.select-row-style .icon {
+    pointer-events: none;
+}
+
 .navbar .inline.right {
     z-index: 10;
 }

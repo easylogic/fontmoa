@@ -7,7 +7,6 @@ import {Tabs, TabItem} from '../../jui'
 
 import Category from './category'
 import FontListView from './fontlistview'
-import FontInfo from './fontinfo'
 import Menubar from './menubar'
 
 import fontdb  from '../../util/fontdb'
@@ -40,12 +39,6 @@ class FontManager extends Component {
     this.refs.fontlistview.refreshFiles(files);
   }
 
-  updateFontInfo = (path) => {
-     fontdb.findOne(path, (font) => {
-      //this.setState({ font })
-      this.refs.fontInfo.updateFontInfo(font);
-    })
-  }
 
   refreshFontView = (style) => {
     this.setState({ style })
@@ -57,6 +50,10 @@ class FontManager extends Component {
 
   refreshFontContent = (content) => {
     this.refs.fontlistview.refreshFontContent(content);
+  }
+
+  refreshRowStyle = (rowStyle) => {
+    this.refs.fontlistview.refreshRowStyle(rowStyle);
   }
 
   toggleFavorite = (path, isAdd) => {
@@ -75,20 +72,13 @@ class FontManager extends Component {
     return (
         <TabItem ref="tabItem" className="font-manager" id={this.props.id}  active={this.props.mini !== true && this.props.active}>
             <div className="app-menu">
-                <Menubar toggleView={this.toggleView} refreshFontStyle={this.refreshFontView} refreshFontSize={this.refreshFontSize} refreshFontContent={this.refreshFontContent} />
+              <Menubar toggleView={this.toggleView} refreshRowStyle={this.refreshRowStyle} refreshFontStyle={this.refreshFontView} refreshFontSize={this.refreshFontSize} refreshFontContent={this.refreshFontContent} />
             </div>
             <div className="app-sidebar">
-                <Tabs full={true} >
-                    <TabItem id="category" title={intl.get('fontmanager.category.directory.title')} active={true}>
-                        <Category ref="category" refreshFiles={this.refreshFiles} />
-                    </TabItem>
-                    <TabItem id="fontinfo" title={intl.get('fontmanager.category.fontinfo.title')}>
-                        <FontInfo ref="fontInfo" />
-                    </TabItem>
-                </Tabs>
+              <Category ref="category" refreshFiles={this.refreshFiles} />              
             </div>
             <div className="app-content">
-                <FontListView ref="fontlistview" toggleFavorite={this.toggleFavorite} fontStyle={this.state.style} files={this.state.files} refreshFontInfo={this.updateFontInfo} />
+                <FontListView ref="fontlistview" toggleFavorite={this.toggleFavorite} fontStyle={this.state.style} files={this.state.files} />
             </div>
         </TabItem>
     );

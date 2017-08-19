@@ -54,7 +54,6 @@ const insertFont = (font, fontObj, done) => {
     }
 
     const fontItem = {
-        size: font.stream.length,
         postscriptName : (font.name ? font.postscriptName : ''),
         fullName: (font.name ? font.fullName : ''),
         familyName: (font.name ? font.familyName : ''),
@@ -62,12 +61,6 @@ const insertFont = (font, fontObj, done) => {
         copyright: (font.name ? font.copyright : ''), 
         version: (font.name ? font.version : ''),
         unitsPerEm: font.unitsPerEm,
-        ascent: font.ascent,
-        descent: font.descent,
-        lineGap: font.lineGap,
-        capHeight: font.capHeight,
-        xHeight: font.xHeight,
-        bbox: font.bbox,
         nameList : font.nameList || [],
         name : getNames(font.name || {}),
         language : getLanguage(font.name || {}),
@@ -180,16 +173,17 @@ const createFont = function (fontObj, done) {
 }
 
 const createMd5 = (directory, type) => {
+    console.log(directory, 'createMd5')
     if (fs.existsSync(directory) === false) {
         return { }
     }
-    var files = fs.readdirSync(directory);
+    let files = fs.readdirSync(directory);
+    console.log(files);
 
     //디렉토리에 폰트가 다 보여있다. 
     files = files.filter((f) => {
-        const ext = f.toLowerCase().split('.').pop();
-        return exts.includes(ext);
-    })
+        return exts.includes(path.extname(f));
+    }).map(f => path.resolve(directory, f));
 
     return { files : files };
 }
@@ -212,10 +206,14 @@ const updateFont = (_id, done) => {
             return; 
         }
 
+        console.log(err, docs);
         directoryDB.findOne({ _id }, (err2, category) => {
+            console.log(err2, category);
             const hash = createMd5(category.directory); 
             const total = (hash.files) ? hash.files.length : 0;
             let count = 0;  
+
+            console.log(hash, total);
 
             if (total === 0) {
                 done && done();
@@ -391,17 +389,15 @@ const update = (directory, type, done) => {
                 directory,
                 type,
                 name: path.basename(directory),
-            }, (err, doc) => {
-        
-            // 전체 폰트정보 업데이트 
-            updateFont(doc._id, () => {
-                done && done (doc._id);
-            })                
+            }, (err2, category) => {
+                console.log(category)
+                // 전체 폰트정보 업데이트 
+                updateFont(category._id, () => {
+                    done && done (category._id);
+                })                
             
             });
         }
-
-
     })
 
 }
@@ -426,16 +422,16 @@ const getLibraryList = (callback) => {
 
 const filterFiles = (files) => {
     files.sort(function(a, b) {
-        return a.currentFamilyName <  b.currentFamilyName ? -1 : 1;
+        return a.font.currentFamilyName <  b.font.currentFamilyName ? -1 : 1;
     })
 
     let filteredList = [];
     let keys = {};
 
-    files.forEach((doc) => {
-        if (!keys[doc.familyName]) {
-            filteredList[filteredList.length] = doc;
-            keys[doc.familyName] = doc; 
+    files.forEach((f) => {
+        if (!keys[f.font.familyName]) {
+            filteredList[filteredList.length] = f;
+            keys[f.font.familyName] = f; 
         }
     })
 
@@ -454,14 +450,45 @@ const removeLibrary = (library, callback) => {
     })
 }
 
+const getFilesSub = (directoryOrId, callback) => {
+    directoryDB.findOne({ $or : [
+        {directory : directoryOrId},
+        { _id : directoryOrId }
+    ] }, (err, category) => {
+        if (category) {
+            db.find({ category : category._id}, (err2, files) => {
+                callback && callback(filterFiles(files));
+            })
+        } else {
+            callback && callback ([]);
+        }
+
+    })    
+}
+
 const getFiles = (directoryOrId, callback) => {
     directoryDB.findOne({ $or : [
         {directory : directoryOrId},
         { _id : directoryOrId }
     ] }, (err, category) => {
-        db.fine({ category : category._id}, (err2, files) => {
-            callback && callback(filterFiles(files));
-        })
+        console.log(category);
+
+        if (category) {
+            db.find({ category : category._id}, (err2, files) => {
+
+                if (files.length) {
+                    callback && callback(filterFiles(files));
+                } else {
+
+                    updateFont(category._id, () => {
+                        getFilesSub(category._id, callback)
+                    })
+                }
+            })
+        } else {
+            callback && callback ([]);
+        }
+
     })
 }
 
@@ -545,45 +572,7 @@ const getAllDirectories = (docs) => {
     return docs; 
 }
 
-const fontTree = (callback) => {
-
-    let tree = [];
-
-     directoryDB.find({ type : 'user' }, (err, docs) => {
-        docs.sort(function(a, b) {
-            return a.name <  b.name ? -1 : 1;
-        })
-
-        // 시스템 폰트 목록이랑 합치기 
-        docs = getAllDirectories(docs);
-        const total = docs.length;
-        let count = 0; 
-        docs.forEach((doc) => {
-
-            getFiles(doc.directory, function (files) {
-
-                tree.push({
-                    directory : doc.directory, 
-                    name : doc.name,
-                    files : files
-                })
-
-                count++;
-
-                if (count === total) {
-                    callback && callback(tree);
-                }
-            })
-
-
-        })
-
-    })
-}
-
 const fontdb = {
-    /* load  directories with files for tree Structure  */
-    fontTree,
 
     fontInfo,
     glyfInfo,

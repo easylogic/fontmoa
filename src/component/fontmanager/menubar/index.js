@@ -17,11 +17,32 @@ class Menubar extends Component {
         this.state = {
             content : "",
             fontSize: '40px',
+            selectedRow: true, 
+            fontListContentStyle : 'row',            
         }
 
         this.refreshFontSize = _.debounce((fontSize) => {
             this.props.refreshFontSize(fontSize);
         }, 200);
+    }
+
+
+    handleTabClick = (e) => {
+        
+
+        let href = e.target.getAttribute('href');
+
+        if (!href) {
+            href = e.target.querySelector("a").getAttribute("href");
+        }
+        const id = href.split('#').pop();
+
+        this.setState({
+            selectedRow: id === "row",
+            fontListContentStyle: id || "grid"
+        })
+
+        this.props.refreshFontStyle(this.state.fontListContentStyle);
     }
 
     change = (obj) => {
@@ -49,6 +70,10 @@ class Menubar extends Component {
             <div className="navbar">
                 <div className="inline">
                     <span className="font-only-view" onClick={this.toggleView}><i className="icon icon-gear"></i></span>
+                    <ul className="pill select-row-style" onClick={this.handleTabClick}>
+                        <li className={this.state.selectedRow ? 'active' : ''}><a href="#row"><i className="icon icon-menu"></i></a></li>
+                        <li className={this.state.selectedRow ? '' : 'active'}><a href="#grid"><i className="icon icon-list1"></i></a></li>
+                    </ul>
                 </div>
                 <div className="inline right">
                     <input type="text" className="input" onInput={this.onChangeText}  placeholder={intl.get('fontmanager.menubar.typing.inputText.placeholder')} />
