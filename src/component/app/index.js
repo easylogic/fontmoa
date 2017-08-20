@@ -25,7 +25,7 @@ class App extends Component {
     super();
 
     this.state = {
-      mini: false,
+      mini: true,
       inputText : "",
       initDone: false,
       locale : remote.app.getLocale()
@@ -47,8 +47,8 @@ class App extends Component {
 
   changeSettings () {
     if (this.state.mini) {
-      if (this.refs.tabs) this.refs.tabs.setActive('emoji');
-      remote.getCurrentWindow().setSize(400, 400, true);
+      //if (this.refs.tabs) this.refs.tabs.setActive('emoji');
+      remote.getCurrentWindow().setSize(400, 600, true);
     } else {
       if (this.refs.tabs) this.refs.tabs.setActive('font');
       remote.getCurrentWindow().setSize(1000, 700, true);
@@ -82,11 +82,7 @@ class App extends Component {
       className += ' mini';
     }
 
-    let tabStyle = {paddingLeft: '150px'};
-    if (this.state.mini) {
-      tabStyle.paddingLeft = '10px';
-      tabStyle.marginTop = '5px';
-    }
+    let tabStyle = {paddingLeft: '5px'};
 
     let fontManagerActive = (this.state.mini ? false : true); 
     let emojiManagerActive = (this.state.mini ? true : false); 
@@ -99,10 +95,10 @@ class App extends Component {
         <div className="container">
             <div className="logo">{intl.get('app.title')}</div>
             <Tabs ref="tabs" full={true} styles={tabStyle}>	
-              <FontManager style={{display: this.state.mini ? 'none' : 'block'}} mini={this.state.mini}  id="font" title={intl.get('app.tab.font.title')} active={fontManagerActive} appendInputText={this.appendInputText} />
+              <FontManager style={{display: 'block'}} mini={this.state.mini}  id="font" title={intl.get('app.tab.font.title')} active={fontManagerActive} appendInputText={this.appendInputText} />
               <GlyfManager style={{display: 'block'}} mini={this.state.mini}  id="glyf" title={intl.get('app.tab.glyphs.title')}  appendInputText={this.appendInputText}/>              
               <EmojiManager style={{display: 'block'}} mini={this.state.mini}  id="emoji" title={intl.get('app.tab.emoji.title')} active={emojiManagerActive}  appendInputText={this.appendInputText}/>              
-              <GoogleFontManager style={{display: this.state.mini ? 'none' : 'block'}} mini={this.state.mini}  id="googlefont" title={intl.get('app.tab.googlefont.title')}  appendInputText={this.appendInputText}/>      
+              <GoogleFontManager style={{display: 'block'}} mini={this.state.mini}  id="googlefont" title={intl.get('app.tab.googlefont.title')}  appendInputText={this.appendInputText}/>      
               <LicenseManager style={{display: this.state.mini ? 'none' : 'block'}} mini={this.state.mini}  id="license" title={intl.get('app.tab.license.title')} right={true}  appendInputText={this.appendInputText}/>              
             </Tabs>
         </div>

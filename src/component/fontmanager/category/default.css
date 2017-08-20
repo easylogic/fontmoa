@@ -40,7 +40,6 @@
 .category-content .group-label {
     font-weight: bold;
     padding:2px;
-    font-size: 15px;
     margin-bottom:10px;
     cursor:pointer;
 }
@@ -62,7 +61,6 @@
 
 
 .category-content .system-folders .item {
-    font-size: 15px;
     cursor:pointer;
 }
 
@@ -72,9 +70,8 @@
 
 .category-content .library-items .item {
     display:block;
-    font-size: 15px;    
     position:relative;
-    padding:10px;
+    padding:10px 2px;
     border-radius:3px;
     margin-left:0px;
     margin-right:0px;
@@ -148,7 +145,6 @@
     padding:5px;
     box-sizing:border-box;
     height:30px;
-    font-size:15px;
     border:0px;
     box-shadow: none !important;
 

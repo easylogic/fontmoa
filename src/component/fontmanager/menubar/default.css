@@ -1,61 +1,32 @@
-.navbar .inline input[type=text] {
-    width: 200px;
+.fm-menubar {
+    display:flex;
+    padding:5px 10px;
 }
 
-.navbar .inline input[type=text].search-field {
-    width: 150px;
+.fm-menubar > div {
+    flex:1; 
 }
 
-.navbar .inline {
-    z-index: 100;
+.fm-menubar .right {
+    text-align: right; 
 }
 
-.navbar .inline ul {
-    display: inline-block;
-    margin: 0px;
+.fm-menubar .select-row-style {
+    display:inline-block;
+    margin:0px;
     vertical-align: middle;
 }
+
 
 .select-row-style .icon {
     pointer-events: none;
 }
 
-.navbar .inline.right {
-    z-index: 10;
-}
-
-.navbar .range-component {
-    padding-left: 10px;
-    padding-right: 10px;
-    width:160px;
-}
-
-.navbar .range-component input {
-    vertical-align: middle;
-    width: 60px !important;
-    margin-left:5px;
-    margin-right:5px;
-}
-
-.navbar .range-component span {
-    padding-left: 2px;
-    padding-right: 2px;
-    vertical-align:middle;
-}
-
-.navbar .range-component span.small {
-    font-size: 12px;
-}
-
-.navbar .range-component span.big {
-    font-size: 17px;
-}
-
-.navbar .font-only-view {
+.fm-menubar .font-only-view {
     cursor: pointer;
     vertical-align: middle;
 }
 
-.navbar .font-only-view .icon {
+.fm-menubar .font-only-view .icon {
     pointer-events: none;
 }

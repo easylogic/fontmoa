@@ -2,13 +2,18 @@ import data from '../resources/UnicodeBlocks';
 
 let UNICODE_BLOCK = [ ]
 
+const isUnicodeBlock = (line) => {
+    // # 은 주석으로 처리한다.
+    return line.indexOf('#') !== 0;
+}
+
 const createUnicodeBlockListCache = () => {
     if (UNICODE_BLOCK.length) return;
 
     let unicodeList = [];
     data.split('\n').forEach((line) => {
 
-        if (line.trim()) {
+        if (line.trim() && isUnicodeBlock(line)) {
             const arr = line.split(";");
 
             const index = unicodeList.length;

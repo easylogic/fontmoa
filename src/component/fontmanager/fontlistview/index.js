@@ -98,7 +98,6 @@ class FontListView extends Component {
 
 
     refreshFiles = (files) => {
-        console.log(files, 'favorite');
          fontdb.getFavoriteFilesPathList((faroviteFiles) => {
             this.setState({
                 faroviteFiles,
@@ -256,13 +255,9 @@ class FontListView extends Component {
             backgroundColor: this.props.fontStyle.backgroundColor,
         }, fontStyle);
 
-        console.log(this.state.files);
-
         const items = this.state.files.filter((it, index) => {
             return index < FontListView.MAX_ITEM_COUNT;
         })
-
-        console.log(items);
 
         if (this.refs.fontListContent) {
             const scrolled = this.refs.fontListContent.querySelectorAll('.scrolled');
@@ -279,7 +274,7 @@ class FontListView extends Component {
                     {items.map((it, i) => {
                         return this.renderItem(it, i, fontStyle);
                     })}
-                    <Observer ref="observer" className="font-item" onChange={(inView) => { this.loadFontList(inView) }}>{inView => ''}</Observer>                    
+                    <Observer ref="observer" className="font-item observer" onChange={(inView) => { this.loadFontList(inView) }}>{inView => ''}</Observer>                    
                 </div>
             </div>
         )

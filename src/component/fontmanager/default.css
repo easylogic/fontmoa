@@ -5,8 +5,8 @@
 
 .app-menu {
   position:absolute;
-  left:260px;
-  top:10px;
+  left:0px;
+  top:0px;
   right:0px;
   height:40px;
   border-bottom: 1px solid #ececec;
@@ -14,40 +14,46 @@
   transition: all 0.3s linear;  
 }
 
+.app-toolbar {
+  position:absolute;
+  left:0px;
+  bottom:0px;
+  right:0px;
+  height:40px;
+  border-top: 1px solid #ececec;
+  box-sizing:border-box;
+}
+
+
 .app-sidebar {
   position: absolute;
-  left:10px;
-  top:10px;
-  bottom:0px;
-  width:240px;
+  left:-170px;
+  top:40px;
+  bottom:40px;
+  width:160px;
   background-color: white;
   transition: all 0.3s linear;  
+  z-index:1000;
+  box-sizing: border-box;
+  border-right: 1px solid #ececec;
 }
 
 .app-content {
   position: absolute;
-  left:260px;
-  top:50px;
+  left:10px;
+  top:40px;
   right:2px;
-  bottom:0px;
+  bottom:40px;
   overflow: auto;
   box-sizing: border-box;
-  border-left: 1px solid rgba(200, 200, 200, 0.5); 
   transition: all 0.1s linear;
 }
 
-.font-manager.only-font .app-menu,
-.font-manager.only-font .app-content
+.font-manager.show-directory .app-content
  {
+  transform: translateX(170px);
+}
+
+.font-manager.show-directory .app-sidebar {
   left: 10px;
-}
-
-.font-manager.only-font .app-sidebar {
-  left: -300px;
-}
-
-/* jui update */ 
-.jui .navbar {
-    overflow: auto !important;
-    border:0px !important;
 }

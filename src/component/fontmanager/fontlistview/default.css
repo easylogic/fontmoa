@@ -18,20 +18,17 @@
     display: flex; 
     flex-wrap:wrap;
     padding-right:5px;
-    border-top:1px solid #ececec;
 }
 
 
 .font-item {
-    flex: 1 1 20%;
+    flex: 1 1 50%;
     flex-grow: 0;    
     box-sizing:border-box;
-    border: 1px solid rgba(200, 200, 200, 0.5); 
-    margin-left: -1px;
-    margin-top:-1px;
     cursor: pointer;
     user-select: none;
     position:relative;
+    border-radius:3px;
 }
 
 .font-item:hover {
@@ -127,6 +124,21 @@
 .font-item .activation .selected {
     color: #5cb85c;
 }
+
+.font-list-content[data-content-style=grid] {
+    padding-bottom:10px;
+}
+.font-list-content[data-content-style=grid] .font-item {
+    box-sizing:border-box;
+    border:1px solid #ececec;
+    border-radius: 3px;
+    margin-right:5px;
+    margin-top:5px;
+    flex:1 1 48%;
+}
+.font-list-content[data-content-style=grid] .font-item.observer {
+    border:0px;
+}   
 
 .font-list-content[data-content-style=row] {
     display: block;
