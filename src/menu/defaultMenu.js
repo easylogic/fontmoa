@@ -2,28 +2,6 @@ import intl  from 'react-intl-universal'
 
 const getMenu = (app) => {
   return [
-    {
-      label: intl.get('menu.view.label'),
-      submenu: [
-        { 
-          label : intl.get('menu.view.mode.label'), 
-          submenu : [
-            { 
-              type : "radio", 
-              label : intl.get('menu.view.mode.mini.label'), 
-              checked: !!app.state.mini, 
-              value: 'mini',
-              click: (item) => {  app.changeMode(item.value); } 
-            },
-            { 
-              type : "radio", 
-              label : intl.get('menu.view.mode.normal.label'), 
-              checked: !app.state.mini,
-              value: 'normal',
-              click: (item) => { app.changeMode(item.value); }  
-            }
-          ] 
-        },
         { 
           label : intl.get('menu.view.language.label'), 
           submenu : [
