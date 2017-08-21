@@ -14,23 +14,12 @@
   transition: all 0.3s linear;  
 }
 
-.app-toolbar {
-  position:absolute;
-  left:0px;
-  bottom:0px;
-  right:0px;
-  height:40px;
-  border-top: 1px solid #ececec;
-  box-sizing:border-box;
-}
-
-
 .app-sidebar {
   position: absolute;
-  left:-170px;
+  left:-180px;
   top:40px;
-  bottom:40px;
-  width:160px;
+  bottom:0px;
+  width:180px;
   background-color: white;
   transition: all 0.3s linear;  
   z-index:1000;
@@ -43,7 +32,7 @@
   left:10px;
   top:40px;
   right:2px;
-  bottom:40px;
+  bottom:0px;
   overflow: auto;
   box-sizing: border-box;
   transition: all 0.1s linear;
@@ -51,7 +40,7 @@
 
 .font-manager.show-directory .app-content
  {
-  transform: translateX(170px);
+  left: 200px;
 }
 
 .font-manager.show-directory .app-sidebar {

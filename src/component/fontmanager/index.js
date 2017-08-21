@@ -1,16 +1,12 @@
-import intl from 'react-intl-universal'
-
 import React, { Component } from 'react';
 import './default.css';
 
-import {Tabs, TabItem} from '../../jui'
+import {TabItem} from '../../jui'
 
 import Category from './category'
 import FontListView from './fontlistview'
 import Menubar from './menubar'
-import Toolbar from './toolbar'
 
-import fontdb  from '../../util/fontdb'
 import common  from '../../util/common'
 
 
@@ -70,7 +66,7 @@ class FontManager extends Component {
 
   render() {
     return (
-        <TabItem ref="tabItem" className="font-manager" id={this.props.id}  active={this.props.mini !== true && this.props.active}>
+        <TabItem ref="tabItem" className="font-manager" id={this.props.id}  active={this.props.active}>
             <div className="app-menu">
               <Menubar toggleView={this.toggleView} refreshRowStyle={this.refreshRowStyle} />
             </div>
@@ -80,9 +76,6 @@ class FontManager extends Component {
             <div className="app-content">
                 <FontListView ref="fontlistview" toggleFavorite={this.toggleFavorite} fontStyle={this.state.style} files={this.state.files} />
             </div>
-            <div className="app-toolbar">
-              <Toolbar refreshRowStyle={this.refreshRowStyle} refreshFontStyle={this.refreshFontView} refreshFontSize={this.refreshFontSize} refreshFontContent={this.refreshFontContent} />
-            </div>            
         </TabItem>
     );
   }

@@ -176,6 +176,19 @@
     display:block;
 }
 
+/*
+.font-list-content[data-content-style=row] .font-item .font-item-preview:after {
+    content: "";
+    display:inline-block;
+    position:absolute;
+    right:0px;
+    top:0px;
+    bottom:0px;
+    width:150px;
+    pointer-events: none;
+    background-image:linear-gradient(to right, rgba(255, 255, 255, 0) , rgba(255, 255, 255, 1)) ;
+} */
+
 .font-list-content[data-content-style=row] .font-item .font-item-preview div {
     white-space: nowrap;
     overflow: hidden;

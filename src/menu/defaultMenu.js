@@ -2,6 +2,9 @@ import intl  from 'react-intl-universal'
 
 const getMenu = (app) => {
   return [
+    {
+      label : intl.get('menu.view.label'),
+      submenu : [
         { 
           label : intl.get('menu.view.language.label'), 
           submenu : [

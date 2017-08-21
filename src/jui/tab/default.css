@@ -7,18 +7,16 @@
 }
 
 .jui .tabs.full .tab {
-    position:absolute;
-    left:0px;
-    right:0px;
-    top:0px;
+    position:relative;
     height: 34px;
-    margin-bottom:0px;
-    display: flex;
+    display:inline-block;
+    text-align:center;
+    margin-top:5px;
 }
 
 .jui .tabs.full .tab li {
     cursor:pointer;
-    flex:1;
+    display:inline-block;
     text-align: center;
 }
 
@@ -28,6 +26,8 @@
     left:0px;
     right:0px;
     bottom:0px;
+    box-sizing:border-box;
+    border-top:1px solid #ececec;
 }
 
 .jui .tabs.full .tab-content {

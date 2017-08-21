@@ -4,7 +4,6 @@ import Observer from 'react-intersection-observer'
 import './default.css';
 
 import common from '../../../util/common'
-import fontdb from '../../../util/fontdb'
 import cssMaker from '../../../util/cssMaker'
 
 class FontListView extends Component {
@@ -18,24 +17,9 @@ class FontListView extends Component {
         this.state = {
             files: this.props.files || [],
             fontListContentStyle : 'row',
-            faroviteFiles : []
         }
 
         this.fontContent = ""
-
-        this.init()
-    }
-
-    init = () => {
-        this.loadFavoriteFiles();
-    }
-
-    loadFavoriteFiles = () => {
-        fontdb.getFavoriteFilesPathList((faroviteFiles) => {
-            this.setState({
-                faroviteFiles
-            })
-        })
     }
 
     handleFontClick = (e) => {
@@ -51,9 +35,9 @@ class FontListView extends Component {
             const isToggleSelected = !isSelected; 
             e.target.classList.toggle('selected', isToggleSelected);
 
-            const path = e.target.getAttribute('data-path');
+            const fileId = e.target.getAttribute('data-id');
 
-            this.props.toggleFavorite(path, isToggleSelected);
+            this.props.toggleFavorite(fileId, isToggleSelected);
         } else {
 
             if (e.shiftKey) {
@@ -98,12 +82,7 @@ class FontListView extends Component {
 
 
     refreshFiles = (files) => {
-         fontdb.getFavoriteFilesPathList((faroviteFiles) => {
-            this.setState({
-                faroviteFiles,
-                files
-            })
-        })
+        this.setState({ files })
     }
 
     refreshFontSize (fontSize) {
@@ -170,8 +149,6 @@ class FontListView extends Component {
                 fontSize : this.props.fontStyle.fontSize,
                 content : this.props.fontStyle.content,
             }
-
-            console.log(fontStyle)
 
             const items = this.state.files.filter((it, index) => {
                 return start <= index && index <= end; 

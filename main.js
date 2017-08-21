@@ -36,7 +36,11 @@ function createWindow() {
 
 
   // Initialize the window to our specified dimensions
-  win = new BrowserWindow({width: 1000, height: 600});
+  win = new BrowserWindow({
+    width: 400, 
+    height: 500,
+    alwaysOnTop : true
+  });
 
   // Specify entry point
   const startUrl = process.env.ELECTRON_START_URL || url.format({
@@ -57,7 +61,6 @@ function createWindow() {
     win = null;
   });
 }
-
 
 app.on('ready', function () {
 

@@ -11,7 +11,7 @@ const google_font_early_access = 'https://fonts.google.com/earlyaccess';
 const font_list_file = 'data/google-font-list.json'
 const early_access_font_file = 'data/google-font-early-access-list.json'
 
-const google_font_dir = 'data/googlefont/main-font'
+const google_font_dir = 'data/googlefont'
 const early_access_dir = 'data/googlefont/early-access'
 
 const getGoogleFontListURL = () => {

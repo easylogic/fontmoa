@@ -15,8 +15,6 @@ db.loadDatabase((err) => {});
 const directoryDB = new DataStore({ filename : 'data/directory.data' });
 directoryDB.loadDatabase((err) => {})
 
-const crypto = require('crypto');
-
 const exts = ['.ttf', '.otf', '.woff', '.ttc'];
 
 const getLanguage = (name) => {
@@ -48,56 +46,55 @@ const getNames = (name) => {
 const insertFont = (font, fontObj, done) => {
 
     try {
-        const units = font.unitsPerEm;
+        const fontItem = {
+            postscriptName : (font.name ? font.postscriptName : ''),
+            fullName: (font.name ? font.fullName : ''),
+            familyName: (font.name ? font.familyName : ''),
+            subfamilyName: (font.name ? font.subfamilyName : ''),
+            copyright: (font.name ? font.copyright : ''), 
+            version: (font.name ? font.version : ''),
+            nameList : font.nameList || [],
+            name : getNames(font.name || {}),
+            language : getLanguage(font.name || {}),
+        }
+    
+        const currentLanguage = fontItem.language.filter((l) => {
+            return l !== 'en' && l !== '0-0'
+        }).pop() || 'en';
+    
+        if (fontItem.name.fontFamily) {
+            const familyName = fontItem.name.fontFamily[currentLanguage] || fontItem.familyName;    
+    
+            fontItem.currentFamilyName = familyName;
+        }
+    
+        fontItem.currentLanguage = currentLanguage;
+    
+        if (fontItem.subfamilyName) {
+            const sub = fontItem.subfamilyName.toLowerCase();
+            if (sub.includes('italic')) {
+                fontItem.italic = true;
+            }
+        
+            if (sub.includes('bold')) {
+                fontItem.bold = true;
+            }
+        }
+    
+    
+        fontItem.collectStyle = common.getFontStyleCollect(font);
+    
+        fontObj.font = fontItem; 
+    
+        db.insert(fontObj, (err, docs) => {
+            // 최종 폰트를 입력한 이후 callback 수행 
+            done && done();
+        });
     } catch (e) {
+        console.log(e);
         return done && done();
     }
 
-    const fontItem = {
-        postscriptName : (font.name ? font.postscriptName : ''),
-        fullName: (font.name ? font.fullName : ''),
-        familyName: (font.name ? font.familyName : ''),
-        subfamilyName: (font.name ? font.subfamilyName : ''),
-        copyright: (font.name ? font.copyright : ''), 
-        version: (font.name ? font.version : ''),
-        unitsPerEm: font.unitsPerEm,
-        nameList : font.nameList || [],
-        name : getNames(font.name || {}),
-        language : getLanguage(font.name || {}),
-    }
-
-    const currentLanguage = fontItem.language.filter((l) => {
-        return l !== 'en' && l !== '0-0'
-    }).pop() || 'en';
-
-    if (fontItem.name.fontFamily) {
-        const familyName = fontItem.name.fontFamily[currentLanguage] || fontItem.familyName;    
-
-        fontItem.currentFamilyName = familyName;
-    }
-
-    fontItem.currentLanguage = currentLanguage;
-
-    if (fontItem.subfamilyName) {
-        const sub = fontItem.subfamilyName.toLowerCase();
-        if (sub.includes('italic')) {
-            fontItem.italic = true;
-        }
-    
-        if (sub.includes('bold')) {
-            fontItem.bold = true;
-        }
-    }
-
-
-    fontItem.collectStyle = common.getFontStyleCollect(font);
-
-    fontObj.font = fontItem; 
-
-    db.insert(fontObj, (err, docs) => {
-        // 최종 폰트를 입력한 이후 callback 수행 
-        done && done();
-    });
 }
 
 const fontInfo = function (realpath, done) {
@@ -173,12 +170,10 @@ const createFont = function (fontObj, done) {
 }
 
 const createMd5 = (directory, type) => {
-    console.log(directory, 'createMd5')
     if (fs.existsSync(directory) === false) {
         return { }
     }
     let files = fs.readdirSync(directory);
-    console.log(files);
 
     //디렉토리에 폰트가 다 보여있다. 
     files = files.filter((f) => {
@@ -206,14 +201,10 @@ const updateFont = (_id, done) => {
             return; 
         }
 
-        console.log(err, docs);
         directoryDB.findOne({ _id }, (err2, category) => {
-            console.log(err2, category);
             const hash = createMd5(category.directory); 
             const total = (hash.files) ? hash.files.length : 0;
             let count = 0;  
-
-            console.log(hash, total);
 
             if (total === 0) {
                 done && done();
@@ -288,40 +279,18 @@ const addLibrary = (library, done) => {
     })
 } 
 
-const toggleFavorite = (path, isAdd, done) => {
-
-    directoryDB.findOne({ type: 'favorite' }, (err, favorite) => {
-
-        if (favorite) {
-
-            // 이미 있고 ,  isAdd 가 false 인 경우 favorite 에서 뺀다. 
-            if (favorite.files.includes(path) && !isAdd) {
-                // path 가 아닌 것만 
-                favorite.files = favorite.files.filter((p) => {
-                    return path !== p; 
-                })
-            } else {
-                // 아닌 경우 path 를 추가한다. 
-                favorite.files.push(path);
-            }
-
-            // 최종 db 를 업데이트 한다. 
-            directoryDB.update({ type : 'favorite'}, { $set : { files : favorite.files } }, {multi : true },  (err, count) => {
-                done && done();
-            });
-        } else {
-            // 디렉토리 정보 다시 입력 
-            if (isAdd) {
-                directoryDB.insert({ type: 'favorite', files : [path] }, (err) => {
-                    done && done();
-                });
-            } else {    // 아무것도 없는데 isAdd 가 false 인 경우 (지우는 경우 )
-
-            }
-
-            done && done()
-        }
-
+const toggleFavorite = (fileOrId, isAdd, done) => {
+    db.update({ 
+        $or : [ 
+            {fileOrId}, 
+            { _id : fileOrId } 
+        ] 
+    }, { 
+        $set :{ 
+            favorite : isAdd === true
+        } 
+    }, (err, count) => {
+        done && done(count);
     })
 } 
 
@@ -390,7 +359,6 @@ const update = (directory, type, done) => {
                 type,
                 name: path.basename(directory),
             }, (err2, category) => {
-                console.log(category)
                 // 전체 폰트정보 업데이트 
                 updateFont(category._id, () => {
                     done && done (category._id);
@@ -471,7 +439,6 @@ const getFiles = (directoryOrId, callback) => {
         {directory : directoryOrId},
         { _id : directoryOrId }
     ] }, (err, category) => {
-        console.log(category);
 
         if (category) {
             db.find({ category : category._id}, (err2, files) => {
@@ -523,35 +490,14 @@ const getCssInfo = (files, callback) => {
 }
 
 const getFavoriteFiles = (callback) => {
-    directoryDB.findOne({ type : 'favorite' }, (err, favorite) => {
-
-        if (favorite) {
-            db.find({ 'item.path' : { $in : favorite.files }  }, (err2, files) => {
-                callback && callback(filterFiles(files));
-            })
-        } else {
-            callback && callback([]);
-        }
+    db.find({ favorite : true}, (err, files) => {
+        callback && callback(filterFiles(files));
     })
 }
-
-const getFavoriteFilesPathList = (callback) => {
-    directoryDB.findOne({ type : 'favorite' }, (err, favorite) => {
-
-        if (favorite) {
-            callback && callback(favorite.files);
-        } else {
-            callback && callback([]);
-        }
-    })
-}
-
-
 
 const getFavoriteCount = (callback) => {
-    directoryDB.findOne({ type : 'favorite' }, (err, favorite) => {
-        const count = (favorite) ? favorite.files.length : 0;
-        callback && callback(count);
+    db.count({ favorite : true}, (err, count) => {
+        callback && callback(count || 0);
     })
 }
 
@@ -564,12 +510,6 @@ const findOne = (path, callback) => {
 
         callback && callback(doc);        
     })
-}
-
-const getAllDirectories = (docs) => {
-    docs = common.getSystemFolders().concat(docs);
-
-    return docs; 
 }
 
 const fontdb = {
@@ -603,8 +543,8 @@ const fontdb = {
     getUserFiles,
     getLibraryFiles,
     getFavoriteFiles,
-    getFavoriteFilesPathList,
 
+    /* update  font information */
     update,
 
     /* remove resource */

@@ -19,7 +19,7 @@
     position: absolute;
     left: 0px;
     top: 0px;
-    bottom:300px;
+    height:50%;
     right: 0px;
 }
 
@@ -46,7 +46,7 @@
 .google-font-list .font-list .early-access-list {
     position: absolute;
     left: 0px;
-    height:280px;
+    top:50%;
     bottom:0px;
     right: 0px;
     overflow:auto;

@@ -23,12 +23,12 @@ class Favorite extends Component {
 
     refreshFiles = () => {
         fontdb.getFavoriteFiles((files) => {
+            console.log(files);
             this.props.refreshFiles(files);
         })
     }        
 
     toggleFavorite = (path, isAdd) => {
-        console.log(path, isAdd);
         fontdb.toggleFavorite(path, isAdd, () => {
             this.loadCount();
         })

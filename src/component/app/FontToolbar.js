@@ -1,5 +1,4 @@
 import intl from 'react-intl-universal'
-import './default.css';
 import React, { Component } from 'react';
 
 const _ = window.require('lodash');
@@ -41,16 +40,18 @@ class Toolbar extends Component {
 
     render() {
         return (
-            <div className="fm-toolbar">
-                <div className="left">
-                    <input type="text" className="content-input" onInput={this.onChangeText}  placeholder={intl.get('fontmanager.menubar.typing.inputText.placeholder')} />
-                </div>
-                <div className="right">
-                    <span className="range-component">
-                        <span className="small">{intl.get('fontmanager.menubar.text.size.title')}</span> 
-                        <input type='range' onInput={this.onChangeFontSize}  min="10" max="100" defaultValue="40" step="1" /> 
-                        <span className="big">{intl.get('fontmanager.menubar.text.size.title')}</span>
-                    </span>
+            <div>
+                <div className="fm-toolbar">
+                    <div className="left">
+                        <input type="text" className="content-input" onInput={this.onChangeText}  placeholder={intl.get('fontmanager.menubar.typing.inputText.placeholder')} />
+                    </div>
+                    <div className="right">
+                        <span className="range-component">
+                            <span className="small">{intl.get('fontmanager.menubar.text.size.title')}</span> 
+                            <input type='range' onInput={this.onChangeFontSize}  min="10" max="100" defaultValue="40" step="1" /> 
+                            <span className="big">{intl.get('fontmanager.menubar.text.size.title')}</span>
+                        </span>
+                    </div>
                 </div>
             </div>
         )

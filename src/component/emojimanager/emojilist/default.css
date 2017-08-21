@@ -35,7 +35,8 @@
     font-size: 25px;
     line-height:2;
     text-align:center;
-    margin-right:2px;
+    margin-right:1px;
+    margin-bottom:1px;
     vertical-align: middle;
     padding:0px;
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);   
@@ -61,11 +62,8 @@
 }
 
 .app.mini .emoji-glyf-item {
-    width: auto;
-    height:auto;
-    font-size: 25px;
-    line-height:1.2;
-    padding:2px 4px;
+    font-size: 20px;
+    line-height:2;
     margin-bottom:1px;
     box-sizing:border-box;
 

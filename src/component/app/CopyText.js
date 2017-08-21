@@ -54,6 +54,7 @@ class CopyText extends Component {
 
   render() { 
     return (
+      <div>
         <div className="app-input">
             <div className="input-copy">
             <button className="btn large" onClick={this.handleCopyText}>{intl.get('app.inputCopy.text')}</button>
@@ -71,6 +72,7 @@ class CopyText extends Component {
             <button className="btn large" onClick={this.handleDeleteText}><i className="icon icon-trashcan"></i></button>
             </div>          
         </div> 
+      </div>
     );
   }
 }
