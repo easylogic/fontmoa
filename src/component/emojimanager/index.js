@@ -2,8 +2,6 @@
 import React, { Component } from 'react';
 import './default.css';
 
-import {TabItem} from '../../jui'
-
 import EmojiList from './emojilist'
 import EmojiInfo from './emojiinfo'
 import FontList from './fontlist'
@@ -69,12 +67,9 @@ class EmojiManager extends Component {
     })
   }  
 
-  setActive = (id) => {
-    this.refs.tabItem.setActive(id);
-  }
   render() {
     return (
-        <TabItem ref="tabItem"  id={this.props.id}  active={this.props.active}>
+        <div className="window hide emojimanager-window">
           <div className="em-emoji-list">
             <EmojiList 
                 selectedEmoji={this.state.selectedEmoji} 
@@ -99,7 +94,7 @@ class EmojiManager extends Component {
               refreshEmojiTagKey={this.refreshEmojiTagKey} 
             />
           </div>
-        </TabItem>
+        </div>
     );
   }
 }

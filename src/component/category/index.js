@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import './default.css';
 
+import {Window} from '../common'
+
 import System from './system'
 import Library from './library'
 import User from './user'
 import Favorite from './favorite'
 
-class Category extends Component {
+class Category extends Window {
 
-    componentDidMount = () => {
-        if (this.refs.system) {
-            this.refs.system.loadFiles();
-        }
-    }
 
     toggleFavorite = (path, isAdd) => {
         this.refs.favorite.toggleFavorite(path, isAdd);
@@ -20,7 +17,7 @@ class Category extends Component {
 
     render() {
         return (
-            <div className="category">
+            <div className="window hide category-window category"> 
                 <div className="category-content " >
                     <Favorite ref="favorite" refreshFiles={this.props.refreshFiles} />                    
                     <System ref="system" refreshFiles={this.props.refreshFiles} />

@@ -39,7 +39,7 @@ function createWindow() {
   win = new BrowserWindow({
     width: 400, 
     height: 500,
-    alwaysOnTop : true
+    //alwaysOnTop : true
   });
 
   // Specify entry point

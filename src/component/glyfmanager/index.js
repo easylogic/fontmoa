@@ -2,8 +2,6 @@
 import React, { Component } from 'react';
 import './default.css';
 
-import {TabItem} from '../../jui'
-
 import GlyfList from './glyflist'
 import GlyfInfo from './glyfinfo'
 import FontList from './fontlist'
@@ -110,7 +108,7 @@ class GlyfManager extends Component {
 
   render() {
     return (
-        <TabItem ref="tabItem"  id={this.props.id} active={this.props.active}>
+        <div className="window hide glyfmanager-window">
           <div className="gm-glyf-list">
             <GlyfList 
                 changeSelectedGlyf={this.changeSelectedGlyf} 
@@ -131,7 +129,7 @@ class GlyfManager extends Component {
           <div className="gm-glyf-info">
             <GlyfInfo ref="glyfInfo" selectedGlyf={this.state.selectedGlyf} selectedFont={this.state.selectedFont} />
           </div>
-        </TabItem>
+        </div>
     );
   }
 }

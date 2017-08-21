@@ -2,8 +2,6 @@
 import React, { Component } from 'react';
 import './default.css';
 
-import {TabItem} from '../../jui'
-
 import googlefont from '../../util/googlefont'
 
 import MainFontList from './MainFontList'
@@ -16,14 +14,6 @@ class GoogleFontManager extends Component {
     super(props);
 
     this.loadFontList();
-  }
-
-  setActive = (id) => {
-    this.refs.tabItem.setActive(id);
-
-    if (this.props.id === id) {
-      this.loadFontList();
-    }
   }
 
   loadFontList = () => {
@@ -54,7 +44,7 @@ class GoogleFontManager extends Component {
   render() {
 
     return (
-        <TabItem ref="tabItem" id={this.props.id}  active={this.props.active}>
+        <div className="window hide googlefontmanager-window" id={this.props.id}>
           <div className="google-font-list">
             <div className="font-list">
               <MainFontList ref="mainList" refreshFontView={this.refreshFontView} downloadAll={this.downloadAllGoogleFont} />
@@ -62,7 +52,7 @@ class GoogleFontManager extends Component {
             </div>
             <FontView ref="fontView" />
           </div>
-        </TabItem>
+        </div>
     );
   }
 }

@@ -1,7 +1,7 @@
 import intl from 'react-intl-universal'
 import React, { Component } from 'react';
 
-import fontdb from '../../../../util/fontdb'
+import fontdb from '../../../util/fontdb'
 
 var remote = window.require('electron').remote;
 var dialog = remote.dialog;

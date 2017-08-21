@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import './default.css';
 
-import {TabItem} from '../../jui'
-
-import Category from './category'
 import FontListView from './fontlistview'
 import Menubar from './menubar'
 
@@ -66,17 +63,14 @@ class FontManager extends Component {
 
   render() {
     return (
-        <TabItem ref="tabItem" className="font-manager" id={this.props.id}  active={this.props.active}>
+        <div className="window hide fontmanager-window font-manager" id={this.props.id}>
             <div className="app-menu">
               <Menubar toggleView={this.toggleView} refreshRowStyle={this.refreshRowStyle} />
-            </div>
-            <div className="app-sidebar">
-              <Category ref="category" refreshFiles={this.refreshFiles} />              
             </div>
             <div className="app-content">
                 <FontListView ref="fontlistview" toggleFavorite={this.toggleFavorite} fontStyle={this.state.style} files={this.state.files} />
             </div>
-        </TabItem>
+        </div>
     );
   }
 }

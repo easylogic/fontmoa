@@ -1,7 +1,7 @@
 import intl from 'react-intl-universal'
 import React, { Component } from 'react';
 
-import fontdb from '../../../../util/fontdb'
+import fontdb from '../../../util/fontdb'
 
 class Favorite extends Component {
 

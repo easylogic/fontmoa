@@ -3,15 +3,17 @@ import intl from 'react-intl-universal'
 import React, { Component } from 'react';
 import './default.css';
 
-import {Tabs} from '../../jui'
-
+import Home from '../home'
+import Category from '../category'
 import FontManager from '../fontmanager'
+import FontInfo from '../fontinfo'
 import GlyfManager from '../glyfmanager'
 import EmojiManager from '../emojimanager'
 import GoogleFontManager from '../googlefontmanager'
+import StyleManager from '../stylemanager'
 
-import CopyText from './CopyText'
-import FontToolbar from './FontToolbar'
+//import CopyText from './CopyText'
+//import FontToolbar from './FontToolbar'
 
 import locales from '../../locales'
 import menu from '../../menu'
@@ -48,7 +50,7 @@ class App extends Component {
   changeSettings () {
     if (this.state.mini) {
       //if (this.refs.tabs) this.refs.tabs.setActive('emoji');
-      remote.getCurrentWindow().setSize(400, 600, true);
+      remote.getCurrentWindow().setSize(420, 600, true);
     } else {
       if (this.refs.tabs) this.refs.tabs.setActive('font');
       remote.getCurrentWindow().setSize(1000, 700, true);
@@ -74,26 +76,27 @@ class App extends Component {
     this.refs.copyText.appendInputText(text, fontFamily);
   }
 
-  render() { 
+  showWindow = (id) => {
+    if (this.currentWindow) this.currentWindow.hide();
+    this.refs[id].show();
+    this.currentWindow = this.refs[id];
+  }
 
-    let tabStyle = {paddingLeft: '5px'};
+  render() { 
 
     return (
       this.state.initDone && 
-      <div className="app mini">
+      <div className="app">
         <div className="container">
-            <div className="logo">{intl.get('app.title')}</div>
-            <Tabs ref="tabs" full={true} styles={tabStyle}>	
-              <FontManager id="font" title={intl.get('app.tab.font.title')} active={true} appendInputText={this.appendInputText} />
-              <GlyfManager id="glyf" title={intl.get('app.tab.glyphs.title')}  appendInputText={this.appendInputText}/>              
-              <EmojiManager id="emoji" title={intl.get('app.tab.emoji.title')} appendInputText={this.appendInputText}/>              
-              <GoogleFontManager id="googlefont" title={intl.get('app.tab.googlefont.title')}  appendInputText={this.appendInputText}/>      
-            </Tabs>
+            <Home ref="home" showWindow={this.showWindow} />
+            <Category ref="category" />
+            <FontManager ref="font" />  
+            <FontInfo ref="fontInfo" />   
+            <GlyfManager ref="glyf"/>            
+            <EmojiManager ref="emoji" />                          
+            <GoogleFontManager ref="googlefont" />      
+            <StyleManager ref="style" />
         </div>
-        <div className="toolbar-bottom">
-            <CopyText ref="copyText" />
-            <FontToolbar ref="fmToolbar" />
-        </div>      
       </div>
         
     );

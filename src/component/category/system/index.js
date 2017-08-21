@@ -1,8 +1,8 @@
 import intl from 'react-intl-universal'
 import React, { Component } from 'react';
 
-import fontdb from '../../../../util/fontdb'
-import common from '../../../../util/common'
+import fontdb from '../../../util/fontdb'
+import common from '../../../util/common'
 
 
 class SystemFolders extends Component {

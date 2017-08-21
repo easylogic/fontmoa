@@ -1,0 +1,14 @@
+.list {
+    padding: 10px;
+}
+
+.list > .list-item {
+    padding: 5px 0px;
+    cursor:pointer;
+}
+
+.list > .list-item .tools {
+    float: right;
+    vertical-align: middle;
+    text-align: right;
+}
