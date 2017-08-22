@@ -1,28 +1,30 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './default.css';
 
+import { Window } from '../../ui'
+import { common, fontdb }  from '../../util'
+
 import FontListView from './fontlistview'
-import Menubar from './menubar'
-
-import common  from '../../util/common'
 
 
-class FontManager extends Component {
+class FontManager extends Window {
 
-  constructor () {
-    super();
+  constructor (props) {
+    super(props);
 
     this.state = { 
       files : [], 
       systemFolders: common.getSystemFolders(),
-      userFolders: [], 
-      favorite : [],
-      library : [],
-      font :{},
       style: {
         fontSize: '40px'
       } 
     }
+
+    fontdb.getFiles(this.state.systemFolders[0].directory, (files) => {
+      this.setState({
+        files 
+      })
+    })
   }
 
   setActive = (id) => {
@@ -61,11 +63,26 @@ class FontManager extends Component {
 
   }
 
+  onKeyUpSearchText = (e) => {
+    console.log(e);
+  }
+
   render() {
     return (
-        <div className="window hide fontmanager-window font-manager" id={this.props.id}>
+        <div className="window fontmanager-window font-manager" id={this.props.id}>
             <div className="app-menu">
-              <Menubar toggleView={this.toggleView} refreshRowStyle={this.refreshRowStyle} />
+              <div className="left">
+                <div className="search-input">
+                  <span className="icon">※</span>
+                  <input type="search" onKeyUp={this.onKeyUpSearchText} placeholder="Search word" />
+                </div>
+              </div>
+              <div className="right">
+                <div className="radio-box">
+                  <span className="active">Row</span>                  
+                  <span>Grid</span>
+                </div>
+              </div>
             </div>
             <div className="app-content">
                 <FontListView ref="fontlistview" toggleFavorite={this.toggleFavorite} fontStyle={this.state.style} files={this.state.files} />

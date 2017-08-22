@@ -3,21 +3,14 @@ import intl from 'react-intl-universal'
 import React, { Component } from 'react';
 import './default.css';
 
-import Home from '../home'
 import Category from '../category'
 import FontManager from '../fontmanager'
-import FontInfo from '../fontinfo'
-import GlyfManager from '../glyfmanager'
-import EmojiManager from '../emojimanager'
 import GoogleFontManager from '../googlefontmanager'
-import StyleManager from '../stylemanager'
-
-//import CopyText from './CopyText'
-//import FontToolbar from './FontToolbar'
 
 import locales from '../../locales'
 import menu from '../../menu'
 
+console.log(menu)
 
 const { remote } = window.require('electron');
 
@@ -27,7 +20,6 @@ class App extends Component {
     super();
 
     this.state = {
-      mini: true,
       inputText : "",
       initDone: false,
       locale : remote.app.getLocale()
@@ -41,20 +33,11 @@ class App extends Component {
   }
 
   changeMode (mode) {
-    this.setState({ mini : mode === 'mini' })
-
     this.changeSettings();
-
   }
 
   changeSettings () {
-    if (this.state.mini) {
-      //if (this.refs.tabs) this.refs.tabs.setActive('emoji');
-      remote.getCurrentWindow().setSize(420, 600, true);
-    } else {
-      if (this.refs.tabs) this.refs.tabs.setActive('font');
-      remote.getCurrentWindow().setSize(1000, 700, true);
-    }
+    remote.getCurrentWindow().setSize(420, 600, true);
   }
 
   loadMenu () {
@@ -82,21 +65,28 @@ class App extends Component {
     this.currentWindow = this.refs[id];
   }
 
+  selectMenuItem = (e) => {
+    if (e.target.classList.contains('menubar-item')) {
+      this.showWindow(e.target.getAttribute('target'));
+    }
+  }
+
   render() { 
 
     return (
       this.state.initDone && 
       <div className="app">
-        <div className="container">
-            <Home ref="home" showWindow={this.showWindow} />
-            <Category ref="category" />
-            <FontManager ref="font" />  
-            <FontInfo ref="fontInfo" />   
-            <GlyfManager ref="glyf"/>            
-            <EmojiManager ref="emoji" />                          
-            <GoogleFontManager ref="googlefont" />      
-            <StyleManager ref="style" />
+        <div className="menubar" onClick={this.selectMenuItem}>
+          <div className="menubar-item" target="category">C</div>
+          <div className="menubar-item" target="font">F</div>
+          <div className="menubar-item" target="googlefont">G</div>
         </div>
+        <div className="container">
+            <Category ref="category" hide={false} />
+            <FontManager ref="font" />  
+            <GoogleFontManager ref="googlefont" />      
+        </div>
+
       </div>
         
     );

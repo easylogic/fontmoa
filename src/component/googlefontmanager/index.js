@@ -1,14 +1,15 @@
 
-import React, { Component } from 'react';
+import React from 'react';
 import './default.css';
 
-import googlefont from '../../util/googlefont'
+import { Window } from '../../ui'
+import { googlefont } from '../../util'
 
 import MainFontList from './MainFontList'
 import EarlyAccessFontList from './EarlyAccessFontList'
 import FontView from './FontView'
 
-class GoogleFontManager extends Component {
+class GoogleFontManager extends Window {
 
   constructor(props) {
     super(props);
@@ -29,7 +30,7 @@ class GoogleFontManager extends Component {
     googlefont.downloadAllGoogleFont(/* progress */ (type, font, progress, total) => {
       console.log(type, progress, total);
     },/* done */ () => {
-        console.log('구글 폰트를 다운로드 받았습니다.')
+        //console.log(font.family + " is downloaded.")
     });
   }
 
@@ -37,7 +38,7 @@ class GoogleFontManager extends Component {
     googlefont.downloadAllEarlyAccess(/* progress */ (type, font, progress, total) => {
       console.log(type, progress, total);
     },/* done */ () => {
-        console.log('구글 Early Access 폰트를 다운로드 받았습니다.')
+      //console.log(font.family + " is downloaded.")
     });
   }  
 

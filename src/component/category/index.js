@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './default.css';
 
-import {Window} from '../common'
+import {Window} from '../../ui'
 
 import System from './system'
 import Library from './library'

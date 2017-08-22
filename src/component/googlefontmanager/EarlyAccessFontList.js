@@ -1,6 +1,8 @@
 
 import React, { Component } from 'react';
-import googlefont from '../../util/googlefont'
+import { googlefont } from '../../util'
+
+console.log(googlefont);
 
 class EarlyAccessFontList extends Component {
 
@@ -11,14 +13,12 @@ class EarlyAccessFontList extends Component {
       items : [],
     }
 
-    this.loadFontList();
+    //this.loadFontList();
   }
 
   loadFontList = () => {
-    googlefont.loadGoogleFontEarlyAccessList(() => {
-        googlefont.getGoogleFontEarlyAccessList((json) => {
-            this.setState(json);
-        })
+    googlefont.getGoogleFontEarlyAccessList((json) => {
+        this.setState(json);
     })
   }
 

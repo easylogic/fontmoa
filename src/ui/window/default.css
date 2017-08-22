@@ -1,0 +1,15 @@
+
+.window {
+    position: absolute;
+    left: 0px;
+    top:0px;
+    width:100%;
+    height: 100%;
+    overflow:auto;
+    background-color:white;
+    /*transition: all 0.1s linear;*/
+  }
+  
+  .window.hide {
+    left:100%;
+  }

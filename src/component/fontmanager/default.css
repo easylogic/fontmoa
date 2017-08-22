@@ -14,6 +14,74 @@
   transition: all 0.3s linear;  
 }
 
+.app-menu > .left {
+  text-align:left;
+  float:left;
+  padding: 1px 10px;
+}
+
+.app-menu .search-input {
+  border:1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+  padding:0px 20px;
+  box-sizing:border-box;
+  position:relative;
+  overflow:hidden;
+}
+
+.app-menu .search-input input[type=search] {
+  border:0px;
+  width:100%;
+  height:30px;
+  display: block;
+  margin-left:10px;
+  box-sizing:border-box;
+  outline: none;
+}
+
+.app-menu .search-input .icon {
+  position:absolute;
+  display: block;
+  padding:8px 0px;
+  text-align: center;
+  box-sizing:border-box;
+  line-height: 1;
+  width:24px;
+  height:100%;
+  left:5px;
+}
+
+.app-menu > .right {
+  position: absolute;
+  right: 0px;
+  top:50%;
+  transform: translateY(-50%);
+  display:inline-block;
+  height:100%;
+}
+
+.app-menu .radio-box {
+  height:100%;
+  display:inline-block;
+  padding:2px 4px;
+  padding-top:0px;
+  box-sizing:border-box;
+}
+
+.app-menu .radio-box > span {
+  margin-right:3px;
+  margin-bottom:3px;
+  display: inline-block;
+  height:100%;
+  padding:10px;
+  box-sizing: border-box;
+  cursor:pointer;
+}
+
+.app-menu .radio-box > span.active {
+  background-color: #ececec;
+}
+
 .app-sidebar {
   position: absolute;
   left:-180px;

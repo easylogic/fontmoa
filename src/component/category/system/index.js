@@ -1,9 +1,7 @@
 import intl from 'react-intl-universal'
 import React, { Component } from 'react';
 
-import fontdb from '../../../util/fontdb'
-import common from '../../../util/common'
-
+import { fontdb, common } from '../../../util'
 
 class SystemFolders extends Component {
 
@@ -42,6 +40,7 @@ class SystemFolders extends Component {
     }
 
     renderItem = (item, index) => {
+        console.log(item);
         return (
             <div className="item" data-type={item.type} data-directory={item.directory}  key={index}>
                 <a key={index} className="title" ><i className="icon icon-tool"></i>  {intl.get(item.name).d(item.name)}</a>
