@@ -16,9 +16,12 @@
 
 .material-icons {
   pointer-events: none;
-  font-size:1rem;
   vertical-align: middle;
   cursor:pointer;
+}
+
+.material-icons.small {
+  font-size: 14px;
 }
 
 .app {

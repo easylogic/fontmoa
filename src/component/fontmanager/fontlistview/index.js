@@ -191,12 +191,12 @@ class FontListView extends Component {
         let message = this.fontContent || fontStyle.content || common.getPangramMessage(font.currentLanguage, isGrid); 
 
         let favoriteClass = "add-favorite";
-        let favoriteIcon = (<i className="material-icons">favorite_border</i>)
+        let favoriteIcon = (<i className="material-icons small">favorite_border</i>)
         let activeClass = "activation";
 
         if (fontObj.favorite) {
             favoriteClass += " selected";
-            favoriteIcon = (<i className="material-icons">favorite</i>);
+            favoriteIcon = (<i className="material-icons small">favorite</i>);
         }
 
         if (fontObj.activation) {
