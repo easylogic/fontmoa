@@ -16,14 +16,13 @@ class FontManager extends Window {
       files : [], 
       systemFolders: common.getSystemFolders(),
       style: {
-        fontSize: '40px'
-      } 
+        fontSize: '30px'
+      },
+      isDone: false
     }
 
     fontdb.getFiles(this.state.systemFolders[0].directory, (files) => {
-      this.setState({
-        files 
-      })
+      this.setState({ isDone : true,  files })
     })
   }
 
@@ -52,8 +51,12 @@ class FontManager extends Window {
     this.refs.fontlistview.refreshRowStyle(rowStyle);
   }
 
+  toggleActivation = (path, isActive) => {
+      fontdb.toggleActivation(path, isActive)
+  }
+
   toggleFavorite = (path, isAdd) => {
-    this.refs.category.toggleFavorite(path, isAdd);
+      fontdb.toggleFavorite(path, isAdd)
   }
 
   toggleView = () => {
@@ -68,25 +71,36 @@ class FontManager extends Window {
   }
 
   render() {
-    return (
+    return (this.state.isDone && 
         <div className="window fontmanager-window font-manager" id={this.props.id}>
-            <div className="app-menu">
-              <div className="left">
-                <div className="search-input">
-                  <span className="icon">※</span>
-                  <input type="search" onKeyUp={this.onKeyUpSearchText} placeholder="Search word" />
-                </div>
-              </div>
-              <div className="right">
-                <div className="radio-box">
-                  <span className="active">Row</span>                  
-                  <span>Grid</span>
-                </div>
+          <div className="app-menu">
+            <div className="left">
+              <span className="search-icon"><i className="material-icons">settings</i></span>              
+              <div className="search-input">
+                <input type="search" onKeyUp={this.onKeyUpSearchText} placeholder="Search" />
               </div>
             </div>
-            <div className="app-content">
-                <FontListView ref="fontlistview" toggleFavorite={this.toggleFavorite} fontStyle={this.state.style} files={this.state.files} />
+            <div className="right">
+              <div className="radio-box">
+                <span className="active"><i className="material-icons">view_list</i></span>                  
+                <span><i className="material-icons">grid_on</i></span>
+              </div>
             </div>
+          </div>
+          <div className="app-content">
+              <FontListView ref="fontlistview" toggleActivation={this.toggleActivation}  toggleFavorite={this.toggleFavorite} fontStyle={this.state.style} files={this.state.files} />
+          </div>
+          <div className="app-toolbar">
+            <div className="left tools">
+              <div className="logo">FontMoa</div>
+            </div>
+            <div className="center tools">
+              <input type="range" min="4" max="40" step="1" />
+            </div>
+            <div className="right tools">
+              <span><i className="material-icons">folder_special</i></span>
+            </div>
+          </div>
         </div>
     );
   }

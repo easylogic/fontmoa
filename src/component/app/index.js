@@ -3,14 +3,12 @@ import intl from 'react-intl-universal'
 import React, { Component } from 'react';
 import './default.css';
 
-import Category from '../category'
+//import Category from '../category'
 import FontManager from '../fontmanager'
-import GoogleFontManager from '../googlefontmanager'
+//import GoogleFontManager from '../googlefontmanager'
 
 import locales from '../../locales'
 import menu from '../../menu'
-
-console.log(menu)
 
 const { remote } = window.require('electron');
 
@@ -76,17 +74,9 @@ class App extends Component {
     return (
       this.state.initDone && 
       <div className="app">
-        <div className="menubar" onClick={this.selectMenuItem}>
-          <div className="menubar-item" target="category">C</div>
-          <div className="menubar-item" target="font">F</div>
-          <div className="menubar-item" target="googlefont">G</div>
-        </div>
         <div className="container">
-            <Category ref="category" hide={false} />
             <FontManager ref="font" />  
-            <GoogleFontManager ref="googlefont" />      
         </div>
-
       </div>
         
     );

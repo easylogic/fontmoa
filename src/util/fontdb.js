@@ -294,6 +294,24 @@ const toggleFavorite = (fileOrId, isAdd, done) => {
     })
 } 
 
+const toggleActivation = (fileOrId, isActive, done) => {
+    db.update({ 
+        $or : [ 
+            {fileOrId}, 
+            { _id : fileOrId } 
+        ] 
+    }, { 
+        $set :{ 
+            activation : isActive === true
+        } 
+    }, (err, count) => {
+
+        // os 별로 font activation 을 구현한다. 
+
+        done && done(count);
+    })
+} 
+
 const appendFileToLibrary = (library, filepath, done) => {
     directoryDB.findOne({ type: 'library',  $or : [{library}, { _id : library }]  }, (err, doc) => {
         if (doc) {
@@ -521,6 +539,7 @@ const fontdb = {
     /* add user resource */
     addFolder,
     addLibrary,
+    toggleActivation,
     toggleFavorite,
 
     /* get count */

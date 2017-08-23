@@ -1,8 +1,4 @@
 
-.font-manager {
-
-}
-
 .app-menu {
   position:absolute;
   left:0px;
@@ -12,65 +8,61 @@
   border-bottom: 1px solid #ececec;
   box-sizing:border-box;
   transition: all 0.3s linear;  
+  display:flex;
 }
 
 .app-menu > .left {
   text-align:left;
-  float:left;
-  padding: 1px 10px;
+  flex:5;
+  position:relative;
+}
+
+.app-menu .search-icon {
+  position:absolute;
+  display: block;
+  padding:10px;
+  text-align: center;
+  box-sizing:border-box;
+  line-height: 1.5;
+  width:24px;
+  height:100%;
+  left:0px;
+  top:0px;
+  z-index: 1;
+  cursor: pointer;
 }
 
 .app-menu .search-input {
-  border:1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 30px;
-  padding:0px 20px;
+  padding:5px 15px;
   box-sizing:border-box;
   position:relative;
   overflow:hidden;
+  vertical-align: middle;
+  height: 100%;
 }
 
 .app-menu .search-input input[type=search] {
   border:0px;
   width:100%;
   height:30px;
+  padding-left:20px;
   display: block;
-  margin-left:10px;
   box-sizing:border-box;
   outline: none;
 }
 
-.app-menu .search-input .icon {
-  position:absolute;
-  display: block;
-  padding:8px 0px;
-  text-align: center;
-  box-sizing:border-box;
-  line-height: 1;
-  width:24px;
-  height:100%;
-  left:5px;
-}
-
 .app-menu > .right {
-  position: absolute;
-  right: 0px;
-  top:50%;
-  transform: translateY(-50%);
-  display:inline-block;
-  height:100%;
+  flex:2;
+  display:flex;
+  text-align:right;
 }
 
 .app-menu .radio-box {
-  height:100%;
-  display:inline-block;
+  flex:1;
   padding:2px 4px;
-  padding-top:0px;
-  box-sizing:border-box;
 }
 
 .app-menu .radio-box > span {
-  margin-right:3px;
-  margin-bottom:3px;
   display: inline-block;
   height:100%;
   padding:10px;
@@ -82,35 +74,49 @@
   background-color: #ececec;
 }
 
-.app-sidebar {
-  position: absolute;
-  left:-180px;
-  top:40px;
-  bottom:0px;
-  width:180px;
-  background-color: white;
-  transition: all 0.3s linear;  
-  z-index:1000;
-  box-sizing: border-box;
-  border-right: 1px solid #ececec;
-}
-
 .app-content {
   position: absolute;
-  left:10px;
+  left:0px;
   top:40px;
-  right:2px;
-  bottom:0px;
+  right:0px;
+  bottom:40px;
   overflow: auto;
   box-sizing: border-box;
   transition: all 0.1s linear;
 }
 
-.font-manager.show-directory .app-content
- {
-  left: 200px;
+.app-toolbar {
+  position: absolute;
+  left:0px;
+  height:40px;
+  right:0px;
+  bottom:0px;
+  display:flex;
 }
 
-.font-manager.show-directory .app-sidebar {
-  left: 10px;
+.app-toolbar .tools > span {
+  display: inline-block;
+  height:100%;
+  padding:5px;
+  box-sizing: border-box;
+  cursor:pointer;
+}
+
+.app-toolbar .tools {
+  flex:1;
+  padding:10px;
+  background-color:rgba(0, 0, 0, 0.01);
+}
+
+.app-toolbar .tools.center {
+  text-align:center;
+}
+
+.app-toolbar .tools.right {
+  text-align:right;
+}
+
+.app-toolbar .tools .logo {
+  font-size: 1.3rem;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }

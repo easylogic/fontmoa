@@ -13,7 +13,6 @@ class FontListView extends Component {
 
     constructor (props) {
         super(props);
-
         this.state = {
             files: this.props.files || [],
             fontListContentStyle : 'row',
@@ -33,11 +32,23 @@ class FontListView extends Component {
 
             const isSelected = e.target.classList.contains('selected');
             const isToggleSelected = !isSelected; 
+
+            e.target.querySelector('.material-icons').textContent = isToggleSelected ? 'favorite' : 'favorite_border';
+
             e.target.classList.toggle('selected', isToggleSelected);
 
             const fileId = e.target.getAttribute('data-id');
 
             this.props.toggleFavorite(fileId, isToggleSelected);
+
+        } else if (e.target.classList.contains('activation')) {
+            const isSelected = e.target.classList.contains('selected');
+            const isToggleSelected = !isSelected; 
+            e.target.classList.toggle('selected', isToggleSelected);
+
+            const fileId = e.target.getAttribute('data-id');
+
+            this.props.toggleActivation(fileId, isToggleSelected);
         } else {
 
             if (e.shiftKey) {
@@ -180,10 +191,12 @@ class FontListView extends Component {
         let message = this.fontContent || fontStyle.content || common.getPangramMessage(font.currentLanguage, isGrid); 
 
         let favoriteClass = "add-favorite";
+        let favoriteIcon = (<i className="material-icons">favorite_border</i>)
         let activeClass = "activation";
 
         if (fontObj.favorite) {
             favoriteClass += " selected";
+            favoriteIcon = (<i className="material-icons">favorite</i>);
         }
 
         if (fontObj.activation) {
@@ -207,7 +220,7 @@ class FontListView extends Component {
                     </div>
                 </div>
                 <div className="tools">
-                    <span className={favoriteClass} data-id={fontObj._id} title="Add Favorite"><i className="icon icon-connection"></i></span>
+                    <span className={favoriteClass} data-id={fontObj._id} title="Add Favorite">{favoriteIcon}</span>
                 </div>
                 <div className="activation">
                     <span className={activeClass} data-id={fontObj._id} title="Activation">●</span>
