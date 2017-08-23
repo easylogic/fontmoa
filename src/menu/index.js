@@ -14,9 +14,7 @@ function getMenuTemplate (app) {
 }
 
 function make (app) {
-    console.log(app);
     const menu = Menu.buildFromTemplate(this.getMenuTemplate(app));
-    console.log(menu);
     Menu.setApplicationMenu(menu);
 }
 
