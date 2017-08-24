@@ -46,6 +46,7 @@ const getNames = (name) => {
 const insertFont = (font, fontObj, done) => {
 
     try {
+        console.log(font);
         const fontItem = {
             postscriptName : (font.name ? font.postscriptName : ''),
             fullName: (font.name ? font.fullName : ''),
@@ -457,7 +458,6 @@ const getFiles = (directoryOrId, callback) => {
         {directory : directoryOrId},
         { _id : directoryOrId }
     ] }, (err, category) => {
-
         if (category) {
             db.find({ category : category._id}, (err2, files) => {
 
@@ -475,6 +475,22 @@ const getFiles = (directoryOrId, callback) => {
         }
 
     })
+}
+
+const searchFiles = (filter, callback) => {
+
+    console.log(filter);
+
+    const dbFilter = {
+        $and : [
+            
+        ]
+    }
+
+    db.find(dbFilter, (err2, files) => {
+        callback && callback(filterFiles(files || []));
+    })
+
 }
 
 const getUserFiles = (directory, callback) => {
@@ -559,6 +575,7 @@ const fontdb = {
     
     /* get files */
     getFiles,
+    searchFiles,
     getUserFiles,
     getLibraryFiles,
     getFavoriteFiles,

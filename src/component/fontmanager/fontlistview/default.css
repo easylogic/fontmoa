@@ -123,6 +123,7 @@
 
 .font-list-content[data-content-style=grid] {
     padding-bottom:10px;
+    padding-left:4px;
 }
 .font-list-content[data-content-style=grid] .font-item {
     box-sizing:border-box;
