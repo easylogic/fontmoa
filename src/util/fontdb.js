@@ -46,7 +46,6 @@ const getNames = (name) => {
 const insertFont = (font, fontObj, done) => {
 
     try {
-        console.log(font);
         const fontItem = {
             postscriptName : (font.name ? font.postscriptName : ''),
             fullName: (font.name ? font.fullName : ''),
@@ -57,6 +56,7 @@ const insertFont = (font, fontObj, done) => {
             nameList : font.nameList || [],
             name : getNames(font.name || {}),
             language : getLanguage(font.name || {}),
+            weight: (font['OS/2'] ? font['OS/2'].usWeightClass : 400),
         }
     
         const currentLanguage = fontItem.language.filter((l) => {
@@ -73,11 +73,11 @@ const insertFont = (font, fontObj, done) => {
     
         if (fontItem.subfamilyName) {
             const sub = fontItem.subfamilyName.toLowerCase();
-            if (sub.includes('italic')) {
+            if (sub.toLowerCase().includes('italic')) {
                 fontItem.italic = true;
             }
         
-            if (sub.includes('bold')) {
+            if (sub.toLowerCase().includes('bold')) {
                 fontItem.bold = true;
             }
         }
@@ -479,13 +479,19 @@ const getFiles = (directoryOrId, callback) => {
 
 const searchFiles = (filter, callback) => {
 
-    console.log(filter);
+    const dbFilter = { $and : [] }
 
-    const dbFilter = {
-        $and : [
-            
-        ]
+    if (filter.text) {
+        dbFilter.$and.push({ $or : [
+            { "font.familyName" : new RegExp(filter.text) }
+        ]})
     }
+
+    if (filter.weight) {
+        dbFilter.$and.push({ "font.weight" : filter.weight })
+    }
+
+    console.log(dbFilter);
 
     db.find(dbFilter, (err2, files) => {
         callback && callback(filterFiles(files || []));

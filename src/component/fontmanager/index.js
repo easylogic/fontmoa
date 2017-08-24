@@ -116,7 +116,6 @@ class FontManager extends Window {
   }
 
   search = (e) => {
-
     let filter = {
       categories : {
         serif : this.isChecked(this.refs.serif),
@@ -125,7 +124,7 @@ class FontManager extends Window {
         handwriting : this.isChecked(this.refs.handwriting),
         monospace : this.isChecked(this.refs.monospace),
       },
-      thickness : (+this.refs.thickness.value) * 100,
+      weight : (this.refs.thickness.value * 100),
       text : this.refs.searchText.value 
     }
 
