@@ -148,7 +148,7 @@ class FontManager extends Window {
               <span><i className="material-icons">folder_special</i></span>
             </div>
           </div>
-          <div ref="searchFilter" className="app-search-filter open" onMouseUp={this.search}>
+          <div ref="searchFilter" className="app-search-filter" onMouseUp={this.search}>
             <div className="search-header">Categories</div>
             <div className="search-item">
               <label onClick={this.toggleCheckBox} ref="serif"><i className="material-icons">check_box</i> Serif</label>

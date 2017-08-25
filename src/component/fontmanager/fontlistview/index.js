@@ -3,8 +3,54 @@ import { render } from 'react-dom'
 import Observer from 'react-intersection-observer'
 import './default.css';
 
-import common from '../../../util/common'
-import cssMaker from '../../../util/cssMaker'
+import { common, cssMaker, fontdb} from '../../../util'
+
+class LabelInput extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            labels : this.props.labels || []
+        }
+    }
+
+    updateLabels = (labels, callback) => {
+        const file = this.props.file;
+        fontdb.updateLabels(file, labels, () => {
+            callback && callback();
+        })
+    }
+
+    onKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+
+            const label = this.refs.labelInput.textContent;
+
+            if (!this.state.labels.includes(label)) {
+                const labels = this.state.labels.concat([label]);
+                this.refs.labelInput.textContent = "";
+                this.updateLabels(labels, () => {
+                    console.log(labels);
+                    this.setState({ labels })
+                });
+
+            }
+            return;
+        }
+    }
+
+    render() {
+        return (
+            <div className="label-list">
+                { this.state.labels.map((label, index) => {
+                    return (<span className="label" key={index}>{label}</span>)
+                })}
+                <span className="label input" contentEditable={true} ref="labelInput" onKeyDown={this.onKeyDown} data-placeholder="label"></span>
+            </div>
+        )
+    }
+}
 
 class FontListView extends Component {
 
@@ -182,6 +228,14 @@ class FontListView extends Component {
         }
     }    
 
+    updateLabels = (fontObj) => {
+        return (labels) => {
+            fontdb.updateLabels(fontObj._id, labels, () => {
+                console.log('updated labels')
+            })
+        }
+    }
+
     renderItem = (fontObj, index, fontStyle) => {
         const contentstyle = this.state.fontListContentStyle;
         const font = fontObj.font; 
@@ -229,6 +283,7 @@ class FontListView extends Component {
                 <div className="font-item-preview" style={style}>
                     <div>{message}</div>
                 </div>
+                <LabelInput file={fontObj.file} labels={fontObj.labels} onChange={this.updateLabels(fontObj)} />
             </Observer>
         )
     }

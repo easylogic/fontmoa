@@ -179,3 +179,36 @@
     width:100%;
 }
 
+.font-item .label-list {
+    display: block;
+    font-size:13px;
+    line-height:1;    
+    padding: 3px 10px;
+    padding-left:30px;
+}
+
+.font-item .label-list .label {
+    display:inline-block;
+    padding:3px 5px;
+    margin-right:2px;
+    box-sizing:border-box;
+    vertical-align: middle;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.01);
+    border:1px solid #ececec;
+    margin-bottom:2px;
+}
+
+.font-item .label-list .label.input {
+    background-color: rgba(0, 0, 0, 0);
+    height: 100%;
+    display:inline-block;
+    border:0px;
+    outline:none;
+}
+
+.font-item .label-list .label.input:empty:before {
+    content: attr(data-placeholder);
+    display: block;
+    color:rgba(0, 0, 0, 0.1);
+}

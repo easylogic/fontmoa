@@ -6,7 +6,6 @@ const fs = window.require('fs');
 const path = window.require('path');
 const fontkit = window.require('fontkit');
 const DataStore  = window.require('nedb');
-const _ = window.require('lodash')
 
 
 const db = new DataStore({ filename : 'data/font.data' });
@@ -14,6 +13,9 @@ db.loadDatabase((err) => {});
 
 const directoryDB = new DataStore({ filename : 'data/directory.data' });
 directoryDB.loadDatabase((err) => {})
+
+const labelDB = new DataStore({ filename : 'data/label.data' });
+labelDB.loadDatabase((err) => {})
 
 const exts = ['.ttf', '.otf', '.woff', '.ttc'];
 
@@ -313,59 +315,65 @@ const toggleActivation = (fileOrId, isActive, done) => {
     })
 } 
 
-const appendFileToLibrary = (library, filepath, done) => {
-    directoryDB.findOne({ type: 'library',  $or : [{library}, { _id : library }]  }, (err, doc) => {
-        if (doc) {
+// 라벨을 한번에 업데이트 해보자. 
+const updateLabels = (fileOrId, labels = [], done) => {
+    db.update({ 
+        $or : [ 
+            {fileOrId}, 
+            { _id : fileOrId } 
+        ] 
+    }, { 
+        $set :{ labels : labels } 
+    }, (err, count) => {
+        // 업데이트는 종료 시키고 
+        done && done(count);
 
-            if (!Array.isArray(filepath)) {
-                filepath = [filepath]
-            }
+        // 캐쉬는 내부적으로 따로 만들고 있고 
+        createLabelsCache (labels)
 
-            doc.files = _.uniq(doc.files.concat(filepath));
+    })
+} 
 
+// 흠 캐쉬를 무조건 새로 만들어야하나? 
+const createLabelsCache = (labels, callback) => {
+    labelDB.findOne({}, (err, doc) => {
 
-            directoryDB.update({ 
-                type: 'library', 
-                $or : [{library}, { _id : library }] 
-            }, { 
-                $set: {   files: doc.files } 
-            }, {multi : true }, function () {
-                done && done(true);
-            });
-        } else {
-            done && done(false)
+        let defaultArray = [];
+
+        if (doc && doc.labels) {
+            defaultArray = doc.labels.concat(labels);
         }
 
+        let newLabels = new Set(defaultArray);
+
+        labelDB.update({}, {labels : [...newLabels]}, { multi : true, upsert : true}, (err, count) => {
+            // console.log('update labels')
+            callback && callback();
+        })
     })
 }
 
-const removeFileInLibrary = (library, filepath, done) => {
-    directoryDB.findOne({ type: 'library',  library }, (err, doc) => {
-        if (doc) {
-            if (doc.files.includes(filepath)) { // 파일 리스트가 포함이 되어 있으면 리스트에서 삭제한다. 
-                const files = doc.files.filter((file) => {
-                    return filepath !== file; 
+// 전체 label 을 다시 생성 
+const refreshLabelsCache = (callback) => {
+    let newLabels = new Set();
+
+    db.find({}, { labels : 1}, (err, docs) => {
+        docs.forEach(doc => {
+            if (doc.labels) {
+                doc.labels.forEach((label) => {
+                    newLabels.add(label);
                 })
-
-                directoryDB.update({ 
-                    type: 'library',  library 
-                }, { 
-                    $set: { 
-                        files: files        // 새로운 리스트를 셋팅 
-                    } 
-                }, {}, function () {
-                    done && done(true);
-                });
-            } else {
-                done && done(true);
             }
-        } else {
-            done && done(false)
-        }
+            
+        })
 
+        labelDB.update({}, {labels : [...newLabels]}, { multi : true, upsert : true}, (err, count) => {
+            // console.log('update labels')
+            callback && callback();
+        })
     })
-}
 
+}
 
 const update = (directory, type, done) => {
     directoryDB.findOne({ directory, type }, (err, doc) => {
@@ -398,14 +406,6 @@ const getUserFolders = (callback) => {
     })
 }
 
-const getLibraryList = (callback) => {
-    directoryDB.find({ type : 'library' }, (err, libraries) => {
-        libraries.sort(function(a, b) {
-            return (a.index || 0) <  (b.index || 0) ? -1 : 1;
-        })
-        callback && callback(libraries);
-    })
-}
 
 const filterFiles = (files) => {
     files.sort(function(a, b) {
@@ -427,12 +427,6 @@ const filterFiles = (files) => {
 
 const removeDirectory = (directory, callback) => {
     directoryDB.remove({ type : 'user', $or : [ {directory}, {_id : directory}  ]  }, { multi : true}, (err, num) => {
-        callback && callback();
-    })
-}
-
-const removeLibrary = (library, callback) => {
-    directoryDB.remove({ type: 'library', $or : [{library}, { _id : library }] }, { multi : true}, (err, num) => {
         callback && callback();
     })
 }
@@ -477,10 +471,9 @@ const getFiles = (directoryOrId, callback) => {
     })
 }
 
-const searchFiles = (filter, callback) => {
-
+const createDBFilter = (filter) => {
     const dbFilter = { $and : [] }
-
+    
     if (filter.text) {
         dbFilter.$and.push({ $or : [
             { "font.familyName" : new RegExp(filter.text) }
@@ -488,10 +481,17 @@ const searchFiles = (filter, callback) => {
     }
 
     if (filter.weight) {
-        dbFilter.$and.push({ "font.weight" : filter.weight })
+        dbFilter.$and.push({ 
+            "font.weight" : filter.weight,
+        })
     }
 
-    console.log(dbFilter);
+    return dbFilter;
+}
+
+const searchFiles = (filter, callback) => {
+
+    const dbFilter = createDBFilter(filter)
 
     db.find(dbFilter, (err2, files) => {
         callback && callback(filterFiles(files || []));
@@ -512,18 +512,6 @@ const getUserFiles = (directory, callback) => {
     })
 }
 
-const getLibraryFiles = (library, callback) => {
-    directoryDB.findOne({ type: 'library', $or : [ {library}, {_id : library} ]  }, (err, library) => {
-        if (library) {
-            db.find({ 'item.path' : { $in : library.files }  }, (err2, files) => {
-                callback && callback(filterFiles(files));
-            })
-        } else {
-            callback && callback([]);
-        }
-        
-    })
-}
 
 const getCssInfo = (files, callback) => {
 
@@ -563,18 +551,17 @@ const fontdb = {
     addLibrary,
     toggleActivation,
     toggleFavorite,
+    updateLabels,
+
+    /* create, refresh labels */
+    createLabelsCache,
+    refreshLabelsCache,
 
     /* get count */
     getFavoriteCount,
 
-    /* append to library */
-    appendFileToLibrary,
-
     /* get user folders */
     getUserFolders,
-
-    /* get library list */
-    getLibraryList,
 
     /* get css information */ 
     getCssInfo,
@@ -583,7 +570,6 @@ const fontdb = {
     getFiles,
     searchFiles,
     getUserFiles,
-    getLibraryFiles,
     getFavoriteFiles,
 
     /* update  font information */
@@ -591,8 +577,6 @@ const fontdb = {
 
     /* remove resource */
     removeDirectory,
-    removeLibrary,
-    removeFileInLibrary,
 
 }
 
