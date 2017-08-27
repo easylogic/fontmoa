@@ -21,7 +21,7 @@ const addToSet = (key, value, callback) => {
         callback && callback (err);
     })
 }
-const add = (key, callback) => {
+const inc = (key, callback) => {
     cacheDB.update({ key }, { $inc : { value : 1 } }, {}, (err) => {
         callback && callback (err);
     })
