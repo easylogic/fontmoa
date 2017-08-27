@@ -14,8 +14,14 @@ db.loadDatabase((err) => {});
 const directoryDB = new DataStore({ filename : 'data/directory.data' });
 directoryDB.loadDatabase((err) => {})
 
-const labelDB = new DataStore({ filename : 'data/label.data' });
-labelDB.loadDatabase((err) => {})
+// key, value based data base 
+const cacheDB = new DataStore({ filename : 'data/cache.data' });
+cacheDB.loadDatabase((err) => {})
+
+// cache db key list 
+const CACHE_LABEL_KEY = { cacheKey : 'label'}
+
+
 
 const exts = ['.ttf', '.otf', '.woff', '.ttc'];
 
@@ -336,7 +342,8 @@ const updateLabels = (fileOrId, labels = [], done) => {
 
 // 흠 캐쉬를 무조건 새로 만들어야하나? 
 const createLabelsCache = (labels, callback) => {
-    labelDB.findOne({}, (err, doc) => {
+    cacheDB.findOne( CACHE_LABEL_KEY, (err, doc) => {
+        console.log(err, doc);
 
         let defaultArray = [];
 
@@ -346,7 +353,9 @@ const createLabelsCache = (labels, callback) => {
 
         let newLabels = new Set(defaultArray);
 
-        labelDB.update({}, {labels : [...newLabels]}, { multi : true, upsert : true}, (err, count) => {
+        cacheDB.update(CACHE_LABEL_KEY, Object.assign({
+            labels : [...newLabels] 
+        }, CACHE_LABEL_KEY) , { upsert : true }, (err, count) => {
             // console.log('update labels')
             callback && callback();
         })
@@ -367,7 +376,9 @@ const refreshLabelsCache = (callback) => {
             
         })
 
-        labelDB.update({}, {labels : [...newLabels]}, { multi : true, upsert : true}, (err, count) => {
+        cacheDB.update(CACHE_LABEL_KEY, Object.assign({
+            labels : [...newLabels] 
+        }, CACHE_LABEL_KEY), { upsert : true }, (err, count) => {
             // console.log('update labels')
             callback && callback();
         })
