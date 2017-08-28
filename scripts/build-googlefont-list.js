@@ -6,8 +6,8 @@ const cheerio = require('cheerio');
 const API_KEY = "AIzaSyBbi99YleozD5UoXj9iLvAgb0_31TnFWtk";
 const google_font_api = 'https://www.googleapis.com/webfonts/v1/webfonts?key=';
 const google_font_early_access = 'https://fonts.google.com/earlyaccess';
-const font_list_file = './src/resources/google-font-list.json'
-const early_access_font_file = './src/resources/google-font-early-access-list.json'
+const font_list_file = './src/resources/fonts/google-font-list.json'
+const early_access_font_file = './src/resources/fonts/google-font-early-access-list.json'
 
 const getGoogleFontListURL = () => {
     return google_font_api + API_KEY;

@@ -1,6 +1,6 @@
 import request from './request'
-import google_font_list from '../resources/google-font-list.json'
-import google_font_early_access_list from '../resources/google-font-early-access-list.json'
+import google_font_list from '../resources/fonts/google-font-list.json'
+import google_font_early_access_list from '../resources/fonts/google-font-early-access-list.json'
 
 const fs  = window.require('fs');
 const path = window.require('path')

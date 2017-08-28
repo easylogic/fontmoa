@@ -1,6 +1,7 @@
 import common from './common'
 import cssMaker from './cssMaker'
-
+import cache from './cache'
+import searchFonts from './searchFonts'
 
 const fs = window.require('fs');
 const path = window.require('path');
@@ -14,12 +15,8 @@ db.loadDatabase((err) => {});
 const directoryDB = new DataStore({ filename : 'data/directory.data' });
 directoryDB.loadDatabase((err) => {})
 
-// key, value based data base 
-const cacheDB = new DataStore({ filename : 'data/cache.data' });
-cacheDB.loadDatabase((err) => {})
-
 // cache db key list 
-const CACHE_LABEL_KEY = { cacheKey : 'label'}
+const CACHE_LABEL_KEY = 'label';
 
 
 
@@ -291,7 +288,7 @@ const addLibrary = (library, done) => {
 const toggleFavorite = (fileOrId, isAdd, done) => {
     db.update({ 
         $or : [ 
-            {fileOrId}, 
+            {file: fileOrId}, 
             { _id : fileOrId } 
         ] 
     }, { 
@@ -306,7 +303,7 @@ const toggleFavorite = (fileOrId, isAdd, done) => {
 const toggleActivation = (fileOrId, isActive, done) => {
     db.update({ 
         $or : [ 
-            {fileOrId}, 
+            { file: fileOrId}, 
             { _id : fileOrId } 
         ] 
     }, { 
@@ -325,12 +322,13 @@ const toggleActivation = (fileOrId, isActive, done) => {
 const updateLabels = (fileOrId, labels = [], done) => {
     db.update({ 
         $or : [ 
-            {fileOrId}, 
+            {file: fileOrId}, 
             { _id : fileOrId } 
         ] 
     }, { 
         $set :{ labels : labels } 
-    }, (err, count) => {
+    }, {}, (err, count) => {
+
         // 업데이트는 종료 시키고 
         done && done(count);
 
@@ -342,23 +340,8 @@ const updateLabels = (fileOrId, labels = [], done) => {
 
 // 흠 캐쉬를 무조건 새로 만들어야하나? 
 const createLabelsCache = (labels, callback) => {
-    cacheDB.findOne( CACHE_LABEL_KEY, (err, doc) => {
-        console.log(err, doc);
-
-        let defaultArray = [];
-
-        if (doc && doc.labels) {
-            defaultArray = doc.labels.concat(labels);
-        }
-
-        let newLabels = new Set(defaultArray);
-
-        cacheDB.update(CACHE_LABEL_KEY, Object.assign({
-            labels : [...newLabels] 
-        }, CACHE_LABEL_KEY) , { upsert : true }, (err, count) => {
-            // console.log('update labels')
-            callback && callback();
-        })
+    cache.addToSet(CACHE_LABEL_KEY, labels, (err) => {
+        callback && callback(err)
     })
 }
 
@@ -376,11 +359,8 @@ const refreshLabelsCache = (callback) => {
             
         })
 
-        cacheDB.update(CACHE_LABEL_KEY, Object.assign({
-            labels : [...newLabels] 
-        }, CACHE_LABEL_KEY), { upsert : true }, (err, count) => {
-            // console.log('update labels')
-            callback && callback();
+        cache.set(CACHE_LABEL_KEY, [...newLabels], (err) => {
+            callback && callback (err);
         })
     })
 
@@ -485,9 +465,19 @@ const getFiles = (directoryOrId, callback) => {
 const createDBFilter = (filter) => {
     const dbFilter = { $and : [] }
     
+
+    if (filter.favorite) {
+        dbFilter.$and.push({ 
+            favorite : true 
+        })
+    }
+
     if (filter.text) {
+        const reg = new RegExp(filter.text);
+
         dbFilter.$and.push({ $or : [
-            { "font.familyName" : new RegExp(filter.text) }
+            { "font.familyName" : reg },
+            { 'labels' : reg }
         ]})
     }
 
@@ -504,8 +494,14 @@ const searchFiles = (filter, callback) => {
 
     const dbFilter = createDBFilter(filter)
 
+    console.log(dbFilter);
+
     db.find(dbFilter, (err2, files) => {
-        callback && callback(filterFiles(files || []));
+        console.log(files);
+        searchFonts.searchFonts(filter, (fontList) => {
+            const resultFiles = filterFiles(files || []).concat(fontList);
+            callback && callback(resultFiles);
+        })
     })
 
 }

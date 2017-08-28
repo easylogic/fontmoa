@@ -101,6 +101,10 @@ class FontManager extends Window {
     this.refs.searchFilter.classList.toggle('open');
   }
 
+  showDirectory = () => {
+    this.refs.directory.classList.toggle('open');
+  }  
+
   toggleCheckBox = (e) => {
     let $icon = e.target.querySelector('i.material-icons');
 
@@ -115,8 +119,9 @@ class FontManager extends Window {
     return ReactDOM.findDOMNode($el).querySelector(".material-icons").textContent === 'check_box';
   }
 
-  search = (e) => {
-    let filter = {
+  search = (filterOptions) => {
+
+    filterOptions = filterOptions || {
       categories : {
         serif : this.isChecked(this.refs.serif),
         sanserif : this.isChecked(this.refs.sansserif),
@@ -128,9 +133,21 @@ class FontManager extends Window {
       text : this.refs.searchText.value 
     }
 
-    fontdb.searchFiles(filter, (files) => {
+    fontdb.searchFiles(filterOptions, (files) => {
       this.refreshFiles(files);
     })
+  }
+
+  toggleFavoriteList = (e) => {
+    const $dom = e.target;
+    $dom.classList.toggle('active');
+
+    if ($dom.classList.contains('active')) {
+      this.search({favorite: true});
+    } else {
+      this.search();
+    }
+
   }
 
   render() {
@@ -143,10 +160,13 @@ class FontManager extends Window {
                 <input type="search" ref="searchText" onKeyUp={this.onKeyUpSearchText} placeholder="Search" />
               </div>
             </div>
-            <div className="right">
-              <span><i className="material-icons">favorite</i></span>              
-              <span><i className="material-icons">folder_special</i></span>
+            <div className="right tools">
+              <span onClick={this.toggleFavoriteList}><i className="material-icons">favorite</i></span>              
+              <span onClick={this.showDirectory}><i className="material-icons">folder_special</i></span>
             </div>
+          </div>
+          <div ref="directory" className="app-directory">
+
           </div>
           <div ref="searchFilter" className="app-search-filter" onMouseUp={this.search}>
             <div className="search-header">Categories</div>
@@ -162,7 +182,6 @@ class FontManager extends Window {
               <label className="inline" onClick={this.toggleCheckBox}><i className="material-icons">check_box</i></label>
               <span style={{ display: 'inline-block', width: '120px', 'paddingLeft': '20px'}}><input ref="thickness" type="range" max="9" min="1" step="1" defaultValue="4" /></span>
             </div>
-
           </div>
           <div className="app-content">
               <FontListView ref="fontlistview" toggleActivation={this.toggleActivation}  toggleFavorite={this.toggleFavorite} fontStyle={this.state.style} files={this.state.files} />

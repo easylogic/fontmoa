@@ -31,7 +31,6 @@ class LabelInput extends Component {
                 const labels = this.state.labels.concat([label]);
                 this.refs.labelInput.textContent = "";
                 this.updateLabels(labels, () => {
-                    console.log(labels);
                     this.setState({ labels })
                 });
 
@@ -140,6 +139,7 @@ class FontListView extends Component {
 
     refreshFiles = (files) => {
         this.setState({ files })
+        console.log(files);
     }
 
     refreshFontSize (fontSize) {
