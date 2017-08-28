@@ -473,7 +473,7 @@ const createDBFilter = (filter) => {
     }
 
     if (filter.text) {
-        const reg = new RegExp(filter.text);
+        const reg = new RegExp(filter.text, "ig");
 
         dbFilter.$and.push({ $or : [
             { "font.familyName" : reg },
@@ -481,11 +481,11 @@ const createDBFilter = (filter) => {
         ]})
     }
 
-    if (filter.weight) {
+    /* if (filter.weight) {
         dbFilter.$and.push({ 
             "font.weight" : filter.weight,
         })
-    }
+    } */
 
     return dbFilter;
 }
@@ -494,10 +494,7 @@ const searchFiles = (filter, callback) => {
 
     const dbFilter = createDBFilter(filter)
 
-    console.log(dbFilter);
-
     db.find(dbFilter, (err2, files) => {
-        console.log(files);
         searchFonts.searchFonts(filter, (fontList) => {
             const resultFiles = filterFiles(files || []).concat(fontList);
             callback && callback(resultFiles);

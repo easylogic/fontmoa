@@ -10,7 +10,8 @@ class LabelInput extends Component {
         super(props);
 
         this.state = {
-            labels : this.props.labels || []
+            labels : this.props.labels || [],
+            readonly : this.props.readonly || false,
         }
     }
 
@@ -45,7 +46,10 @@ class LabelInput extends Component {
                 { this.state.labels.map((label, index) => {
                     return (<span className="label" key={index}>{label}</span>)
                 })}
-                <span className="label input" contentEditable={true} ref="labelInput" onKeyDown={this.onKeyDown} data-placeholder="label"></span>
+                {
+                    this.state.readonly ? "" : <span className="label input" contentEditable={true} ref="labelInput" onKeyDown={this.onKeyDown} data-placeholder="label"></span>
+                }
+                
             </div>
         )
     }
@@ -139,7 +143,6 @@ class FontListView extends Component {
 
     refreshFiles = (files) => {
         this.setState({ files })
-        console.log(files);
     }
 
     refreshFontSize (fontSize) {
@@ -235,8 +238,8 @@ class FontListView extends Component {
             })
         }
     }
-
-    renderItem = (fontObj, index, fontStyle) => {
+    
+    renderFontItem = (fontObj, index, fontStyle) => {
         const contentstyle = this.state.fontListContentStyle;
         const font = fontObj.font; 
         const style = Object.assign({}, font.collectStyle);
@@ -261,7 +264,7 @@ class FontListView extends Component {
             <Observer 
                 draggable={true} 
                 onDragStart={this.onDragStart} 
-                key={fontObj.file} 
+                key={index} 
                 className="font-item" 
                 data-index={index}
                 data-path={fontObj.file}  
@@ -286,6 +289,35 @@ class FontListView extends Component {
                 <LabelInput file={fontObj.file} labels={fontObj.labels} onChange={this.updateLabels(fontObj)} />
             </Observer>
         )
+    }
+
+
+    renderFontInfo = (fontObj, index, fontStyle) => {
+
+        return (
+            <Observer key={index} className="font-item font-info" data-index={index} >
+                <div className="font-info">
+                    <div className="font-family" title={fontObj.family}>
+                        {fontObj.family}
+                        <span className="font-sub-family">({fontObj.category})</span>
+                    </div>
+                </div> 
+                <div className="tools">
+                    download
+                </div>
+                <LabelInput labels={fontObj.variants || []} readonly={true} />                
+            </Observer>
+        )
+    }    
+
+    renderItem = (fontObj, index, fontStyle) => {
+
+        if (fontObj.font) {
+            return this.renderFontItem(fontObj, index, fontStyle);
+        } else {
+            return this.renderFontInfo(fontObj, index, fontStyle);
+        }
+
     }
 
     render() {
