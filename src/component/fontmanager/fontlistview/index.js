@@ -3,7 +3,7 @@ import { render } from 'react-dom'
 import Observer from 'react-intersection-observer'
 import './default.css';
 
-import { common, cssMaker, fontdb} from '../../../util'
+import { common, cssMaker, fontdb, googlefont} from '../../../util'
 
 class LabelInput extends Component {
     constructor(props) {
@@ -40,11 +40,36 @@ class LabelInput extends Component {
         }
     }
 
+    downloadGoogleFont = (label) => {
+        let fontObj = { 
+            family : this.props.fontObj.family, 
+            files : { 
+                [label] : this.props.fontObj.files[label]
+            } 
+        }
+
+        this.props.onClick(fontObj)
+    }
+
     render() {
+        let files = {};
+        if (this.props.fontObj) {
+            files = this.props.fontObj.files || [];
+        }        
         return (
             <div className="label-list">
                 { this.state.labels.map((label, index) => {
-                    return (<span className="label" key={index}>{label}</span>)
+                    let realLabel = [label]; 
+                    if (label.includes('italic')) {
+                        realLabel = [label.replace('italic', ''), <i className="material-icons" key={label}>format_italic</i>]; 
+                    }
+                    
+                    return (
+                        <span className="label" key={index}>
+                            {realLabel} 
+                            {files[label] ? <span onClick={(e) => this.downloadGoogleFont(label) } title="Download Font"><i className="material-icons">file_download</i></span> : ""}
+                        </span>
+                    )
                 })}
                 {
                     this.state.readonly ? "" : <span className="label input" contentEditable={true} ref="labelInput" onKeyDown={this.onKeyDown} data-placeholder="label"></span>
@@ -98,7 +123,10 @@ class FontListView extends Component {
             const fileId = e.target.getAttribute('data-id');
 
             this.props.toggleActivation(fileId, isToggleSelected);
-        } else {
+        } else if (e.target.classList.contains('link')) {
+            // NOOP
+
+        } else { 
 
             if (e.shiftKey) {
                 //multi select 
@@ -291,21 +319,60 @@ class FontListView extends Component {
         )
     }
 
+    downloadGoogleFont = (fontObj)  => {
+        // 중복 체크 
+        // 구글 폰트 모두 다운로드 
+        googlefont.downloadGoogleFont(fontObj, () => {
+            console.log(' google font done');
+        });
+
+    }
+    downloadUrl = (link) => {
+        // 구글 early access 폰트, zip 파일로 압축된 폰트 다운로드 
+        // 중복 체크         
+        return () => {
+            googlefont.downloadEarlyAccess(link, () => {
+                console.log('done');
+            });
+        }
+    }
+
+    goUrl = (link, name) => {
+        return () => {
+            window.open(link, name || '_link');
+        }
+    }
 
     renderFontInfo = (fontObj, index, fontStyle) => {
 
+        // 기타 다른 폰트들에 대해서 Rendering 객체를 다르게 해야할 것 같다. 
+
+        const name = fontObj.name || fontObj.family;
+        const labels = fontObj.variants || [];
+        const preview = {__html : fontObj.description || ""}
+        let licenseUrl = fontObj.licenseUrl; 
+
+        if (fontObj.files && Object.keys(fontObj.files).length && !licenseUrl) {
+            licenseUrl = "https://fonts.google.com/specimen/" + encodeURIComponent(fontObj.family)
+        }
+
         return (
-            <Observer key={index} className="font-item font-info" data-index={index} >
+            <Observer key={name} className="font-item font-info-item" data-index={index} >
                 <div className="font-info">
                     <div className="font-family" title={fontObj.family}>
-                        {fontObj.family}
-                        <span className="font-sub-family">({fontObj.category})</span>
+                        {name}
                     </div>
                 </div> 
                 <div className="tools">
-                    download
-                </div>
-                <LabelInput labels={fontObj.variants || []} readonly={true} />                
+                    {fontObj.files && Object.keys(fontObj.files).length ? <span className="link" onClick={e => this.downloadGoogleFont(fontObj)} ><i className="material-icons">font_download</i></span> : ""}
+                    {fontObj.downloadUrl ? <span className="link" title="Font Download" onClick={this.downloadUrl(fontObj.downloadUrl)} ><i className="material-icons">font_download</i></span> : ""}
+                    {licenseUrl ? <span className="link" title="View License" onClick={this.goUrl(licenseUrl, 'License')} ><i className="material-icons">turned_in_not</i></span> : ""}
+                    {fontObj.buyUrl ? <span className="link" onClick={this.goUrl(fontObj.buyUrl, 'Buy')} ><i className="material-icons">shopping_cart</i></span> : ""}
+                </div>   
+                <div className="font-info-item-preview">
+                    <div dangerouslySetInnerHTML={preview} />
+                </div>                             
+                <LabelInput fontObj={fontObj} labels={labels} readonly={true} onClick={this.downloadGoogleFont} />                
             </Observer>
         )
     }    

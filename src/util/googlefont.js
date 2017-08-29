@@ -7,7 +7,7 @@ const path = window.require('path')
 const uuidv1 = window.require('uuid/v1')
 const extract = window.require('extract-zip')
 
-const google_font_dir = 'data/googlefont'
+const font_root = 'data/fonts'
 
 const getGoogleFontList = (callback) => {
     callback && callback (google_font_list) 
@@ -40,7 +40,7 @@ const createDir = (dirname) => {
 }
 
 const downloadGoogleFont = (font, callback) => {
-    const font_dir = path.join(google_font_dir);
+    const font_dir = path.join(font_root);
     createDir(path.dirname(path.join(font_dir, '.temp')));
 
     const keys = Object.keys(font.files);
@@ -91,8 +91,8 @@ const downloadAllGoogleFont = (progress, callback) => {
 
 
 const downloadEarlyAccess = (link, callback) => {
-    createDir(path.dirname(path.join(google_font_dir, '.temp')));
-    const targetFile = path.resolve(google_font_dir, uuidv1() + '.zip');
+    createDir(path.dirname(path.join(font_root, '.temp')));
+    const targetFile = path.resolve(font_root, uuidv1() + '.zip');
 
     // copy 하기 
     request.downloadFile(link, targetFile, () => {
