@@ -350,10 +350,11 @@ class FontListView extends Component {
         const name = fontObj.name || fontObj.family;
         const labels = fontObj.variants || [];
         const preview = {__html : fontObj.description || ""}
-        let licenseUrl = fontObj.licenseUrl; 
+        const licenseUrl = fontObj.licenseUrl; 
+        let previewUrl = ""
 
         if (fontObj.files && Object.keys(fontObj.files).length && !licenseUrl) {
-            licenseUrl = "https://fonts.google.com/specimen/" + encodeURIComponent(fontObj.family)
+            previewUrl = "https://fonts.google.com/specimen/" + encodeURIComponent(fontObj.family)
         }
 
         return (
@@ -364,9 +365,10 @@ class FontListView extends Component {
                     </div>
                 </div> 
                 <div className="tools">
-                    {fontObj.files && Object.keys(fontObj.files).length ? <span className="link" onClick={e => this.downloadGoogleFont(fontObj)} ><i className="material-icons">font_download</i></span> : ""}
+                    {fontObj.files && Object.keys(fontObj.files).length ? <span className="link" title="All Font Download" onClick={e => this.downloadGoogleFont(fontObj)} ><i className="material-icons">font_download</i></span> : ""}
                     {fontObj.downloadUrl ? <span className="link" title="Font Download" onClick={this.downloadUrl(fontObj.downloadUrl)} ><i className="material-icons">font_download</i></span> : ""}
                     {licenseUrl ? <span className="link" title="View License" onClick={this.goUrl(licenseUrl, 'License')} ><i className="material-icons">turned_in_not</i></span> : ""}
+                    {previewUrl ? <span className="link" title="View Font" onClick={this.goUrl(previewUrl, 'Preview')} ><i className="material-icons">pageview</i></span> : ""}                    
                     {fontObj.buyUrl ? <span className="link" onClick={this.goUrl(fontObj.buyUrl, 'Buy')} ><i className="material-icons">shopping_cart</i></span> : ""}
                 </div>   
                 <div className="font-info-item-preview">

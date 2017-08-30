@@ -48,7 +48,6 @@
     text-align: center;
     margin-bottom:10px;
     font-size: 13px !important;
-    pointer-events: none;
 }
 
 .font-item .font-info .font-family,
@@ -99,6 +98,16 @@
     padding-left:10px;
     vertical-align: middle;
     text-overflow: ellipsis;
+}
+
+.font-info .font-family .link {
+    margin-right: 5px;
+    vertical-align: middle;
+    display:inline-block;
+}
+.font-info .font-family .link .material-icons {
+    font-size: 18px;
+    vertical-align: middle;
 }
 
 .font-info .font-sub-family {
