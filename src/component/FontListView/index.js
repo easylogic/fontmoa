@@ -3,7 +3,7 @@ import { render } from 'react-dom'
 import Observer from 'react-intersection-observer'
 import './default.css';
 
-import { common, cssMaker, fontdb, googlefont} from '../../../util'
+import { common, cssMaker, fontdb, googlefont} from '../../util'
 
 class LabelInput extends Component {
     constructor(props) {

@@ -3,9 +3,7 @@ import intl from 'react-intl-universal'
 import React, { Component } from 'react';
 import './default.css';
 
-//import Category from '../category'
-import FontManager from '../fontmanager'
-//import GoogleFontManager from '../googlefontmanager'
+import FontManager from '../FontManager'
 
 import locales from '../../locales'
 import menu from '../../menu'

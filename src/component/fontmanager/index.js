@@ -5,8 +5,7 @@ import './default.css';
 import { Window } from '../../ui'
 import { common, fontdb }  from '../../util'
 
-import FontListView from './fontlistview'
-
+import FontListView from '../FontListView'
 
 class FontManager extends Window {
 

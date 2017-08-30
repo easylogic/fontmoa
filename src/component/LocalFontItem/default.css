@@ -1,0 +1,135 @@
+
+
+
+
+.local-font-item .font-info {
+    overflow: auto;
+    display: flex; 
+    padding:10px;
+    padding-left:20px;    
+    padding-right:60px;
+    text-align: center;
+    margin-bottom:10px;
+    font-size: 13px !important;
+}
+
+.local-font-item .font-info .font-family,
+.local-font-item .font-info .font-sub-family,
+.local-font-item .font-info .font-name,
+.local-font-item .font-info .tools .icon
+{
+    pointer-events: none;
+}
+
+.local-font-item .tools {
+    position: absolute;
+    right: 10px;
+    top:10px;
+    display:inline-block;
+    font-size:13px;
+    z-index: 100;
+    color: #b6b6b6;
+}
+
+.local-font-item .tools .icon {
+    pointer-events: none;
+}
+
+.local-font-item .tools .material-icons {
+    font-size:18px;
+}
+
+.local-font-item .tools .selected {
+    color: #740CD2; 
+}
+
+.local-font-item .font-info .font-name {
+    flex : 10 ; 
+    display:none;
+    font-weight: bold;
+}
+
+.local-font-item .font-info .font-family {
+    flex : 10 ; 
+    font-weight: bold;
+    display: inline-block;
+    text-align: left;
+    padding-left:10px;
+    vertical-align: middle;
+    text-overflow: ellipsis;
+}
+
+.local-font-item .font-info .font-family .link {
+    margin-right: 5px;
+    vertical-align: middle;
+    display:inline-block;
+}
+.local-font-item .font-info .font-family .link .material-icons {
+    font-size: 18px;
+    vertical-align: middle;
+}
+
+.local-font-item .font-info .font-sub-family {
+    display: none;
+}
+
+.local-font-item .font-item-preview {
+    pointer-events: none;
+    word-break: break-all;
+    text-align:center;
+    margin-bottom:10px;
+}
+
+.local-font-item .font-info-item-preview {
+    pointer-events: none;
+    user-select: auto;
+    text-align:left;
+    font-size: 13px;
+    margin-bottom:10px;
+    padding-left:30px;
+    padding-right:30px;
+}
+
+
+.local-font-item  .activation {
+    position: absolute;
+    left: 4px;
+    top:1px;
+    font-size:24px;
+    box-sizing:border-box;
+    color: #BDBDBD;
+}
+
+.local-font-item  .activation .selected {
+    color: #5cb85c;
+}
+
+
+
+.font-list-content[data-content-style=row] .local-font-item .font-info {
+    text-align: left !important;
+    margin-bottom:0px;
+}
+
+.font-list-content[data-content-style=row] .local-font-item .font-name {
+    display: block;
+}
+.font-list-content[data-content-style=row] .local-font-item .font-sub-family {
+    display: inline-block;
+    margin-left:10px;
+}
+
+
+.font-list-content[data-content-style=row] .local-font-item .font-item-preview {
+    text-align: left !important;
+    padding:0px 30px;
+    box-sizing:border-box;
+    overflow:hidden;
+    display:block;
+}
+
+.font-list-content[data-content-style=row] .local-font-item .font-item-preview div {
+    white-space: nowrap;
+    overflow: hidden;
+    width:100%;
+}

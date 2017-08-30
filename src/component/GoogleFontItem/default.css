@@ -1,0 +1,105 @@
+.google-font-item .font-info {
+    overflow: auto;
+    display: flex; 
+    padding:10px;
+    padding-left:20px;    
+    padding-right:60px;
+    text-align: center;
+    margin-bottom:10px;
+    font-size: 13px !important;
+}
+
+.google-font-item .font-info .font-family,
+.google-font-item .font-info .font-sub-family,
+.google-font-item .font-info .font-name,
+.google-font-item .font-info .tools .icon
+{
+    pointer-events: none;
+}
+
+.google-font-item .tools {
+    position: absolute;
+    right: 10px;
+    top:10px;
+    display:inline-block;
+    font-size:13px;
+    z-index: 100;
+    color: #b6b6b6;
+}
+
+.google-font-item .tools .icon {
+    pointer-events: none;
+}
+
+.google-font-item .tools .material-icons {
+    font-size:18px;
+}
+
+.google-font-item .font-info .font-name {
+    flex : 10 ; 
+    display:none;
+    font-weight: bold;
+}
+
+.google-font-item .font-info .font-family {
+    flex : 10 ; 
+    font-weight: bold;
+    display: inline-block;
+    text-align: left;
+    padding-left:10px;
+    vertical-align: middle;
+    text-overflow: ellipsis;
+}
+
+.google-font-item .font-info .font-family .link {
+    margin-right: 5px;
+    vertical-align: middle;
+    display:inline-block;
+}
+.google-font-item .font-info .font-family .link .material-icons {
+    font-size: 18px;
+    vertical-align: middle;
+}
+
+.google-font-item .font-info .font-sub-family {
+    display: none;
+}
+
+.google-font-item .font-item-preview {
+    pointer-events: none;
+    user-select: auto;
+    text-align:left;
+    font-size: 13px;
+    margin-bottom:10px;
+    padding-left:30px;
+    padding-right:30px;
+}
+
+
+.font-list-content[data-content-style=row] .google-font-item .font-info {
+    text-align: left !important;
+    margin-bottom:0px;
+}
+
+.font-list-content[data-content-style=row] .google-font-item .font-name {
+    display: block;
+}
+.font-list-content[data-content-style=row] .google-font-item .font-sub-family {
+    display: inline-block;
+    margin-left:10px;
+}
+
+
+.font-list-content[data-content-style=row] .google-font-item .font-item-preview {
+    text-align: left !important;
+    padding:0px 30px;
+    box-sizing:border-box;
+    overflow:hidden;
+    display:block;
+}
+
+.font-list-content[data-content-style=row] .google-font-item .font-item-preview div {
+    white-space: nowrap;
+    overflow: hidden;
+    width:100%;
+}
