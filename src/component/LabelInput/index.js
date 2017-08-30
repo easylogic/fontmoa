@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './default.css';
 
-import { common, cssMaker, fontdb, googlefont} from '../../util'
+import { fontdb} from '../../util'
 
 class LabelInput extends Component {
     constructor(props) {
@@ -21,11 +21,23 @@ class LabelInput extends Component {
         })
     }
 
+    deleteLabel = (e) => {
+        const label = e.target.getAttribute('data-label');
+
+        const labels = this.state.labels.filter((l) => {
+            return l !== label; 
+        })
+
+        this.updateLabels(labels, () => {
+            this.setState( { labels })
+        })
+    }    
+
     onKeyDown = (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
 
-            const label = this.refs.labelInput.textContent;
+            const label = this.refs.labelInput.textContent.trim();
 
             if (!this.state.labels.includes(label)) {
                 const labels = this.state.labels.concat([label]);
@@ -39,22 +51,7 @@ class LabelInput extends Component {
         }
     }
 
-    downloadGoogleFont = (label) => {
-        let fontObj = { 
-            family : this.state.fontObj.family, 
-            files : { 
-                [label] : this.state.fontObj.files[label]
-            } 
-        }
-
-        this.props.onClick(fontObj)
-    }
-
     render() {
-        let files = {};
-        if (this.state.fontObj) {
-            files = this.state.fontObj.files || [];
-        }        
         return (
             <div className="label-list">
                 { this.state.labels.map((label, index) => {
@@ -62,13 +59,23 @@ class LabelInput extends Component {
                     if (label.includes('italic')) {
                         realLabel = [label.replace('italic', ''), <i className="material-icons" key={label}>format_italic</i>]; 
                     }
+
+                    let attrs = {
+                        className : 'label',
+                        key : index, 
+                    }
+
+                    let deleteIcon = "";
+
+                    if (!this.state.readonly) {
+                        attrs['data-label'] = label; 
+                        attrs.onClick = this.deleteLabel;
+
+                        deleteIcon = <i className="material-icons" >close</i>;
+                    }
                     
-                    return (
-                        <span className="label" key={index}>
-                            {realLabel} 
-                            {files[label] ? <span onClick={(e) => this.downloadGoogleFont(label) } title="Download Font"><i className="material-icons">file_download</i></span> : ""}
-                        </span>
-                    )
+                    return ( 
+                        <span {...attrs} >{realLabel} {deleteIcon}</span> )
                 })}
                 {
                     this.state.readonly ? "" : <span className="label input" contentEditable={true} ref="labelInput" onKeyDown={this.onKeyDown} data-placeholder="label"></span>
@@ -78,3 +85,5 @@ class LabelInput extends Component {
         )
     }
 }
+
+export default LabelInput

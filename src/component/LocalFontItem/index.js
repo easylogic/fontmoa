@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom'
 import Observer from 'react-intersection-observer'
 import './default.css';
 
-import { common, cssMaker, fontdb, googlefont} from '../../util'
+import { common, cssMaker, fontdb} from '../../util'
 
 import LabelInput from '../LabelInput'
 
@@ -27,9 +26,10 @@ class LocalFontItem extends Component {
         
         fontdb.toggleFavorite(fileId, isToggleSelected)
 
-        this.setState({
-            fontObj : { favorite :  isToggleSelected }
-        })
+        let fontObj = this.state.fontObj;
+        fontObj.favorite = isToggleSelected;
+
+        this.setState({ fontObj })
 
     }
 
@@ -40,22 +40,20 @@ class LocalFontItem extends Component {
         // update file info 
         fontdb.toggleActivation(fileId, isActive)
 
-        // modify state 
-        this.setState({
-            fontObj : { activation :  isActive }
-        })
 
+        let fontObj = this.state.fontObj;
+        fontObj.activation = isActive;
+
+        this.setState({ fontObj })
     }
 
-    loadFontCss = (inView, path, font) => {
+    loadFontCss = (inView) => {
         if (inView) {
-            if (common.isInSystemFolders(path) === false) {
-                const css = cssMaker.createFontCss(path, font);
+            if (common.isInSystemFolders(this.state.fontObj.file) === false) {
+                const css = cssMaker.createFontCss(this.state.fontObj.file, this.state.fontObj.font);
                 cssMaker.loadCss(css)
             }
-
         }
-
     }
 
     refreshFontContent = (content) => {
@@ -66,12 +64,10 @@ class LocalFontItem extends Component {
 
         const fontObj = this.state.fontObj;
         const fontStyle = this.state.fontStyle;
-        const contentStyle = this.state.fontListContentStyle;
         const font = fontObj.font; 
         const style = Object.assign({}, font.collectStyle);
-        const isGrid = contentstyle === 'grid';
 
-        let message = fontStyle.content || common.getPangramMessage(font.currentLanguage, isGrid); 
+        let message = fontStyle.content || common.getPangramMessage(font.currentLanguage); 
 
         let favoriteClass = "add-favorite";
         let favoriteIcon = (<i className="material-icons small">favorite_border</i>)
@@ -87,7 +83,7 @@ class LocalFontItem extends Component {
         }        
 
         return (
-            <div className="local-font-item" >
+            <Observer className="local-font-item" onChange={inView => this.loadFontCss(inView)}>
                 <div className="font-info">
                     <div className="font-family" title={font.subfamilyName}>
                         {font.currentFamilyName}
@@ -104,8 +100,8 @@ class LocalFontItem extends Component {
                 <div className="font-item-preview" style={style}>
                     <div ref="message">{message}</div>
                 </div>
-                <LabelInput file={fontObj.file} labels={fontObj.labels}/>
-            </div>
+                <LabelInput fontObj={fontObj} labels={fontObj.labels}/>
+            </Observer>
         )
     }
  

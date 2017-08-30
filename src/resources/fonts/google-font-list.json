@@ -1,5 +1,5 @@
 {
-    "name": "Google Fonts",
+    "type": "GoogleFonts",
     "kind": "webfonts#webfontList",
     "items": [
         {

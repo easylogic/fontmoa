@@ -1,5 +1,5 @@
 {
-    "name" : "Google Fonts Early Access",
+    "type" : "GoogleFontsEarlyAccess",
     "items": [
         {
             "family": "Alef Hebrew",

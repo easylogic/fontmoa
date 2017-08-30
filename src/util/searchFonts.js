@@ -34,6 +34,7 @@ const search = (searchFilter, callback) => {
         const fontList = fonts[key];
 
         results = results.concat(fontList.items.filter((font) => {
+            font.type = fontList.type; 
             return searchFilter.funcs.some((filtering) => {
                 return filtering(font, searchFilter.filter)
             })

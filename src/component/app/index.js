@@ -8,7 +8,7 @@ import FontManager from '../FontManager'
 import locales from '../../locales'
 import menu from '../../menu'
 
-const { remote } = window.require('electron');
+const { remote } = window.require('electron'); 
 
 class App extends Component {
 
@@ -79,6 +79,6 @@ class App extends Component {
         
     );
   }
-}
+} 
 
 export default App;

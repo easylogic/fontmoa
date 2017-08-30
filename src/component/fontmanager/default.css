@@ -86,7 +86,7 @@
   left:0px;
   top:40px;
   right:0px;
-  bottom:40px;
+  bottom:0px;
   overflow: auto;
   box-sizing: border-box;
   transition: all 0.1s linear;
@@ -99,7 +99,7 @@
   top:40px;
   left: -400px;
   width:200px;
-  bottom:40px;
+  bottom:0px;
   overflow: auto;
   box-sizing: border-box;
   transition: all 0.1s linear;
@@ -136,7 +136,7 @@
   top:40px;
   left: 100%;
   width:100%;
-  bottom:40px;
+  bottom:0px;
   overflow: auto;
   box-sizing: border-box;
   transition: all 0.1s linear;
@@ -156,7 +156,7 @@
   height:40px;
   right:0px;
   bottom:0px;
-  display:flex;
+  display:none; /*flex*/
   z-index:100;  
   border-top: 1px solid #ececec;  
   box-sizing: border-box;

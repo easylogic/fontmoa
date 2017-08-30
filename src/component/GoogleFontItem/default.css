@@ -9,14 +9,6 @@
     font-size: 13px !important;
 }
 
-.google-font-item .font-info .font-family,
-.google-font-item .font-info .font-sub-family,
-.google-font-item .font-info .font-name,
-.google-font-item .font-info .tools .icon
-{
-    pointer-events: none;
-}
-
 .google-font-item .tools {
     position: absolute;
     right: 10px;

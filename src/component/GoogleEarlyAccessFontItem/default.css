@@ -99,7 +99,5 @@
 }
 
 .font-list-content[data-content-style=row] .google-early-access-font-item .font-item-preview div {
-    white-space: nowrap;
-    overflow: hidden;
     width:100%;
 }

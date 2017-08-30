@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import './default.css';
 
-import { common, cssMaker, fontdb, googlefont} from '../../util'
-
-import LabelInput from '../LabelInput'
-
+import { googlefont} from '../../util'
 
 class GoogleEarlyAccessItem extends Component {
 
