@@ -1,4 +1,5 @@
-import request from './request'
+import fontdb from './fontdb'
+import download from './download'
 import google_font_list from '../resources/fonts/google-font-list.json'
 import google_font_early_access_list from '../resources/fonts/google-font-early-access-list.json'
 
@@ -53,13 +54,15 @@ const downloadGoogleFont = (font, callback) => {
         const link = font.files[key];
         const targetFile = path.resolve(font_dir, font.family.replace(/ /g, '_') + '_' + key + '.ttf');
         
-        request.downloadFile(link, targetFile, () => {
+        download.downloadFile(link, targetFile, () => {
             //console.log('downloaded', targetFile);
             result.push(true);
+            fontdb.updateFontFile(targetFile, () => {
+                if (result.length === total) {
+                    callback && callback();
+                }
+            })
 
-            if (result.length === total) {
-                callback && callback();
-            }
         })
 
     })
@@ -95,7 +98,7 @@ const downloadEarlyAccess = (link, callback) => {
     const targetFile = path.resolve(font_root, uuidv1() + '.zip');
 
     // copy 하기 
-    request.downloadFile(link, targetFile, () => {
+    download.downloadFile(link, targetFile, () => {
 
         // 여기는 압축 풀어줘야할 것 같음. 
         extract(targetFile, {dir: path.dirname(targetFile)}, function (err) {

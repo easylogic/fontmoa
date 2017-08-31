@@ -32,6 +32,7 @@
     "react-scripts": "1.0.10",
     "react-swipeable-views": "^0.12.5",
     "redux": "^3.7.2",
+    "request": "^2.81.0",
     "uuid": "^3.1.0"
   },
   "scripts": {

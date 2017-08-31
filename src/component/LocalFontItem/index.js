@@ -87,7 +87,9 @@ class LocalFontItem extends Component {
                 <div className="font-info">
                     <div className="font-family" title={font.subfamilyName}>
                         {font.currentFamilyName}
-                        <span className="font-sub-family">({font.subfamilyName})</span>
+                        <span className="font-sub-family">{ 
+                            font.subfamilyName === 'Regular' ? "" : "(" + font.subfamilyName + ")"
+                        }</span>
                     </div>
                 </div>
                 <div className="tools">
@@ -98,7 +100,7 @@ class LocalFontItem extends Component {
                 </div>                    
 
                 <div className="font-item-preview" style={style}>
-                    <div ref="message">{message}</div>
+                    <div ref="message" contentEditable={true} dangerouslySetInnerHTML={{__html : message}} />
                 </div>
                 <LabelInput fontObj={fontObj} labels={fontObj.labels}/>
             </Observer>

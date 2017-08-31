@@ -15,9 +15,15 @@ class GoogleEarlyAccessItem extends Component {
     downloadUrl = (link) => {
         // 구글 early access 폰트, zip 파일로 압축된 폰트 다운로드 
         // 중복 체크         
-        return () => {
+        return (e) => {
+            let node = e.target.querySelector('.material-icons');
+            node.textContent = "autorenew"
+            node.classList.add('spin')
+
             googlefont.downloadEarlyAccess(link, () => {
                 console.log('done');
+                node.textContent = "font_download"
+                node.classList.remove('spin')                
             });
         }
     }
@@ -39,7 +45,7 @@ class GoogleEarlyAccessItem extends Component {
             <div className="google-early-access-font-item">
                 <div className="font-info">
                     <div className="font-family" title={fontObj.family}>
-                        {name}
+                        <i className="material-icons">cloud</i> {name} <span className="category">{fontObj.category}</span>
                     </div>
                 </div> 
                 <div className="tools">

@@ -74,22 +74,20 @@
 }
 
 .local-font-item .font-item-preview {
-    pointer-events: none;
     word-break: break-all;
     text-align:center;
     margin-bottom:10px;
+    outline:none;
 }
 
-.local-font-item .font-info-item-preview {
-    pointer-events: none;
-    user-select: auto;
-    text-align:left;
-    font-size: 13px;
-    margin-bottom:10px;
-    padding-left:30px;
-    padding-right:30px;
+.local-font-item .font-item-preview > div {
+    outline:none;
+    border-radius: 3px;
 }
 
+.local-font-item .font-item-preview > div:focus {
+    background-color: rgba(0, 0, 0, 0.05);
+}
 
 .local-font-item  .activation {
     position: absolute;

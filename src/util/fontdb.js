@@ -78,21 +78,21 @@ const insertFont = (font, fontObj, done) => {
     
         if (fontItem.subfamilyName) {
             const sub = fontItem.subfamilyName.toLowerCase();
-            if (sub.toLowerCase().includes('italic')) {
+            if (sub.includes('italic')) {
                 fontItem.italic = true;
             }
         
-            if (sub.toLowerCase().includes('bold')) {
+            if (sub.includes('bold')) {
                 fontItem.bold = true;
             }
         }
     
     
-        fontItem.collectStyle = common.getFontStyleCollect(font);
+        fontItem.collectStyle = common.getFontStyleCollect(fontItem);
     
         fontObj.font = fontItem; 
     
-        db.insert(fontObj, (err, docs) => {
+        db.update({file : fontObj.file}, fontObj, {upsert : true}, (err, docs) => {
             // 최종 폰트를 입력한 이후 callback 수행 
             done && done();
         });
@@ -189,15 +189,22 @@ const createMd5 = (directory, type) => {
     return { files : files };
 }
 
-const initializeFontFile = (file, category_id) => {
+const initializeFontFile = (file) => {
     return {
         file,                   // 이건 font 파일 패스 
-        category : category_id, // 카테고리는 system, googlefont, userfolder 로 고정이군 
         labels : [],            // 라벨은 여러개 지정 될 수 있으니 
         activation : false,     // 활성화 여부 
         favorite : false,       // 기본 값 fasle 
     }
 }
+
+
+const updateFontFile = (file, done) => {
+    createFont(initializeFontFile(file), () => {
+        done && done();
+    });
+}
+    
 
 const updateFont = (_id, done) => {
 
@@ -218,13 +225,13 @@ const updateFont = (_id, done) => {
             }
 
             hash.files.forEach((file) => {
-                createFont(initializeFontFile(file, _id), function () {
+                updateFontFile(file, () => {
                     count++;
-    
+                    
                     if (count === total) {
                         done && done();
                     }
-                });
+                })
             })
         })
     })
@@ -476,6 +483,7 @@ const createDBFilter = (filter) => {
         const reg = new RegExp(filter.text, "ig");
 
         dbFilter.$and.push({ $or : [
+            { "file" : reg },
             { "font.familyName" : reg },
             { 'labels' : reg }
         ]})
@@ -578,6 +586,7 @@ const fontdb = {
 
     /* update  font information */
     update,
+    updateFontFile,
 
     /* remove resource */
     removeDirectory,

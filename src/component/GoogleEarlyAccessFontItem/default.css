@@ -9,7 +9,6 @@
     font-size: 13px !important;
 }
 
-.google-early-access-font-item .font-info .font-family,
 .google-early-access-font-item .font-info .font-sub-family,
 .google-early-access-font-item .font-info .font-name,
 .google-early-access-font-item .font-info .tools .icon
@@ -56,7 +55,7 @@
     vertical-align: middle;
     display:inline-block;
 }
-.google-early-access-font-item .font-info .font-family .link .material-icons {
+.google-early-access-font-item .font-info .font-family .material-icons {
     font-size: 18px;
     vertical-align: middle;
 }

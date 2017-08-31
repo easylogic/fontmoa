@@ -35,7 +35,6 @@
 
 .google-font-item .font-info .font-family {
     flex : 10 ; 
-    font-weight: bold;
     display: inline-block;
     text-align: left;
     padding-left:10px;
@@ -48,9 +47,13 @@
     vertical-align: middle;
     display:inline-block;
 }
-.google-font-item .font-info .font-family .link .material-icons {
+.google-font-item .font-info .font-family .material-icons {
     font-size: 18px;
     vertical-align: middle;
+}
+
+.google-font-item .font-info .font-family .category {
+    color: #C4AA00;
 }
 
 .google-font-item .font-info .font-sub-family {

@@ -16,11 +16,17 @@ class GoogleFontItem extends Component {
     }
 
 
-    downloadGoogleFont = ()  => {
+    downloadGoogleFont = (e)  => {
         // 중복 체크 
         // 구글 폰트 모두 다운로드 
+        let node = e.target.querySelector('.material-icons');
+        node.textContent = "autorenew"
+        node.classList.add('spin')
+
         googlefont.downloadGoogleFont(this.state.fontObj, () => {
             console.log(' google font done');
+            node.textContent = "font_download"
+            node.classList.remove('spin')
         });
 
     }
@@ -45,7 +51,7 @@ class GoogleFontItem extends Component {
             <div className="google-font-item">
                 <div className="font-info">
                     <div className="font-family" title={fontObj.family} onClick={this.goUrl(previewUrl, 'Preview')} >
-                        {name}
+                        <i className="material-icons">cloud</i> {name}  <span className="category">{fontObj.category}</span>
                     </div>
                 </div> 
                 <div className="tools">

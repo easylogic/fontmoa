@@ -14,24 +14,17 @@ class FontListView extends Component {
 
     constructor (props) {
         super(props);
+
+        const files = this.props.files || []
         this.state = {
-            files: this.props.files || [],
+            files,
+            items : files.slice(0, FontListView.MAX_ITEM_COUNT),
             fontListContentStyle : 'row',
         }
     }
 
     refreshFiles = (files) => {
-        this.setState({ files })
-    }
-
-    refreshFontSize (fontSize) {
-        this.refs.fontListContent.style.fontSize = fontSize;
-    }
-
-    refreshFontContent (content) {
-        if (content) {
-            // content 를 어떻게 바꾸나. 
-        }
+        this.setState({ files, items : files.slice(0, FontListView.MAX_ITEM_COUNT) })
     }
 
     loadFontList = (inView) => {
@@ -85,12 +78,12 @@ class FontListView extends Component {
     }
 
     renderItem = (fontObj, index, fontStyle) => {
-
+        const key = (fontObj.file || fontObj.family || fontObj.name) + index;
         return (            
             <div 
-                key={index} 
+                key={key} 
                 className="font-item" 
-                data-index={index} >
+                data-index={index}>
                 { this.chooseItem(fontObj, fontStyle)}
             </div>
         )
@@ -110,9 +103,7 @@ class FontListView extends Component {
             backgroundColor: this.props.fontStyle.backgroundColor,
         }, fontStyle);
 
-        const items = this.state.files.filter((it, index) => {
-            return index < FontListView.MAX_ITEM_COUNT;
-        })
+        const items = this.state.items;
 
         if (this.refs.fontListContent) {
             const scrolled = this.refs.fontListContent.querySelectorAll('.scrolled');

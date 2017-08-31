@@ -34,66 +34,16 @@ class FontManager extends Window {
     })
   }
 
-  setActive = (id) => {
-    this.refs.tabItem.setActive(id);
-  }
 
   refreshFiles = (files) => {
     this.refs.fontlistview.refreshFiles(files);
   }
 
-
-  refreshFontView = (style) => {
-    this.setState({ style })
-  }
-
-  refreshFontSize = (fontSize) => {
-    this.refs.fontlistview.refreshFontSize(fontSize);
-  }
-
-  refreshFontContent = (content) => {
-    this.refs.fontlistview.refreshFontContent(content);
-  }
-
-  refreshRowStyle = (rowStyle) => {
-    this.refs.fontlistview.refreshRowStyle(rowStyle);
-  }
-
-  toggleActivation = (path, isActive) => {
-      fontdb.toggleActivation(path, isActive)
-  }
-
-  toggleFavorite = (path, isAdd) => {
-      fontdb.toggleFavorite(path, isAdd)
-  }
-
-  onKeyUpSearchText = (e) => {
+  onClickSearchText = (e) => {
     this.search();
   }
-
-  inputPagramText = (e) => {
-    this.refreshFontContent(e.target.value);
-  }
-
-  changeListStyle = (e) => {
-
-    const rowStyle = e.target.classList.contains('row') ? 'row' : 'grid';
-
-    if (rowStyle === 'row') {
-      this.refs.rowType.classList.toggle('active', true);
-      this.refs.gridType.classList.toggle('active', false);
-    } else {
-      this.refs.rowType.classList.toggle('active', false);
-      this.refs.gridType.classList.toggle('active', true);
-    }
-
-    this.refreshRowStyle(rowStyle);
-  }
-
-  onChangeFontSize = (e) => {
-      const fontSize = e.target.value + 'px';
-
-      this.refreshFontSize(fontSize);
+  onKeyUpSearchText = (e) => {
+    this.search();
   }
 
   showSearchFilter = () => {
@@ -120,21 +70,28 @@ class FontManager extends Window {
 
   search = (filterOptions) => {
 
-    filterOptions = filterOptions || {
-      categories : {
-        serif : this.isChecked(this.refs.serif),
-        sanserif : this.isChecked(this.refs.sansserif),
-        display : this.isChecked(this.refs.display),
-        handwriting : this.isChecked(this.refs.handwriting),
-        monospace : this.isChecked(this.refs.monospace),
-      },
-      weight : (this.refs.thickness.value * 100),
-      text : this.refs.searchText.value 
+    if (this.searchTimer) {
+      clearTimeout(this.searchTimer);
     }
 
-    fontdb.searchFiles(filterOptions, (files) => {
-      this.refreshFiles(files);
-    })
+    this.searchTimer = setTimeout(() => {
+      filterOptions = filterOptions || {
+        categories : {
+          serif : this.isChecked(this.refs.serif),
+          sanserif : this.isChecked(this.refs.sansserif),
+          display : this.isChecked(this.refs.display),
+          handwriting : this.isChecked(this.refs.handwriting),
+          monospace : this.isChecked(this.refs.monospace),
+        },
+        weight : (this.refs.thickness.value * 100),
+        text : this.refs.searchText.value 
+      }
+  
+      fontdb.searchFiles(filterOptions, (files) => {
+        this.refreshFiles(files);
+      })
+    }, 100);
+
   }
 
   toggleFavoriteList = (e) => {
@@ -156,7 +113,7 @@ class FontManager extends Window {
             <div className="left">
               <span className="search-icon" onClick={this.showSearchFilter}><i className="material-icons">spellcheck</i></span>              
               <div className="search-input">
-                <input type="search" ref="searchText" onKeyUp={this.onKeyUpSearchText} placeholder="Search" />
+                <input type="search" ref="searchText" onKeyUp={this.onKeyUpSearchText} onClick={this.onClickSearchText} placeholder="Search" />
               </div>
             </div>
             <div className="right tools">
@@ -183,23 +140,7 @@ class FontManager extends Window {
             </div>
           </div>
           <div className="app-content">
-              <FontListView ref="fontlistview" toggleActivation={this.toggleActivation}  toggleFavorite={this.toggleFavorite} fontStyle={this.state.style} files={this.state.files} />
-          </div>
-          <div className="app-toolbar">
-            <div className="left tools">
-              <input type="search" className="pangram-text" placeholder="Text" onChange={this.inputPagramText} />
-            </div>
-            <div className="center tools">
-              <span className="small">A</span> 
-              <input type='range' style={{display:'inline-block',width:'100px'}} onInput={this.onChangeFontSize}  min="10" max="100" defaultValue="40" step="1" /> 
-              <span className="big">A</span>
-            </div>
-            <div className="right tools">
-              <div className="radio-box">
-                <span ref="rowType" className="list-style row active" onClick={this.changeListStyle}><i className="material-icons">view_list</i></span>                  
-                <span ref="gridType" className="list-style grid" onClick={this.changeListStyle}><i className="material-icons">grid_on</i></span>
-              </div>
-            </div>
+              <FontListView ref="fontlistview" fontStyle={this.state.style} files={this.state.files} />
           </div>
         </div>
     );
