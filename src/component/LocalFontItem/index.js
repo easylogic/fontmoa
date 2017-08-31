@@ -99,7 +99,7 @@ class LocalFontItem extends Component {
                     <span className={activeClass} onClick={this.toggleActivation} title="Activation">●</span>
                 </div>                    
 
-                <div className="font-item-preview" style={style}>
+                <div className="font-item-preview" style={style} title="Click If write a text">
                     <div ref="message" contentEditable={true} dangerouslySetInnerHTML={{__html : message}} />
                 </div>
                 <LabelInput fontObj={fontObj} labels={fontObj.labels}/>

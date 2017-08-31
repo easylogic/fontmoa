@@ -50,8 +50,8 @@ const downloadFile = (link, target, callback) => {
         remoteFile : link,
         localFile: target,
         onProgress: (received, total) => {
-            var percentage = (received * 100) / total;
-            console.log(percentage + "% | " + received + " bytes out of " + total + " bytes.");
+            //var percentage = (received * 100) / total;
+            //console.log(percentage + "% | " + received + " bytes out of " + total + " bytes.");
         },
     }).then(function(){
         callback && callback();

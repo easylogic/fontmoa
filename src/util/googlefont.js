@@ -45,27 +45,36 @@ const downloadGoogleFont = (font, callback) => {
     createDir(path.dirname(path.join(font_dir, '.temp')));
 
     const keys = Object.keys(font.files);
-    let result = [];
+    let startKeyIndex = -1; 
     const total = keys.length; 
 
-
-    keys.forEach(key => {
-
+    const startDownload = () => {
+        const key = keys[startKeyIndex];
         const link = font.files[key];
         const targetFile = path.resolve(font_dir, font.family.replace(/ /g, '_') + '_' + key + '.ttf');
         
         download.downloadFile(link, targetFile, () => {
             //console.log('downloaded', targetFile);
-            result.push(true);
             fontdb.updateFontFile(targetFile, () => {
-                if (result.length === total) {
-                    callback && callback();
-                }
+                nextDownload();
             })
 
         })
+    }
 
-    })
+    const nextDownload = () => {
+        startKeyIndex++;
+
+        if(startKeyIndex === total) {
+            callback && callback();
+            return; 
+        }
+
+        startDownload();
+    }
+
+    nextDownload();
+
 }
 
 const downloadAllGoogleFont = (progress, callback) => {
