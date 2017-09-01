@@ -134,7 +134,7 @@ class FontManager extends Window {
           <div className="app-content">
             <FontListView ref="fontlistview" />
           </div>
-          <div ref="directory" className="app-directory open">
+          <div ref="directory" className="app-directory">
             <DirectoryManager ref="dir" />
           </div>          
         </div>

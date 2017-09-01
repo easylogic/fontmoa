@@ -3,6 +3,9 @@ import './default.css';
 
 import { fontdb }  from '../../util'
 
+var remote = window.require('electron').remote;
+var dialog = remote.dialog;
+
 class DirectoryManager extends Component {
 
   constructor (props) {
@@ -24,10 +27,10 @@ class DirectoryManager extends Component {
   renderDirectoryType = (it) => {
     
     if (it.type === 'user') {
-      return <span className="type-icon"><i className="material-icons">folder_shared</i></span>  
+      return <span className="type-icon user"><i className="material-icons">folder_shared</i></span>  
     }
 
-    return <span className="type-icon"><i className="material-icons">folder</i></span>
+    return <span className="type-icon system"><i className="material-icons">folder</i></span>
   }
 
   refreshFontDirectory = (it) => {
@@ -36,14 +39,38 @@ class DirectoryManager extends Component {
       node.classList.add('spin');
 
       fontdb.refreshDirectory(it.directory, () => {
-        node.classList.remove('spin');
+        setTimeout(() => {
+          node.classList.remove('spin');
+        }, 1000);
       })
     } 
+  }
+
+  addDirectory = (e) => {
+    dialog.showOpenDialog({
+        properties: ['openDirectory']
+    }, (path) => {
+
+        if (path) {
+          fontdb.addDirectory(path[0], () => {
+            this.init();
+          });
+        }
+
+
+    });
   }
 
   render() {
     return ( 
       <div className="directory-manager">
+        <div className="directory-title">
+          Directories
+
+          <span className="tools">
+            <span className="tool-item" onClick={this.addDirectory}><i className="material-icons">create_new_folder</i></span>
+          </span>
+        </div>
         <div className="directory-list">
         {this.state.items.map((it, index) => {
 

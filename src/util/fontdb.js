@@ -201,33 +201,11 @@ const updateFontFile = (file, done) => {
     });
 }
     
-const addFolder = (directory, done) => {
+const addDirectory = (directory, done) => {
     const name = path.basename(directory);
 
     directoryDB.update({ directory }, {type: 'user', directory, name}, { upsert : true}, () => {
         refreshDirectory(directory, done);
-    })
-} 
-
-const addLibrary = (library, done) => {
-    directoryDB.findOne({ type: 'library',  library }, (err, doc) => {
-        if (doc) {
-            done && done();
-            return; 
-        }
-
-        directoryDB.count({ type: 'library'}, (err2, count) => {
-            // 디렉토리 정보 다시 입력 
-            directoryDB.insert({
-                type: 'library',
-                index: count,
-                library,
-                files: []
-            });
-
-            done && done()
-        })
-
     })
 } 
 
@@ -450,8 +428,6 @@ const fontdb = {
     findOne,
 
     /* add user resource */
-    addFolder,
-    addLibrary,
     toggleActivation,
     toggleFavorite,
     updateLabels,
@@ -464,6 +440,7 @@ const fontdb = {
     getFavoriteCount,
 
     /* get user folders */
+
     getDirectories,
     
     /* search files */
@@ -472,6 +449,7 @@ const fontdb = {
     /* update  font information */
     initFontDirectory,
     refreshDirectory,
+    addDirectory,    
 
     /* remove resource */
     removeDirectory,

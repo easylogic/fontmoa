@@ -4,10 +4,31 @@
   left:0px;
   top:0px;
   right:0px;
-  height:40px;
+  bottom:0px;
   box-sizing:border-box;
 }
 
+.directory-manager .directory-title {
+  position:absolute;
+  left:0px;
+  top:0px;
+  right:0px;
+  height:40px;
+  padding:10px;
+  font-size:20px;
+  font-weight:bold;
+  border-bottom: 1px solid #ececec;
+  box-sizing:border-box;
+}
+
+.directory-manager .directory-list {
+  position:absolute;
+  left:0px;
+  top:42px;
+  right:0px;
+  bottom:0px;
+  overflow: auto;
+}
 
 .directory-manager .directory-list .directory-item {
   border-radius:3px;
@@ -33,6 +54,10 @@
   display:inline-block;
   vertical-align:middle;
   margin-right:5px;
+}
+
+.directory-manager .directory-list .directory-item .type .type-icon.user {
+  color: green;
 }
 
 .directory-manager .directory-list .directory-item .tools {
