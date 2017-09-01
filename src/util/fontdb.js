@@ -51,6 +51,8 @@ const getNames = (name) => {
 const insertFont = (font, fontObj, done) => {
 
     try {
+
+
         const fontItem = {
             postscriptName : (font.name ? font.postscriptName : ''),
             fullName: (font.name ? font.fullName : ''),
@@ -93,7 +95,6 @@ const insertFont = (font, fontObj, done) => {
         fontObj.font = fontItem; 
     
         db.update({file : fontObj.file}, fontObj, {upsert : true}, (err, docs) => {
-            // 최종 폰트를 입력한 이후 callback 수행 
             done && done();
         });
     } catch (e) {

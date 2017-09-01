@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import './default.css';
 
 import { Window } from '../../ui'
-import { common, fontdb }  from '../../util'
+import { common, fontdb, cache }  from '../../util'
 
 import FontListView from '../FontListView'
 
@@ -15,10 +15,6 @@ class FontManager extends Window {
     this.state = { 
       files : [], 
       systemFolders: common.getSystemFolders(),
-      style: {
-        fontSize: '30px'
-      },
-      isDone: false
     }
 
     this.init();
@@ -26,12 +22,21 @@ class FontManager extends Window {
   }
 
   init = () => {
-    const system = this.state.systemFolders[0];
-    fontdb.update(system.directory, system.type, (categoryId) => {
-      fontdb.getFiles(categoryId, (files) => {
-        this.setState({ isDone : true,  files })
-      })
+
+    cache.get('is.loaded.system.dir', (result) => {
+      if (!result) {
+        const system = this.state.systemFolders[0];
+        fontdb.update(system.directory, system.type, (categoryId) => {
+            cache.set('is.loaded.system.dir', true, () => {
+              this.search();
+            })
+        })
+      } else {
+        this.search();
+      }
     })
+
+
   }
 
 
@@ -107,7 +112,7 @@ class FontManager extends Window {
   }
 
   render() {
-    return (this.state.isDone && 
+    return ( 
         <div className="window fontmanager-window font-manager" id={this.props.id}>
           <div className="app-menu">
             <div className="left">
@@ -140,7 +145,7 @@ class FontManager extends Window {
             </div>
           </div>
           <div className="app-content">
-              <FontListView ref="fontlistview" fontStyle={this.state.style} files={this.state.files} />
+              <FontListView ref="fontlistview" />
           </div>
         </div>
     );

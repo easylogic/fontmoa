@@ -108,15 +108,43 @@
     text-align:center;
     margin-bottom:10px;
     outline:none;
+    padding:2px;
+    padding-right:10px;
+    padding-left:30px;    
 }
 
-.local-font-item .font-item-preview > div {
+.local-font-item .font-item-preview > .message {
     outline:none;
     border-radius: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    width:100%;
+    text-align: left;
 }
 
-.local-font-item .font-item-preview > div:focus {
+.local-font-item .font-item-preview > .message:focus {
     background-color: rgba(0, 0, 0, 0.05);
+}
+
+
+.local-font-item .toolbar {
+    display:none;
+    position:absolute;
+    right:70px;
+    top:10px;
+    width:100px;
+}
+
+.local-font-item .toolbar input[type=range]:before {
+    content: attr(value) 'px';
+    position:absolute;
+    top:-7px;
+    left:-40px;
+    display:inline-block;
+}
+
+.local-font-item:hover .toolbar  {
+    display:block;
 }
 
 .local-font-item  .activation {
@@ -148,16 +176,3 @@
 }
 
 
-.font-list-content[data-content-style=row] .local-font-item .font-item-preview {
-    text-align: left !important;
-    padding:0px 30px;
-    box-sizing:border-box;
-    overflow:hidden;
-    display:block;
-}
-
-.font-list-content[data-content-style=row] .local-font-item .font-item-preview div {
-    white-space: nowrap;
-    overflow: hidden;
-    width:100%;
-}

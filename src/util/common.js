@@ -10,43 +10,25 @@ const getFontFamilyCollect = (font) => {
     if (!font.name) return "";
     if (!font.familyName) return "";
 
-    let fontList = [];
+    let fontList = {};
 
-    //console.log(font);
-
-    fontList.push(font.familyName);
-//    fontList.push(font.fullName);
-//    fontList.push(font.postscriptName);
-
+    fontList[font.familyName] = true;
 
     if (font.name) {
-       // console.log(font.name)
         for(const lang in font.name.fontFamily) {
-            fontList.push(font.name.fontFamily[lang]);
+            fontList[font.name.fontFamily[lang]] = true;
         }
 
-        //for(const lang in font.name.preferredFamily) {
-        //    fontList.push(font.name.preferredFamily[lang]);
-        //}
-        
-
-
-        //for(const lang in font.name.uniqueSubfamily) {
-        //    fontList.push(font.name.uniqueSubfamily[lang]);
-        //}
-
         for(const lang in font.name.fullName) {
-            fontList.push(font.name.fullName[lang]);
+            fontList[font.name.fullName[lang]] = true;
         }
         
         for(const lang in font.name.postscriptName) {
-            fontList.push(font.name.postscriptName[lang]);
+            fontList[font.name.postscriptName[lang]] = true;
         }       
     }
 
-
-
-    return fontList.map((f) => {
+    return Object.keys(fontList).map((f) => {
         // eslint-disable-next-line
         return f.replace(/\-/g, ' ');
     }).join(', ');
@@ -57,14 +39,15 @@ const getFontFamilyCollect = (font) => {
 const getFontStyleCollect = (font) => {
     let style = {
         fontFamily: getFontFamilyCollect(font),
-        
     }
 
     if (font.italic) {
         style.fontStyle = 'italic';
     }
 
-    if (font.bold) {
+    if (font.weight) {
+        style.fontWeight = font.weight
+    } else if (font.bold) {
         style.fontWeight = 'bold'
     } else {
         style.fontWeight = 'normal'

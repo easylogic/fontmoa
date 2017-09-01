@@ -3,9 +3,11 @@ import { render } from 'react-dom'
 import Observer from 'react-intersection-observer'
 import './default.css';
 
-import LocalFontItem from '../LocalFontItem'
-import GoogleFontItem from '../GoogleFontItem'
-import GoogleEarlyAccessFontItem from '../GoogleEarlyAccessFontItem'
+import {
+    LocalFontItem,
+    GoogleFontItem,
+    GoogleEarlyAccessFontItem
+} from '../FontItem'
 
 class FontListView extends Component {
 
@@ -35,11 +37,6 @@ class FontListView extends Component {
             const start = parseInt(lastItemFont.getAttribute('data-index'), 10) + 1
             const end = start + FontListView.MAX_ITEM_COUNT; 
 
-            const fontStyle = {
-                fontSize : this.props.fontStyle.fontSize,
-                content : this.props.fontStyle.content,
-            }
-
             const items = this.state.files.filter((it, index) => {
                 return start <= index && index <= end; 
             })
@@ -50,7 +47,7 @@ class FontListView extends Component {
                 items.forEach((font, index) => {
                     let $div = document.createElement('div');
 
-                    render(this.renderItem(font, start + index, fontStyle), $div)
+                    render(this.renderItem(font, start + index), $div)
                     $div.firstChild.classList.add('scrolled');
                     frag.appendChild($div.firstChild)
                 })
@@ -62,10 +59,10 @@ class FontListView extends Component {
     }    
     
 
-    chooseItem = (fontObj, fontStyle) => {
+    chooseItem = (fontObj) => {
 
         if (fontObj.font) {
-            return <LocalFontItem fontObj={fontObj} fontStyle={fontStyle} />;
+            return <LocalFontItem fontObj={fontObj} />;
         } else {
             if (fontObj.type === 'GoogleFonts') {
                 return <GoogleFontItem fontObj={fontObj} />
@@ -77,14 +74,14 @@ class FontListView extends Component {
         return "";
     }
 
-    renderItem = (fontObj, index, fontStyle) => {
+    renderItem = (fontObj, index) => {
         const key = (fontObj.file || fontObj.family || fontObj.name) + index;
         return (            
             <div 
                 key={key} 
                 className="font-item" 
                 data-index={index}>
-                { this.chooseItem(fontObj, fontStyle)}
+                { this.chooseItem(fontObj)}
             </div>
         )
 
@@ -93,15 +90,6 @@ class FontListView extends Component {
 
     render() {
 
-        const fontStyle = {
-            fontSize : this.props.fontStyle.fontSize,
-            content : this.props.fontStyle.content,
-        }
-
-        const colorStyle = Object.assign({
-            color: this.props.fontStyle.color,
-            backgroundColor: this.props.fontStyle.backgroundColor,
-        }, fontStyle);
 
         const items = this.state.items;
 
@@ -116,9 +104,9 @@ class FontListView extends Component {
 
         return (
             <div className="font-list-view">
-                <div ref="fontListContent" className="font-list-content" style={colorStyle} data-content-style="row">
+                <div ref="fontListContent" className="font-list-content" data-content-style="row">
                     {items.map((it, i) => {
-                        return this.renderItem(it, i, fontStyle);
+                        return this.renderItem(it, i);
                     })}
                     { items.length === 0 ? <div className="empty-item">No fonts.</div> : ""}
                     <Observer ref="observer" className="font-item observer" onChange={(inView) => { this.loadFontList(inView) }}>{inView => ''}</Observer>                    

@@ -33,7 +33,7 @@ class App extends Component {
   }
 
   changeSettings () {
-    remote.getCurrentWindow().setSize(420, 600, true);
+    remote.getCurrentWindow().setSize(500, 600, true);
   }
 
   loadMenu () {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './default.css';
 
-import { fontdb} from '../../util'
+import { fontdb} from '../../../util'
 
 class LabelInput extends Component {
     constructor(props) {
@@ -78,7 +78,7 @@ class LabelInput extends Component {
                         <span {...attrs} >{realLabel} {deleteIcon}</span> )
                 })}
                 {
-                    this.state.readonly ? "" : <span className="label input" contentEditable={true} ref="labelInput" onKeyDown={this.onKeyDown} data-placeholder="label"></span>
+                    this.state.readonly ? "" : <span className="label input" title="Type a label" contentEditable={true} ref="labelInput" onKeyDown={this.onKeyDown} data-placeholder="label"></span>
                 }
                 
             </div>

@@ -69,13 +69,13 @@ input[type=range]::-webkit-slider-runnable-track {
   animation-duration: 0.2s;
 }
 input[type=range]::-webkit-slider-thumb {
-  height: 18px;
-  width: 18px;
+  height: 14px;
+  width: 14px;
   border-radius: 50%;
   cursor: pointer;
   -webkit-appearance: none;
-  margin-top: -9px;
-  z-index: 3;
+  margin-top: -7px;
+  z-index: 10;
   transition: all 0.1s linear;
 }
 input[type=range][readonly]::-webkit-slider-thumb {

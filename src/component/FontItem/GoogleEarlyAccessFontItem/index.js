@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './default.css';
 
-import { googlefont} from '../../util'
+import { googlefont} from '../../../util'
 
 class GoogleEarlyAccessItem extends Component {
 

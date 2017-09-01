@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Observer from 'react-intersection-observer'
 import './default.css';
 
-import { common, cssMaker, fontdb} from '../../util'
+import { common, cssMaker, fontdb} from '../../../util'
 
 import LabelInput from '../LabelInput'
 
@@ -14,8 +14,7 @@ class LocalFontItem extends Component {
         super(props);
         this.state = {
             fontObj: this.props.fontObj,
-            fontListContentStyle : this.props.fontListContentStyle,
-            fontStyle : this.props.fontStyle,
+            fontSize: 40
         }
     }
 
@@ -60,8 +59,16 @@ class LocalFontItem extends Component {
         }
     }
 
-    refreshFontContent = (content) => {
-        this.refs.message.textContent = content; 
+    refreshFont = () => {
+        fontdb.updateFontFile(this.state.fontObj.file, () => {
+            console.log('font update is done', this.state.fontObj.file);
+        })
+        
+    }
+
+    changeFontSize = (e) => {
+        const fontSize = parseInt(e.target.value, 10);
+        this.setState({ fontSize })
     }
 
     getFontNames = (font) => {
@@ -86,11 +93,12 @@ class LocalFontItem extends Component {
     render () {
 
         const fontObj = this.state.fontObj;
-        const fontStyle = this.state.fontStyle;
         const font = fontObj.font; 
-        const style = Object.assign({}, font.collectStyle);
+        const style = Object.assign({ 
+            fontSize : this.state.fontSize + 'px' 
+        }, font.collectStyle);
 
-        let message = fontStyle.content || common.getPangramMessage(font.currentLanguage); 
+        let message = common.getPangramMessage(font.currentLanguage); 
 
         let favoriteClass = "add-favorite";
         let favoriteIcon = (<i className="material-icons small">favorite_border</i>)
@@ -130,6 +138,7 @@ class LocalFontItem extends Component {
                 </div>
                 
                 <div className="tools">
+                    <span onClick={this.refreshFont} title="Refresh Font Information"><i className="material-icons">refresh</i></span>
                     <span onClick={this.toggleDescription} title="Open Description"><i className="material-icons">apps</i></span>
                     <span className={favoriteClass}  onClick={this.toggleFavorite} title="Add Favorite">{favoriteIcon}</span>
                 </div>
@@ -138,9 +147,12 @@ class LocalFontItem extends Component {
                 </div>                    
 
                 <div className="font-item-preview" style={style} title="Click If write a text">
-                    <div ref="message" contentEditable={true} dangerouslySetInnerHTML={{__html : message}} />
+                    <div ref="message" className="message" contentEditable={true} dangerouslySetInnerHTML={{__html : message}} />
                 </div>
                 <LabelInput fontObj={fontObj} labels={fontObj.labels}/>
+                <div className="toolbar">
+                    <input type="range" max="250" min="5" defaultValue={this.state.fontSize} onChange={this.changeFontSize} />
+                </div>                
             </Observer>
         )
     }

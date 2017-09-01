@@ -3,7 +3,7 @@ import fonts from '../resources/fonts'
 /* filtering function */
 
 const filterText = (font, filter) => {
-    const result = ( filter.text.test(font.family) ||  filterCategory(font, filter))
+    const result = ( filter.text.test(font.type) || filter.text.test(font.family) ||  filterCategory(font, filter))
     return result; 
 }
 
