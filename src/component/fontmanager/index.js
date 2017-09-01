@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom'
 import './default.css';
 
 import { Window } from '../../ui'
-import { common, fontdb, cache }  from '../../util'
+import { fontdb }  from '../../util'
 
 import FontListView from '../FontListView'
+import DirectoryManager from '../DirectoryManager'
 
 class FontManager extends Window {
 
@@ -14,7 +15,6 @@ class FontManager extends Window {
 
     this.state = { 
       files : [], 
-      systemFolders: common.getSystemFolders(),
     }
 
     this.init();
@@ -23,19 +23,9 @@ class FontManager extends Window {
 
   init = () => {
 
-    cache.get('is.loaded.system.dir', (result) => {
-      if (!result) {
-        const system = this.state.systemFolders[0];
-        fontdb.update(system.directory, system.type, (categoryId) => {
-            cache.set('is.loaded.system.dir', true, () => {
-              this.search();
-            })
-        })
-      } else {
-        this.search();
-      }
+    fontdb.initFontDirectory(() => {
+      this.search();
     })
-
 
   }
 
@@ -44,10 +34,7 @@ class FontManager extends Window {
     this.refs.fontlistview.refreshFiles(files);
   }
 
-  onClickSearchText = (e) => {
-    this.search();
-  }
-  onKeyUpSearchText = (e) => {
+  searchFont = (e) => {
     this.search();
   }
 
@@ -80,19 +67,21 @@ class FontManager extends Window {
     }
 
     this.searchTimer = setTimeout(() => {
-      filterOptions = filterOptions || {
-        categories : {
-          serif : this.isChecked(this.refs.serif),
-          sanserif : this.isChecked(this.refs.sansserif),
-          display : this.isChecked(this.refs.display),
-          handwriting : this.isChecked(this.refs.handwriting),
-          monospace : this.isChecked(this.refs.monospace),
+      const tempFilter = filterOptions || {
+        googleFontSearch : {
+          category : {
+            serif : this.isChecked(this.refs.serif),
+            sanserif : this.isChecked(this.refs.sansserif),
+            display : this.isChecked(this.refs.display),
+            handwriting : this.isChecked(this.refs.handwriting),
+            monospace : this.isChecked(this.refs.monospace),
+          },
+          weight : this.isChecked(this.refs.fontWeight) ? (this.refs.thickness.value * 100) : 0,
         },
-        weight : (this.refs.thickness.value * 100),
         text : this.refs.searchText.value 
       }
   
-      fontdb.searchFiles(filterOptions, (files) => {
+      fontdb.searchFiles(tempFilter, (files) => {
         this.refreshFiles(files);
       })
     }, 100);
@@ -118,7 +107,7 @@ class FontManager extends Window {
             <div className="left">
               <span className="search-icon" onClick={this.showSearchFilter}><i className="material-icons">spellcheck</i></span>              
               <div className="search-input">
-                <input type="search" ref="searchText" onKeyUp={this.onKeyUpSearchText} onClick={this.onClickSearchText} placeholder="Search" />
+                <input type="search" ref="searchText" onKeyUp={this.searchFont} onClick={this.searchFont} placeholder="Search" />
               </div>
             </div>
             <div className="right tools">
@@ -126,27 +115,28 @@ class FontManager extends Window {
               <span onClick={this.showDirectory}><i className="material-icons">folder_special</i></span>
             </div>
           </div>
-          <div ref="directory" className="app-directory">
-
-          </div>
-          <div ref="searchFilter" className="app-search-filter" onMouseUp={this.search}>
+          <div ref="searchFilter" className="app-search-filter" onMouseUp={this.searchFont}>
+            <h3>Google Fonts Search</h3>
             <div className="search-header">Categories</div>
             <div className="search-item">
-              <label onClick={this.toggleCheckBox} ref="serif"><i className="material-icons">check_box</i> Serif</label>
-              <label onClick={this.toggleCheckBox} ref="sansserif"><i className="material-icons">check_box</i> Sans-Serif</label>
-              <label onClick={this.toggleCheckBox} ref="display"><i className="material-icons">check_box</i> Display</label>
-              <label onClick={this.toggleCheckBox} ref="handwriting"><i className="material-icons">check_box</i> Handwriting</label>
-              <label onClick={this.toggleCheckBox} ref="monospace"><i className="material-icons">check_box</i> Monospace</label>
+              <label onClick={this.toggleCheckBox} ref="serif"><i className="material-icons">check_box_outline_blank</i> Serif</label>
+              <label onClick={this.toggleCheckBox} ref="sansserif"><i className="material-icons">check_box_outline_blank</i> Sans-Serif</label>
+              <label onClick={this.toggleCheckBox} ref="display"><i className="material-icons">check_box_outline_blank</i> Display</label>
+              <label onClick={this.toggleCheckBox} ref="handwriting"><i className="material-icons">check_box_outline_blank</i> Handwriting</label>
+              <label onClick={this.toggleCheckBox} ref="monospace"><i className="material-icons">check_box_outline_blank</i> Monospace</label>
             </div>
             <div className="search-header">Thickness</div>
             <div className="search-item">
-              <label className="inline" onClick={this.toggleCheckBox}><i className="material-icons">check_box</i></label>
+              <label ref="fontWeight" className="inline" onClick={this.toggleCheckBox}><i className="material-icons">check_box_outline_blank</i></label>
               <span style={{ display: 'inline-block', width: '120px', 'paddingLeft': '20px'}}><input ref="thickness" type="range" max="9" min="1" step="1" defaultValue="4" /></span>
             </div>
           </div>
           <div className="app-content">
-              <FontListView ref="fontlistview" />
+            <FontListView ref="fontlistview" />
           </div>
+          <div ref="directory" className="app-directory open">
+            <DirectoryManager ref="dir" />
+          </div>          
         </div>
     );
   }

@@ -59,9 +59,12 @@ class LocalFontItem extends Component {
         }
     }
 
-    refreshFont = () => {
+    refreshFont = (e) => {
+        let node = e.target.querySelector('.material-icons');
+        node.classList.add('spin')
         fontdb.updateFontFile(this.state.fontObj.file, () => {
             console.log('font update is done', this.state.fontObj.file);
+            setTimeout(() => node.classList.remove('spin') , 1000);
         })
         
     }
@@ -138,7 +141,7 @@ class LocalFontItem extends Component {
                 </div>
                 
                 <div className="tools">
-                    <span onClick={this.refreshFont} title="Refresh Font Information"><i className="material-icons">refresh</i></span>
+                    <span onClick={this.refreshFont} title="Refresh Font Information"><i className="material-icons">autorenew</i></span>
                     <span onClick={this.toggleDescription} title="Open Description"><i className="material-icons">apps</i></span>
                     <span className={favoriteClass}  onClick={this.toggleFavorite} title="Add Favorite">{favoriteIcon}</span>
                 </div>

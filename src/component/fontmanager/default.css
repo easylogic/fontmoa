@@ -140,100 +140,10 @@
   overflow: auto;
   box-sizing: border-box;
   transition: all 0.1s linear;
-  z-index:100;  
+  z-index:1;  
   background-color:rgba(255, 255, 255, 0.98);
-  border-right:1px solid #ececec;
-  user-select: none;
 }
 
 .app-directory.open {
   left:0px;
-}
-
-.app-toolbar {
-  position: absolute;
-  left:0px;
-  height:40px;
-  right:0px;
-  bottom:0px;
-  display:none; /*flex*/
-  z-index:100;  
-  border-top: 1px solid #ececec;  
-  box-sizing: border-box;
-}
-
-.app-toolbar .tools > span {
-  display: inline-block;
-  box-sizing: border-box;
-  cursor:pointer;
-}
-
-.app-toolbar .tools {
-  flex:3; 
-  padding:10px;
-  padding-left:0px;
-  padding-right:0px;
-}
-
-.app-toolbar .tools .pangram-text {
-  border:0px;
-  outline:none;
-  background-color: transparent;
-  width:100%;
-
-}
-
-.app-toolbar .tools.left {
-  padding-left:4px;
-  padding-top:10px;
-}
-
-.app-toolbar .tools.center {
-  flex:3;
-  text-align:right;
-  padding-left:0px;
-  padding-right:0px;
-}
-
-.app-toolbar .tools.center > * {
-  vertical-align: middle;
-  margin-right:2px;
-}
-.app-toolbar .tools.center > .small {
-  font-size:12px;
-}
-
-.app-toolbar .tools.center > .big {
-  font-size:17px;
-}
-
-.app-toolbar .tools.right {
-  flex:2;
-  text-align:right;
-  padding:2px;
-}
-
-.app-toolbar .tools .logo {
-  font-size: 1.3rem;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
-
-
-.app-toolbar .radio-box {
-  flex:1;
-  padding:2px 4px;
-  user-select: none;
-}
-
-.app-toolbar .radio-box > span {
-  display: inline-block;
-  height:100%;
-  padding:5px ;
-  box-sizing: border-box;
-  border-radius: 5px;
-  cursor:pointer;
-}
-
-.app-toolbar .radio-box > span.active {
-  color: rgba(116, 12, 210, 0.7);
 }

@@ -3,25 +3,25 @@ import fonts from '../resources/fonts'
 /* filtering function */
 
 const filterText = (font, filter) => {
-    const result = ( filter.text.test(font.type) || filter.text.test(font.family) ||  filterCategory(font, filter))
+    const result = ( filter.text.test(font.type) || filter.text.test(font.family) ||  filter.text.test(font.category))
     return result; 
 }
 
-/*
 const filterWeight = (font, filter) => {
-    const weight = filter.weight === 400 ? 'regular' : filter.weight;
+    const weight = filter.googleFontSearch.weight === 400 ? 'regular' : filter.googleFontSearch.weight;
 
     if (!font.variants) { return true; }
+    if (!weight) return true; 
 
-    return font.variants.some((v) => v.indexOf(weight) > -1) 
+    return font.variants.some((v) => v.indexOf(weight+'') > -1) 
 }
-*/
+
 const filterCategory = (font, filter) => { 
 
-    const text = (font.category || font.name || "").toLowerCase();
+    if (!font.category) return false; 
+    if (!filter.text) { return true; }
 
-    const result = filter.text.test(text);
-    return result; 
+    return filter.categories.includes(font.category);
 }
 
 /* searching function */ 
@@ -35,10 +35,11 @@ const search = (searchFilter, callback) => {
 
         results = results.concat(fontList.items.filter((font) => {
             font.type = fontList.type; 
-            return searchFilter.funcs.some((filtering) => {
+            return searchFilter.funcs.every((filtering) => {
                 return filtering(font, searchFilter.filter)
             })
         }))
+
     })
 
     callback && callback(results);
@@ -52,12 +53,17 @@ const createSearchFilter = (filter) => {
         searchFilter.funcs.push(filterText)
     }
 
-    //if (filter.weight) {
-       // searchFilter.funcs.push(filterWeight)
-    //}
+    if (filter.googleFontSearch.weight) {
+       searchFilter.funcs.push(filterWeight)
+    }
 
-    if (filter.category) {
-        searchFilter.funcs.push(filterCategory)
+    if (filter.googleFontSearch.category) {
+        filter.categories = Object.keys(filter.googleFontSearch.category).filter(c => filter.googleFontSearch.category[c]);
+
+        if (filter.categories.length) {
+            searchFilter.funcs.push(filterCategory)
+        }
+
     }    
 
     return searchFilter;

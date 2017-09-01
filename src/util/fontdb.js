@@ -18,8 +18,6 @@ directoryDB.loadDatabase((err) => {})
 // cache db key list 
 const CACHE_LABEL_KEY = 'label';
 
-
-
 const exts = ['.ttf', '.otf', '.woff', '.ttc'];
 
 const getLanguage = (name) => {
@@ -52,14 +50,11 @@ const insertFont = (font, fontObj, done) => {
 
     try {
 
-
         const fontItem = {
             postscriptName : (font.name ? font.postscriptName : ''),
             fullName: (font.name ? font.fullName : ''),
             familyName: (font.name ? font.familyName : ''),
             subfamilyName: (font.name ? font.subfamilyName : ''),
-            copyright: (font.name ? font.copyright : ''), 
-            version: (font.name ? font.version : ''),
             nameList : font.nameList || [],
             name : getNames(font.name || {}),
             language : getLanguage(font.name || {}),
@@ -176,7 +171,7 @@ const createFont = function (fontObj, done) {
     }
 }
 
-const createMd5 = (directory, type) => {
+const getFileListForDirectory = (directory, type) => {
     if (fs.existsSync(directory) === false) {
         return { }
     }
@@ -187,7 +182,7 @@ const createMd5 = (directory, type) => {
         return exts.includes(path.extname(f));
     }).map(f => path.resolve(directory, f));
 
-    return { files : files };
+    return { files }
 }
 
 const initializeFontFile = (file) => {
@@ -206,68 +201,11 @@ const updateFontFile = (file, done) => {
     });
 }
     
-
-const updateFont = (_id, done) => {
-
-    db.find({ category : _id }, (err, docs) => {
-        if (docs && docs.length) {
-            done && done();
-            return; 
-        }
-
-        directoryDB.findOne({ _id }, (err2, category) => {
-            const hash = createMd5(category.directory); 
-            const total = (hash.files) ? hash.files.length : 0;
-            let count = 0;  
-
-            if (total === 0) {
-                done && done();
-                return;
-            }
-
-            hash.files.forEach((file) => {
-                updateFontFile(file, () => {
-                    count++;
-                    
-                    if (count === total) {
-                        done && done();
-                    }
-                })
-            })
-        })
-    })
-
-}
-
 const addFolder = (directory, done) => {
-    directoryDB.findOne({ type : 'user', directory }, (err, doc) => {
-        if (doc) {
-            done && done();
-            return; 
-        }
+    const name = path.basename(directory);
 
-        // 데이타 베이스 무조건 새로고침 
-        const hash = createMd5(directory);
-        const name = path.basename(directory);
-        // 디렉토리 정보 다시 입력 
-        directoryDB.insert({
-            type: 'user',
-            directory,
-            alias : name,
-            name: name,            
-            user: true,
-            hash: hash.hash,
-            files: hash.files 
-        });
-
-        if (hash.files.length){
-
-            // 전체 폰트정보 업데이트 
-            updateFont(directory, hash, done)
-        } else {
-            done && done()
-        }
-
+    directoryDB.update({ directory }, {type: 'user', directory, name}, { upsert : true}, () => {
+        refreshDirectory(directory, done);
     })
 } 
 
@@ -374,30 +312,31 @@ const refreshLabelsCache = (callback) => {
 
 }
 
-const update = (directory, type, done) => {
-    directoryDB.findOne({ directory, type }, (err, doc) => {
-        if (doc) {
-            done && done(doc._id);
-        } else {
-            // 디렉토리 정보 다시 입력 
-            directoryDB.insert({    
-                directory,
-                type,
-                name: path.basename(directory),
-            }, (err2, category) => {
-                // 전체 폰트정보 업데이트 
-                updateFont(category._id, () => {
-                    done && done (category._id);
-                })                
+const refreshDirectory = (directory, done) => {
+    const ret = getFileListForDirectory(directory); 
+    const total = (ret.files) ? ret.files.length : 0;
+    let count = 0;  
+
+    if (total === 0) {
+        done && done();
+        return;
+    }
+
+    ret.files.forEach((file) => {
+        updateFontFile(file, () => {
+            count++;
             
-            });
-        }
+            if (count === total) {
+                done && done();
+            }
+        })
     })
 
 }
 
-const getUserFolders = (callback) => {
-    directoryDB.find({ type : 'user' }, (err, docs) => {
+
+const getDirectories = (callback) => {
+    directoryDB.find({ }, (err, docs) => {
         docs.sort(function(a, b) {
             return a.name <  b.name ? -1 : 1;
         })
@@ -420,45 +359,6 @@ const removeDirectory = (directory, callback) => {
     })
 }
 
-const getFilesSub = (directoryOrId, callback) => {
-    directoryDB.findOne({ $or : [
-        {directory : directoryOrId},
-        { _id : directoryOrId }
-    ] }, (err, category) => {
-        if (category) {
-            db.find({ category : category._id}, (err2, files) => {
-                callback && callback(filterFiles(files));
-            })
-        } else {
-            callback && callback ([]);
-        }
-
-    })    
-}
-
-const getFiles = (directoryOrId, callback) => {
-    directoryDB.findOne({ $or : [
-        {directory : directoryOrId},
-        { _id : directoryOrId }
-    ] }, (err, category) => {
-        if (category) {
-            db.find({ category : category._id}, (err2, files) => {
-
-                if (files.length) {
-                    callback && callback(filterFiles(files));
-                } else {
-
-                    updateFont(category._id, () => {
-                        getFilesSub(category._id, callback)
-                    })
-                }
-            })
-        } else {
-            callback && callback ([]);
-        }
-
-    })
-}
 
 const createDBFilter = (filter) => {
     const dbFilter = { $and : [] }
@@ -480,12 +380,6 @@ const createDBFilter = (filter) => {
         ]})
     }
 
-    /* if (filter.weight) {
-        dbFilter.$and.push({ 
-            "font.weight" : filter.weight,
-        })
-    } */
-
     return dbFilter;
 }
 
@@ -502,29 +396,6 @@ const searchFiles = (filter, callback) => {
 
 }
 
-const getUserFiles = (directory, callback) => {
-    directoryDB.findOne({ type: 'user', $or : [ {directory}, {_id : directory} ]  }, (err, doc) => {
-        if (doc) {
-            getFiles(doc.directory, (files) => {
-                callback && callback(filterFiles(files));
-            })
-        } else {
-            callback && callback([]);
-        }
-        
-    })
-}
-
-
-const getCssInfo = (files, callback) => {
-
-}
-
-const getFavoriteFiles = (callback) => {
-    db.find({ favorite : true}, (err, files) => {
-        callback && callback(filterFiles(files));
-    })
-}
 
 const getFavoriteCount = (callback) => {
     db.count({ favorite : true}, (err, count) => {
@@ -540,6 +411,35 @@ const findOne = (path, callback) => {
         }
 
         callback && callback(doc);        
+    })
+}
+
+const initFontDirectory = (callback) => {
+    
+    const folders = common.getSystemFolders();
+
+    const done = () => {
+        callback && callback();
+    }
+
+    cache.get('is.loaded.system.dir', (result) => {
+        if (!result) {
+
+            const total = folders.length; 
+            let count = 0; 
+
+            folders.forEach(it => {
+                refreshDirectory(it, (categoryId) => {
+                    count++;
+
+                    if (count === total) {
+                        cache.set('is.loaded.system.dir', true, done);
+                    }
+                })
+            })
+        } else {
+          done();
+        }
     })
 }
 
@@ -564,20 +464,14 @@ const fontdb = {
     getFavoriteCount,
 
     /* get user folders */
-    getUserFolders,
-
-    /* get css information */ 
-    getCssInfo,
+    getDirectories,
     
-    /* get files */
-    getFiles,
+    /* search files */
     searchFiles,
-    getUserFiles,
-    getFavoriteFiles,
 
     /* update  font information */
-    update,
-    updateFontFile,
+    initFontDirectory,
+    refreshDirectory,
 
     /* remove resource */
     removeDirectory,
