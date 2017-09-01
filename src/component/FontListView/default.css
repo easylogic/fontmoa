@@ -16,8 +16,20 @@
     overflow: auto;
 }
 
-.font-item {
+.font-list-content .empty-item {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    top: 10px;
+    bottom: 10px;
+    padding:100px;
+    line-height:1.6;
+    text-align:center;
+}
+
+.font-list-content .font-item {
     box-sizing:border-box;
     cursor: pointer;
     position:relative;
+    border-bottom: 1px solid #F9F6F6;
 }

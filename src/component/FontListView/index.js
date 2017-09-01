@@ -120,6 +120,7 @@ class FontListView extends Component {
                     {items.map((it, i) => {
                         return this.renderItem(it, i, fontStyle);
                     })}
+                    { items.length === 0 ? <div className="empty-item">No fonts.</div> : ""}
                     <Observer ref="observer" className="font-item observer" onChange={(inView) => { this.loadFontList(inView) }}>{inView => ''}</Observer>                    
                 </div>
             </div>

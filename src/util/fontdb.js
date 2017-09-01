@@ -410,17 +410,7 @@ const filterFiles = (files) => {
         return a.font.currentFamilyName <  b.font.currentFamilyName ? -1 : 1;
     })
 
-    let filteredList = [];
-    let keys = {};
-
-    files.forEach((f) => {
-        if (!keys[f.font.familyName]) {
-            filteredList[filteredList.length] = f;
-            keys[f.font.familyName] = f; 
-        }
-    })
-
-    return filteredList;
+    return files;
 }
 
 const removeDirectory = (directory, callback) => {

@@ -33,6 +33,10 @@ class LocalFontItem extends Component {
 
     }
 
+    toggleDescription = (e) => {
+        this.refs.description.classList.toggle('open');
+    }
+
     toggleActivation = (e) => {
         const isActive = !this.state.fontObj.activation;
         const fileId = this.state.fontObj._id;
@@ -59,6 +63,25 @@ class LocalFontItem extends Component {
     refreshFontContent = (content) => {
         this.refs.message.textContent = content; 
     }
+
+    getFontNames = (font) => {
+        let result = {};
+        const lang = font.currentLanguage;
+
+        if (font.name.license) {
+            result.license = font.name.license[lang] || font.name.license['en'];
+        }
+
+        if (font.name.licenseURL) {
+            result.licenseURL = font.name.licenseURL[lang] || font.name.licenseURL['en'];
+        }
+
+        if (font.name.copyright) {
+            result['Copyright'] = font.name.copyright[lang] || font.name.copyright['en'];
+        }        
+
+        return result; 
+    }
     
     render () {
 
@@ -82,6 +105,8 @@ class LocalFontItem extends Component {
             activeClass += " selected";
         }        
 
+        const names = this.getFontNames(fontObj.font);
+
         return (
             <Observer className="local-font-item" onChange={inView => this.loadFontCss(inView)}>
                 <div className="font-info">
@@ -92,7 +117,20 @@ class LocalFontItem extends Component {
                         }</span>
                     </div>
                 </div>
+                <div ref="description" className="font-description" title="Font Description"> 
+                    {Object.keys(names).map((key, index) => {
+
+                        if (key === 'license') {
+                            return <div key={index} className="desc-item"><a href={names.licenseURL} target="_license"><i className="material-icons">turned_in_not</i> {names.license}</a></div>
+                        }  else if (key === 'Copyright') {
+                            return <div key={index} className="desc-item">{names[key]}</div>
+                        }
+                        return "";
+                    })}
+                </div>
+                
                 <div className="tools">
+                    <span onClick={this.toggleDescription} title="Open Description"><i className="material-icons">apps</i></span>
                     <span className={favoriteClass}  onClick={this.toggleFavorite} title="Add Favorite">{favoriteIcon}</span>
                 </div>
                 <div className="activation">

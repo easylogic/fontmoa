@@ -54,7 +54,7 @@ const downloadGoogleFont = (font, callback) => {
         const targetFile = path.resolve(font_dir, font.family.replace(/ /g, '_') + '_' + key + '.ttf');
         
         download.downloadFile(link, targetFile, () => {
-            //console.log('downloaded', targetFile);
+            console.log('downloaded', targetFile);
             fontdb.updateFontFile(targetFile, () => {
                 nextDownload();
             })
@@ -65,7 +65,7 @@ const downloadGoogleFont = (font, callback) => {
     const nextDownload = () => {
         startKeyIndex++;
 
-        if(startKeyIndex === total) {
+        if(!keys[startKeyIndex] && startKeyIndex >= total) {
             callback && callback();
             return; 
         }
