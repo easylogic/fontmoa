@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './default.css';
 
-import { fontdb} from '../../../util'
+import { db} from '../../../util'
 
 class LabelInput extends Component {
     constructor(props) {
@@ -16,7 +16,7 @@ class LabelInput extends Component {
 
     updateLabels = (labels, callback) => {
         const fileId = this.state.fontObj._id;
-        fontdb.updateLabels(fileId, labels, () => {
+        db.updateLabels(fileId, labels, () => {
             callback && callback();
         })
     }

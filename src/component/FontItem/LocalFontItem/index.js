@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Observer from 'react-intersection-observer'
 import './default.css';
 
-import { common, cssMaker, fontdb} from '../../../util'
+import { common, cssMaker, db} from '../../../util'
 
 import LabelInput from '../LabelInput'
 
@@ -23,7 +23,7 @@ class LocalFontItem extends Component {
         const isToggleSelected = !this.state.fontObj.favorite;
         const fileId = this.state.fontObj._id;
         
-        fontdb.toggleFavorite(fileId, isToggleSelected)
+        db.toggleFavorite(fileId, isToggleSelected)
 
         let fontObj = this.state.fontObj;
         fontObj.favorite = isToggleSelected;
@@ -41,7 +41,7 @@ class LocalFontItem extends Component {
         const fileId = this.state.fontObj._id;
         
         // update file info 
-        fontdb.toggleActivation(fileId, isActive)
+        db.toggleActivation(fileId, isActive)
 
 
         let fontObj = this.state.fontObj;
@@ -62,7 +62,7 @@ class LocalFontItem extends Component {
     refreshFont = (e) => {
         let node = e.target.querySelector('.material-icons');
         node.classList.add('spin')
-        fontdb.updateFontFile(this.state.fontObj.file, () => {
+        db.updateFontFile(this.state.fontObj.file, () => {
             console.log('font update is done', this.state.fontObj.file);
             setTimeout(() => node.classList.remove('spin') , 1000);
         })

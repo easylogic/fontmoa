@@ -9,8 +9,8 @@ const fontkit = window.require('fontkit');
 const DataStore  = window.require('nedb');
 
 
-const db = new DataStore({ filename : 'data/font.data' });
-db.loadDatabase((err) => {});
+const fontDB = new DataStore({ filename : 'data/font.data' });
+fontDB.loadDatabase((err) => {});
 
 const directoryDB = new DataStore({ filename : 'data/directory.data' });
 directoryDB.loadDatabase((err) => {})
@@ -89,7 +89,7 @@ const insertFont = (font, fontObj, done) => {
     
         fontObj.font = fontItem; 
     
-        db.update({file : fontObj.file}, fontObj, {upsert : true}, (err, docs) => {
+        fontDB.update({file : fontObj.file}, fontObj, {upsert : true}, (err, docs) => {
             done && done();
         });
     } catch (e) {
@@ -210,7 +210,7 @@ const addDirectory = (directory, done) => {
 } 
 
 const toggleFavorite = (fileOrId, isAdd, done) => {
-    db.update({ 
+    fontDB.update({ 
         $or : [ 
             {file: fileOrId}, 
             { _id : fileOrId } 
@@ -225,7 +225,7 @@ const toggleFavorite = (fileOrId, isAdd, done) => {
 } 
 
 const toggleActivation = (fileOrId, isActive, done) => {
-    db.update({ 
+    fontDB.update({ 
         $or : [ 
             { file: fileOrId}, 
             { _id : fileOrId } 
@@ -244,7 +244,7 @@ const toggleActivation = (fileOrId, isActive, done) => {
 
 // 라벨을 한번에 업데이트 해보자. 
 const updateLabels = (fileOrId, labels = [], done) => {
-    db.update({ 
+    fontDB.update({ 
         $or : [ 
             {file: fileOrId}, 
             { _id : fileOrId } 
@@ -273,7 +273,7 @@ const createLabelsCache = (labels, callback) => {
 const refreshLabelsCache = (callback) => {
     let newLabels = new Set();
 
-    db.find({}, { labels : 1}, (err, docs) => {
+    fontDB.find({}, { labels : 1}, (err, docs) => {
         docs.forEach(doc => {
             if (doc.labels) {
                 doc.labels.forEach((label) => {
@@ -370,7 +370,7 @@ const searchFiles = (filter, callback) => {
 
     const dbFilter = createDBFilter(filter)
 
-    db.find(dbFilter, (err2, files) => {
+    fontDB.find(dbFilter, (err2, files) => {
         searchFonts.searchFonts(filter, (fontList) => {
             const resultFiles = filterFiles(files || []).concat(fontList);
             callback && callback(resultFiles);
@@ -381,14 +381,14 @@ const searchFiles = (filter, callback) => {
 
 
 const getFavoriteCount = (callback) => {
-    db.count({ favorite : true}, (err, count) => {
+    fontDB.count({ favorite : true}, (err, count) => {
         callback && callback(count || 0);
     })
 }
 
 
 const findOne = (path, callback) => {
-    db.findOne({ 'item.path' : path}, (err, doc) => {
+    fontDB.findOne({ 'item.path' : path}, (err, doc) => {
         if (err) {
             doc = {};
         }
@@ -426,7 +426,7 @@ const initFontDirectory = (callback) => {
     })
 }
 
-const fontdb = {
+const db = {
 
     fontInfo,
     glyfInfo,
@@ -454,11 +454,12 @@ const fontdb = {
     /* update  font information */
     initFontDirectory,
     refreshDirectory,
-    addDirectory,    
+    addDirectory,
+    updateFontFile,    
 
     /* remove resource */
     removeDirectory,
 
 }
 
-export default fontdb
+export default db

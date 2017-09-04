@@ -1,4 +1,4 @@
-import fontdb from './fontdb'
+import db from './db'
 import download from './download'
 import google_font_list from '../resources/fonts/google-font-list.json'
 import google_font_early_access_list from '../resources/fonts/google-font-early-access-list.json'
@@ -55,7 +55,7 @@ const downloadGoogleFont = (font, callback) => {
         
         download.downloadFile(link, targetFile, () => {
             console.log('downloaded', targetFile);
-            fontdb.updateFontFile(targetFile, () => {
+            db.updateFontFile(targetFile, () => {
                 nextDownload();
             })
 

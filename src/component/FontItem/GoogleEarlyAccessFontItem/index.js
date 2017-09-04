@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import './default.css';
 
-import { googlefont} from '../../../util'
+import LabelInput from '../LabelInput'
+
+import { googlefont } from '../../../util'
 
 class GoogleEarlyAccessItem extends Component {
 
@@ -55,7 +57,8 @@ class GoogleEarlyAccessItem extends Component {
                 </div>   
                 <div className="font-item-preview">
                     <div dangerouslySetInnerHTML={preview} />
-                </div>                             
+                </div>      
+                <LabelInput fontObj={fontObj} labels={fontObj.labels} readonly={true}/> 
             </div>
         )
     }

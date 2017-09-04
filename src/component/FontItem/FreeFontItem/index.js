@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import './default.css';
+import LabelInput from '../LabelInput'
+import { font } from '../../../util'
 
-import { googlefont} from '../../../util'
-
+/**
+ * Free Font Item View 
+ * 
+ * @see README.md  in resources/fonts
+ * 
+ */
 class FreeFontItem extends Component {
 
     constructor (props) {
@@ -11,6 +17,12 @@ class FreeFontItem extends Component {
             fontObj: this.props.fontObj,
         }
     }
+
+    
+    toggleDescription = (e) => {
+        this.refs.description.classList.toggle('open');
+    }
+
     
     downloadUrl = (link) => {
         // 구글 early access 폰트, zip 파일로 압축된 폰트 다운로드 
@@ -20,7 +32,7 @@ class FreeFontItem extends Component {
             node.textContent = "autorenew"
             node.classList.add('spin')
 
-            googlefont.downloadEarlyAccess(link, () => {
+            font.downloadFile(link, () => {
                 console.log('done');
                 node.textContent = "font_download"
                 node.classList.remove('spin')                
@@ -33,29 +45,50 @@ class FreeFontItem extends Component {
             window.open(link, name || '_link');
         }
     }    
+
+    getLicense = (fontObj) => {
+        if (fontObj.license) {
+            return <div className="desc-item"> {fontObj.license} - {fontObj.licenseDescription}</div>
+        }
+
+        return "";
+    }
    
     render () {
            
-        // 기타 다른 폰트들에 대해서 Rendering 객체를 다르게 해야할 것 같다. 
         const fontObj = this.state.fontObj; 
-        const name = fontObj.name || fontObj.family;
         const preview = {__html : fontObj.description || ""}
+
+        let icon = "";
+
+        if (fontObj.icon) {
+            icon = <i className="material-icons">{fontObj.icon}</i> ;
+        } else if (fontObj.iconImageUrl) {
+            icon = <img alt="icon" src={fontObj.iconImageUrl} className="icon-image" />;
+        } else {
+            icon = <i className="material-icons">card_giftcard</i> ;
+        }
 
         return (
             <div className="free-font-item">
                 <div className="font-info">
                     <div className="font-family" title={fontObj.family}>
-                        {name}
+                        {icon} {fontObj.family} - {fontObj.name}
                     </div>
                 </div> 
                 <div className="tools">
+                    {fontObj.license ? <span onClick={this.toggleDescription} title="Open Description"><i className="material-icons">apps</i></span> : "" }
                     {fontObj.downloadUrl ? <span className="link" title="Font Download" onClick={this.downloadUrl(fontObj.downloadUrl)} ><i className="material-icons">font_download</i></span> : ""}
                     {fontObj.licenseUrl ? <span className="link" title="View License" onClick={this.goUrl(fontObj.licenseUrl, 'License')} ><i className="material-icons">turned_in_not</i></span> : ""}
                     {fontObj.buyUrl ? <span className="link" onClick={this.goUrl(fontObj.buyUrl, 'Buy')} ><i className="material-icons">shopping_cart</i></span> : ""}
                 </div>   
+                <div ref="description" className="font-description" title="Font Description"> 
+                    {this.getLicense(fontObj)}
+                </div>                
                 <div className="font-item-preview">
                     <div dangerouslySetInnerHTML={preview} />
-                </div>                             
+                </div>
+                <LabelInput fontObj={fontObj} labels={fontObj.labels} readonly={true}/>        
             </div>
         )
     }

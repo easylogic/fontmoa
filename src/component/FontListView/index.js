@@ -4,6 +4,7 @@ import Observer from 'react-intersection-observer'
 import './default.css';
 
 import {
+    FreeFontItem,
     LocalFontItem,
     GoogleFontItem,
     GoogleEarlyAccessFontItem
@@ -61,17 +62,23 @@ class FontListView extends Component {
 
     chooseItem = (fontObj) => {
 
-        if (fontObj.font) {
-            return <LocalFontItem fontObj={fontObj} />;
-        } else {
-            if (fontObj.type === 'GoogleFonts') {
-                return <GoogleFontItem fontObj={fontObj} />
-            } else if (fontObj.type === 'GoogleFontsEarlyAccess') {
-                return <GoogleEarlyAccessFontItem fontObj={fontObj} />
-            }
+        let item = "";
+
+        switch(fontObj.type) {
+            case "GoogleFonts": 
+                item = <GoogleFontItem fontObj={fontObj} />
+                break; 
+            case 'GoogleFontsEarlyAccess':
+                item = <GoogleEarlyAccessFontItem fontObj={fontObj} />
+                break;                 
+            case 'FreeFonts': 
+                item = <FreeFontItem fontObj={fontObj} />
+                break;                 
+            default: 
+                item = <LocalFontItem fontObj={fontObj} />
         }
 
-        return "";
+        return item; 
     }
 
     renderItem = (fontObj, index) => {
@@ -95,6 +102,7 @@ class FontListView extends Component {
 
         if (this.refs.fontListContent) {
             const scrolled = this.refs.fontListContent.querySelectorAll('.scrolled');
+
 
             [...scrolled].forEach((node) => {
                 node.parentNode.removeChild(node);

@@ -3,8 +3,22 @@ import fonts from '../resources/fonts'
 /* filtering function */
 
 const filterText = (font, filter) => {
-    const result = ( filter.text.test(font.type) || filter.text.test(font.family) ||  filter.text.test(font.category))
+    const result = ( 
+        filter.text.test(font.type) || 
+        filter.text.test(font.family) || 
+        filter.text.test(font.name) ||  
+        filter.text.test(font.category) ||
+        filterLabels(font, filter)
+    );
+
     return result; 
+}
+
+const filterLabels = (font, filter) => {
+    if (!font.labels) return false; 
+    if (!font.labels.length) return false; 
+
+    return font.labels.some((label) => filter.text.test(label));
 }
 
 const filterWeight = (font, filter) => {

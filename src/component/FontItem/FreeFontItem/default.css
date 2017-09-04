@@ -1,4 +1,4 @@
-.google-early-access-font-item .font-info {
+.free-font-item .font-info {
     overflow: auto;
     display: flex; 
     padding:10px;
@@ -9,14 +9,14 @@
     font-size: 13px !important;
 }
 
-.google-early-access-font-item .font-info .font-sub-family,
-.google-early-access-font-item .font-info .font-name,
-.google-early-access-font-item .font-info .tools .icon
+.free-font-item .font-info .font-sub-family,
+.free-font-item .font-info .font-name,
+.free-font-item .font-info .tools .icon
 {
     pointer-events: none;
 }
 
-.google-early-access-font-item .tools {
+.free-font-item .tools {
     position: absolute;
     right: 10px;
     top:10px;
@@ -24,23 +24,24 @@
     font-size:13px;
     z-index: 100;
     color: #b6b6b6;
+    user-select: none;
 }
 
-.google-early-access-font-item .tools .icon {
+.free-font-item .tools .icon {
     pointer-events: none;
 }
 
-.google-early-access-font-item .tools .material-icons {
+.free-font-item .tools .material-icons {
     font-size:18px;
 }
 
-.google-early-access-font-item .font-info .font-name {
+.free-font-item .font-info .font-name {
     flex : 10 ; 
     display:none;
     font-weight: bold;
 }
 
-.google-early-access-font-item .font-info .font-family {
+.free-font-item .font-info .font-family {
     flex : 10 ; 
     font-weight: bold;
     display: inline-block;
@@ -50,21 +51,62 @@
     text-overflow: ellipsis;
 }
 
-.google-early-access-font-item .font-info .font-family .link {
+.free-font-item .font-info .font-family .link {
     margin-right: 5px;
     vertical-align: middle;
     display:inline-block;
 }
-.google-early-access-font-item .font-info .font-family .material-icons {
+.free-font-item .font-info .font-family .material-icons {
     font-size: 18px;
     vertical-align: middle;
 }
 
-.google-early-access-font-item .font-info .font-sub-family {
+.free-font-item .font-info .font-family .icon-image {
+    width: 40px;
+    height: 40px;
+    vertical-align: middle;
+}
+
+.free-font-item .font-info .font-sub-family {
     display: none;
 }
 
-.google-early-access-font-item .font-item-preview {
+
+.free-font-item .font-description {
+    font-size: 13px;
+    color: #877D7D;
+    padding:2px;    
+    padding-left:30px;
+    padding-right:10px;
+    height:0px;
+    transition:all 0.3s linear; 
+    overflow:hidden;
+}
+
+.free-font-item .font-description.open {
+    height: auto;
+}
+
+.free-font-item .font-description .material-icons {
+    font-size:13px; 
+
+}
+.free-font-item .font-description label {
+    font-weight:bold;
+    color: black;
+}
+
+.free-font-item .font-description a {
+    color: black; 
+    text-decoration: none;
+}
+
+.free-font-item .font-description .desc-item {
+    margin-bottom:5px;
+}
+
+
+.free-font-item .font-item-preview {
     pointer-events: none;
     user-select: auto;
     text-align:left;
@@ -75,21 +117,21 @@
 }
 
 
-.font-list-content[data-content-style=row] .google-early-access-font-item .font-info {
+.font-list-content[data-content-style=row] .free-font-item .font-info {
     text-align: left !important;
     margin-bottom:0px;
 }
 
-.font-list-content[data-content-style=row] .google-early-access-font-item .font-name {
+.font-list-content[data-content-style=row] .free-font-item .font-name {
     display: block;
 }
-.font-list-content[data-content-style=row] .google-early-access-font-item .font-sub-family {
+.font-list-content[data-content-style=row] .free-font-item .font-sub-family {
     display: inline-block;
     margin-left:10px;
 }
 
 
-.font-list-content[data-content-style=row] .google-early-access-font-item .font-item-preview {
+.font-list-content[data-content-style=row] .free-font-item .font-item-preview {
     text-align: left !important;
     padding:0px 30px;
     box-sizing:border-box;
@@ -97,6 +139,6 @@
     display:block;
 }
 
-.font-list-content[data-content-style=row] .google-early-access-font-item .font-item-preview div {
+.font-list-content[data-content-style=row] .free-font-item .font-item-preview div {
     width:100%;
 }

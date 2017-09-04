@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import './default.css';
 
 import { Window } from '../../ui'
-import { fontdb }  from '../../util'
+import { db }  from '../../util'
 
 import FontListView from '../FontListView'
 import DirectoryManager from '../DirectoryManager'
@@ -23,7 +23,7 @@ class FontManager extends Window {
 
   init = () => {
 
-    fontdb.initFontDirectory(() => {
+    db.initFontDirectory(() => {
       this.search();
     })
 
@@ -81,7 +81,7 @@ class FontManager extends Window {
         text : this.refs.searchText.value 
       }
   
-      fontdb.searchFiles(tempFilter, (files) => {
+      db.searchFiles(tempFilter, (files) => {
         this.refreshFiles(files);
       })
     }, 100);

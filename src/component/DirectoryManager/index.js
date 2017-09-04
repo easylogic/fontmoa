@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './default.css';
 
-import { fontdb }  from '../../util'
+import { db }  from '../../util'
 
 var remote = window.require('electron').remote;
 var dialog = remote.dialog;
@@ -19,7 +19,7 @@ class DirectoryManager extends Component {
   }
 
   init = () => {
-    fontdb.getDirectories((items) => {
+    db.getDirectories((items) => {
       this.setState({items})
     })
   }
@@ -38,7 +38,7 @@ class DirectoryManager extends Component {
       let node = e.target.querySelector('.material-icons');
       node.classList.add('spin');
 
-      fontdb.refreshDirectory(it.directory, () => {
+      db.refreshDirectory(it.directory, () => {
         setTimeout(() => {
           node.classList.remove('spin');
         }, 1000);
@@ -52,7 +52,7 @@ class DirectoryManager extends Component {
     }, (path) => {
 
         if (path) {
-          fontdb.addDirectory(path[0], () => {
+          db.addDirectory(path[0], () => {
             this.init();
           });
         }
