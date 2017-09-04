@@ -65,7 +65,7 @@ class DirectoryManager extends Component {
     return ( 
       <div className="directory-manager">
         <div className="directory-title">
-          Directories
+          Directory
 
           <span className="tools">
             <span className="tool-item" onClick={this.addDirectory}><i className="material-icons">create_new_folder</i></span>
@@ -84,7 +84,7 @@ class DirectoryManager extends Component {
               <div className="name">{it.name}</div>
               <div className="directory">{it.directory}</div>
               <div className="tools">
-                <span className="tool-item" title="Refresh Directory" onClick={this.refreshFontDirectory(it)}><i className="material-icons">autorenew</i></span>
+                <span className="tool-item" title="Refresh Directory" onClick={this.refreshFontDirectory(it)}><i className="material-icons">autorenew</i> Refresh</span>
               </div>
             </div>
           ) 

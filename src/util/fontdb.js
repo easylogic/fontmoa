@@ -289,9 +289,14 @@ const refreshLabelsCache = (callback) => {
     })
 
 }
-
+// when refresh directory 
+// one. all files in directory are update font information. 
+// two. file that not exists in  font db  is will remove. 
+// three. font status is remain.  
 const refreshDirectory = (directory, done) => {
+
     const ret = getFileListForDirectory(directory); 
+
     const total = (ret.files) ? ret.files.length : 0;
     let count = 0;  
 

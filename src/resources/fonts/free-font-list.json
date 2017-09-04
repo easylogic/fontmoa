@@ -1,0 +1,13 @@
+{
+    "type" : "FreeFonts",
+    "items": [
+        {
+            "family": "Alef Hebrew",
+            "name": "배달의 민족 연성체 (korean)",
+            "description": "배달의민족 연성체는 제주도 호박엿 가판대를 모티브로 만든 서체입니다. 어수룩하지만 또박또박 한 글자씩 정성스럽게 써 내려간 붓글씨체로, 울뚝불뚝 리듬감이 느껴지는 것이 특징입니다.",
+            "downloadUrl" : "http://pop.baemin.com/fonts/yeonsung/BMYEONSUNG_ttf.ttf",
+            "licenseUrl": "http://fonts.gstatic.com/ea/alefhebrew/v4/OFL.txt",
+            "license": "SIL Open Font License, 1.1"
+        }
+    ]
+}
