@@ -1,5 +1,4 @@
 import common from './common'
-import cssMaker from './cssMaker'
 import cache from './cache'
 import searchFonts from './searchFonts'
 
@@ -147,18 +146,6 @@ const fontInfo = function (realpath, done) {
             done && done();
         }
     });
-}
-
-const glyfInfo = function (realpath, done) {
-    fontInfo(realpath, (font) => {
-        if (font) {
-            
-            const css = cssMaker.createFontCss(realpath, font);
-            done && done(font, css, font.characterSet);
-        } else {
-            done && done({}, {}, []);
-        }
-    })
 }
 
 const createFont = function (fontObj, done) {
@@ -459,17 +446,6 @@ const getFavoriteCount = (callback) => {
     })
 }
 
-
-const findOne = (path, callback) => {
-    fontDB.findOne({ 'item.path' : path}, (err, doc) => {
-        if (err) {
-            doc = {};
-        }
-
-        callback && callback(doc);        
-    })
-}
-
 const initFontDirectory = (callback) => {
     
     const folders = common.getSystemFolders();
@@ -540,8 +516,6 @@ const updateFiles = (files, done) => {
 const db = {
 
     fontInfo,
-    glyfInfo,
-    findOne,
 
     /* add user resource */
     toggleActivation,

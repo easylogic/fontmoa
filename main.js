@@ -22,7 +22,7 @@ function createWindow() {
     const url = req.url.substring(10);
     //devToolsLog('full url to open ' + url)
 
-    let p = path.normalize(`${__dirname}/data/${url}`);
+    let p = path.normalize(`${__dirname}/${url}`);
 
     if (!fs.existsSync(p) ) {
       p = path.normalize(decodeURIComponent(decodeURIComponent(unescape(url)))); 

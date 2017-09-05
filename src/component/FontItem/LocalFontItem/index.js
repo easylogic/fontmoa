@@ -54,7 +54,7 @@ class LocalFontItem extends Component {
     loadFontCss = (inView) => {
         if (inView) {
             if (common.isInSystemFolders(this.state.fontObj.file) === false) {
-                const css = cssMaker.createFontCss(this.state.fontObj.file, this.state.fontObj.font);
+                const css = cssMaker.createFontCss(this.state.fontObj);
                 cssMaker.loadCss(css)
             }
         }
@@ -84,6 +84,11 @@ class LocalFontItem extends Component {
         if (font.name[key]) {
             result[key] = font.name[key][lang] || font.name[key]['en'];
         }
+
+        if (result[key] && typeof result[key] === 'object') {
+            const arr = Object.keys(result[key]).map(v => v);
+            result[key] = (new TextDecoder('utf-8')).decode(new Uint8Array(arr));
+        }
     }
 
     static FIELDS = ['license', 'licenseURL', 'designer', 'designerURL', 'copyright']
@@ -96,6 +101,26 @@ class LocalFontItem extends Component {
         })
 
         return result; 
+    }
+
+    getDescriptionItem = (names) => {
+
+        return Object.keys(names).map((key, index) => {
+            if (key === 'license') {
+                return (
+                    <div key={index} className="desc-item">
+                        <a href={names.licenseURL} target="_license">
+                            <i className="material-icons">turned_in_not</i>
+                            {names.license}
+                        </a>
+                    </div>)
+            }  else if (key === 'designer') {
+                return <div key={index} className="desc-item"><a href={names.designerURL} target="_designer"><i className="material-icons">turned_in_not</i> {names.designer}</a></div>
+            }  else if (key === 'copyright') {
+                return <div key={index} className="desc-item">{names.copyright}</div>
+            }
+            return "";
+        })
     }
     
     render () {
@@ -134,33 +159,15 @@ class LocalFontItem extends Component {
                     </div>
                 </div>
                 <div ref="description" className="font-description" title="Font Description"> 
-                    {Object.keys(names).map((key, index) => {
-
-                        if (key === 'license') {
-                            return (
-                                <div key={index} className="desc-item">
-                                    <a href={names.licenseURL} target="_license">
-                                        <i className="material-icons">turned_in_not</i>
-                                        {names.license.split(/\n/g).map((t, i) => {
-                                            return <p key={i}>{t}</p>
-                                        })}
-                                    </a>
-                                </div>)
-                        }  else if (key === 'designer') {
-                            return <div key={index} className="desc-item"><a href={names.designerURL} target="_designer"><i className="material-icons">turned_in_not</i> {names.designer}</a></div>
-                        }  else if (key === 'copyright') {
-                            return <div key={index} className="desc-item">{names[key]}</div>
-                        }
-                        return "";
-                    })}
+                    {this.getDescriptionItem(names)}
                 </div>
                 
                 <div className="tools">
                     <span onClick={this.refreshFont} title="Refresh Font Information"><i className="material-icons">autorenew</i></span>
                     <span onClick={this.toggleDescription} title="Open Description"><i className="material-icons">apps</i></span>
                     <span className={favoriteClass}  onClick={this.toggleFavorite} title="Add Favorite">{favoriteIcon}</span>
-                    <span className="divider">|</span>
-                    <span onClick={this.openFontFile} title="Open Font File"><i className="material-icons">open_in_browser</i></span>                    
+                    {/*<span className="divider">|</span>
+                    <span onClick={this.openFontFile} title="Open Font File"><i className="material-icons">open_in_browser</i></span>                    */}
                 </div>
                 <div className="activation">
                     <span className={activeClass} onClick={this.toggleActivation} title="Activation">●</span>

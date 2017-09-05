@@ -2,16 +2,6 @@ import common from './common'
 
 const fs = window.require('fs');
 const path = window.require('path');
-//const Datauri = window.require('datauri');
-
-//const datauri = new Datauri();
-
-const changeExt = (file, ext) => {
-    let arr = file.split(".");
-    arr[arr.length-1] = ext;
-
-    return arr.join('.');
-}
 
 const createCssDir = (dirname) => {
     dirname.split(path.sep).reduce((prevDir, dir, index, array) => {
@@ -34,25 +24,25 @@ const createCssDir = (dirname) => {
  * @param {*} realpath 
  * @param {*} font 
  */
-const createFontCss = (realpath, font) => {
+const createFontCss = (fontObj) => {
+    const realpath = fontObj.file;
+    const font = fontObj.font; 
+
     const obj = path.parse(realpath);
 
-    let cssname = changeExt(obj.base, 'css');
+    let cssname = `${fontObj._id}.css`;
 
-    const startdir = obj.dir.replace(obj.root, '');
-
-    const cssdir = path.join('css', './' + startdir);
-    const csspath = path.resolve(path.join('data', cssdir), cssname);
+    const csspath = path.resolve('data/css', cssname);
     const isCss = fs.existsSync(csspath);
 
     if (isCss) {
         return {
-            csspath : common.PROTOCOL_PREFIX + '://' + path.join(cssdir, cssname).replace(/\\/g, '/'),
+            csspath : common.PROTOCOL_PREFIX + '://' + csspath,
         }
     }
 
     if (!isCss) {
-        createCssDir(path.join('data', cssdir));
+        createCssDir('data/css');
     }
 
     const ext = obj.ext.split('.').pop();
@@ -81,7 +71,7 @@ const createFontCss = (realpath, font) => {
 //    shell.openItem(fontpath);
 
     return {
-        csspath : common.PROTOCOL_PREFIX + '://' + path.join(cssdir, cssname).replace(/\\/g, '/'),
+        csspath : common.PROTOCOL_PREFIX + '://' + csspath,
         fontFamily,
         realpath,
         fonttype

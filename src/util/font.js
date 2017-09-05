@@ -1,12 +1,14 @@
 import download from './download'
 import db from './db'
+import common from './common'
+
 
 const fs  = window.require('fs');
 const path = window.require('path')
 const extract = window.require('extract-zip')
 const mime = window.require('mime');
 
-const font_root = 'data/fonts'
+const font_root = common.getLocalFolder().directory;
 
 const zip_mime_list = [
     'application/zip',
