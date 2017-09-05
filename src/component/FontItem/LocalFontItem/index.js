@@ -3,8 +3,9 @@ import Observer from 'react-intersection-observer'
 import './default.css';
 
 import { common, cssMaker, db} from '../../../util'
-
 import LabelInput from '../LabelInput'
+
+var {shell} = window.require('electron');
 
 
 class LocalFontItem extends Component {
@@ -67,6 +68,10 @@ class LocalFontItem extends Component {
             setTimeout(() => node.classList.remove('spin') , 1000);
         })
         
+    }
+
+    openFontFile = (e) => {
+        shell.openItem(this.state.fontObj.file); 
     }
 
     changeFontSize = (e) => {
@@ -132,7 +137,16 @@ class LocalFontItem extends Component {
                     {Object.keys(names).map((key, index) => {
 
                         if (key === 'license') {
-                            return <div key={index} className="desc-item"><a href={names.licenseURL} target="_license"><i className="material-icons">turned_in_not</i> {names.license}</a></div>
+                            
+                            return (
+                                <div key={index} className="desc-item">
+                                    <a href={names.licenseURL} target="_license">
+                                        <i className="material-icons">turned_in_not</i>
+                                        {names.license.split(/\n/g).map((t, i) => {
+                                            return <p key={i}>{t}</p>
+                                        })}
+                                    </a>
+                                </div>)
                         }  else if (key === 'Copyright') {
                             return <div key={index} className="desc-item">{names[key]}</div>
                         }
@@ -144,6 +158,8 @@ class LocalFontItem extends Component {
                     <span onClick={this.refreshFont} title="Refresh Font Information"><i className="material-icons">autorenew</i></span>
                     <span onClick={this.toggleDescription} title="Open Description"><i className="material-icons">apps</i></span>
                     <span className={favoriteClass}  onClick={this.toggleFavorite} title="Add Favorite">{favoriteIcon}</span>
+                    <span className="divider">|</span>
+                    <span onClick={this.openFontFile} title="Open Font File"><i className="material-icons">open_in_browser</i></span>                    
                 </div>
                 <div className="activation">
                     <span className={activeClass} onClick={this.toggleActivation} title="Activation">●</span>

@@ -173,11 +173,12 @@ const createFont = function (fontObj, done) {
 
 const getFileListForDirectory = (directory, type) => {
     if (fs.existsSync(directory) === false) {
+        fs.mkdirSync(directory);
+
         return { }
     }
     let files = fs.readdirSync(directory);
 
-    //디렉토리에 폰트가 다 보여있다. 
     files = files.filter((f) => {
         return exts.includes(path.extname(f));
     }).map(f => path.resolve(directory, f));
@@ -359,6 +360,7 @@ const createDBFilter = (filter) => {
         dbFilter.$and.push({ $or : [
             { "file" : reg },
             { "font.familyName" : reg },
+            { "font.currentFamilyName" : reg },
             { 'labels' : reg }
         ]})
     }
@@ -412,7 +414,7 @@ const initFontDirectory = (callback) => {
             let count = 0; 
 
             folders.forEach(it => {
-                refreshDirectory(it, (categoryId) => {
+                refreshDirectory(it.directory, (categoryId) => {
                     count++;
 
                     if (count === total) {
