@@ -2,6 +2,10 @@ import Pangram from '../resources/pangram'
 import SystemFolder from '../resources/systemfolder'
 
 const os = window.require('os') 
+const fs = window.require('fs') 
+const path = window.require('path') 
+
+const { app } = window.require('electron').remote;
 
 const PROTOCOL_PREFIX = 'fontmoa'
 
@@ -60,7 +64,14 @@ const getFontStyleCollect = (font) => {
 const getSystemFolders = () => {
     const platform = os.platform();
 
-    return SystemFolder[platform] || [];
+    return (SystemFolder[platform] || []).map(it => {
+        it.directory = it.directory.replace('~', getPath('home'))
+        return it; 
+    } );
+}
+
+const getLocalFolder = () => {
+    return getSystemFolders().filter(f => f.type === 'local')[0];
 }
 
 const isInSystemFolders = (path) => {
@@ -123,9 +134,28 @@ const getPangramMessage = (lang, isShort) => {
     return message[isShort ? 'short' : 'long'];
 }
 
+const createDirectory = (dirname) => {
+    dirname.split(path.sep).reduce((prevDir, dir, index, array) => {
+        const temppath = path.resolve(prevDir, dir);
+        if (fs.existsSync(temppath)) {
+            // NOOP 
+        } else {
+            fs.mkdirSync(temppath);
+        }
+        return temppath;
+    }, '');
+}
+
+const getPath = (name) => {
+    return app.getPath(name);
+}
+
 const common = {
+    getPath,
     getSystemFolders,
+    getLocalFolder,
     isInSystemFolders,
+    createDirectory,
     getFontFamilyCollect,
     caculateFontUnit,
     getFontStyleCollect,

@@ -1,9 +1,0 @@
-{
-    "glyfmanager.fontlist.specialChars.title": "특수 문자",
-
-    "glyfmanager.glyfinfo.alert.copyText" : "유니코드 [{text}] 를 복사하였습니다.",
-    "glyfmanager.glyfinfo.copyUnicodeMessage.title" : "유니코드를 복사합니다.",    
-
-
-    "" : ""
-}

@@ -20,16 +20,20 @@
 .local-font-item .font-description {
     font-size: 13px;
     color: #877D7D;
-    padding:2px;    
     padding-left:30px;
     padding-right:10px;
     height:0px;
     transition:all 0.3s linear; 
+    box-sizing:border-box;
     overflow:hidden;
 }
 
 .local-font-item .font-description.open {
+    padding-left:30px;
+    padding-right:10px;    
     height: auto;
+    max-height: 200px;
+    overflow:auto;
 }
 
 .local-font-item .font-description .material-icons {
@@ -71,6 +75,12 @@
 
 .local-font-item .tools .selected {
     color: #740CD2; 
+}
+
+
+.local-font-item .tools .divider {
+    padding-left:10px;
+    padding-right:10px;
 }
 
 .local-font-item .font-info .font-name {
@@ -130,9 +140,9 @@
 .local-font-item .toolbar {
     display:none;
     position:absolute;
-    right:70px;
+    right:120px;
     top:10px;
-    width:100px;
+    width:80px;
 }
 
 .local-font-item .toolbar input[type=range]:before {

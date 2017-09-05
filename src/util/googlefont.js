@@ -1,5 +1,6 @@
 import db from './db'
 import download from './download'
+import common from './common'
 import google_font_list from '../resources/fonts/google-font-list.json'
 import google_font_early_access_list from '../resources/fonts/google-font-early-access-list.json'
 
@@ -8,7 +9,7 @@ const path = window.require('path')
 const uuidv1 = window.require('uuid/v1')
 const extract = window.require('extract-zip')
 
-const font_root = 'data/fonts'
+const font_root = common.getLocalFolder().directory;
 
 const getGoogleFontList = (callback) => {
     callback && callback (google_font_list) 
@@ -28,21 +29,11 @@ const load = (callback) => {
 }
 
 
-const createDir = (dirname) => {
-    dirname.split(path.sep).reduce((prevDir, dir, index, array) => {
-        const temppath = path.resolve(prevDir, dir);
-        if (fs.existsSync(temppath)) {
-            // NOOP 
-        } else {
-            fs.mkdirSync(temppath);
-        }
-        return temppath;
-    }, '');
-}
+
 
 const downloadGoogleFont = (font, callback) => {
     const font_dir = path.join(font_root);
-    createDir(path.dirname(path.join(font_dir, '.temp')));
+    common.createDirectory(path.dirname(path.join(font_dir, '.temp')));
 
     const keys = Object.keys(font.files);
     let startKeyIndex = -1; 
@@ -103,7 +94,7 @@ const downloadAllGoogleFont = (progress, callback) => {
 
 
 const downloadEarlyAccess = (link, callback) => {
-    createDir(path.dirname(path.join(font_root, '.temp')));
+    common.createDirectory(path.dirname(path.join(font_root, '.temp')));
     const targetFile = path.resolve(font_root, uuidv1() + '.zip');
 
     // copy 하기 
