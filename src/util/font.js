@@ -20,9 +20,9 @@ const font_mime_list = [
     'font/otf',
     'font/collection',
     'application/x-font-ttf',
-    'application/x-font-woff',
+    'application/font-woff',
     'application/x-font-otf',
-    'application/x-font-woff2',
+    'application/font-woff2',
 ]
 
 
@@ -33,36 +33,42 @@ const isZipFile = (file) => {
 
 const isFontFile = (file) => {
     const type = mime.lookup(file);
-    console.log(type);
-    return isZipFile(file) || font_mime_list.includes(type)
+    return font_mime_list.includes(type)
 }
 
 const downloadFile = (link, callback) => {
     const targetFile = path.resolve(font_root, path.basename(link));
 
-    if (isFontFile(targetFile)) {
+    if (isZipFile(targetFile) || isFontFile(targetFile)) {
         // copy 하기 
         download.downloadFile(link, targetFile, () => {
-            console.log('download file', targetFile);
+            //console.log('download file', targetFile);
             if (isZipFile(targetFile)) { // 과연 압축 파일을 받아서 압축을 풀어주는게 맞을까? 
-                const dir  = path.dirname(targetFile)                
+                const dir  = path.dirname(targetFile)       
+                let files = [];         
                 extract(targetFile, {
                     dir,
                     onEntry : (entry, zipFile) => {
 
                         if (entry.fileName && isFontFile(entry.fileName)) {
                             const fullpath = path.resolve(dir, entry.fileName);
-                            console.log(fullpath);
-                            db.updateFontFile(fullpath, () => {
-                                console.log('updated font file', fullpath);
-                            })
+                            //console.log(fullpath);
+
+                            files.push(fullpath);
                         }
 
                     }
                 }, function (err) {
-                    fs.unlink(targetFile, () => {
-                        callback && callback();
-                    });
+
+                    db.updateFontFile(files, () => {
+                        //console.log('updated font file', files);
+                        
+                        fs.unlink(targetFile, () => {
+                            callback && callback();
+                        });
+                    })
+
+                   
                 })
             } else if (isFontFile(targetFile)) {
                 db.updateFontFile(targetFile, () => {

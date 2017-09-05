@@ -100,6 +100,14 @@ class FontManager extends Window {
 
   }
 
+  dropFiles = (files) => {
+    db.updateFiles(files, () => {
+      this.refs.dir.refresh();
+      this.search();      
+    });
+
+  }
+
   render() {
     return ( 
         <div className="window fontmanager-window font-manager" id={this.props.id}>
