@@ -79,21 +79,21 @@ class LocalFontItem extends Component {
         this.setState({ fontSize })
     }
 
+    setNames = (font, key, result) => {
+        const lang = font.currentLanguage;        
+        if (font.name[key]) {
+            result[key] = font.name[key][lang] || font.name[key]['en'];
+        }
+    }
+
+    static FIELDS = ['license', 'licenseURL', 'designer', 'designerURL', 'copyright']
+
     getFontNames = (font) => {
         let result = {};
-        const lang = font.currentLanguage;
 
-        if (font.name.license) {
-            result.license = font.name.license[lang] || font.name.license['en'];
-        }
-
-        if (font.name.licenseURL) {
-            result.licenseURL = font.name.licenseURL[lang] || font.name.licenseURL['en'];
-        }
-
-        if (font.name.copyright) {
-            result['Copyright'] = font.name.copyright[lang] || font.name.copyright['en'];
-        }        
+        LocalFontItem.FIELDS.forEach(key => {
+            this.setNames(font, key, result);
+        })
 
         return result; 
     }
@@ -137,7 +137,6 @@ class LocalFontItem extends Component {
                     {Object.keys(names).map((key, index) => {
 
                         if (key === 'license') {
-                            
                             return (
                                 <div key={index} className="desc-item">
                                     <a href={names.licenseURL} target="_license">
@@ -147,7 +146,9 @@ class LocalFontItem extends Component {
                                         })}
                                     </a>
                                 </div>)
-                        }  else if (key === 'Copyright') {
+                        }  else if (key === 'designer') {
+                            return <div key={index} className="desc-item"><a href={names.designerURL} target="_designer"><i className="material-icons">turned_in_not</i> {names.designer}</a></div>
+                        }  else if (key === 'copyright') {
                             return <div key={index} className="desc-item">{names[key]}</div>
                         }
                         return "";

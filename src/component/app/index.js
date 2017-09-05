@@ -20,12 +20,27 @@ class App extends Component {
       initDone: false,
       locale : remote.app.getLocale()
     }
+
   }
 
   componentDidMount () {
     this.loadLocales();
     this.loadMenu();
     this.changeSettings();
+
+    document.ondragover = document.ondrop = (ev) => {
+      ev.preventDefault()
+    }
+    
+    document.body.ondrop = (ev) => {
+      const files = [...ev.dataTransfer.files].map((it) => {
+        return it.path
+      })
+
+      this.refs.font.dropFiles(files);      
+      ev.preventDefault()
+
+    }
   }
 
   changeMode (mode) {

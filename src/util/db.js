@@ -7,7 +7,10 @@ const fs = window.require('fs');
 const path = window.require('path');
 const fontkit = window.require('fontkit');
 const DataStore  = window.require('nedb');
+const { remote } = window.require('electron'); 
 
+// locale 
+const locale = remote.app.getLocale()
 
 const fontDB = new DataStore({ filename : 'data/font.data' });
 fontDB.loadDatabase((err) => {});
@@ -18,7 +21,8 @@ directoryDB.loadDatabase((err) => {})
 // cache db key list 
 const CACHE_LABEL_KEY = 'label';
 
-const exts = ['.ttf', '.otf', '.woff', '.ttc'];
+// font extenstion
+const exts = ['.ttf', '.otf', /*'.woff', */'.ttc'];
 
 const getLanguage = (name) => {
     let list = ['en'];
@@ -46,6 +50,18 @@ const getNames = (name) => {
     return list; 
 }
 
+const getCurrentLanguage = (fontItem) => {
+    let currentLanguage = fontItem.language.filter((l) => {
+        return l !== 'en' && l !== '0-0'
+    }).pop() || 'en';
+
+    if (currentLanguage !== locale) {
+        currentLanguage = fontItem.language.includes(locale) ? locale : 'en';
+    }
+
+    return currentLanguage;
+}
+
 const insertFont = (font, fontObj, done) => {
 
     try {
@@ -61,17 +77,14 @@ const insertFont = (font, fontObj, done) => {
             weight: (font['OS/2'] ? font['OS/2'].usWeightClass : 400),
         }
     
-        const currentLanguage = fontItem.language.filter((l) => {
-            return l !== 'en' && l !== '0-0'
-        }).pop() || 'en';
-    
+        const  currentLanguage = fontItem.currentLanguage = getCurrentLanguage(fontItem)
+
         if (fontItem.name.fontFamily) {
             const familyName = fontItem.name.fontFamily[currentLanguage] || fontItem.familyName;    
     
             fontItem.currentFamilyName = familyName;
         }
     
-        fontItem.currentLanguage = currentLanguage;
     
         if (fontItem.subfamilyName) {
             const sub = fontItem.subfamilyName.toLowerCase();
@@ -88,10 +101,24 @@ const insertFont = (font, fontObj, done) => {
         fontItem.collectStyle = common.getFontStyleCollect(fontItem);
     
         fontObj.font = fontItem; 
-    
-        fontDB.update({file : fontObj.file}, fontObj, {upsert : true}, (err, docs) => {
-            done && done();
-        });
+
+        fontDB.findOne({file : fontObj.file}, (err, doc) => {
+
+            if (doc) {
+                fontDB.update( {file : fontObj.file},  {  $set : { font : fontItem, updateAt : new Date() } }, (err, docs) => {
+                    console.log('update font', fontObj.file);                    
+                    done && done();
+                });
+            } else {
+                fontDB.insert( fontObj , (err) => {
+                    console.log('add font', fontObj.file);                    
+                    done && done();
+                });
+            }
+
+        })
+
+
     } catch (e) {
         console.log(e);
         return done && done();
@@ -136,7 +163,6 @@ const glyfInfo = function (realpath, done) {
 
 const createFont = function (fontObj, done) {
 
-
     const ext = path.extname(fontObj.file).toLowerCase(); 
     const realpath = fontObj.file; 
 
@@ -146,7 +172,7 @@ const createFont = function (fontObj, done) {
 
             if (err) {
                 //폰트 정보를 로드를 못하면 데이타를 추가 하지 않는다. 
-                console.log(err);
+                console.error(err);
                 done && done();
                 return;
             }
@@ -177,13 +203,34 @@ const getFileListForDirectory = (directory, type) => {
 
         return { }
     }
-    let files = fs.readdirSync(directory);
 
-    files = files.filter((f) => {
+    let files = [];
+    
+    try {
+        files = fs.readdirSync(directory);
+    } catch (e) {
+        console.log(e.message);
+    }
+        
+    let results = [];
+
+    files.forEach(f => {
+        const destFile = path.resolve(directory, f);
+        const stat = fs.statSync(destFile);
+        
+        if (stat.isDirectory()) {
+            const sub = getFileListForDirectory(destFile);
+            results.push(...sub.files);
+        } else {
+            results.push(destFile);
+        }
+    })
+
+    results = results.filter((f) => {
         return exts.includes(path.extname(f));
-    }).map(f => path.resolve(directory, f));
+    });
 
-    return { files }
+    return { files : results }
 }
 
 const initializeFontFile = (file) => {
@@ -196,10 +243,34 @@ const initializeFontFile = (file) => {
 }
 
 
-const updateFontFile = (file, done) => {
-    createFont(initializeFontFile(file), () => {
-        done && done();
-    });
+const updateFontFile = (files, done) => {
+
+    if (!Array.isArray(files)) {
+        files = [files];
+    }
+
+    let startIndex = -1; 
+
+
+    const startUpdateFont = () => {
+        const file = files[startIndex];
+        if (!file) {
+            done && done();
+            return; 
+        }
+
+        createFont(initializeFontFile(file), () => {
+            nextFont();
+        });
+    }
+
+    const nextFont = () => {
+        startIndex++;
+
+        startUpdateFont();
+    }
+
+    nextFont();
 }
     
 const addDirectory = (directory, done) => {
@@ -428,6 +499,44 @@ const initFontDirectory = (callback) => {
     })
 }
 
+const updateFiles = (files, done) => {
+    if (!Array.isArray(files)) {
+        files = [files];
+    }
+
+    let startIndex = -1; 
+
+    const startFunction = () => {
+        const destFile = files[startIndex];
+
+        if (!destFile) {
+            done && done();
+            return;
+        }
+
+        const stat = fs.statSync(destFile)
+
+        if (stat.isDirectory()) {
+            addDirectory(destFile, (_ => {
+                nextFunction();
+            }))
+        } else {
+            // 임의로 file 을 가지고 왔을 때  local font 디렉토리로 가지고(copy) 와야 할까? 
+            updateFontFile(destFile, () => {
+                nextFunction();
+            })
+        }
+    }
+
+    const nextFunction = () => {
+        startIndex++;
+
+        startFunction();
+    }
+
+    nextFunction();
+}
+
 const db = {
 
     fontInfo,
@@ -458,6 +567,9 @@ const db = {
     refreshDirectory,
     addDirectory,
     updateFontFile,    
+
+    /* update  dropped files  */
+    updateFiles,
 
     /* remove resource */
     removeDirectory,

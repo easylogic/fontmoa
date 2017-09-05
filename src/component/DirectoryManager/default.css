@@ -13,18 +13,29 @@
   left:0px;
   top:0px;
   right:0px;
-  height:40px;
-  padding:10px;
-  font-size:20px;
-  font-weight:bold;
-  border-bottom: 1px solid #ececec;
+  height:50px;
+  padding:14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.01);
   box-sizing:border-box;
 }
+
+.directory-manager .directory-title .tools {
+  display:inline-block;
+  vertical-align:middle;
+  position:absolute;
+  right:10px;
+  top:10px;
+  z-index:10000;
+  font-size:14px;
+  font-weight: normal;
+  cursor:pointer;
+}
+
 
 .directory-manager .directory-list {
   position:absolute;
   left:0px;
-  top:42px;
+  top:52px;
   right:0px;
   bottom:0px;
   overflow: auto;
@@ -33,21 +44,23 @@
 .directory-manager .directory-list .directory-item {
   border-radius:3px;
   padding:5px 10px;
-  border-bottom:1px solid #ececec;
+  border-bottom:1px solid rgba(0, 0, 0, 0.01);
   position: relative;
   display:block;
 }
 
 .directory-manager .directory-list .directory-item .name {
-  display:inline-block;
-  vertical-align:middle;
+  display:block;
   margin-right:5px;  
+  box-sizing:border-box;
+  padding:5px;
 }
 
 .directory-manager .directory-list .directory-item .directory {
-  display:inline-block;
-  vertical-align:middle;
   color:#999;
+  display:block;
+  box-sizing:border-box;
+  padding:5px;  
 }
 
 .directory-manager .directory-list .directory-item .type {
@@ -65,7 +78,7 @@
   vertical-align:middle;
   position:absolute;
   right:10px;
-  top:2px;
+  top:10px;
   z-index:10000;
 }
 
@@ -76,7 +89,7 @@
 }
 
 .directory-manager .directory-list .directory-item .tools .tool-item  .material-icons {
-  font-size:24px;
+  font-size:20px;
   vertical-align:middle;
   cursor:pointer;
 }

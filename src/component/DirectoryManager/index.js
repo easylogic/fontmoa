@@ -15,10 +15,10 @@ class DirectoryManager extends Component {
       items : [], 
     }
 
-    this.init();
+    this.refresh();
   }
 
-  init = () => {
+  refresh = () => {
     db.getDirectories((items) => {
       this.setState({items})
     })
@@ -47,13 +47,18 @@ class DirectoryManager extends Component {
   }
 
   addDirectory = (e) => {
+
+    if (this.open) return;
+
+    this.open = true; 
     dialog.showOpenDialog({
         properties: ['openDirectory']
     }, (path) => {
 
         if (path) {
           db.addDirectory(path[0], () => {
-            this.init();
+            this.open = false; 
+            this.refresh();
           });
         }
 
@@ -65,10 +70,10 @@ class DirectoryManager extends Component {
     return ( 
       <div className="directory-manager">
         <div className="directory-title">
-          Directory
-
           <span className="tools">
-            <span className="tool-item" onClick={this.addDirectory}><i className="material-icons">create_new_folder</i></span>
+            <span className="tool-item" onClick={this.addDirectory}>
+              <i className="material-icons">create_new_folder</i> Add Directory
+            </span>
           </span>
         </div>
         <div className="directory-list">
@@ -78,10 +83,12 @@ class DirectoryManager extends Component {
 
           return (
             <div key={index} className="directory-item">
-              <div className={typeClassName}>
-                {this.renderDirectoryType(it)}
+              <div className="name">
+                <div className={typeClassName}>
+                  {this.renderDirectoryType(it)}
+                </div>
+                {it.name}
               </div>
-              <div className="name">{it.name}</div>
               <div className="directory">{it.directory}</div>
               <div className="tools">
                 <span className="tool-item" title="Refresh Directory" onClick={this.refreshFontDirectory(it)}><i className="material-icons">autorenew</i> Refresh</span>
