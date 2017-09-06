@@ -3,17 +3,19 @@ import common from './common'
 const fs = window.require('fs');
 const path = window.require('path');
 
+const css_root = common.getUserData('css');
+
+console.log(css_root);
+
 const createCssDir = (dirname) => {
-    dirname.split(path.sep).reduce((prevDir, dir, index, array) => {
-        const temppath = path.resolve(prevDir, dir);
-        if (fs.existsSync(temppath)) {
-            // NOOP 
-        } else {
-            fs.mkdirSync(temppath, 0o777);
-        }
-        return temppath;
-    }, '');
+    if (fs.existsSync(dirname)) {
+        // NOOP 
+    } else {
+        fs.mkdirSync(dirname, 0o777);
+    }
 }
+
+createCssDir(css_root);
 
 /**
  * font css 를 생성한다. 
@@ -32,7 +34,8 @@ const createFontCss = (fontObj) => {
 
     let cssname = `${fontObj._id}.css`;
 
-    const csspath = path.resolve('data/css', cssname);
+    const csspath = path.resolve(css_root, cssname);
+    console.log(csspath);
     const isCss = fs.existsSync(csspath);
 
     if (isCss) {
@@ -41,9 +44,7 @@ const createFontCss = (fontObj) => {
         }
     }
 
-    if (!isCss) {
-        createCssDir('data/css');
-    }
+    console.log(isCss);
 
     const ext = obj.ext.split('.').pop();
 
@@ -62,7 +63,7 @@ const createFontCss = (fontObj) => {
 
     if (!isCss) {
         const data = `@font-face { font-family: '${fontFamily}'; src: url('${common.PROTOCOL_PREFIX}://${escape(css_fontpath)}') format('${fonttype}'); }`;
-        fs.writeFileSync(csspath, data);
+        fs.writeFileSync(csspath, data, { flag : 'w+'});
 
         //datauri.format('.css', data);        
     }

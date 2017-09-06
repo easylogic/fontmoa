@@ -24,9 +24,14 @@ class FontManager extends Window {
   init = () => {
 
     db.initFontDirectory(() => {
-      this.search();
+      this.refreshAll();
     })
 
+  }
+
+  refreshAll = () => {
+    this.refs.dir.refresh();
+    this.search();
   }
 
 
@@ -82,8 +87,7 @@ class FontManager extends Window {
 
   dropFiles = (files) => {
     db.updateFiles(files, () => {
-      this.refs.dir.refresh();
-      this.search();      
+      this.refreshAll();
     });
 
   }

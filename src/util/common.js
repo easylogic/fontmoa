@@ -1,5 +1,4 @@
 import Pangram from '../resources/pangram'
-import SystemFolder from '../resources/systemfolder'
 
 const os = window.require('os') 
 const fs = window.require('fs') 
@@ -8,6 +7,7 @@ const path = window.require('path')
 const { app } = window.require('electron').remote;
 
 const PROTOCOL_PREFIX = 'fontmoa'
+
 
 const getFontFamilyCollect = (font) => {
 
@@ -150,8 +150,29 @@ const getPath = (name) => {
     return app.getPath(name);
 }
 
+const getUserData = (lastPath) => {
+    return path.join(getPath('userData'), lastPath || "");
+}
+
+const appDirectory = getUserData('fonts');
+const SystemFolder = {
+    "darwin" : [
+         { name : 'fontmanager.category.system.folder.name', type : 'system', directory : '/Library/Fonts'},
+         { name : 'Local Font', type : 'local', directory: appDirectory },
+    ],
+    "win32" : [
+         { name : 'fontmanager.category.system.folder.name', type : 'system', directory : 'C:\\Windows\\Fonts'},
+         { name : 'Local Font', type : 'local',  directory: appDirectory },
+    ],
+     "linux": [
+         { name : 'fontmanager.category.system.folder.name', type : 'system', directory : '/usr/share/fonts'},        
+         { name : 'Local Font', type : 'local',  directory: appDirectory },
+    ]
+ }
+
 const common = {
     getPath,
+    getUserData,
     getSystemFolders,
     getLocalFolder,
     isInSystemFolders,

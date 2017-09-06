@@ -1,7 +1,9 @@
+import common from './common'
+
 const DataStore  = window.require('nedb');
 
 // key, value based data base 
-const cacheDB = new DataStore({ filename : 'data/cache.data' });
+const cacheDB = new DataStore({ filename : common.getUserData('data/cache.data') });
 cacheDB.loadDatabase((err) => {})
 
 const get = (key, callback) => {

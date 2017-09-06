@@ -12,10 +12,10 @@ const { remote } = window.require('electron');
 // locale 
 const locale = remote.app.getLocale()
 
-const fontDB = new DataStore({ filename : 'data/font.data' });
+const fontDB = new DataStore({ filename : common.getUserData('data/font.data') });
 fontDB.loadDatabase((err) => {});
 
-const directoryDB = new DataStore({ filename : 'data/directory.data' });
+const directoryDB = new DataStore({ filename : common.getUserData('data/directory.data') });
 directoryDB.loadDatabase((err) => {})
 
 // cache db key list 
@@ -242,10 +242,16 @@ const updateFontFile = (files, done) => {
 }
     
 const addDirectory = (directory, done) => {
-    const name = path.basename(directory);
 
-    directoryDB.update({ directory }, {type: 'user', directory, name}, { upsert : true}, () => {
-        refreshDirectory(directory, done);
+    directoryDB.findOne({ directory }, (err, doc) => {
+        if (doc) {
+            refreshDirectory(directory, done);
+        } else {
+            const name = path.basename(directory);
+            directoryDB.insert({ directory, name }, () => {
+                refreshDirectory(directory, done);
+            })
+        }
     })
 } 
 
@@ -425,7 +431,10 @@ const initFontDirectory = (done) => {
         if (!result) {
 
             func.seq(folders, (it, next) => {
-                refreshDirectory(it.directory, next)
+
+                // with refresh 
+                addDirectory(it.directory, next)
+
             }, () => {
                 cache.set('is.loaded.system.dir', true, done);
             })
