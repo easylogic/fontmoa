@@ -1,6 +1,7 @@
 import db from './db'
 import download from './download'
 import common from './common'
+import func from './func'
 import google_font_list from '../resources/fonts/google-font-list.json'
 import google_font_early_access_list from '../resources/fonts/google-font-early-access-list.json'
 
@@ -28,67 +29,35 @@ const load = (callback) => {
     })
 }
 
-
-
-
 const downloadGoogleFont = (font, callback) => {
     const font_dir = path.join(font_root);
     common.createDirectory(path.dirname(path.join(font_dir, '.temp')));
 
     const keys = Object.keys(font.files);
-    let startKeyIndex = -1; 
-    const total = keys.length; 
 
-    const startDownload = () => {
-        const key = keys[startKeyIndex];
+    func.seq(keys, (key, next) => {
         const link = font.files[key];
         const targetFile = path.resolve(font_dir, font.family.replace(/ /g, '_') + '_' + key + '.ttf');
-        
+
         download.downloadFile(link, targetFile, () => {
             console.log('downloaded', targetFile);
-            db.updateFontFile(targetFile, () => {
-                nextDownload();
-            })
-
+            db.updateFontFile(targetFile, next)
         })
-    }
 
-    const nextDownload = () => {
-        startKeyIndex++;
-
-        if(!keys[startKeyIndex] && startKeyIndex >= total) {
-            callback && callback();
-            return; 
-        }
-
-        startDownload();
-    }
-
-    nextDownload();
-
+    }, callback)
 }
 
 const downloadAllGoogleFont = (progress, callback) => {
     getGoogleFontList((list) => {
 
-        const total = list.items.length;
 
-        list.items.forEach((font, index) => {
-            progress && progress ('start', font, index, total);            
-
-
-            ((f, i) => {
-                downloadGoogleFont(f, () => {
-                    progress && progress ('end', f, i + 1, total);
-    
-                    if (i + 1 === total) {
-                        callback && callback();
-                    }
-                })
-            })(font, index)
-
-        })
-
+        func.seq(list.items, (font, next) => {
+            progress && progress ('start', font);
+            downloadGoogleFont(font, () => {
+                progress && progress ('end', font);
+                next();
+            })
+        }, callback)
     })
 }
 
@@ -112,20 +81,10 @@ const downloadEarlyAccess = (link, callback) => {
 
 const downloadAllEarlyAccess = (progress, callback) => {
     getGoogleFontEarlyAccessList((list) => {
-        const total = list.items.length;
-        let count = 0; 
-
-        list.items.forEach((font) => {
+        func.seq(list.items, (font, next) => {
             progress && progress (font);
-            downloadEarlyAccess(font.downloadUrl, () => {
-                count++;
-
-                if (count === total) {
-                    callback && callback();
-                }
-            })
-
-        })
+            downloadEarlyAccess(font.downloadUrl, next)            
+        }, callback)
     })
 }
 

@@ -1,4 +1,5 @@
 export { default as common } from './common'
+export { default as func } from './func'
 export { default as cssMaker } from './cssMaker'
 export { default as cache } from './cache'
 export { default as db } from './db'

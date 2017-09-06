@@ -38,6 +38,10 @@ const filterCategory = (font, filter) => {
     return filter.categories.includes(font.category);
 }
 
+const filterFavorite = (font, filter) => {
+    return font.favorite === true; 
+}
+
 /* searching function */ 
 
 const search = (searchFilter, callback) => {
@@ -67,18 +71,26 @@ const createSearchFilter = (filter) => {
         searchFilter.funcs.push(filterText)
     }
 
-    if (filter.googleFontSearch.weight) {
-       searchFilter.funcs.push(filterWeight)
+    if (filter.favorite) {
+        searchFilter.funcs.push(filterFavorite)
+    }    
+
+    if (filter.googleFontSearch) {
+        if (filter.googleFontSearch.weight) {
+            searchFilter.funcs.push(filterWeight)
+         }
+     
+         if (filter.googleFontSearch.category) {
+             filter.categories = Object.keys(filter.googleFontSearch.category).filter(c => filter.googleFontSearch.category[c]);
+     
+             if (filter.categories.length) {
+                 searchFilter.funcs.push(filterCategory)
+             }
+     
+         }    
+     
     }
 
-    if (filter.googleFontSearch.category) {
-        filter.categories = Object.keys(filter.googleFontSearch.category).filter(c => filter.googleFontSearch.category[c]);
-
-        if (filter.categories.length) {
-            searchFilter.funcs.push(filterCategory)
-        }
-
-    }    
 
     return searchFilter;
 }

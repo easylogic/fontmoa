@@ -1,10 +1,5 @@
 {
     "app.title": "FontMOA",
-    "app.tab.font.title": "폰트",
-    "app.tab.glyphs.title": "글자들",
-    "app.tab.emoji.title" : "😀 이모지",
-    "app.tab.license.title" : "라이센스", 
-    "app.tab.googlefont.title" : "구글 폰트",        
     
     "app.inputCopy.text" : "복사",
     "app.inputText.placeholder": "문자나 이모지를 선택해주세요. 한번에 복사할 수 있습니다.",

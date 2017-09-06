@@ -109,23 +109,6 @@
   user-select: none;
 }
 
-.app-search-filter .search-header {
-  padding:10px;
-  display:block;
-}
-
-.app-search-filter .search-item {
-  padding-left: 10px;
-}
-
-.app-search-filter .search-item label {
-  display:block;
-}
-
-.app-search-filter .search-item label.inline {
-  display:inline-block;
-}
-
 .app-search-filter.open {
   left:0px;
 }

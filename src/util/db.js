@@ -1,4 +1,5 @@
 import common from './common'
+import func from './func'
 import cache from './cache'
 import searchFonts from './searchFonts'
 
@@ -232,32 +233,12 @@ const initializeFontFile = (file) => {
 
 const updateFontFile = (files, done) => {
 
-    if (!Array.isArray(files)) {
-        files = [files];
-    }
+    files = Array.isArray(files) ? files : [files];
 
-    let startIndex = -1; 
+    func.seq(files, (file, next) => {
+        createFont(initializeFontFile(file), next);
+    }, done)
 
-
-    const startUpdateFont = () => {
-        const file = files[startIndex];
-        if (!file) {
-            done && done();
-            return; 
-        }
-
-        createFont(initializeFontFile(file), () => {
-            nextFont();
-        });
-    }
-
-    const nextFont = () => {
-        startIndex++;
-
-        startUpdateFont();
-    }
-
-    nextFont();
 }
     
 const addDirectory = (directory, done) => {
@@ -356,30 +337,20 @@ const refreshDirectory = (directory, done) => {
 
     const ret = getFileListForDirectory(directory); 
 
-    const total = (ret.files) ? ret.files.length : 0;
-    let count = 0;  
-
-    if (total === 0) {
-        done && done();
-        return;
-    }
-
-    ret.files.forEach((file) => {
-        updateFontFile(file, () => {
-            count++;
-            
-            if (count === total) {
-                done && done();
-            }
-        })
-    })
-
+    func.seq(ret.files, (file, next) => {
+        updateFontFile(file, next)
+    }, done)
 }
 
 
 const getDirectories = (callback) => {
     directoryDB.find({ }, (err, docs) => {
         docs.sort(function(a, b) {
+            if (a.type === 'system' && b.type !== 'system') return -1;
+            if (b.type === 'system' && a.type !== 'system') return 1;
+            if (a.type === 'local' && b.type !== 'local') return -1;
+            if (b.type === 'local' && a.type !== 'local') return 1;
+            
             return a.name <  b.name ? -1 : 1;
         })
         callback && callback(docs);
@@ -446,71 +417,47 @@ const getFavoriteCount = (callback) => {
     })
 }
 
-const initFontDirectory = (callback) => {
+const initFontDirectory = (done) => {
     
     const folders = common.getSystemFolders();
-
-    const done = () => {
-        callback && callback();
-    }
 
     cache.get('is.loaded.system.dir', (result) => {
         if (!result) {
 
-            const total = folders.length; 
-            let count = 0; 
-
-            folders.forEach(it => {
-                refreshDirectory(it.directory, (categoryId) => {
-                    count++;
-
-                    if (count === total) {
-                        cache.set('is.loaded.system.dir', true, done);
-                    }
-                })
+            func.seq(folders, (it, next) => {
+                refreshDirectory(it.directory, next)
+            }, () => {
+                cache.set('is.loaded.system.dir', true, done);
             })
+
         } else {
-          done();
+          done && done();
         }
     })
 }
 
 const updateFiles = (files, done) => {
-    if (!Array.isArray(files)) {
-        files = [files];
-    }
 
-    let startIndex = -1; 
+    files = Array.isArray(files) ? files : [files];
 
-    const startFunction = () => {
-        const destFile = files[startIndex];
+    func.seq(files, (destFile, next) => {
 
-        if (!destFile) {
-            done && done();
-            return;
-        }
+        fs.stat(destFile, (err, stats) => {
+            if (err) {
+                console.log(err);
+                done && done();
+                return;
+            }
 
-        const stat = fs.statSync(destFile)
+            if (stats.isDirectory()) {
+                addDirectory(destFile, next)
+            } else {
+                //TODO: 임의로 file 을 가지고 왔을 때  local font 디렉토리로 가지고(copy) 와야 할까? 
+                updateFontFile(destFile, next)
+            }
+        })
 
-        if (stat.isDirectory()) {
-            addDirectory(destFile, (_ => {
-                nextFunction();
-            }))
-        } else {
-            // 임의로 file 을 가지고 왔을 때  local font 디렉토리로 가지고(copy) 와야 할까? 
-            updateFontFile(destFile, () => {
-                nextFunction();
-            })
-        }
-    }
-
-    const nextFunction = () => {
-        startIndex++;
-
-        startFunction();
-    }
-
-    nextFunction();
+    }, done)
 }
 
 const db = {

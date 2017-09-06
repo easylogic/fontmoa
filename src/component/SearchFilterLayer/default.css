@@ -1,0 +1,20 @@
+.search-filter-layer h3 {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.search-filter-layer .search-header {
+  padding:10px;
+  display:block;
+}
+
+.search-filter-layer .search-item {
+  padding-left: 10px;
+}
+
+.search-filter-layer .search-item label {
+  display:block;
+}
+
+.search-filter-layer .search-item label.inline {
+  display:inline-block;
+}
