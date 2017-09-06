@@ -5,7 +5,9 @@ import './default.css';
 import { common, cssMaker, db} from '../../../util'
 import LabelInput from '../LabelInput'
 
-var {shell} = window.require('electron');
+const {shell} = window.require('electron');
+
+const path = window.require('path');
 
 
 class LocalFontItem extends Component {
@@ -122,10 +124,21 @@ class LocalFontItem extends Component {
             return "";
         })
     }
+
+    getDirectoryName = () => {
+        const dirname = path.dirname(this.state.fontObj.file);
+        return dirname; 
+        /*
+        const directoryName = path.join(path.basename(path.dirname(dirname)) , path.basename(dirname)); 
+
+        return directoryName;
+        */
+    }
     
     render () {
 
         const fontObj = this.state.fontObj;
+        const dirname = this.getDirectoryName();
         const font = fontObj.font; 
         const style = Object.assign({ 
             fontSize : this.state.fontSize + 'px' 
@@ -135,16 +148,17 @@ class LocalFontItem extends Component {
 
         let favoriteClass = "add-favorite";
         let favoriteIcon = (<i className="material-icons small">favorite_border</i>)
-        let activeClass = "activation";
+        //let activeClass = "activation";
 
         if (fontObj.favorite) {
             favoriteClass += " selected";
             favoriteIcon = (<i className="material-icons small">favorite</i>);
         }
 
+        /*
         if (fontObj.activation) {
             activeClass += " selected";
-        }        
+        } */       
 
         const names = this.getFontNames(fontObj.font);
 
@@ -158,6 +172,7 @@ class LocalFontItem extends Component {
                         }</span>
                     </div>
                 </div>
+                <div className="directory-name">{dirname}</div>                
                 <div ref="description" className="font-description" title="Font Description"> 
                     {this.getDescriptionItem(names)}
                 </div>
@@ -166,19 +181,20 @@ class LocalFontItem extends Component {
                     <span onClick={this.refreshFont} title="Refresh Font Information"><i className="material-icons">autorenew</i></span>
                     <span onClick={this.toggleDescription} title="Open Description"><i className="material-icons">apps</i></span>
                     <span className={favoriteClass}  onClick={this.toggleFavorite} title="Add Favorite">{favoriteIcon}</span>
-                    {/*<span className="divider">|</span>
-                    <span onClick={this.openFontFile} title="Open Font File"><i className="material-icons">open_in_browser</i></span>                    */}
+                    <span className="divider">|</span>
+                    <span onClick={this.openFontFile} title="Open Font File"><i className="material-icons">open_in_browser</i></span>
                 </div>
+                {/*
                 <div className="activation">
                     <span className={activeClass} onClick={this.toggleActivation} title="Activation">●</span>
-                </div>                    
+                </div>*/}
 
                 <div className="font-item-preview" style={style} title="Click If write a text">
                     <div ref="message" className="message" contentEditable={true} dangerouslySetInnerHTML={{__html : message}} />
                 </div>
                 <LabelInput fontObj={fontObj} labels={fontObj.labels}/>
                 <div className="toolbar">
-                    <input type="range" max="250" min="5" defaultValue={this.state.fontSize} onChange={this.changeFontSize} />
+                    <input type="range" max="250" min="10" defaultValue={this.state.fontSize} onChange={this.changeFontSize} />
                 </div>                
             </Observer>
         )

@@ -2,7 +2,7 @@
     overflow: auto;
     display: flex; 
     padding:10px;
-    padding-left:20px;    
+    padding-left:0px;    
     padding-right:60px;
     text-align: center;
     margin-bottom:10px;
@@ -13,10 +13,14 @@
     position: absolute;
     right: 10px;
     top:10px;
-    display:inline-block;
+    display:none;
     font-size:13px;
     z-index: 100;
     color: #b6b6b6;
+}
+
+.google-font-item:hover .tools {
+    display:block;
 }
 
 .google-font-item .tools .icon {

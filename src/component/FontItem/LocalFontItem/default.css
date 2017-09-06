@@ -2,7 +2,7 @@
     overflow: auto;
     display: flex; 
     padding:10px;
-    padding-left:20px;    
+    padding-left:0px;    
     padding-right:60px;
     text-align: center;
     margin-bottom:10px;
@@ -20,7 +20,7 @@
 .local-font-item .font-description {
     font-size: 13px;
     color: #877D7D;
-    padding-left:30px;
+    padding-left:10px;
     padding-right:10px;
     height:0px;
     transition:all 0.3s linear; 
@@ -29,11 +29,9 @@
 }
 
 .local-font-item .font-description.open {
-    padding-left:30px;
+    padding-left:10px;
     padding-right:10px;    
     height: auto;
-    max-height: 200px;
-    overflow:auto;
 }
 
 .local-font-item .font-description .material-icons {
@@ -58,7 +56,7 @@
     position: absolute;
     right: 10px;
     top:10px;
-    display:inline-block;
+    display:none;
     font-size:13px;
     z-index: 100;
     color: #b6b6b6;
@@ -113,6 +111,12 @@
     display: none;
 }
 
+.local-font-item .directory-name {
+    display:block;
+    color: rgba(0, 0, 0, 0);
+    padding-left:10px;
+}
+
 .local-font-item .font-item-preview {
     word-break: break-all;
     text-align:center;
@@ -120,7 +124,7 @@
     outline:none;
     padding:2px;
     padding-right:10px;
-    padding-left:30px;    
+    padding-left:10px;    
 }
 
 .local-font-item .font-item-preview > .message {
@@ -155,6 +159,14 @@
 
 .local-font-item:hover .toolbar  {
     display:block;
+}
+
+.local-font-item:hover .tools {
+    display:block;
+}
+
+.local-font-item:hover .directory-name {
+    color: rgba(0, 0, 0, 0.5);
 }
 
 .local-font-item  .activation {
