@@ -5,8 +5,6 @@ const path = window.require('path');
 
 const css_root = common.getUserData('css');
 
-console.log(css_root);
-
 const createCssDir = (dirname) => {
     if (fs.existsSync(dirname)) {
         // NOOP 
