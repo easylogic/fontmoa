@@ -7,8 +7,7 @@ import { db }  from '../../util'
 import FontListView from '../FontListView'
 import DirectoryManager from '../DirectoryManager'
 import SearchFilterLayer from '../SearchFilterLayer'
-
-const { shell } = window.require('electron').remote;
+import SocialLink  from '../SocialLink'
 
 class FontManager extends Window {
 
@@ -94,25 +93,6 @@ class FontManager extends Window {
 
   }
 
-
-  goTwitter = () => {
-    shell.openExternal('https://twitter.com/fontmoa');
-  }
-
-  goFacebook = () => {
-    shell.openExternal('https://www.facebook.com/fontmoa/');
-  }
-
-
-  goGithub = () => {
-    shell.openExternal('https://github.com/easylogic/fontmoa');
-  }
-
-  goHome = () => {
-    shell.openExternal('http://www.fontmoa.com/fontmoa/');
-  }  
-
-
   render() {
     return ( 
         <div className="window fontmanager-window font-manager" id={this.props.id}>
@@ -125,10 +105,7 @@ class FontManager extends Window {
             </div>
             <div className="tools">
               <div>
-                <span onClick={this.goHome} title="Home Page"><i className="icon ion-home"></i></span>                
-                <span onClick={this.goFacebook} title="Facebook"><i className="icon ion-social-facebook"></i></span>
-                <span onClick={this.goTwitter} title="twitter"><i className="icon ion-social-twitter"></i></span>
-                <span onClick={this.goGithub} title="Github"><i className="icon ion-social-github"></i></span>
+                <SocialLink />
               </div>
               <div>
                 <span onClick={this.toggleFavoriteList} title="Favorite"><i className="material-icons">favorite</i></span>              
