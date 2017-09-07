@@ -94,7 +94,9 @@ class FontManager extends Window {
 
   }
 
-  sendFeedback = () => {
+
+
+  goUrl = (link) => {
     let win = new BrowserWindow({
       width: 800, 
       height: 600,
@@ -104,8 +106,22 @@ class FontManager extends Window {
     win.on('closed', () => {
       win = null
     })
-    win.loadURL("https://github.com/easylogic/fontmoa/issues/new?mobile=1")
+    win.loadURL(link)
   }
+
+  goTwitter = () => {
+    this.goUrl('https://twitter.com/fontmoa');
+  }
+
+  goFacebook = () => {
+    this.goUrl('https://www.facebook.com/fontmoa/');
+  }
+
+
+  goGithub = () => {
+    this.goUrl('https://github.com/easylogic/fontmoa');
+  }
+
 
   render() {
     return ( 
@@ -119,7 +135,10 @@ class FontManager extends Window {
             </div>
             <div className="tools">
               <div>
-                <span onClick={this.sendFeedback} title="FeedBack"><i className="material-icons">feedback</i> Feedback</span>
+                Feedback : 
+                <span onClick={this.goFacebook} title="Facebook"><i className="icon ion-social-facebook"></i></span>
+                <span onClick={this.goTwitter} title="twitter"><i className="icon ion-social-twitter"></i></span>
+                <span onClick={this.goGithub} title="Github"><i className="icon ion-social-github"></i></span>
               </div>
               <div>
                 <span onClick={this.toggleFavoriteList} title="Favorite"><i className="material-icons">favorite</i></span>              
