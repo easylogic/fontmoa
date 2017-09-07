@@ -55,9 +55,12 @@
     margin-right: 5px;
     vertical-align: middle;
     display:inline-block;
+    color:black;
+    text-decoration: none;
 }
+
 .free-font-item .font-info .font-family .material-icons {
-    font-size: 18px;
+    font-size: 16px;
     vertical-align: middle;
 }
 
@@ -115,6 +118,16 @@
     padding-right:30px;
 }
 
+.free-font-item .preview-image {
+    padding-left:10px;
+    padding-right:30px;
+    text-align:left;
+}
+
+.free-font-item .preview-image img {
+    max-width:100%;
+    width:100%;
+}
 
 .font-list-content[data-content-style=row] .free-font-item .font-info {
     text-align: left !important;

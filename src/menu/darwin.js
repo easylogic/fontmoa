@@ -1,7 +1,7 @@
 import DefaultMenu from './defaultMenu'
 
 const DarwinMenu = (app) => {
-  const defaultMenu = DefaultMenu(app);
+  let defaultMenu = DefaultMenu(app);
 
   return defaultMenu;
 }

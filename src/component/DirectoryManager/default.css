@@ -54,6 +54,7 @@
   margin-right:5px;  
   box-sizing:border-box;
   padding:5px;
+  cursor:pointer;  
 }
 
 .directory-manager .directory-list .directory-item .directory {
@@ -61,6 +62,7 @@
   display:block;
   box-sizing:border-box;
   padding:5px;  
+  cursor:pointer;
 }
 
 .directory-manager .directory-list .directory-item .type {

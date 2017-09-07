@@ -53,27 +53,41 @@ class FreeFontItem extends Component {
 
         return "";
     }
+
+    getFontTitle = () => {
+        const fontObj = this.state.fontObj; 
+
+        let icon = "";
+        
+        if (fontObj.icon) {
+            icon = <i key={0} className="material-icons">{fontObj.icon}</i> ;
+        } else if (fontObj.iconImageUrl) {
+            icon = <img key={1} alt="icon" src={fontObj.iconImageUrl} className="icon-image" />;
+        } else {
+            icon = <i key={2} className="material-icons">card_giftcard</i> ;
+        }
+
+        const linkText = [icon, <span key={4}>{fontObj.family} - {fontObj.name}</span>]
+
+        if (fontObj.link) {
+            return <a className="link" href={fontObj.link} target="_font_link">{linkText}</a>
+        } else {
+            return linkText
+        }
+
+    }
    
     render () {
            
         const fontObj = this.state.fontObj; 
         const preview = {__html : fontObj.description || ""}
 
-        let icon = "";
-
-        if (fontObj.icon) {
-            icon = <i className="material-icons">{fontObj.icon}</i> ;
-        } else if (fontObj.iconImageUrl) {
-            icon = <img alt="icon" src={fontObj.iconImageUrl} className="icon-image" />;
-        } else {
-            icon = <i className="material-icons">card_giftcard</i> ;
-        }
 
         return (
             <div className="free-font-item">
                 <div className="font-info">
                     <div className="font-family" title={fontObj.family}>
-                        {icon} {fontObj.family} - {fontObj.name}
+                        {this.getFontTitle()}                        
                     </div>
                 </div> 
                 <div className="tools">
@@ -84,7 +98,10 @@ class FreeFontItem extends Component {
                 </div>   
                 <div ref="description" className="font-description" title="Font Description"> 
                     {this.getLicense(fontObj)}
-                </div>                
+                </div>       
+                <div className="preview-image">
+                    {fontObj.previewImage ? <img src={encodeURIComponent(fontObj.previewImage)} alt="Preview Font" /> : ""}
+                </div>                         
                 <div className="font-item-preview">
                     <div dangerouslySetInnerHTML={preview} />
                 </div>

@@ -1,8 +1,5 @@
 {
     "menu.view.label": "보기",
-    "menu.view.mode.label": "모드",    
-    "menu.view.mode.mini.label": "미니 모드",        
-    "menu.view.mode.normal.label": "일반 모드",
     "menu.view.language.label": "언어",
 
     "" : ""

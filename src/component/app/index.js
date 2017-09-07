@@ -6,7 +6,7 @@ import './default.css';
 import FontManager from '../FontManager'
 
 import locales from '../../locales'
-import menu from '../../menu'
+//import menu from '../../menu'
 
 const { remote } = window.require('electron'); 
 
@@ -52,7 +52,7 @@ class App extends Component {
   }
 
   loadMenu () {
-    menu.make(this);
+    //menu.make(this);
   }
 
   loadLocales(locale = this.state.locale) {

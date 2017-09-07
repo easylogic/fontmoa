@@ -37,6 +37,7 @@ you can add  `Free Font Information`  to  src/resources/free-font-list.json
             "licenseUrl": "License Link",
             "license": "License Name",
             "licenseDescription": "License Description",
+            "previewImage" : "Font Preview Image",            
             "buyUrl": "Buy Link",
             "labels" : [ "label",  .... ]    // for search , ex ) happy, smile, handwriting, etc ... 
         }
@@ -44,3 +45,8 @@ you can add  `Free Font Information`  to  src/resources/free-font-list.json
 }
 
 ```
+
+## Implements FontItemClass component
+
+src/component/FontItem/XXXFontItem.js 
+

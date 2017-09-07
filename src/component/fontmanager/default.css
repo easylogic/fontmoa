@@ -4,22 +4,22 @@
   left:0px;
   top:0px;
   right:0px;
-  height:40px;
+  height:80px;
   box-sizing:border-box;
   transition: all 0.3s linear;  
-  z-index:1000;
   border-bottom: 1px solid #ececec;  
   user-select: none;
 }
 
-.app-menu > .left {
+.app-menu > .search {
   text-align:left;
   position:absolute;
   left: 0px;
   top:0px;
-  bottom:0px;
-  right:100px;
+  height:40px;
+  right:0px;
   box-sizing: border-box;
+  background-color: #ececec;
 }
 
 
@@ -31,25 +31,28 @@
   text-align: center;
   box-sizing:border-box;
   height:100%;
-  left:0px;
+  left:10px;
   top:0px;
   z-index: 1;
   cursor: pointer;
 }
 
 .app-menu .search-input {
-  padding:5px;
   padding-left: 30px;
   box-sizing:border-box;
   position:relative;
   overflow:hidden;
   vertical-align: middle;
-  height: 100%;
+  height: 30px;
+  background-color:white;
+  border-radius:50px;
+  margin:5px 10px;
+
 }
 
 .app-menu .search-input input[type=search] {
   border:0px;
-  width:100%;
+  width:95%;
   height:30px;
   padding-left:20px;
   display: block;
@@ -59,32 +62,37 @@
   user-select: auto;
 }
 
-.app-menu > .right {
+.app-menu > .tools {
   padding:10px 2px;
   position:absolute;
-  display:inline-block;
+  display:flex;
   right: 0px;
-  top:0px;
+  top:40px;
   bottom:0px;
-  width:100px;
-  text-align: right;
+  left:0px;
   box-sizing: border-box;
 }
 
 
-.app-menu > .right > * {
+.app-menu > .tools > * {
   cursor:pointer;
-  margin-right:10px;
+  flex:1;
+  text-align: right;
+  padding:0px 10px;
 }
 
-.app-menu > .right.tools > span.active {
+.app-menu > .tools > *:first-child {
+  text-align:left;
+}
+
+.app-menu > .tools span.active {
   color: rgba(116, 12, 210, 0.7);
 }
 
 .app-content {
   position: absolute;
   left:0px;
-  top:40px;
+  top:80px;
   right:0px;
   bottom:0px;
   overflow: auto;
@@ -103,8 +111,8 @@
   overflow: auto;
   box-sizing: border-box;
   transition: all 0.1s linear;
-  z-index:50;  
-  background-color:rgba(255, 255, 255, 0.98);
+  z-index:150;  
+  background-color:rgba(255, 255, 255, 1);
   border-right:1px solid #ececec;
   user-select: none;
 }
@@ -116,7 +124,7 @@
 .app-directory {
   position:absolute;
   display:inline-block;
-  top:40px;
+  top:80px;
   left: 100%;
   width:100%;
   bottom:0px;

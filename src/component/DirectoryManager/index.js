@@ -3,8 +3,8 @@ import './default.css';
 
 import { db }  from '../../util'
 
-var remote = window.require('electron').remote;
-var dialog = remote.dialog;
+const { dialog, shell } = window.require('electron').remote;
+
 
 class DirectoryManager extends Component {
 
@@ -66,6 +66,12 @@ class DirectoryManager extends Component {
     });
   }
 
+  openDirectory = (it) => {
+    return () => {
+      shell.openItem(it.directory)
+    }
+  }
+
   render() {
     return ( 
       <div className="directory-manager">
@@ -81,15 +87,17 @@ class DirectoryManager extends Component {
 
           const typeClassName = "type " + it.type; 
 
+          const openDir = this.openDirectory(it);
+
           return (
             <div key={index} className="directory-item">
-              <div className="name">
+              <div className="name" onClick={openDir} title="Open directory">
                 <div className={typeClassName}>
                   {this.renderDirectoryType(it)}
                 </div>
                 {it.name}
               </div>
-              <div className="directory">{it.directory}</div>
+              <div className="directory" onClick={openDir}>{it.directory}</div>
               <div className="tools">
                 <span className="tool-item" title="Refresh Directory" onClick={this.refreshFontDirectory(it)}><i className="material-icons">autorenew</i> Refresh</span>
               </div>

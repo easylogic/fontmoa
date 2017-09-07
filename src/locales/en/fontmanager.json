@@ -1,32 +1,5 @@
 {
-    "fontmanager.category.directory.title": "Directory",    
-    "fontmanager.category.fontinfo.title": "Font Info",        
     "fontmanager.category.system.folder.name": "System Folder",
-    "fontmanager.category.new.folder": "User Directory",
-    "fontmanager.category.folder.list.plus.title": "Add User Folder",
-    "fontmanager.category.favorite.title" : "Favorite",
-    "fontmanager.category.library.title" : "Library",    
-    "fontmanager.category.delete.userfolder" : "Delete a directory",
-    "fontmanager.category.alert.OK" : "OK",
-    "fontmanager.category.delete.folder.message" : "Delete a {directory}?\r\nIf you delete a directory, it will be removes all file informations in {directory}",
-    "fontmanager.category.delete.library.message" : "Delete a {library}?",        
-
-    "fontmanager.fontinfo.fields.license.title" : "License",
-    "fontmanager.fontinfo.fields.licenseURL.title" : "License URL",        
-    "fontmanager.fontinfo.fields.copyright.title" : "Copyright",        
-    "fontmanager.fontinfo.fields.manufacturer.title" : "Manufacturer" ,        
-    "fontmanager.fontinfo.fields.vendorURL.title" : "URL",        
-    "fontmanager.fontinfo.fields.version.title" : "Version",
-    "fontmanager.fontinfo.fields.trademark.title" : "Trademark",
-    "fontmanager.fontinfo.fields.language.title" : "Language",
-    "fontmanager.fontinfo.fields.size.title" : "File Size",
-    "fontmanager.fontinfo.fields.name.title" : "File Name",
-
-    "fontmanager.fontlistview.header.title" : "Directory",  
-
-    "fontmanager.menubar.typing.title": "Type",  
-    "fontmanager.menubar.typing.inputText.placeholder": "Input text.",    
-    "fontmanager.menubar.text.size.title": "A",     
 
     "" : ""
 }

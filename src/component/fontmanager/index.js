@@ -8,6 +8,8 @@ import FontListView from '../FontListView'
 import DirectoryManager from '../DirectoryManager'
 import SearchFilterLayer from '../SearchFilterLayer'
 
+const { BrowserWindow } = window.require('electron').remote;
+
 class FontManager extends Window {
 
   constructor (props) {
@@ -92,19 +94,37 @@ class FontManager extends Window {
 
   }
 
+  sendFeedback = () => {
+    let win = new BrowserWindow({
+      width: 800, 
+      height: 600,
+      
+    });
+    win.setMenu(null);
+    win.on('closed', () => {
+      win = null
+    })
+    win.loadURL("https://github.com/easylogic/fontmoa/issues/new?mobile=1")
+  }
+
   render() {
     return ( 
         <div className="window fontmanager-window font-manager" id={this.props.id}>
           <div className="app-menu">
-            <div className="left">
+            <div className="search">
               <span className="search-icon" onClick={this.showSearchFilter}><i className="material-icons">spellcheck</i></span>              
               <div className="search-input">
                 <input type="search" ref="searchText" onKeyUp={this.searchFont} onClick={this.searchFont} placeholder="Search" />
               </div>
             </div>
-            <div className="right tools">
-              <span onClick={this.toggleFavoriteList} title="Favorite"><i className="material-icons">favorite</i></span>              
-              <span onClick={this.showDirectory}  title="Directory"><i className="material-icons">folder_special</i></span>
+            <div className="tools">
+              <div>
+                <span onClick={this.sendFeedback} title="FeedBack"><i className="material-icons">feedback</i> Feedback</span>
+              </div>
+              <div>
+                <span onClick={this.toggleFavoriteList} title="Favorite"><i className="material-icons">favorite</i></span>              
+                <span onClick={this.showDirectory}  title="Directory"><i className="material-icons">folder_special</i></span>
+              </div>
             </div>
           </div>
           <div ref="searchFilter" className="app-search-filter">

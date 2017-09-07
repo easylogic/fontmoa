@@ -41,6 +41,7 @@ function createWindow() {
     height: 500,
     //alwaysOnTop : true
   });
+  win.setMenu(null);
 
   // Specify entry point
   const startUrl = process.env.ELECTRON_START_URL || url.format({

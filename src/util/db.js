@@ -106,12 +106,12 @@ const insertFont = (font, fontObj, done) => {
 
             if (doc) {
                 fontDB.update( {file : fontObj.file},  {  $set : { font : fontItem, updateAt : new Date() } }, (err, docs) => {
-                    console.log('update font', fontObj.file);                    
+                    //console.log('update font', fontObj.file);                    
                     done && done();
                 });
             } else {
                 fontDB.insert( fontObj , (err) => {
-                    console.log('add font', fontObj.file);                    
+                    //console.log('add font', fontObj.file);                    
                     done && done();
                 });
             }

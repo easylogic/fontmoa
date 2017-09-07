@@ -33,7 +33,6 @@ const createFontCss = (fontObj) => {
     let cssname = `${fontObj._id}.css`;
 
     const csspath = path.resolve(css_root, cssname);
-    console.log(csspath);
     const isCss = fs.existsSync(csspath);
 
     if (isCss) {
@@ -41,8 +40,6 @@ const createFontCss = (fontObj) => {
             csspath : common.PROTOCOL_PREFIX + '://' + csspath,
         }
     }
-
-    console.log(isCss);
 
     const ext = obj.ext.split('.').pop();
 

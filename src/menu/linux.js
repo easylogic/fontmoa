@@ -1,7 +1,7 @@
 import DefaultMenu from './defaultMenu'
 
 const LinuxMenu = (app) => {
-  const defaultMenu = DefaultMenu(app);
+  let defaultMenu = DefaultMenu(app);
 
   return defaultMenu;
 }

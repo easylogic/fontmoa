@@ -2,7 +2,7 @@
     overflow: auto;
     display: flex; 
     padding:10px;
-    padding-left:20px;    
+    padding-left:0px;    
     padding-right:60px;
     text-align: center;
     margin-bottom:10px;
@@ -70,33 +70,7 @@
     text-align:left;
     font-size: 13px;
     margin-bottom:10px;
-    padding-left:30px;
-    padding-right:30px;
+    padding-left:10px;
+    padding-right:10px;
 }
 
-
-.font-list-content[data-content-style=row] .google-early-access-font-item .font-info {
-    text-align: left !important;
-    margin-bottom:0px;
-}
-
-.font-list-content[data-content-style=row] .google-early-access-font-item .font-name {
-    display: block;
-}
-.font-list-content[data-content-style=row] .google-early-access-font-item .font-sub-family {
-    display: inline-block;
-    margin-left:10px;
-}
-
-
-.font-list-content[data-content-style=row] .google-early-access-font-item .font-item-preview {
-    text-align: left !important;
-    padding:0px 30px;
-    box-sizing:border-box;
-    overflow:hidden;
-    display:block;
-}
-
-.font-list-content[data-content-style=row] .google-early-access-font-item .font-item-preview div {
-    width:100%;
-}
