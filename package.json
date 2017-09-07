@@ -15,7 +15,6 @@
   "main": "main.js",
   "homepage": "./",
   "dependencies": {
-    "datauri": "^1.0.5",
     "extract-zip": "^1.6.5",
     "fontkit": "^1.7.7",
     "lodash": "^4.17.4",
