@@ -280,11 +280,18 @@ const toggleActivation = (fileOrId, isActive, done) => {
         $set :{ 
             activation : isActive === true
         } 
-    }, (err, count) => {
+    }, (err, count, affectedDocuments) => {
 
-        // os 별로 font activation 을 구현한다. 
+        fontDB.findOne({ 
+            $or : [ 
+                { file: fileOrId}, 
+                { _id : fileOrId } 
+            ] 
+        }, (err, doc) => {
 
-        done && done(count);
+            common.activation(doc.file, doc.activation);
+            done && done(count);
+        })
     })
 } 
 
@@ -366,7 +373,12 @@ const getDirectories = (callback) => {
 
 const filterFiles = (files) => {
     files.sort(function(a, b) {
-        return a.font.currentFamilyName <  b.font.currentFamilyName ? -1 : 1;
+
+        if (a.font && b.font) {
+            return a.font.currentFamilyName <  b.font.currentFamilyName ? -1 : 1;
+        }
+
+        return a.file < b.file ? -1 : 1 ; 
     })
 
     return files;

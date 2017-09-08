@@ -148,17 +148,17 @@ class LocalFontItem extends Component {
 
         let favoriteClass = "add-favorite";
         let favoriteIcon = (<i className="material-icons small">favorite_border</i>)
-        //let activeClass = "activation";
+        let activeClass = "activation";
 
         if (fontObj.favorite) {
             favoriteClass += " selected";
             favoriteIcon = (<i className="material-icons small">favorite</i>);
         }
 
-        /*
+        
         if (fontObj.activation) {
             activeClass += " selected";
-        } */       
+        }
 
         const names = this.getFontNames(fontObj.font);
 
@@ -184,10 +184,9 @@ class LocalFontItem extends Component {
                     <span className="divider">|</span>
                     <span onClick={this.openFontFile} title="Open Font File"><i className="material-icons">open_in_browser</i></span>
                 </div>
-                {/*
                 <div className="activation">
                     <span className={activeClass} onClick={this.toggleActivation} title="Activation">●</span>
-                </div>*/}
+                </div>
 
                 <div className="font-item-preview" style={style} title="Click If write a text">
                     <div ref="message" className="message" contentEditable={true} dangerouslySetInnerHTML={{__html : message}} />

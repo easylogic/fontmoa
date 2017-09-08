@@ -16,7 +16,7 @@ class SocialLink extends Component {
 
 
   goGithub = () => {
-    shell.openExternal('https://github.com/easylogic/fontmoa');
+    shell.openExternal('https://github.com/fontmoa/fontmoa');
   }
 
   goHome = () => {
