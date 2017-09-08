@@ -7,8 +7,7 @@ import { db }  from '../../util'
 import FontListView from '../FontListView'
 import DirectoryManager from '../DirectoryManager'
 import SearchFilterLayer from '../SearchFilterLayer'
-
-const { BrowserWindow } = window.require('electron').remote;
+import SocialLink  from '../SocialLink'
 
 class FontManager extends Window {
 
@@ -94,19 +93,6 @@ class FontManager extends Window {
 
   }
 
-  sendFeedback = () => {
-    let win = new BrowserWindow({
-      width: 800, 
-      height: 600,
-      
-    });
-    win.setMenu(null);
-    win.on('closed', () => {
-      win = null
-    })
-    win.loadURL("https://github.com/easylogic/fontmoa/issues/new?mobile=1")
-  }
-
   render() {
     return ( 
         <div className="window fontmanager-window font-manager" id={this.props.id}>
@@ -119,7 +105,7 @@ class FontManager extends Window {
             </div>
             <div className="tools">
               <div>
-                <span onClick={this.sendFeedback} title="FeedBack"><i className="material-icons">feedback</i> Feedback</span>
+                <SocialLink />
               </div>
               <div>
                 <span onClick={this.toggleFavoriteList} title="Favorite"><i className="material-icons">favorite</i></span>              

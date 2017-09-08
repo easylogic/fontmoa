@@ -27,7 +27,7 @@
 .app-menu .search-icon {
   position:absolute;
   display: block;
-  padding:8px;
+  padding:11px;
   text-align: center;
   box-sizing:border-box;
   height:100%;
@@ -37,29 +37,34 @@
   cursor: pointer;
 }
 
+.app-menu .search-icon .material-icons {
+  font-size: 18px;
+}
+
 .app-menu .search-input {
   padding-left: 30px;
   box-sizing:border-box;
   position:relative;
   overflow:hidden;
   vertical-align: middle;
-  height: 30px;
+  height: 26px;
   background-color:white;
   border-radius:50px;
-  margin:5px 10px;
-
+  margin:7px 10px;
+  border:1px solid #C8C8C8;
 }
 
 .app-menu .search-input input[type=search] {
   border:0px;
   width:95%;
-  height:30px;
+  height:100%;
   padding-left:20px;
   display: block;
   box-sizing:border-box;
   outline: none;
   background-color: transparent;
   user-select: auto;
+
 }
 
 .app-menu > .tools {
@@ -83,6 +88,11 @@
 
 .app-menu > .tools > *:first-child {
   text-align:left;
+}
+
+.app-menu > .tools > * .icon {
+  font-size:20px;
+  margin-right:10px;
 }
 
 .app-menu > .tools span.active {

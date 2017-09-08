@@ -19,7 +19,6 @@ createCssDir(css_root);
  * font css 를 생성한다. 
  * css 파일을 매번 갱신해야할 필요가 있을까?  data uri 형태로 만들어도 될까? 
  * react 에서 css 가 변경되면 자동으로 새로 컴파일 되버려서 화면을 리로드 해버린다. 
- * css 를 datauri 형태로 바꾸자. 
  * 
  * @param {*} realpath 
  * @param {*} font 
@@ -59,8 +58,6 @@ const createFontCss = (fontObj) => {
     if (!isCss) {
         const data = `@font-face { font-family: '${fontFamily}'; src: url('${common.PROTOCOL_PREFIX}://${escape(css_fontpath)}') format('${fonttype}'); }`;
         fs.writeFileSync(csspath, data, { flag : 'w+'});
-
-        //datauri.format('.css', data);        
     }
 
 

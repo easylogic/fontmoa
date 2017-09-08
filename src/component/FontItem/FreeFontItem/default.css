@@ -77,9 +77,7 @@
 .free-font-item .font-description {
     font-size: 13px;
     color: #877D7D;
-    padding:2px;    
-    padding-left:0px;
-    padding-right:10px;
+    padding:0px 10px;    
     height:0px;
     transition:all 0.3s linear; 
     overflow:hidden;
