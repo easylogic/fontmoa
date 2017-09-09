@@ -4,3 +4,8 @@
   margin-right:10px;
 }
 
+.social-link span {
+  display:inline-block;
+  vertical-align: middle;
+}
+

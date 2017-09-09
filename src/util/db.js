@@ -1,4 +1,5 @@
 import common from './common'
+import Activation from './activation'
 import func from './func'
 import cache from './cache'
 import searchFonts from './searchFonts'
@@ -289,7 +290,7 @@ const toggleActivation = (fileOrId, isActive, done) => {
             ] 
         }, (err, doc) => {
 
-            common.activation(doc.file, doc.activation);
+            Activation.create().toggleActive(doc.file, doc.activation);
             done && done(count);
         })
     })

@@ -1,3 +1,4 @@
+export { default as activation } from './activation'
 export { default as common } from './common'
 export { default as func } from './func'
 export { default as cssMaker } from './cssMaker'

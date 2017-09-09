@@ -4,7 +4,7 @@ const os = window.require('os')
 const fs = window.require('fs') 
 const path = window.require('path') 
 
-const { app, shell } = window.require('electron').remote;
+const { app } = window.require('electron').remote;
 
 const PROTOCOL_PREFIX = 'fontmoa'
 
@@ -189,36 +189,11 @@ const copy = (src, target, done) => {
     rs.pipe(wr);
 } 
 
-const activation = (file, isActive) => {
-    const systemFolder = getSystemFolders().filter(f => f.type === 'system')[0];
-    const systemDirectory = systemFolder.directory; 
-    const fileName = path.basename(file);
-    console.log(systemDirectory);
-    const tempFontFile = path.resolve(systemDirectory, fileName);
-    console.log(tempFontFile, file);
-    if (fs.existsSync(tempFontFile) === false) {    // 존재하지 않으면 파일 링크 
-       copy(file, tempFontFile, (err) => {
-           console.log(err);
-       })
-    } 
-
-    // 시스템 폰트에 원래 있던 파일인가? 
-    // 외부 파일인가? 
-    // 외부 파일이면 activation 을 실행한다. 
-    // activation 을 실행하기 전 font 파일이 설치되어 있는지부터 확인한다. 
-    // 설치되어있으면 패스 
-    // 설치되어 있지 않으면 font 파일을  fonts/  시스템 디렉토리로 카피한다. (symbolic link 로 할까?)
-    // isActive 가 true 이면 active 
-    // isActive 가 false 이면 inactive 
-    // 상태를 변경하는 시점은 언제인가? 
-
-
-}
 
 const common = {
-    activation,
     getPath,
     getUserData,
+    copy,
     getSystemFolders,
     getLocalFolder,
     isInSystemFolders,
