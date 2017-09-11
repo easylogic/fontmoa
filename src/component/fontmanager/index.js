@@ -7,7 +7,7 @@ import { db }  from '../../util'
 import FontListView from '../FontListView'
 import DirectoryManager from '../DirectoryManager'
 import SearchFilterLayer from '../SearchFilterLayer'
-import SocialLink  from '../SocialLink'
+import FontToolbar from '../FontToolbar'
 
 class FontManager extends Window {
 
@@ -48,10 +48,9 @@ class FontManager extends Window {
     this.refs.searchFilter.classList.toggle('open');
   }
 
-  showDirectory = (e) => {
-    const $dom = e.target;
-    $dom.classList.toggle('active');    
-    this.refs.directory.classList.toggle('open');
+  showDirectory = (isShow) => {
+    console.log(isShow);
+    this.refs.directory.classList.toggle('open', isShow);
   }  
 
 
@@ -86,6 +85,14 @@ class FontManager extends Window {
 
   }
 
+  showGoogleFont = (e) => {
+    this.search({ text : "GoogleFonts" });
+  }  
+
+  showFreeFont = (e) => {
+    this.search({ text : "FreeFonts" });
+  }    
+
   dropFiles = (files) => {
     db.updateFiles(files, () => {
       this.refreshAll();
@@ -98,20 +105,12 @@ class FontManager extends Window {
         <div className="window fontmanager-window font-manager" id={this.props.id}>
           <div className="app-menu">
             <div className="search">
-              <span className="search-icon" onClick={this.showSearchFilter}><i className="material-icons">spellcheck</i></span>              
+              {/*<span className="search-icon" onClick={this.showSearchFilter}><i className="material-icons">spellcheck</i></span>   */}           
               <div className="search-input">
                 <input type="search" ref="searchText" onKeyUp={this.searchFont} onClick={this.searchFont} placeholder="Search" />
               </div>
             </div>
-            <div className="tools">
-              <div>
-                <SocialLink />
-              </div>
-              <div>
-                <span onClick={this.toggleFavoriteList} title="Favorite"><i className="material-icons">favorite</i></span>              
-                <span onClick={this.showDirectory}  title="Directory"><i className="material-icons">folder_special</i></span>
-              </div>
-            </div>
+            <FontToolbar search={this.search} showDirectory={this.showDirectory} />
           </div>
           <div ref="searchFilter" className="app-search-filter">
             <SearchFilterLayer ref="searchFilterLayer" search={this.search} />

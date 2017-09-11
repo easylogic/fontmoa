@@ -69,6 +69,10 @@
     vertical-align: middle;
 }
 
+.free-font-item .font-info .font-family span {
+    margin-left:10px;
+}
+
 .free-font-item .font-info .font-sub-family {
     display: none;
 }

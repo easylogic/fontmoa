@@ -20,7 +20,7 @@ class VariantsRadio extends Component {
 
     render() {
         return (
-            <div className="variants-list">
+            <div className="variants-list" title="Click if show another font style">
                 { this.state.labels.map((label, index) => {
                     let realLabel = [label]; 
                     if (label.includes('italic')) {

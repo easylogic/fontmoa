@@ -11,7 +11,6 @@
             "downloadUrl" : "http://pop.baemin.com/fonts/yeonsung/BMYEONSUNG_ttf.ttf",
             "license": "Open Font License",
             "licenseDescription" : "배달의민족 글꼴의 지적재산권은 (주)우아한형제들에 있습니다.배달의민족 글꼴은 개인 및 기업 사용자를 포함한 모든 사용자에게 무료로 제공되며 자유롭게 수정, 재배포가 가능합니다.",
-            "previewImage" : "http://software.naver.com/au/html/popup.html?http%3A%2F%2Fdbscthumb.phinf.naver.net%2F2455_000_4%2F20170609141842544_ICGRODH1K.png%2F%25EA%25BD%2583%25EA%25B8%25B8.png%3Ftype%3Dm1500",
             "labels" : ["handwriting", "손글씨"]
         },
         {
@@ -23,6 +22,18 @@
             "link": "https://spoqa.github.io/spoqa-han-sans/en-US/",
             "downloadUrl" : "https://github.com/spoqa/spoqa-han-sans/releases/download/2.1.0/SpoqaHanSans_subset.zip",
             "license": "Open Font License"
+        },
+        {
+            "family": "SDMiSaeng",
+            "name": "윤태호 작가 미생체",
+            "icon" : "",
+            "iconImageUrl" : "",
+            "description": "윤태호 작가의 미생체",
+            "link": "https://storyfunding.daum.net/episode/4742",
+            "downloadUrl" : "http://i1.cartoon.daumcdn.net/svc/attach/U03/cartoon/56B198F3032B520001",
+            "license": "",
+            "licenseDescription" : "",
+            "labels" : ["handwriting", "손글씨"]            
         }        
     ]
 }
