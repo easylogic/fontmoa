@@ -1,6 +1,6 @@
 {
   "name": "fontmoa",
-  "version": "0.1.0",
+  "version": "1.0.9",
   "description": "Simple Font Manager for Cross Platform",
   "author": {
     "name": "easylogic",
@@ -10,10 +10,10 @@
   "provider": "github",
   "repository": {
     "type": "git",
-    "url": "https://github.com/easylogic/fontmoa.git"
+    "url": "https://github.com/fontmoa/fontmoa.git"
   },
   "main": "main.js",
-  "homepage": "./",
+  "homepage": "http://www.fontmoa.com/fontmoa/",
   "dependencies": {
     "extract-zip": "^1.6.5",
     "fontkit": "^1.7.7",
