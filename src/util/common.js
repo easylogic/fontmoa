@@ -158,6 +158,7 @@ const appDirectory = getUserData('fonts');
 const SystemFolder = {
     "darwin" : [
          { name : 'fontmanager.category.system.folder.name', type : 'system', directory : '/Library/Fonts'},
+         { name : 'User Font', type : 'local', directory: '~/Library/fonts/fontmoa' },         
          { name : 'Local Font', type : 'local', directory: appDirectory },
     ],
     "win32" : [

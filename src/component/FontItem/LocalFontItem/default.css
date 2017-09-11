@@ -92,7 +92,7 @@
     font-weight: bold;
     display: inline-block;
     text-align: left;
-    padding-left:30px;
+    padding-left:10px;
     vertical-align: middle;
     text-overflow: ellipsis;
 }
@@ -176,6 +176,7 @@
     font-size:24px;
     box-sizing:border-box;
     color: #BDBDBD;
+    display:none;
 }
 
 .local-font-item  .activation .selected {

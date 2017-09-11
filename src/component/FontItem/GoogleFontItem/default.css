@@ -9,6 +9,27 @@
     font-size: 13px !important;
 }
 
+
+.google-font-item .toolbar {
+    display:none;
+    position:absolute;
+    right:80px;
+    top:10px;
+    width:80px;
+}
+
+.google-font-item .toolbar input[type=range]:before {
+    content: attr(value) 'px';
+    position:absolute;
+    top:-7px;
+    left:-40px;
+    display:inline-block;
+}
+
+.google-font-item:hover .toolbar  {
+    display:block;
+}
+
 .google-font-item .tools {
     position: absolute;
     right: 10px;
@@ -65,7 +86,6 @@
 }
 
 .google-font-item .font-item-preview {
-    pointer-events: none;
     user-select: auto;
     text-align:left;
     font-size: 13px;
@@ -74,31 +94,15 @@
     padding-right:30px;
 }
 
-
-.font-list-content[data-content-style=row] .google-font-item .font-info {
-    text-align: left !important;
-    margin-bottom:0px;
-}
-
-.font-list-content[data-content-style=row] .google-font-item .font-name {
-    display: block;
-}
-.font-list-content[data-content-style=row] .google-font-item .font-sub-family {
-    display: inline-block;
-    margin-left:10px;
-}
-
-
-.font-list-content[data-content-style=row] .google-font-item .font-item-preview {
-    text-align: left !important;
-    padding:0px 30px;
-    box-sizing:border-box;
-    overflow:hidden;
-    display:block;
-}
-
-.font-list-content[data-content-style=row] .google-font-item .font-item-preview div {
+.google-font-item .font-item-preview > .message {
+    outline:none;
+    border-radius: 3px;
     white-space: nowrap;
     overflow: hidden;
     width:100%;
+    text-align: left;
+}
+
+.google-font-item .font-item-preview > .message:focus {
+    background-color: rgba(0, 0, 0, 0.05);
 }

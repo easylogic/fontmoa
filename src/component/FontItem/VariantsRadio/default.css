@@ -1,0 +1,29 @@
+
+.variants-list {
+    display: block;
+    font-size:13px;
+    line-height:1;    
+    padding: 3px 10px;
+    z-index:0;
+}
+
+.variants-list .label {
+    display:inline-block;
+    padding:3px 5px;
+    box-sizing:border-box;
+    vertical-align: middle;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.01);
+    border:1px solid #ececec;
+    margin-right:4px;    
+    margin-bottom:4px;
+}
+
+.variants-list .label .material-icons {
+    font-size:14px;
+}
+
+.variants-list .label.active {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+}
