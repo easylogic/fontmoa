@@ -8,6 +8,7 @@ import FontListView from '../FontListView'
 import DirectoryManager from '../DirectoryManager'
 import SearchFilterLayer from '../SearchFilterLayer'
 import FontToolbar from '../FontToolbar'
+import SearchToolbar from '../SearchToolbar'
 
 class FontManager extends Window {
 
@@ -40,16 +41,11 @@ class FontManager extends Window {
     this.refs.fontlistview.refreshFiles(files);
   }
 
-  searchFont = (e) => {
-    this.search();
-  }
-
   showSearchFilter = () => {
     this.refs.searchFilter.classList.toggle('open');
   }
 
   showDirectory = (isShow) => {
-    console.log(isShow);
     this.refs.directory.classList.toggle('open', isShow);
   }  
 
@@ -63,7 +59,7 @@ class FontManager extends Window {
     this.searchTimer = setTimeout(() => {
       const tempFilter = filterOptions || {
         googleFontSearch : this.refs.searchFilterLayer.getSearchFilterOptions(),
-        text : this.refs.searchText.value 
+        text : this.refs.search.getText() 
       }
   
       db.searchFiles(tempFilter, (files) => {
@@ -104,12 +100,7 @@ class FontManager extends Window {
     return ( 
         <div className="window fontmanager-window font-manager" id={this.props.id}>
           <div className="app-menu">
-            <div className="search">
-              {/*<span className="search-icon" onClick={this.showSearchFilter}><i className="material-icons">spellcheck</i></span>   */}           
-              <div className="search-input">
-                <input type="search" ref="searchText" onKeyUp={this.searchFont} onClick={this.searchFont} placeholder="Search" />
-              </div>
-            </div>
+            <SearchToolbar ref="search" search={this.search} />
             <FontToolbar search={this.search} showDirectory={this.showDirectory} />
           </div>
           <div ref="searchFilter" className="app-search-filter">

@@ -1,0 +1,57 @@
+
+
+.app-menu > .search {
+  text-align:left;
+  position:absolute;
+  left: 0px;
+  top:0px;
+  height:40px;
+  right:0px;
+  box-sizing: border-box;
+  background-color: #ececec;
+}
+
+
+
+.app-menu .search-icon {
+  position:absolute;
+  display: block;
+  padding:11px;
+  text-align: center;
+  box-sizing:border-box;
+  height:100%;
+  left:10px;
+  top:0px;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.app-menu .search-icon .material-icons {
+  font-size: 18px;
+}
+
+.app-menu .search-input {
+  padding-left: 0px;
+  box-sizing:border-box;
+  position:relative;
+  overflow:hidden;
+  vertical-align: middle;
+  height: 26px;
+  background-color:white;
+  border-radius:50px;
+  margin:7px 10px;
+  border:1px solid #C8C8C8;
+}
+
+.app-menu .search-input input[type=search] {
+  border:0px;
+  width:95%;
+  height:100%;
+  padding-left:20px;
+  display: block;
+  box-sizing:border-box;
+  outline: none;
+  background-color: transparent;
+  user-select: auto;
+
+}

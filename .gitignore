@@ -27,3 +27,4 @@ yarn-error.log*
 font.data
 directory.data
 fontmoa-v0.1.0.tgz
+package-lock.json
