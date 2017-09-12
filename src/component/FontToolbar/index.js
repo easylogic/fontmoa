@@ -36,7 +36,7 @@ class FontToolbar extends Component {
       <div className="tools">
         <div>
           <span onClick={this.showGoogleFont} title="Search Google Font"><i className="icon ion-social-google" style={{color: '#1565C0'}}></i> Google Fonts</span>
-          <span onClick={this.showFreeFont} title="Search Free Fonts"><i className="icon ion-social-usd" style={{color: '#9E9D24'}}></i> Free</span>
+          <span onClick={this.showFreeFont} title="Search Free Fonts"><i className="icon ion-social-usd" style={{color: '#9E9D24'}}></i> Free Fonts</span>
         </div>
         <div>
           <span onClick={this.toggleFavoriteList} title="Favorite"><i className="material-icons">favorite</i></span>              
