@@ -90,9 +90,13 @@ class FontManager extends Window {
   }    
 
   dropFiles = (files) => {
-    db.updateFiles(files, () => {
-      this.refreshAll();
-    });
+
+    if (files && files.length) {
+      db.updateFiles(files, () => {
+        this.refreshAll();
+      });
+    }
+
 
   }
 

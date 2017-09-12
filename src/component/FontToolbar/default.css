@@ -27,11 +27,11 @@
   padding-right:4px;
 }
 
-.app-menu > .tools > * .icon {
+.app-menu > .tools > * > span > .icon {
   margin-right:2px;
   margin-left:5px;
   vertical-align: middle;
-  font-size:20px;
+  font-size:18px;
 }
 
 .app-menu > .tools span.active {
