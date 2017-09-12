@@ -13,7 +13,7 @@
     "url": "https://github.com/fontmoa/fontmoa.git"
   },
   "main": "main.js",
-  "homepage": "http://www.fontmoa.com/fontmoa/",
+  "homepage": "./",
   "dependencies": {
     "extract-zip": "^1.6.5",
     "fontkit": "^1.7.7",
@@ -39,9 +39,11 @@
     "postinstall": "electron-builder install-app-deps",
     "dist": "npm run build && electron-builder",
     "pack": "npm run build && electron-builder --dir",
+    "publish": "npm run build && electron-builder --publish=always --draft",
     "build-googlefont-list": "node ./scripts/build-googlefont-list.js"
   },
   "devDependencies": {
+    "7zip-bin-win": "^2.1.0",
     "cheerio": "^1.0.0-rc.2",
     "electron": "^1.7.6",
     "electron-builder": "^19.27.7",
@@ -57,7 +59,12 @@
       "build/",
       "package.json"
     ],
+    "publish" : {
+      "provider" : "github",
+      "owner" : "fontmoa"
+    },
     "dmg": {
+      "publish" : [ "github" ],      
       "contents": [
         {
           "x": 130,
@@ -72,11 +79,13 @@
       ]
     },
     "win": {
+      "publish" : [ "github" ],
       "target": [
         "nsis"
       ]
     },
     "linux": {
+      "publish" : [ "github" ],      
       "target": [
         "deb",
         "AppImage"
