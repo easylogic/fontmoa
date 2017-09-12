@@ -31,16 +31,20 @@
 }
 
 .app-menu .search-input {
-  padding-left: 0px;
+  position: absolute;
+  left:0px;
+  bottom:0px;
+  top:0px;
+  right:100px;
   box-sizing:border-box;
-  position:relative;
   overflow:hidden;
   vertical-align: middle;
-  height: 26px;
   background-color:white;
   border-radius:50px;
   margin:7px 10px;
   border:1px solid #C8C8C8;
+  flex:3;
+
 }
 
 .app-menu .search-input input[type=search] {
@@ -54,4 +58,17 @@
   background-color: transparent;
   user-select: auto;
 
+}
+
+.app-menu .search .tools {
+  position: absolute;
+  bottom:0px;
+  top:0px;
+  right:0px;  
+  width:100px;
+  cursor: pointer;
+  box-sizing:border-box;
+  text-align: right;
+  vertical-align: middle;
+  margin:10px 5px;
 }

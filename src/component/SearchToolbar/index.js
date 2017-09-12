@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './default.css';
-
+import SocialLink  from '../SocialLink'
 class SearchToolbar extends Component {
 
   searchFont = (e) => {
@@ -17,6 +17,9 @@ class SearchToolbar extends Component {
         {/*<span className="search-icon" onClick={this.showSearchFilter}><i className="material-icons">spellcheck</i></span>   */}           
         <div className="search-input">
           <input type="search" ref="searchText" onKeyUp={this.searchFont} onClick={this.searchFont} placeholder="Search" />
+        </div>
+        <div className="tools">
+          <SocialLink />
         </div>
       </div>
 
