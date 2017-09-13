@@ -20,6 +20,7 @@
 
 .app-menu > .tools > *:first-child {
   text-align:left;
+  flex:2;
 }
 
 .app-menu > .tools > * span {

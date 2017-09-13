@@ -56,15 +56,18 @@
     "files": [
       "node_modules/",
       "main.js",
+      "assets/",
       "build/",
       "package.json"
     ],
-    "publish" : {
-      "provider" : "github",
-      "owner" : "fontmoa"
+    "publish": {
+      "provider": "github",
+      "owner": "fontmoa"
     },
     "dmg": {
-      "publish" : [ "github" ],      
+      "publish": [
+        "github"
+      ],
       "contents": [
         {
           "x": 130,
@@ -79,13 +82,17 @@
       ]
     },
     "win": {
-      "publish" : [ "github" ],
+      "publish": [
+        "github"
+      ],
       "target": [
         "nsis"
       ]
     },
     "linux": {
-      "publish" : [ "github" ],      
+      "publish": [
+        "github"
+      ],
       "target": [
         "deb",
         "AppImage"
