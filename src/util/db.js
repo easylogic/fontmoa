@@ -394,7 +394,6 @@ const removeDirectory = (directory, callback) => {
 
 const createDBFilter = (filter) => {
     const dbFilter = { $and : [] }
-    
 
     if (filter.favorite) {
         dbFilter.$and.push({ 
@@ -418,14 +417,19 @@ const createDBFilter = (filter) => {
 
 const searchFiles = (filter, callback) => {
 
-    const dbFilter = createDBFilter(filter)
 
-    fontDB.find(dbFilter, (err2, files) => {
-        searchFonts.searchFonts(filter, (fontList) => {
-            const resultFiles = filterFiles(files || []).concat(fontList);
-            callback && callback(resultFiles);
+    if (!filter.type) { // 조건 filter 가 없을 때는  db 조회(로컬 폰트는 조회)하지 않는다. 
+        const dbFilter = createDBFilter(filter)
+        
+        fontDB.find(dbFilter, (err2, files) => {
+            searchFonts.searchFonts(filter, (fontList) => {
+                const resultFiles = filterFiles(files || []).concat(fontList);
+                callback && callback(resultFiles);
+            })
         })
-    })
+    } else {
+        searchFonts.searchFonts(filter, callback);
+    }
 
 }
 

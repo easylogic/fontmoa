@@ -24,11 +24,11 @@ class FontToolbar extends Component {
   }
 
   showGoogleFont = (e) => {
-    this.props.search({ text : "GoogleFonts" });
+    this.props.search({ type : "GoogleFonts" });
   }  
 
   showFreeFont = (e) => {
-    this.props.search({ text : "FreeFonts" });
+    this.props.search({ type : "FreeFonts" });
   }    
 
   render() {

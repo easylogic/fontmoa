@@ -4,6 +4,8 @@ const path  = require('path')
 const url = require('url') 
 const fs = require('fs');
 
+const isDevMode = !!process.env.ELECTRON_START_URL;
+
 let win = null;
 
 // define protocol for inner file system 
@@ -38,13 +40,12 @@ function createWindow() {
   // Initialize the window to our specified dimensions
   win = new BrowserWindow({
     width: 400, 
-    height: 500,
-    icon : path.join(__dirname , "assets/icon.png")
+    height: 500
   });
   win.setMenu(null);
 
   // Specify entry point
-  const startUrl = process.env.ELECTRON_START_URL || url.format({
+  const startUrl = isDevMode ? process.env.ELECTRON_START_URL : url.format({
     pathname: path.join(__dirname, 'build/index.html'),
     protocol: 'file:',
     slashes : true
@@ -53,9 +54,9 @@ function createWindow() {
 
   // Show dev tools
   // Remove this line before distributing
-  win.webContents.openDevTools()
-  //devToolsLog('process args ' + process.argv.join(','))
-
+  if (isDevMode) {   // dev mode
+    win.webContents.openDevTools()
+  }
 
   // Remove window once app is closed
   win.on('closed', function () {

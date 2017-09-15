@@ -2,9 +2,14 @@ import fonts from '../resources/fonts'
 
 /* filtering function */
 
+const filterType = (font, filter) => {
+
+    const result = (filter.type === font.type);
+    return result; 
+}
+
 const filterText = (font, filter) => {
     const result = ( 
-        filter.text.test(font.type) || 
         filter.text.test(font.family) || 
         filter.text.test(font.name) ||  
         filter.text.test(font.category) ||
@@ -15,6 +20,7 @@ const filterText = (font, filter) => {
 }
 
 const filterLabels = (font, filter) => {
+
     if (!font.labels) return false; 
     if (!font.labels.length) return false; 
 
@@ -54,7 +60,9 @@ const search = (searchFilter, callback) => {
         results = results.concat(fontList.items.filter((font) => {
             font.type = fontList.type; 
             return searchFilter.funcs.every((filtering) => {
-                return filtering(font, searchFilter.filter)
+                const result = filtering(font, searchFilter.filter)
+
+                return result; 
             })
         }))
 
@@ -65,6 +73,10 @@ const search = (searchFilter, callback) => {
 
 const createSearchFilter = (filter) => {
     let searchFilter = {filter: filter, funcs : []}
+
+    if (filter.type) {
+        searchFilter.funcs.push(filterType)
+    }
 
     if (filter.text) {
         filter.text = new RegExp(filter.text, "ig");
@@ -99,9 +111,7 @@ const searchFonts = (filter, callback) => {
 
     const searchFilter = createSearchFilter(filter); 
 
-    search(searchFilter, (files) => {
-        callback && callback(files);
-    })
+    search(searchFilter, callback)
 
 }
 

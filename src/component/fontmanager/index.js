@@ -81,14 +81,6 @@ class FontManager extends Window {
 
   }
 
-  showGoogleFont = (e) => {
-    this.search({ text : "GoogleFonts" });
-  }  
-
-  showFreeFont = (e) => {
-    this.search({ text : "FreeFonts" });
-  }    
-
   dropFiles = (files) => {
 
     if (files && files.length) {
