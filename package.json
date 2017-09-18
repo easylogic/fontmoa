@@ -41,7 +41,7 @@
     "postinstall": "electron-builder install-app-deps",
     "dist": "npm run build && electron-builder",
     "pack": "npm run build && electron-builder --x64 --ia32 --dir",
-    "publish": "npm run build && electron-builder --x64 --ia32 --publish=always",
+    "pub": "npm run build && electron-builder --x64 --ia32 --publish=always",
     "build-googlefont-list": "node ./scripts/build-googlefont-list.js"
   },
   "devDependencies": {
