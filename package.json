@@ -1,11 +1,11 @@
 {
   "name": "fontmoa",
-  "version": "1.0.9",
+  "version": "0.0.9",
   "description": "Simple Font Manager for Cross Platform",
   "author": {
     "name": "easylogic",
     "email": "cyberuls@gmail.com",
-    "url": "https://github.com/easylogic"
+    "url": "https://github.com/fontmoa"
   },
   "provider": "github",
   "repository": {
@@ -13,8 +13,10 @@
     "url": "https://github.com/fontmoa/fontmoa.git"
   },
   "main": "main.js",
-  "homepage": "./",
+  "homepage": "https://github.com/fontmoa/fontmoa",
   "dependencies": {
+    "electron-log": "^2.2.9",
+    "electron-updater": "^2.8.9",
     "extract-zip": "^1.6.5",
     "fontkit": "^1.7.7",
     "lodash": "^4.17.4",
@@ -38,8 +40,8 @@
     "dev": "nf start",
     "postinstall": "electron-builder install-app-deps",
     "dist": "npm run build && electron-builder",
-    "pack": "npm run build && electron-builder --dir",
-    "publish": "npm run build && electron-builder --publish=always --draft",
+    "pack": "npm run build && electron-builder --x64 --ia32 --dir",
+    "publish": "npm run build && electron-builder --x64 --ia32 --publish=always",
     "build-googlefont-list": "node ./scripts/build-googlefont-list.js"
   },
   "devDependencies": {
@@ -85,7 +87,13 @@
         "github"
       ],
       "target": [
-        "nsis"
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
       ]
     },
     "linux": {
@@ -96,9 +104,6 @@
         "deb",
         "AppImage"
       ]
-    },
-    "squirrelWindows": {
-      "msi": true
     }
   }
 }

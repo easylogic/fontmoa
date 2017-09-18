@@ -3,10 +3,11 @@ import intl from 'react-intl-universal'
 import React, { Component } from 'react';
 import './default.css';
 
+import AutoUpdater from '../AutoUpdater'
 import FontManager from '../FontManager'
 
 import locales from '../../locales'
-//import menu from '../../menu'
+import menu from '../../menu'
 
 const { remote } = window.require('electron'); 
 
@@ -15,19 +16,31 @@ class App extends Component {
   constructor () {
     super();
 
+    this.autoUpdater = new AutoUpdater(this);
+
     this.state = {
-      inputText : "",
       initDone: false,
       locale : remote.app.getLocale()
     }
 
   }
 
+  isUpdateReady () {
+    return this.autoUpdater.isUpdateReady();
+  }
+
+  checkingForUpdate () {
+    return this.autoUpdater.checkingForUpdate();
+  }
+
   componentDidMount () {
     this.loadLocales();
     this.loadMenu();
     this.changeSettings();
+    this.initEvent();
+  }
 
+  initEvent () {
     document.ondragover = document.ondrop = (ev) => {
       ev.preventDefault()
     }
@@ -43,43 +56,23 @@ class App extends Component {
     }
   }
 
-  changeMode (mode) {
-    this.changeSettings();
-  }
-
   changeSettings () {
     remote.getCurrentWindow().setSize(500, 600, true);
   }
 
   loadMenu () {
-    //menu.make(this);
+    menu.make(this);
   }
 
   loadLocales(locale = this.state.locale) {
     intl.init({
-      currentLocale: locale, // TODO: determine locale here
+      currentLocale: locale, 
       locales,
     })
     .then(() => {
       this.setState({ locale,  initDone: true });
       this.loadMenu();
     });
-  }
-
-  appendInputText = (text, fontFamily) => {
-    this.refs.copyText.appendInputText(text, fontFamily);
-  }
-
-  showWindow = (id) => {
-    if (this.currentWindow) this.currentWindow.hide();
-    this.refs[id].show();
-    this.currentWindow = this.refs[id];
-  }
-
-  selectMenuItem = (e) => {
-    if (e.target.classList.contains('menubar-item')) {
-      this.showWindow(e.target.getAttribute('target'));
-    }
   }
 
   render() { 

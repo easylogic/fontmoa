@@ -1,8 +1,16 @@
 // ./main.js
-const {app, BrowserWindow, protocol } = require('electron')
+const {app, BrowserWindow, protocol, ipcMain } = require('electron')
+const { autoUpdater } = require('electron-updater')
+const log = require('electron-log');
 const path  = require('path')
 const url = require('url') 
 const fs = require('fs');
+
+// set logger 
+autoUpdater.autoDownload = false;  
+autoUpdater.logger = log;
+autoUpdater.logger.transports.file.level = 'info';
+log.info('App starting...');
 
 const isDevMode = !!process.env.ELECTRON_START_URL;
 
@@ -19,7 +27,7 @@ function devToolsLog(s) {
 }
 
 function createWindow() {
-  // register protocol
+  // register protocol for fontmoa:// protocol
   protocol.registerFileProtocol(PROTOCOL_PREFIX, (req, callback) => {
     const url = req.url.substring(10);
     //devToolsLog('full url to open ' + url)
@@ -33,7 +41,7 @@ function createWindow() {
 
     callback({path: p})
   }, (error) => {
-    if (error) console.error('failed to register protocol');
+    if (error) log.error('failed to register protocol');
   })
 
 
@@ -54,9 +62,9 @@ function createWindow() {
 
   // Show dev tools
   // Remove this line before distributing
-  if (isDevMode) {   // dev mode
+  //if (isDevMode) {   // dev mode
     win.webContents.openDevTools()
-  }
+  //}
 
   // Remove window once app is closed
   win.on('closed', function () {
@@ -64,11 +72,19 @@ function createWindow() {
   });
 }
 
+ipcMain.on('progress-percent', function (e, percent) {
+  devToolsLog(percent);
+  //win.setProgressBar(percent);
+})
+
+
 app.on('ready', function () {
 
   createWindow();
 
 });
+
+
 
 app.on('activate', () => {
   if (win === null) {
@@ -80,4 +96,60 @@ app.on('window-all-closed', function () {
   if (process.platform != 'darwin') {
     app.quit();
   }
+});
+
+/**
+ * AutoUpdater Settings 
+ * 
+ */
+
+function sendStatusToWindow(text) {
+  log.info(text);
+  win.webContents.send('message', text);
+
+  sendToWindow('message', text);
+}
+
+function sendToWindow() {
+  win.webContents.send.apply(win.webContents, [...arguments]);
+}
+
+autoUpdater.on('checking-for-update', () => {
+  sendStatusToWindow('Checking for update...');
+})
+autoUpdater.on('update-available', (info) => {
+  sendStatusToWindow('Update available.');
+})
+autoUpdater.on('update-not-available', (info) => {
+  sendStatusToWindow('Update not available.');
+})
+autoUpdater.on('error', (err) => {
+  sendStatusToWindow('Error in auto-updater.' +  err.message);
+})
+autoUpdater.on('download-progress', (progressObj) => {
+  let log_message = "Download speed: " + progressObj.bytesPerSecond;
+  log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
+  log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+  sendStatusToWindow(log_message);
+
+  win.setProgressBar(progressObj.percent/100);
+})
+autoUpdater.on('update-downloaded', (info) => {
+  sendStatusToWindow('Update downloaded; will install in 5 seconds');
+});
+
+autoUpdater.on('update-downloaded', (info) => {
+  setTimeout(function() {
+    autoUpdater.quitAndInstall();  
+  }, 2000)
+})
+
+ipcMain.on('checking-for-available', function(e)  {
+  autoUpdater.autoDownload = false; 
+  autoUpdater.checkForUpdates();
+});
+
+ipcMain.on('checking-for-update', function(e)  {
+  autoUpdater.autoDownload = true; 
+  autoUpdater.checkForUpdates();
 });

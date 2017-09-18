@@ -1,32 +1,28 @@
-import intl  from 'react-intl-universal'
+//import intl  from 'react-intl-universal'
 
 const getMenu = (app) => {
+
+  let submenu =[
+  ]
+
+  if( app.isUpdateReady()) {
+    submenu.push(  { 
+      label : 'Checking For Update', 
+      click : () => { 
+        app.checkingForUpdate() 
+      },
+    })
+  }
+
+  if (submenu.length) {
+    submenu.push({type: 'separator'});
+  }
+  submenu.push({role: 'close'});
+
   return [
     {
-      label : intl.get('menu.view.label'),
-      submenu : [
-        { 
-          label : intl.get('menu.view.language.label'), 
-          submenu : [
-            { 
-              type : "radio", 
-              label : "English", 
-              checked: app.state.locale === 'en', 
-              value: 'en', 
-              click : (item) => { app.loadLocales(item.value); }
-            },
-            { 
-              type : "radio", 
-              label : "한국어", 
-              checked:  app.state.locale === 'ko', 
-              value: 'ko', 
-              click : (item) => { app.loadLocales(item.value); } 
-            }
-          ] 
-        },        
-        {type: 'separator'},        
-        {role: 'toggledevtools'},
-      ]
+      label : 'Fontmoa',
+      submenu
     }
   ]
 }
