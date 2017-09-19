@@ -62,9 +62,9 @@ function createWindow() {
 
   // Show dev tools
   // Remove this line before distributing
-  //if (isDevMode) {   // dev mode
+  if (isDevMode) {   // dev mode
     win.webContents.openDevTools()
-  //}
+  }
 
   // Remove window once app is closed
   win.on('closed', function () {
