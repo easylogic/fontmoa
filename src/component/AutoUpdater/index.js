@@ -1,4 +1,4 @@
-const { ipcRenderer, remote } = window.require('electron'); 
+const { ipcRenderer } = window.require('electron'); 
 
 class AutoUpdater {
 

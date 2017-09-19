@@ -16,11 +16,35 @@
   left:0px;
   top:80px;
   right:0px;
-  bottom:0px;
+  bottom:40px;
   overflow: auto;
   box-sizing: border-box;
   transition: all 0.1s linear;
   z-index:0;
+}
+
+.app-bottom-toolbar {
+  position: absolute;
+  left:0px;
+  height:40px;
+  right:0px;
+  bottom:0px;
+  box-sizing: border-box;
+  border-top:1px solid #ececec;
+}
+
+.app-bottom-toolbar .tools {
+  position: absolute;
+  display:inline-block;
+  right:0px;
+  top:0px;
+  bottom:0px;
+  padding:10px;
+}
+
+.app-bottom-toolbar .tools span {
+  margin-left: 10px;
+  cursor:pointer;
 }
 
 .app-search-filter {
