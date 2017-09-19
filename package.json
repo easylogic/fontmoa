@@ -13,7 +13,7 @@
     "url": "https://github.com/fontmoa/fontmoa.git"
   },
   "main": "main.js",
-  "homepage": "https://github.com/fontmoa/fontmoa",
+  "homepage": "./",
   "dependencies": {
     "electron-log": "^2.2.9",
     "electron-updater": "^2.8.9",
@@ -39,13 +39,12 @@
     "electron": "electron .",
     "dev": "nf start",
     "postinstall": "electron-builder install-app-deps",
-    "dist": "npm run build && electron-builder",
-    "pack": "npm run build && electron-builder --x64 --ia32 --dir",
-    "pub": "npm run build && electron-builder --x64 --ia32 --publish=always",
+    "dist": "npm run build && electron-builder -mwl",
+    "pack": "npm run build && electron-builder -mwl --x64 --ia32 --dir",
+    "pub": "npm run build && electron-builder -mwl --x64 --ia32 --publish=always",
     "build-googlefont-list": "node ./scripts/build-googlefont-list.js"
   },
   "devDependencies": {
-    "7zip-bin-win": "^2.1.0",
     "cheerio": "^1.0.0-rc.2",
     "electron": "^1.7.6",
     "electron-builder": "^19.27.7",
@@ -65,6 +64,9 @@
       "provider": "github",
       "owner": "fontmoa"
     },
+    "deb" : {
+      "compression": "gz"
+    },
     "dmg": {
       "publish": [
         "github"
@@ -82,6 +84,15 @@
         }
       ]
     },
+    "mac" : {
+      "category": "public.app-category.utilities",
+      "publish" : [
+        "github"
+      ],
+      "target" : [
+        "dmg", "zip"
+      ]
+    },
     "win": {
       "publish": [
         "github"
@@ -97,12 +108,14 @@
       ]
     },
     "linux": {
+      "category": "Utility",
       "publish": [
         "github"
       ],
       "target": [
         "deb",
-        "AppImage"
+        "AppImage",
+        "rpm"
       ]
     }
   }

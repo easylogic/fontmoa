@@ -3,7 +3,15 @@ const path = require('path')
 const fetch = require('node-fetch')
 const cheerio = require('cheerio');
 
-const API_KEY = "AIzaSyBbi99YleozD5UoXj9iLvAgb0_31TnFWtk";
+// YOU NEED GOOGLE FONT KEY
+const API_KEY = "";
+// YOU NEED GOOGLE FONT KEY
+
+if (API_KEY === "") {
+    console.error('YOU NEED GOOGLE FONT KEY');
+    return;
+}
+
 const google_font_api = 'https://www.googleapis.com/webfonts/v1/webfonts?key=';
 const google_font_early_access = 'https://fonts.google.com/earlyaccess';
 const font_list_file = './src/resources/fonts/google-font-list.json'
