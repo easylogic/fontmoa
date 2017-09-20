@@ -182,7 +182,7 @@ class LocalFontItem extends Component {
                     <span onClick={this.toggleDescription} title="Open Description"><i className="material-icons">apps</i></span>
                     <span className={favoriteClass}  onClick={this.toggleFavorite} title="Add Favorite">{favoriteIcon}</span>
                     <span className="divider">|</span>
-                    <span onClick={this.openFontFile} title="Open Font File"><i className="material-icons">open_in_browser</i></span>
+                    <span onClick={this.openFontFile} title="Open Font File">Open</span>
                 </div>
                 <div className="activation">
                     <span className={activeClass} onClick={this.toggleActivation} title="Activation">●</span>

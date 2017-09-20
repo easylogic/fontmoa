@@ -116,12 +116,30 @@ class FontManager extends Window {
     shell.openExternal(targetLink);
   }
 
+
+
+  goGithub = () => {
+    shell.openExternal('https://github.com/fontmoa/fontmoa');
+  }
+
+  goHome = () => {
+    shell.openExternal('http://www.fontmoa.com/fontmoa/');
+  }  
+
+  goTwitter = () => {
+    shell.openExternal('https://twitter.com/fontmoa');
+  }
+
+  goFacebook = () => {
+    shell.openExternal('https://www.facebook.com/fontmoa/');
+  }  
+
   render() {
     return ( 
         <div className="window fontmanager-window font-manager" id={this.props.id}>
           <div className="app-menu">
-            <SearchToolbar ref="search" search={this.search} />
-            <FontToolbar search={this.search} showDirectory={this.showDirectory} />
+            <SearchToolbar ref="search" search={this.search} showDirectory={this.showDirectory} />
+            <FontToolbar search={this.search} />
           </div>
           <div ref="searchFilter" className="app-search-filter">
             <SearchFilterLayer ref="searchFilterLayer" search={this.search} />
@@ -130,9 +148,15 @@ class FontManager extends Window {
             <FontListView ref="fontlistview" app={this.props.app} />
           </div>
           <div className="app-bottom-toolbar">
+            <span className="tools">            
+              <span onClick={this.goFacebook} title="Facebook"></span>
+              <span onClick={this.goTwitter} title="Twitter"></span>
+              <span onClick={this.goGithub} title="Github"></span>
+              <span className="divider"></span>
+            </span>
             <span className="tools">
-              <span onClick={this.openIconMaker} title="OpenSource Icon Optimizer"><i className="material-icons">insert_emoticon</i></span>
-              <span onClick={this.openFontEditor} title="Font Editor"><i className="material-icons">format_shapes</i></span>
+              <span onClick={this.openIconMaker} title="Icon Optimizer"></span>
+              <span onClick={this.openFontEditor} title="Font Editor"></span>
 
             </span>
           </div>

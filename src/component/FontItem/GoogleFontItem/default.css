@@ -1,20 +1,21 @@
 .google-font-item .font-info {
     overflow: auto;
     display: flex; 
-    padding:10px;
+    padding:5px;
     padding-left:0px;    
     padding-right:60px;
     text-align: center;
     margin-bottom:10px;
     font-size: 13px !important;
+    background-color: #f4f4f4;
 }
 
 
 .google-font-item .toolbar {
     display:none;
     position:absolute;
-    right:80px;
-    top:10px;
+    right:150px;
+    top:4px;
     width:80px;
 }
 
@@ -32,16 +33,25 @@
 
 .google-font-item .tools {
     position: absolute;
-    right: 10px;
-    top:10px;
-    display:none;
+    right: 0px;
+    top:4px;
     font-size:13px;
     z-index: 100;
     color: #b6b6b6;
+    display:inline-block;
 }
 
-.google-font-item:hover .tools {
-    display:block;
+.google-font-item .tools > span {
+    margin-right:10px;
+    vertical-align: middle;
+}
+
+.google-font-item .tools > span.divider {
+    display: inline-block;
+    height:10px;
+    border-right:1px solid #999;
+    width:2px;
+    box-sizing: border-box;
 }
 
 .google-font-item .tools .icon {

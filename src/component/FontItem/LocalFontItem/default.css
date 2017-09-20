@@ -1,12 +1,13 @@
 .local-font-item .font-info {
     overflow: auto;
     display: flex; 
-    padding:10px;
+    padding:5px;
     padding-left:0px;    
     padding-right:60px;
     text-align: center;
     margin-bottom:10px;
     font-size: 13px !important;
+    background-color: #f4f4f4;    
 }
 
 .local-font-item .font-info .font-family,
@@ -55,17 +56,14 @@
 .local-font-item .tools {
     position: absolute;
     right: 10px;
-    top:10px;
-    display:none;
+    top:2px;
     font-size:13px;
     z-index: 100;
     color: #b6b6b6;
     user-select: none;
+    cursor: pointer;
 }
 
-.local-font-item .tools .icon {
-    pointer-events: none;
-}
 
 .local-font-item .tools .material-icons {
     font-size:18px;
@@ -112,7 +110,7 @@
 }
 
 .local-font-item .directory-name {
-    display:block;
+    display:none;
     color: rgba(0, 0, 0, 0);
     padding-left:10px;
 }
@@ -144,8 +142,8 @@
 .local-font-item .toolbar {
     display:none;
     position:absolute;
-    right:120px;
-    top:10px;
+    right:130px;
+    top:2px;
     width:80px;
 }
 
@@ -167,6 +165,7 @@
 
 .local-font-item:hover .directory-name {
     color: rgba(0, 0, 0, 0.5);
+    display:none;
 }
 
 .local-font-item  .activation {
@@ -182,20 +181,4 @@
 .local-font-item  .activation .selected {
     color: #5cb85c;
 }
-
-
-
-.font-list-content[data-content-style=row] .local-font-item .font-info {
-    text-align: left !important;
-    margin-bottom:0px;
-}
-
-.font-list-content[data-content-style=row] .local-font-item .font-name {
-    display: block;
-}
-.font-list-content[data-content-style=row] .local-font-item .font-sub-family {
-    display: inline-block;
-    margin-left:10px;
-}
-
 

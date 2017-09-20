@@ -1,6 +1,6 @@
 {
   "name": "fontmoa",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Simple Font Manager for Cross Platform",
   "author": {
     "name": "easylogic",
@@ -39,6 +39,7 @@
     "electron": "electron .",
     "dev": "nf start",
     "postinstall": "electron-builder install-app-deps",
+    "dist:mac": "npm run build && electron-builder -m",    
     "dist": "npm run build && electron-builder -mwl",
     "pack": "npm run build && electron-builder -mwl --x64 --ia32 --dir",
     "pub": "npm run build && electron-builder -mwl --x64 --ia32 --publish=always",

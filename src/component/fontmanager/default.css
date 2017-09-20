@@ -16,7 +16,7 @@
   left:0px;
   top:80px;
   right:0px;
-  bottom:40px;
+  bottom:34px;
   overflow: auto;
   box-sizing: border-box;
   transition: all 0.1s linear;
@@ -26,25 +26,43 @@
 .app-bottom-toolbar {
   position: absolute;
   left:0px;
-  height:40px;
+  height:34px;
   right:0px;
   bottom:0px;
   box-sizing: border-box;
   border-top:1px solid #ececec;
+  display:flex;
+  box-shadow: 0 1px 7px rgba(0,0,0,0.5);
 }
 
 .app-bottom-toolbar .tools {
-  position: absolute;
-  display:inline-block;
-  right:0px;
-  top:0px;
-  bottom:0px;
-  padding:10px;
+  flex:1;
+  display:flex;
+}
+
+.app-bottom-toolbar .tools .divider {
+  display:block;
+  float:right;
+  flex:0;
+  width:1px;
+  height:8px;
+  margin-top:7px;
+  border-right:1px solid rgba(0,0,0,0.2); 
+  box-sizing:border-box;
 }
 
 .app-bottom-toolbar .tools span {
-  margin-left: 10px;
+  text-align: center;
   cursor:pointer;
+  flex:1;
+  padding:10px;
+  cursor: pointer;
+  font-size:12px;
+}
+
+.app-bottom-toolbar .tools span:after {
+  content: attr(title);
+  display:inline-block;
 }
 
 .app-search-filter {
@@ -70,7 +88,7 @@
 .app-directory {
   position:absolute;
   display:inline-block;
-  top:80px;
+  top:40px;
   left: 100%;
   width:100%;
   bottom:0px;

@@ -111,8 +111,9 @@ class GoogleFontItem extends Component {
                     </div>
                 </div> 
                 <div className="tools">
-                    <span className="link" title="All Font Download" data-message="Downloading..." onClick={this.downloadGoogleFont} ><i className="material-icons">font_download</i></span>
-                    <span className="link" title="View Font" onClick={this.goUrl(previewUrl, 'Preview')} ><i className="material-icons">pageview</i></span>
+                    <span className="link" title="All Font Download" data-message="Downloading..." onClick={this.downloadGoogleFont} >Download</span>
+                    <span className="divider"></span>
+                    <span className="link" title="View Font" onClick={this.goUrl(previewUrl, 'Preview')} >Detail</span>
                 </div>   
                 <div className="font-item-preview" style={style} title="Click If write a text">
                     <div ref="message" className="message" contentEditable={true} dangerouslySetInnerHTML={{__html : message}} />

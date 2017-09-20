@@ -23,6 +23,12 @@ const getMenu = (app) => {
     {
       label : 'Fontmoa',
       submenu
+    },
+    {
+      label: 'Help',
+      submenu : [
+        { label : 'About FontMoa'}
+      ]
     }
   ]
 }
