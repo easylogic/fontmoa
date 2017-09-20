@@ -1,0 +1,50 @@
+
+.loading-view {
+  position: absolute;
+  left:0px;
+  right:0px;
+  bottom:0px;
+  top:0px;
+  background-color: rgba(255, 255, 255, 0.95);
+  transform: scale(0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition:all 0.1s linear;
+  z-index:0;
+}
+
+.loading-view.show {
+  transform: scale(1);
+  opacity: 1;  
+  z-index:1000;
+}
+
+
+.loading-view .loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: loader-spin 2s linear infinite;
+  position: absolute;
+  top:50%;
+  left:50%;
+  margin-top:-146px;
+  margin-left:-76px;
+}
+
+.loading-view .loading-text {
+  text-align: center;
+  display: block;
+  position: absolute;
+  top: 60%;
+  left:0px;
+  right:0px;
+  font-size:20px;
+}
+
+@keyframes loader-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import './default.css';
 
 import AutoUpdater from '../AutoUpdater'
+import LoadingView from '../LoadingView'
 import FontManager from '../FontManager'
 
 import locales from '../../locales'
@@ -75,13 +76,22 @@ class App extends Component {
     });
   }
 
+  showLoading (title) {
+    this.refs.loadingView.show(title);
+  }
+
+  hideLoading (delay) {
+    this.refs.loadingView.hide(delay);
+  }
+
   render() { 
 
     return (
       this.state.initDone && 
       <div className="app">
         <div className="container">
-            <FontManager ref="font" />  
+            <FontManager ref="font" app={this} />  
+            <LoadingView ref="loadingView"/>
         </div>
       </div>
         

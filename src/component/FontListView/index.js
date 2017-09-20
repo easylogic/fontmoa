@@ -66,16 +66,16 @@ class FontListView extends Component {
 
         switch(fontObj.type) {
             case "GoogleFonts": 
-                item = <GoogleFontItem fontObj={fontObj} />
+                item = <GoogleFontItem fontObj={fontObj} app={this.props.app} />
                 break; 
             case 'GoogleFontsEarlyAccess':
-                item = <GoogleEarlyAccessFontItem fontObj={fontObj} />
+                item = <GoogleEarlyAccessFontItem fontObj={fontObj} app={this.props.app} />
                 break;                 
             case 'FreeFonts': 
-                item = <FreeFontItem fontObj={fontObj} />
+                item = <FreeFontItem fontObj={fontObj} app={this.props.app} />
                 break;                 
             default: 
-                item = <LocalFontItem fontObj={fontObj} />
+                item = <LocalFontItem fontObj={fontObj} app={this.props.app} />
         }
 
         return item; 

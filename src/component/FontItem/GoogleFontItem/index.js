@@ -69,10 +69,13 @@ class GoogleFontItem extends Component {
         node.textContent = "autorenew"
         node.classList.add('spin')
 
+        this.props.app.showLoading('Downloading...');
+
         googlefont.downloadGoogleFont(this.state.fontObj, () => {
             console.log(' google font done');
             node.textContent = "font_download"
             node.classList.remove('spin')
+            this.props.app.hideLoading(1000);
         });
 
     }
@@ -108,7 +111,7 @@ class GoogleFontItem extends Component {
                     </div>
                 </div> 
                 <div className="tools">
-                    <span className="link" title="All Font Download" onClick={this.downloadGoogleFont} ><i className="material-icons">font_download</i></span>
+                    <span className="link" title="All Font Download" data-message="Downloading..." onClick={this.downloadGoogleFont} ><i className="material-icons">font_download</i></span>
                     <span className="link" title="View Font" onClick={this.goUrl(previewUrl, 'Preview')} ><i className="material-icons">pageview</i></span>
                 </div>   
                 <div className="font-item-preview" style={style} title="Click If write a text">

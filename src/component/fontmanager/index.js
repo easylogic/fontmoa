@@ -28,9 +28,11 @@ class FontManager extends Window {
 
   init = () => {
 
-    db.initFontDirectory(() => {
-      this.refreshAll();
-    })
+    setTimeout((() => {
+      db.initFontDirectory(() => {
+        this.refreshAll();
+      })
+    }), 1000);
 
   }
 
@@ -125,7 +127,7 @@ class FontManager extends Window {
             <SearchFilterLayer ref="searchFilterLayer" search={this.search} />
           </div>
           <div className="app-content">
-            <FontListView ref="fontlistview" />
+            <FontListView ref="fontlistview" app={this.props.app} />
           </div>
           <div className="app-bottom-toolbar">
             <span className="tools">

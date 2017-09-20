@@ -22,10 +22,14 @@ class GoogleEarlyAccessItem extends Component {
             node.textContent = "autorenew"
             node.classList.add('spin')
 
+            this.props.app.showLoading('Downloading...');
+
             googlefont.downloadEarlyAccess(link, () => {
                 console.log('done');
                 node.textContent = "font_download"
-                node.classList.remove('spin')                
+                node.classList.remove('spin')            
+                
+                this.props.app.hideLoading(1000);
             });
         }
     }
