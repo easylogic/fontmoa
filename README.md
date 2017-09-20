@@ -22,6 +22,13 @@ or
 yarn dev 
 ```
 
+# Features 
+
+* Local Font Viewer 
+* Google Font Downloader 
+* User Defined Font Downloader 
+* Font Search
+
 # TODO List 
 
 * Font Activation (with Auto Activation)
