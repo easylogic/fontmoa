@@ -1,18 +1,15 @@
 .local-font-item .font-info {
     overflow: auto;
     display: flex; 
-    padding:5px;
+    padding:6px;
     padding-left:0px;    
     padding-right:60px;
     text-align: center;
     margin-bottom:10px;
     font-size: 13px !important;
-    background-color: #f4f4f4;    
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.02) , rgba(0, 0, 0, 0));
 }
 
-.local-font-item .font-info .font-family,
-.local-font-item .font-info .font-sub-family,
-.local-font-item .font-info .font-name,
 .local-font-item .font-info .tools .icon
 {
     pointer-events: none;
@@ -51,62 +48,49 @@
 
 .local-font-item .font-description .desc-item {
     margin-bottom:5px;
+    padding:5px;    
+    padding-left:20px;
+    padding-right:20px;    
+    border:1px solid #e0e0e0;
+    color:black;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 .local-font-item .tools {
     position: absolute;
     right: 10px;
-    top:2px;
-    font-size:13px;
+    top:4px;
+    font-size:12px;
     z-index: 100;
-    color: #b6b6b6;
+    color: #666666;
     user-select: none;
     cursor: pointer;
 }
 
-
-.local-font-item .tools .material-icons {
-    font-size:18px;
+.local-font-item .tools > span {
+    margin-right:10px;
+    vertical-align: middle;
 }
 
-.local-font-item .tools .selected {
-    color: #740CD2; 
+.local-font-item .tools > span.divider {
+    display: inline-block;
+    height:10px;
+    border-right:1px solid #999;
+    width:2px;
+    box-sizing: border-box;
 }
 
 
-.local-font-item .tools .divider {
-    padding-left:10px;
-    padding-right:10px;
-}
 
-.local-font-item .font-info .font-name {
-    flex : 10 ; 
-    display:none;
-    font-weight: bold;
-}
 
 .local-font-item .font-info .font-family {
-    flex : 10 ; 
-    font-weight: bold;
     display: inline-block;
     text-align: left;
     padding-left:10px;
     vertical-align: middle;
+    font-weight:bold;
     text-overflow: ellipsis;
-}
-
-.local-font-item .font-info .font-family .link {
-    margin-right: 5px;
-    vertical-align: middle;
-    display:inline-block;
-}
-.local-font-item .font-info .font-family .link .material-icons {
-    font-size: 18px;
-    vertical-align: middle;
-}
-
-.local-font-item .font-info .font-sub-family {
-    display: none;
 }
 
 .local-font-item .directory-name {
@@ -123,6 +107,7 @@
     padding:2px;
     padding-right:20px;
     padding-left:20px;    
+    position:relative;
 }
 
 .local-font-item .font-item-preview > .message {
@@ -138,13 +123,13 @@
     background-color: rgba(0, 0, 0, 0.05);
 }
 
-
+/*
 .local-font-item .toolbar {
     display:none;
     position:absolute;
-    right:130px;
+    right:180px;
     top:2px;
-    width:80px;
+    width:60px;
 }
 
 .local-font-item .toolbar input[type=range]:before {
@@ -157,7 +142,7 @@
 
 .local-font-item:hover .toolbar  {
     display:block;
-}
+}*/
 
 .local-font-item:hover .tools {
     display:block;
@@ -182,3 +167,10 @@
     color: #5cb85c;
 }
 
+.local-font-item .add-favorite .material-icons {
+    font-size:18px;
+}
+
+.local-font-item .add-favorite.selected {
+    color: #740CD2; 
+}

@@ -1,3 +1,4 @@
+import intl from 'react-intl-universal'
 import React, { Component } from 'react';
 import './default.css';
 import LabelInput from '../LabelInput'
@@ -28,17 +29,10 @@ class FreeFontItem extends Component {
         // 구글 early access 폰트, zip 파일로 압축된 폰트 다운로드 
         // 중복 체크         
         return (e) => {
-            let node = e.target.querySelector('.material-icons');
-            node.textContent = "autorenew"
-            node.classList.add('spin')
-
             this.props.app.showLoading("Downloading...");
 
             font.downloadFile(link, () => {
                 console.log('done');
-                node.textContent = "font_download"
-                node.classList.remove('spin')            
-                
                 this.props.app.hideLoading(1000);
             });
         }
@@ -80,6 +74,32 @@ class FreeFontItem extends Component {
         }
 
     }
+
+    getTools () { 
+        const fontObj = this.state.fontObj; 
+        let results = [];
+        
+        if (fontObj.downloadUrl) { 
+            results.push(<span key={0} className="link" title="Font Download" onClick={this.downloadUrl(fontObj.downloadUrl)} >{intl.get('fontmanager.title.download')}</span>);
+        }
+
+        if (fontObj.license) {
+            if (results.length) results.push(<span key={1} className="divider"></span>)
+            results.push(<span key={2} className="link" onClick={this.toggleDescription} title="Open Description">{intl.get('fontmanager.title.detail')}</span>);
+        }
+
+        if (fontObj.licenseUrl) { 
+            if (results.length) results.push(<span key={3} className="divider"></span>)            
+            results.push(<span key={4} className="link" title="View License" onClick={this.goUrl(fontObj.licenseUrl, 'License')} >License</span>)
+        }
+
+        if (fontObj.buyUrl) {
+            if (results.length) results.push(<span key={5} className="divider"></span>)            
+            results.push(<span key={6} className="link" onClick={this.goUrl(fontObj.buyUrl, 'Buy')} >Buy</span>)
+        }
+
+        return results; 
+    }
    
     render () {
            
@@ -95,10 +115,7 @@ class FreeFontItem extends Component {
                     </div>
                 </div> 
                 <div className="tools">
-                    {fontObj.license ? <span onClick={this.toggleDescription} title="Open Description"><i className="material-icons">apps</i></span> : "" }
-                    {fontObj.downloadUrl ? <span className="link" title="Font Download" onClick={this.downloadUrl(fontObj.downloadUrl)} ><i className="material-icons">font_download</i></span> : ""}
-                    {fontObj.licenseUrl ? <span className="link" title="View License" onClick={this.goUrl(fontObj.licenseUrl, 'License')} ><i className="material-icons">turned_in_not</i></span> : ""}
-                    {fontObj.buyUrl ? <span className="link" onClick={this.goUrl(fontObj.buyUrl, 'Buy')} ><i className="material-icons">shopping_cart</i></span> : ""}
+                    {this.getTools()}
                 </div>   
                 <div ref="description" className="font-description" title="Font Description"> 
                     {this.getLicense(fontObj)}

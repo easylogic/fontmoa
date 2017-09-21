@@ -1,9 +1,25 @@
 {
-    "app.title": "FontMOA",
+    "app.title": "FontMoa",
     
     "app.inputCopy.text" : "복사",
     "app.inputText.placeholder": "문자나 이모지를 선택해주세요. 한번에 복사할 수 있습니다.",
     "app.inputText.item.title" : "클릭하면 지워집니다.",
+
+    "fontmanager.category.system.folder.name": "시스템 디렉토리",
+    "fontmanager.title.download": "다운로드",
+    "fontmanager.title.detail": "자세히",
+    "fontmanager.title.license": "라이센스",    
+    "fontmanager.title.open": "열기",            
+
+    "fontmanager.title.facebook": "페이스북",        
+    "fontmanager.title.twitter": "트위터",        
+    "fontmanager.title.github": "Github",        
+
+    "directorymanager.title.addDirectory" : "디렉토리 추가하기",
+    "directorymanager.title.refresh" : "새로고침",
+
+    "searchtoolbar.title.favorite": "좋아요",
+    "searchtoolbar.title.directory": "폴더관리",
 
     "" : ""
 }

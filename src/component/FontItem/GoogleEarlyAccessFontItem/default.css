@@ -24,8 +24,23 @@
     display:inline-block;
     font-size:13px;
     z-index: 100;
-    color: #b6b6b6;
+    color: #666666;
 }
+
+
+.google-early-access-font-item .tools > span {
+    margin-right:10px;
+    vertical-align: middle;
+}
+
+.google-early-access-font-item .tools > span.divider {
+    display: inline-block;
+    height:10px;
+    border-right:1px solid #999;
+    width:2px;
+    box-sizing: border-box;
+}
+
 
 .google-early-access-font-item .tools .icon {
     pointer-events: none;

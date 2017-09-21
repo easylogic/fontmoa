@@ -16,7 +16,7 @@
     border-radius: 3px;
     background-color: rgba(0, 0, 0, 0.01);
     border:1px solid #ccc;
-    color: #ccc;
+    color: #999;
     margin-right:4px;    
     margin-bottom:4px;
 }
@@ -27,5 +27,5 @@
 
 .variants-list .label.active {
     border-color: rgba(116, 12, 210, 0.5);;
-    color: rgba(116, 12, 210, 0.5);;
+    color: rgba(116, 12, 210, 0.7);;
 }

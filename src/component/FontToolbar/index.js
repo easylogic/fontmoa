@@ -27,4 +27,4 @@ class FontToolbar extends Component {
   }
 }
 
-export default FontToolbar;
+export default FontToolbar; 

@@ -1,3 +1,4 @@
+import intl from 'react-intl-universal'
 import React, {Component} from 'react';
 import './default.css';
 
@@ -35,13 +36,11 @@ class DirectoryManager extends Component {
 
   refreshFontDirectory = (it) => {
     return (e) => {
-      let node = e.target.querySelector('.material-icons');
-      node.classList.add('spin');
+
+      this.props.app.showLoading('Updating font list in folder');
 
       db.refreshDirectory(it.directory, () => {
-        setTimeout(() => {
-          node.classList.remove('spin');
-        }, 1000);
+        this.props.app.hideLoading(1000);
       })
     } 
   }
@@ -77,8 +76,8 @@ class DirectoryManager extends Component {
       <div className="directory-manager">
         <div className="directory-title">
           <span className="tools">
-            <span className="tool-item" onClick={this.addDirectory}>
-              <i className="material-icons">create_new_folder</i> Add Directory
+            <span className="tool-item add-directory" onClick={this.addDirectory}>
+              <i className="material-icons">create_new_folder</i> {intl.get('directorymanager.title.addDirectory')}
             </span>
           </span>
         </div>
@@ -97,9 +96,9 @@ class DirectoryManager extends Component {
                 </div>
                 {it.name}
               </div>
-              <div className="directory" onClick={openDir}>{it.directory}</div>
+              <div className="directory">{it.directory}</div>
               <div className="tools">
-                <span className="tool-item" title="Refresh Directory" onClick={this.refreshFontDirectory(it)}><i className="material-icons">autorenew</i> Refresh</span>
+                <span className="tool-item" title="Refresh Directory" onClick={this.refreshFontDirectory(it)}><i className="material-icons">autorenew</i> {intl.get('directorymanager.title.refresh')}</span>
               </div>
             </div>
           ) 

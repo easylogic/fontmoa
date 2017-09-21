@@ -5,11 +5,12 @@
   position:absolute;
   left: 0px;
   top:0px;
-  height:40px;
+  height:46px;
   right:0px;
   box-sizing: border-box;
   z-index:100;
-  box-shadow: 0 0px 28px rgba(0,0,0,0.25), 0 -2px 10px rgba(0,0,0,0.22);
+  background-color: white;
+  box-shadow: 1px 3px 6px rgba(0,0,0,0.25);  
 }
 
 .app-menu .search-icon .material-icons {
@@ -45,7 +46,7 @@
   vertical-align: middle;
   background-color:#f4f4f4;
   border-radius:5px;
-  margin:8px 10px;
+  margin:12px 10px;
   border:1px solid #C8C8C8;
   flex:3;
 
@@ -56,15 +57,15 @@
 .app-menu .search-icon {
   position:absolute;
   display: block;
-  padding:3px;
+  padding:2px;
   text-align: center;
   box-sizing:border-box;
   height:100%;
-  left:0px;
+  left:2px;
   top:0px;
   z-index: 1;
   cursor: pointer;
-  color:#C8C8C8;
+  color:rgb(139, 139, 139);
   font-weight: bold;
 }
 
@@ -91,13 +92,17 @@
   box-sizing:border-box;
   text-align: center;
   vertical-align: middle;
-  padding:4px;
+  padding:6px;
   display:flex;
 
 }
 
 .app-menu .search .tools span {
   flex:1;
+}
+
+.app-menu .search .tools span.active .material-icons {
+  color: rgba(116, 12, 210, 0.7);
 }
 
 .app-menu .search .tools span .material-icons {

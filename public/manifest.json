@@ -3,8 +3,8 @@
   "name": "Simple Font Manager for Cross Platform",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "192x192",
+      "src": "icon.ico",
+      "sizes": "256x256",
       "type": "image/png"
     }
   ],

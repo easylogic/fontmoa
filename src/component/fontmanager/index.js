@@ -8,7 +8,7 @@ import { db }  from '../../util'
 import FontListView from '../FontListView'
 import DirectoryManager from '../DirectoryManager'
 import SearchFilterLayer from '../SearchFilterLayer'
-import FontToolbar from '../FontToolbar'
+//import FontToolbar from '../FontToolbar'
 import SearchToolbar from '../SearchToolbar'
 
 const { shell } = window.require('electron').remote;
@@ -46,9 +46,19 @@ class FontManager extends Window {
     this.refs.fontlistview.refreshFiles(files);
   }
 
-  showSearchFilter = () => {
+  toggleSearchFilter = () => {
     this.refs.searchFilter.classList.toggle('open');
+
+    if (!this.refs.searchFilter.classList.contains('open')) {
+      this.search();
+    }
   }
+
+  hideSearchFilter = () => {
+    this.refs.searchFilter.classList.remove('open');
+
+    this.search();
+  }  
 
   showDirectory = (isShow) => {
     this.refs.directory.classList.toggle('open', isShow);
@@ -72,6 +82,10 @@ class FontManager extends Window {
       })
     }, 100);
 
+  }
+
+  getDefaultFontStyle () {
+    return this.refs.searchFilterLayer.getFontStyle()
   }
 
   toggleFavoriteList = (e) => {
@@ -138,30 +152,29 @@ class FontManager extends Window {
     return ( 
         <div className="window fontmanager-window font-manager" id={this.props.id}>
           <div className="app-menu">
-            <SearchToolbar ref="search" search={this.search} showDirectory={this.showDirectory} />
-            <FontToolbar search={this.search} />
+            <SearchToolbar ref="search" search={this.search} showDirectory={this.showDirectory} toggleSearchFilter={this.toggleSearchFilter}  />
+            {/*<FontToolbar search={this.search} /> */}
           </div>
           <div ref="searchFilter" className="app-search-filter">
             <SearchFilterLayer ref="searchFilterLayer" search={this.search} />
           </div>
           <div className="app-content">
-            <FontListView ref="fontlistview" app={this.props.app} />
+            <FontListView ref="fontlistview" app={this.props.app} onScroll={this.hideSearchFilter} onClick={this.hideSearchFilter} />
           </div>
           <div className="app-bottom-toolbar">
             <span className="tools">            
-              <span onClick={this.goFacebook} title="Facebook"></span>
-              <span onClick={this.goTwitter} title="Twitter"></span>
-              <span onClick={this.goGithub} title="Github"></span>
+              <span onClick={this.goFacebook} title={intl.get('fontmanager.title.facebook')}></span>
+              <span onClick={this.goTwitter} title={intl.get('fontmanager.title.twitter')}></span>
+              <span onClick={this.goGithub} title={intl.get('fontmanager.title.github')}></span>
               <span className="divider"></span>
             </span>
             <span className="tools">
               <span onClick={this.openIconMaker} title="Icon Optimizer"></span>
               <span onClick={this.openFontEditor} title="Font Editor"></span>
-
             </span>
           </div>
           <div ref="directory" className="app-directory">
-            <DirectoryManager ref="dir" />
+            <DirectoryManager ref="dir" app={this.props.app} />
           </div>          
         </div>
     );

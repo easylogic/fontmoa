@@ -1,3 +1,4 @@
+import intl from 'react-intl-universal'
 import React, { Component } from 'react';
 import Observer from 'react-intersection-observer'
 import './default.css';
@@ -62,24 +63,20 @@ class LocalFontItem extends Component {
         }
     }
 
-    refreshFont = (e) => {
-        let node = e.target.querySelector('.material-icons');
-        node.classList.add('spin')
-        db.updateFontFile(this.state.fontObj.file, () => {
-            console.log('font update is done', this.state.fontObj.file);
-            setTimeout(() => node.classList.remove('spin') , 1000);
-        })
-        
+    showFontFile = (e) => {
+        shell.showItemInFolder(this.state.fontObj.file); 
     }
 
     openFontFile = (e) => {
         shell.openItem(this.state.fontObj.file); 
     }
 
+    /*
     changeFontSize = (e) => {
         const fontSize = parseInt(e.target.value, 10);
         this.setState({ fontSize })
     }
+    */
 
     setNames = (font, key, result) => {
         const lang = font.currentLanguage;        
@@ -142,11 +139,13 @@ class LocalFontItem extends Component {
         const font = fontObj.font; 
         const style = Object.assign({ 
             fontSize : this.state.fontSize + 'px' 
-        }, font.collectStyle);
+        }, font.collectStyle, this.props.app.getDefaultFontStyle()); 
 
-        let message = common.getPangramMessage(font.currentLanguage); 
+        const subFamilies = font.subfamilyName.split(' ');
 
-        let favoriteClass = "add-favorite";
+        let message = style.typeText || common.getPangramMessage(font.currentLanguage); 
+
+        let favoriteClass = "link add-favorite";
         let favoriteIcon = (<i className="material-icons small">favorite_border</i>)
         let activeClass = "activation";
 
@@ -154,7 +153,6 @@ class LocalFontItem extends Component {
             favoriteClass += " selected";
             favoriteIcon = (<i className="material-icons small">favorite</i>);
         }
-
         
         if (fontObj.activation) {
             activeClass += " selected";
@@ -165,12 +163,7 @@ class LocalFontItem extends Component {
         return (
             <Observer className="local-font-item" onChange={inView => this.loadFontCss(inView)}>
                 <div className="font-info">
-                    <div className="font-family" title={font.subfamilyName}>
-                        {font.currentFamilyName}
-                        <span className="font-sub-family">{ 
-                            font.subfamilyName === 'Regular' ? "" : "(" + font.subfamilyName + ")"
-                        }</span>
-                    </div>
+                    <div className="font-family"onClick={this.showFontFile}>{font.currentFamilyName}</div>
                 </div>
                 <div className="directory-name">{dirname}</div>                
                 <div ref="description" className="font-description" title="Font Description"> 
@@ -178,11 +171,9 @@ class LocalFontItem extends Component {
                 </div>
                 
                 <div className="tools">
-                    <span onClick={this.refreshFont} title="Refresh Font Information"><i className="material-icons">autorenew</i></span>
-                    <span onClick={this.toggleDescription} title="Open Description"><i className="material-icons">apps</i></span>
-                    <span className={favoriteClass}  onClick={this.toggleFavorite} title="Add Favorite">{favoriteIcon}</span>
-                    <span className="divider">|</span>
-                    <span onClick={this.openFontFile} title="Open Font File">Open</span>
+                    <span className="link" onClick={this.toggleDescription} title="Open Description">{intl.get('fontmanager.title.detail')}</span>                    
+                    <span className="link"onClick={this.openFontFile} title="Open Font File">{intl.get('fontmanager.title.open')}</span>
+                    <span className={favoriteClass}  onClick={this.toggleFavorite} title="Add Favorite">{favoriteIcon}</span>                    
                 </div>
                 <div className="activation">
                     <span className={activeClass} onClick={this.toggleActivation} title="Activation">●</span>
@@ -191,10 +182,11 @@ class LocalFontItem extends Component {
                 <div className="font-item-preview" style={style} title="Click If write a text">
                     <div ref="message" className="message" contentEditable={true} dangerouslySetInnerHTML={{__html : message}} />
                 </div>
-                <LabelInput fontObj={fontObj} labels={fontObj.labels}/>
-                <div className="toolbar">
+
+                <LabelInput fontObj={fontObj} labels={fontObj.labels} prefixLabels={subFamilies} />
+                {/*<div className="toolbar">
                     <input type="range" max="250" min="10" defaultValue={this.state.fontSize} onChange={this.changeFontSize} />
-                </div>                
+                </div>     */}           
             </Observer>
         )
     }

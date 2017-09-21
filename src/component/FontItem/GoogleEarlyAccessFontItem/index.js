@@ -1,3 +1,4 @@
+import intl from 'react-intl-universal'
 import React, { Component } from 'react';
 import './default.css';
 
@@ -40,6 +41,23 @@ class GoogleEarlyAccessItem extends Component {
         }
     }    
    
+    getTools () { 
+        const fontObj = this.state.fontObj; 
+        let results = [];
+        
+        if (fontObj.downloadUrl) { 
+            results.push(<span className="link" key={0} title="Font Download" onClick={this.downloadUrl(fontObj.downloadUrl)} >{intl.get('fontmanager.title.download')}</span>);
+        }
+
+        if (fontObj.licenseUrl) { 
+            if (results.length) results.push(<span  key={1} className="divider"></span>)            
+            results.push(<span className="link"  key={2} title="View License" onClick={this.goUrl(fontObj.licenseUrl, 'License')} >{intl.get('fontmanager.title.license')}</span>)
+        }
+
+        return results; 
+    }
+   
+
     render () {
            
         // 기타 다른 폰트들에 대해서 Rendering 객체를 다르게 해야할 것 같다. 
@@ -55,9 +73,7 @@ class GoogleEarlyAccessItem extends Component {
                     </div>
                 </div> 
                 <div className="tools">
-                    {fontObj.downloadUrl ? <span className="link" title="Font Download" onClick={this.downloadUrl(fontObj.downloadUrl)} ><i className="material-icons">font_download</i></span> : ""}
-                    {fontObj.licenseUrl ? <span className="link" title="View License" onClick={this.goUrl(fontObj.licenseUrl, 'License')} ><i className="material-icons">turned_in_not</i></span> : ""}
-                    {fontObj.buyUrl ? <span className="link" onClick={this.goUrl(fontObj.buyUrl, 'Buy')} ><i className="material-icons">shopping_cart</i></span> : ""}
+                   {this.getTools()}
                 </div>   
                 <div className="font-item-preview">
                     <div dangerouslySetInnerHTML={preview} />

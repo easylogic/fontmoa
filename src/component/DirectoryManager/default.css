@@ -22,13 +22,18 @@
 .directory-manager .directory-title .tools {
   display:inline-block;
   vertical-align:middle;
-  position:absolute;
-  right:10px;
-  top:10px;
   z-index:10000;
-  font-size:14px;
+  font-size:13px;
   font-weight: normal;
   cursor:pointer;
+}
+
+.directory-manager .directory-title .tools .tool-item {
+  vertical-align: middle;
+}
+
+.directory-manager .directory-title .tools .add-directory .material-icons {
+  color: green;
 }
 
 

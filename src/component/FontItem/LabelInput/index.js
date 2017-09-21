@@ -9,6 +9,7 @@ class LabelInput extends Component {
 
         this.state = {
             fontObj: this.props.fontObj,
+            prefixLabels: this.props.prefixLabels || [],
             labels : this.props.labels || [],
             readonly : this.props.readonly || false,
         }
@@ -51,31 +52,41 @@ class LabelInput extends Component {
         }
     }
 
+    getReadOnlyLabel = (label, index) => {
+
+        let attrs = { className : 'label', key : index }
+
+        return ( <span {...attrs} >{label}</span> )
+    }
+
+    getEditableLabel = (label, index) => {
+
+        let attrs = { 
+            className : 'label editable',
+            key : index,
+            'data-label' : label, 
+            title: 'Click if delete it',
+            onClick : this.deleteLabel
+        }
+       
+        return ( <span {...attrs} >{label}</span> )
+    }
+
     render() {
         return (
             <div className="label-list">
+
+                { this.state.prefixLabels.map((label, index) => {
+                    return this.getReadOnlyLabel(label, index);
+                })}
+
                 { this.state.labels.map((label, index) => {
-                    let realLabel = [label]; 
-                    if (label.includes('italic')) {
-                        realLabel = [label.replace('italic', ''), <i className="material-icons" key={label}>format_italic</i>]; 
+
+                    if (this.state.readonly) {
+                        return this.getReadOnlyLabel(label, index);
+                    } else {
+                        return this.getEditableLabel(label, index);
                     }
-
-                    let attrs = {
-                        className : 'label',
-                        key : index, 
-                    }
-
-                    let deleteIcon = "";
-
-                    if (!this.state.readonly) {
-                        attrs['data-label'] = label; 
-                        attrs.onClick = this.deleteLabel;
-
-                        deleteIcon = <i className="material-icons" >close</i>;
-                    }
-                    
-                    return ( 
-                        <span {...attrs} >{realLabel} {deleteIcon}</span> )
                 })}
                 {
                     this.state.readonly ? "" : <span className="label input" title="Type a label" contentEditable={true} ref="labelInput" onKeyDown={this.onKeyDown} data-placeholder="label"></span>

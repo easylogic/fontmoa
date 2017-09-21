@@ -1,3 +1,4 @@
+import intl from 'react-intl-universal'
 import React, { Component } from 'react';
 import Observer from 'react-intersection-observer'
 import './default.css';
@@ -44,10 +45,12 @@ class GoogleFontItem extends Component {
         }
     }    
 
+    /*
     changeFontSize = (e) => {
         const fontSize = parseInt(e.target.value, 10);
         this.setState({ fontSize })
     }
+    */
 
     changeVariants = (index) => {
         const v = this.state.fontObj.variants[index];
@@ -63,18 +66,10 @@ class GoogleFontItem extends Component {
     }
 
     downloadGoogleFont = (e)  => {
-        // 중복 체크 
-        // 구글 폰트 모두 다운로드 
-        let node = e.target.querySelector('.material-icons');
-        node.textContent = "autorenew"
-        node.classList.add('spin')
-
         this.props.app.showLoading('Downloading...');
 
         googlefont.downloadGoogleFont(this.state.fontObj, () => {
             console.log(' google font done');
-            node.textContent = "font_download"
-            node.classList.remove('spin')
             this.props.app.hideLoading(1000);
         });
 
@@ -99,9 +94,9 @@ class GoogleFontItem extends Component {
             fontFamily : `'${fontObj.family}', sans-serif, serif`,
             fontWeight: this.state.fontWeight,
             fontStyle : (this.state.isItalic ? 'italic' : ''),
-        });
+        }, this.props.app.getDefaultFontStyle());
 
-        let message = common.getPangramMessage('en'); 
+        let message = style.typeText || common.getPangramMessage('en'); 
 
         return (
             <Observer className="google-font-item" onChange={inView => this.loadFontCss(inView)}>
@@ -111,17 +106,18 @@ class GoogleFontItem extends Component {
                     </div>
                 </div> 
                 <div className="tools">
-                    <span className="link" title="All Font Download" data-message="Downloading..." onClick={this.downloadGoogleFont} >Download</span>
+                    <span className="link" title="All Font Download" onClick={this.downloadGoogleFont} >{intl.get('fontmanager.title.download')}</span>
                     <span className="divider"></span>
-                    <span className="link" title="View Font" onClick={this.goUrl(previewUrl, 'Preview')} >Detail</span>
+                    <span className="link" title="View Font" onClick={this.goUrl(previewUrl, 'Preview')} >{intl.get('fontmanager.title.detail')}</span>
                 </div>   
                 <div className="font-item-preview" style={style} title="Click If write a text">
                     <div ref="message" className="message" contentEditable={true} dangerouslySetInnerHTML={{__html : message}} />
                 </div>                
                 <VariantsRadio labels={labels} onChange={this.changeVariants} />
+                {/*
                 <div className="toolbar">
                     <input type="range" max="250" min="10" defaultValue={this.state.fontSize} onChange={this.changeFontSize} />
-                </div>                                
+                </div> */}
             </Observer>
         )
     }

@@ -21,7 +21,7 @@ const getMenu = (app) => {
 
   return [
     {
-      label : 'Fontmoa',
+      label : 'FontMoa',
       submenu
     },
     {

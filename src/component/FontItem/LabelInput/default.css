@@ -10,14 +10,17 @@
 
 .label-list .label {
     display:inline-block;
-    padding:1px 5px;
+    padding:3px 5px;
     box-sizing:border-box;
     vertical-align: middle;
     border-radius: 3px;
-    background-color: rgba(0, 0, 0, 0.01);
-    border:1px solid #ececec;
+    color: #666;
     margin-right:4px;    
     margin-bottom:4px;
+}
+
+.label-list .label.editable {
+    color: rgba(116, 12, 210, 1);;
 }
 
 .label-list .label .material-icons {

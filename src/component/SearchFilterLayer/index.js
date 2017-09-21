@@ -1,33 +1,59 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom'
 import './default.css';
 
 class SearchFilterLayer extends Component {
 
-  toggleCheckBox = (e) => {
-    let $icon = e.target.querySelector('i.material-icons');
+  constructor(props) {
+    super(props);
 
-    if ($icon.textContent === 'check_box') {
-      $icon.textContent = "check_box_outline_blank";
-    } else {
-      $icon.textContent = "check_box";
+    this.state = {
+      typeText : '',
+      fontSize : 40,
+      categories : {
+        'Serif' : false, 
+        'Sans Serif' : false, 
+        'Display' : false, 
+        'Handwriting' : false, 
+        'Monospace' : false
+      },
+      division : {
+        'Google Font' : false, 
+        'Free Font' : false 
+      }
     }
   }
 
-  isChecked = ($el) => {
-    return ReactDOM.findDOMNode($el).querySelector(".material-icons").textContent === 'check_box';
+  getFontStyle () {
+    return {
+      typeText : this.state.typeText,
+      fontSize : this.state.fontSize 
+    }
+  }
+
+  changeTypeText = (e) => {
+
+    if (e.keyCode === 13) {
+      this.search()
+    } else {
+      const typeText = e.target.value;
+      this.setState({ typeText })
+    }
   }
   
+  changeFontSize = (e) => {
+    const fontSize = parseInt(e.target.value, 10);
+    this.setState({ fontSize })
+  }
+
   getSearchFilterOptions = () => {
     return {
       category : {
-        serif : this.isChecked(this.refs.serif),
-        sanserif : this.isChecked(this.refs.sansserif),
-        display : this.isChecked(this.refs.display),
-        handwriting : this.isChecked(this.refs.handwriting),
-        monospace : this.isChecked(this.refs.monospace),
-      },
-      weight : this.isChecked(this.refs.fontWeight) ? (this.refs.thickness.value * 100) : 0,
+        serif : this.state.categories['Serif'],
+        sanserif : this.state.categories['Sans Serif'],
+        display : this.state.categories['Display'],
+        handwriting : this.state.categories['Handwriting'],
+        monospace : this.state.categories['Monospace'],
+      }
     }
   }
 
@@ -35,22 +61,69 @@ class SearchFilterLayer extends Component {
     this.props.search();
   }
 
+  toggleCategory = (key) => {
+    return (e) => {
+
+      let categories = this.state.categories;
+      categories[key] = !categories[key]
+
+      this.setState({ categories })
+    }
+  }
+
+  toggleDivision = (key) => {
+    return (e) => {
+
+      let division = this.state.division;
+      division[key] = !division[key]
+
+      this.setState({ division })
+    }
+  }
+
   render() {
+
+    const categories = this.state.categories;
+    const cateKeys = Object.keys(categories);
+
+    const division = this.state.division;
+    const divisionKeys = Object.keys(division);
+
     return ( 
       <div className="search-filter-layer" onMouseUp={this.search}>
-        <h3>Google Fonts Search</h3>
+        <div className="search-item type-text">
+          <span>
+            <input type="text" placeholder="Type here to preview text" defaultValue={this.state.typeText} onKeyUp={this.changeTypeText} />
+          </span>
+          <span>
+            <input type="range" max="250" min="10" defaultValue={this.state.fontSize} onChange={this.changeFontSize} />
+          </span>
+        </div>
         <div className="search-header">Categories</div>
         <div className="search-item">
-          <label onClick={this.toggleCheckBox} ref="serif"><i className="material-icons">check_box_outline_blank</i> Serif</label>
-          <label onClick={this.toggleCheckBox} ref="sansserif"><i className="material-icons">check_box_outline_blank</i> Sans-Serif</label>
-          <label onClick={this.toggleCheckBox} ref="display"><i className="material-icons">check_box_outline_blank</i> Display</label>
-          <label onClick={this.toggleCheckBox} ref="handwriting"><i className="material-icons">check_box_outline_blank</i> Handwriting</label>
-          <label onClick={this.toggleCheckBox} ref="monospace"><i className="material-icons">check_box_outline_blank</i> Monospace</label>
+          {cateKeys.map((key, index) => {
+
+            const isSelected = categories[key];
+            let className = "";
+            if (isSelected) {
+              className = " selected ";
+            }
+
+            return <label key={index} className={className} onClick={this.toggleCategory(key)} >{key}</label>
+          })}
         </div>
-        <div className="search-header">Thickness</div>
+        <div className="search-header">Division</div>
         <div className="search-item">
-          <label ref="fontWeight" className="inline" onClick={this.toggleCheckBox}><i className="material-icons">check_box_outline_blank</i></label>
-          <span style={{ display: 'inline-block', width: '120px', 'paddingLeft': '20px'}}><input ref="thickness" type="range" max="9" min="1" step="1" defaultValue="4" /></span>
+          {divisionKeys.map((key, index) => {
+
+            const isSelected = division[key];
+            let className = "";
+            if (isSelected) {
+              className = " selected ";
+            }
+
+            return <label key={index} className={className} onClick={this.toggleDivision(key)} >{key}</label>
+          })}
         </div>
       </div>
 

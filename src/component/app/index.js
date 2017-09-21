@@ -84,6 +84,10 @@ class App extends Component {
     this.refs.loadingView.hide(delay);
   }
 
+  getDefaultFontStyle () {
+    return this.refs.font.getDefaultFontStyle();
+  }
+
   render() { 
 
     return (

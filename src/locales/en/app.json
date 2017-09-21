@@ -5,5 +5,21 @@
     "app.inputText.placeholder": "Select a glyph or emoji. You can copy once.",
     "app.inputText.item.title" : "If click, it is delete",
 
+    "fontmanager.category.system.folder.name": "System Folder",
+    "fontmanager.title.download": "Download",
+    "fontmanager.title.detail": "Details",
+    "fontmanager.title.license": "License",    
+    "fontmanager.title.open": "Open",        
+
+    "fontmanager.title.facebook": "facebook",        
+    "fontmanager.title.twitter": "twitter",        
+    "fontmanager.title.github": "github",        
+
+    "directorymanager.title.addDirectory" : "Add Directory",
+    "directorymanager.title.refresh" : "Refresh",
+    
+    "searchtoolbar.title.favorite": "Favorite",
+    "searchtoolbar.title.directory": "Directory",    
+
     "" : ""
 }

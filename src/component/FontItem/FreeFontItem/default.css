@@ -1,12 +1,13 @@
 .free-font-item .font-info {
     overflow: auto;
     display: flex; 
-    padding:10px;
+    padding:5px;
     padding-left:0px;    
     padding-right:60px;
     text-align: center;
     margin-bottom:10px;
     font-size: 13px !important;
+    background-color: #f4f4f4; 
 }
 
 .free-font-item .font-info .font-sub-family,
@@ -18,13 +19,26 @@
 
 .free-font-item .tools {
     position: absolute;
-    right: 10px;
-    top:10px;
+    right: 0px;
+    top:6px;
     display:inline-block;
     font-size:13px;
     z-index: 100;
-    color: #b6b6b6;
+    color: #666666;
     user-select: none;
+}
+
+.free-font-item .tools > span {
+    margin-right:10px;
+    vertical-align: middle;
+}
+
+.free-font-item .tools > span.divider {
+    display: inline-block;
+    height:10px;
+    border-right:1px solid #999;
+    width:2px;
+    box-sizing: border-box;
 }
 
 .free-font-item .tools .icon {
@@ -111,8 +125,12 @@
 
 .free-font-item .font-description .desc-item {
     margin-bottom:5px;
+    padding:5px;    
     padding-left:20px;
     padding-right:20px;    
+    border:1px solid #666;
+    color:black;
+    background-color: #ececec;
 }
 
 
