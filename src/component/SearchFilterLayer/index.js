@@ -17,8 +17,8 @@ class SearchFilterLayer extends Component {
         'Monospace' : false
       },
       division : {
-        'Google Font' : false, 
-        'Free Font' : false 
+        'Google Fonts' : false, 
+        'Free Fonts' : false 
       }
     }
   }
@@ -47,12 +47,16 @@ class SearchFilterLayer extends Component {
 
   getSearchFilterOptions = () => {
     return {
-      category : {
+      categories : {
         serif : this.state.categories['Serif'],
-        sanserif : this.state.categories['Sans Serif'],
+        'sans-serif' : this.state.categories['Sans Serif'],
         display : this.state.categories['Display'],
         handwriting : this.state.categories['Handwriting'],
         monospace : this.state.categories['Monospace'],
+      },
+      division : {
+        "GoogleFonts" : this.state.division['Google Fonts'],
+        "FreeFonts" : this.state.division['Free Fonts'],        
       }
     }
   }

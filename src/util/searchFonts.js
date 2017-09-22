@@ -4,7 +4,7 @@ import fonts from '../resources/fonts'
 
 const filterType = (font, filter) => {
 
-    const result = (filter.type === font.type);
+    const result = (filter.division[font.type]);
     return result; 
 }
 
@@ -27,21 +27,10 @@ const filterLabels = (font, filter) => {
     return font.labels.some((label) => filter.text.test(label));
 }
 
-const filterWeight = (font, filter) => {
-    const weight = filter.googleFontSearch.weight === 400 ? 'regular' : filter.googleFontSearch.weight;
-
-    if (!font.variants) { return true; }
-    if (!weight) return true; 
-
-    return font.variants.some((v) => v.indexOf(weight+'') > -1) 
-}
-
 const filterCategory = (font, filter) => { 
-
     if (!font.category) return false; 
-    if (!filter.text) { return true; }
 
-    return filter.categories.includes(font.category);
+    return filter.categories[font.category];
 }
 
 const filterFavorite = (font, filter) => {
@@ -71,10 +60,14 @@ const search = (searchFilter, callback) => {
     callback && callback(results);
 }
 
+const hasCheckedField = (obj) => {
+    return Object.values(obj).some(i => i);
+}
+
 const createSearchFilter = (filter) => {
     let searchFilter = {filter: filter, funcs : []}
 
-    if (filter.type) {
+    if (hasCheckedField(filter.division)) {
         searchFilter.funcs.push(filterType)
     }
 
@@ -87,22 +80,9 @@ const createSearchFilter = (filter) => {
         searchFilter.funcs.push(filterFavorite)
     }    
 
-    if (filter.googleFontSearch) {
-        if (filter.googleFontSearch.weight) {
-            searchFilter.funcs.push(filterWeight)
-         }
-     
-         if (filter.googleFontSearch.category) {
-             filter.categories = Object.keys(filter.googleFontSearch.category).filter(c => filter.googleFontSearch.category[c]);
-     
-             if (filter.categories.length) {
-                 searchFilter.funcs.push(filterCategory)
-             }
-     
-         }    
-     
+    if (hasCheckedField(filter.categories)) {
+        searchFilter.funcs.push(filterCategory)
     }
-
 
     return searchFilter;
 }

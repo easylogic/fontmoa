@@ -66,10 +66,9 @@ class FontManager extends Window {
     }
 
     this.searchTimer = setTimeout(() => {
-      const tempFilter = filterOptions || {
-        googleFontSearch : this.refs.searchFilterLayer.getSearchFilterOptions(),
+      const tempFilter = filterOptions || Object.assign({
         text : this.refs.search.getText() 
-      }
+      }, this.refs.searchFilterLayer.getSearchFilterOptions())
   
       db.searchFiles(tempFilter, (files) => {
         this.refreshFiles(files);

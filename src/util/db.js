@@ -66,7 +66,6 @@ const getCurrentLanguage = (fontItem) => {
 const insertFont = (font, fontObj, done) => {
 
     try {
-
         const fontItem = {
             postscriptName : (font.name ? font.postscriptName : ''),
             fullName: (font.name ? font.fullName : ''),
@@ -415,10 +414,15 @@ const createDBFilter = (filter) => {
     return dbFilter;
 }
 
+const hasCheckedField = (obj) => {
+    return Object.values(obj).some(i => i);
+}
+
 const searchFiles = (filter, callback) => {
 
+    //TODO: Category System for local font 
+    if (!hasCheckedField(filter.division) &&  !hasCheckedField(filter.categories)) {    
 
-    if (!filter.type) { // 조건 filter 가 없을 때는  db 조회(로컬 폰트는 조회)하지 않는다. 
         const dbFilter = createDBFilter(filter)
         
         fontDB.find(dbFilter, (err2, files) => {
@@ -428,6 +432,7 @@ const searchFiles = (filter, callback) => {
             })
         })
     } else {
+        // 조건 filter 가 없을 때는  db 조회(로컬 폰트는 조회)하지 않는다. 
         searchFonts.searchFonts(filter, callback);
     }
 
