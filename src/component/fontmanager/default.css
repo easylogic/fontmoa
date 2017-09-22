@@ -68,21 +68,32 @@
 .app-search-filter {
   position:absolute;
   display:inline-block;
-  top:-120%;
+  top:50px;
   left: 0px;
   right:0px;
+  bottom:100%;
   overflow: auto;
   box-sizing: border-box;
   transition: all 0.1s linear;
   z-index:90;  
-  background-color:rgba(255, 255, 255, 1);
+
   border-right:1px solid #ececec;
   user-select: none;
-  box-shadow: 1px 3px 6px rgba(0,0,0,0.25);  
+
+}
+
+.app-search-filter-background {
+  position:absolute;
+  left:0px;
+  right:0px;
+  z-index:0;
+  top:0px;
+  bottom:0px;
+  background-color:rgba(0, 0, 0, 0.3);
 }
 
 .app-search-filter.open {
-  top:50px;
+  bottom:40px;
 }
 
 .app-directory {

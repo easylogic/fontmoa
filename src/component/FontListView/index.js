@@ -112,7 +112,7 @@ class FontListView extends Component {
 
         return (
             <div className="font-list-view">
-                <div ref="fontListContent" className="font-list-content" onScroll={this.props.onScroll} onClick={this.props.onClick}>
+                <div ref="fontListContent" className="font-list-content" onClick={this.props.onClick}>
                     {items.map((it, i) => {
                         return this.renderItem(it, i);
                     })}

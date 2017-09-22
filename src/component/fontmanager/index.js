@@ -48,16 +48,10 @@ class FontManager extends Window {
 
   toggleSearchFilter = () => {
     this.refs.searchFilter.classList.toggle('open');
-
-    if (!this.refs.searchFilter.classList.contains('open')) {
-      this.search();
-    }
   }
 
   hideSearchFilter = () => {
     this.refs.searchFilter.classList.remove('open');
-
-    this.search();
   }  
 
   showDirectory = (isShow) => {
@@ -156,6 +150,7 @@ class FontManager extends Window {
             {/*<FontToolbar search={this.search} /> */}
           </div>
           <div ref="searchFilter" className="app-search-filter">
+            <div className="app-search-filter-background" onClick={this.hideSearchFilter}></div>
             <SearchFilterLayer ref="searchFilterLayer" search={this.search} />
           </div>
           <div className="app-content">
