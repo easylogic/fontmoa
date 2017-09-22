@@ -35,6 +35,11 @@ yarn dev
 * Support Typekit 
 * Add more free font list
 
+# Screen Shot 
+
+![](https://user-images.githubusercontent.com/591983/30735350-a80b9ed4-9fb9-11e7-9d57-732e7e105ace.png)
+
+
 # License 
 
 License MIT  (easylogic, cyberuls@gmail.com)
