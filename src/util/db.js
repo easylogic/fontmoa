@@ -415,6 +415,7 @@ const createDBFilter = (filter) => {
 }
 
 const hasCheckedField = (obj) => {
+    obj = obj || {}
     return Object.values(obj).some(i => i);
 }
 

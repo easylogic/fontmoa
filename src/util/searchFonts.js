@@ -61,6 +61,7 @@ const search = (searchFilter, callback) => {
 }
 
 const hasCheckedField = (obj) => {
+    obj = obj || {};
     return Object.values(obj).some(i => i);
 }
 
