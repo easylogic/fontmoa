@@ -163,8 +163,8 @@ class FontManager extends Window {
               <span className="divider"></span>
             </span>
             <span className="tools">
-              <span onClick={this.openIconMaker} title="Icon Optimizer"></span>
-              <span onClick={this.openFontEditor} title="Font Editor"></span>
+              <span onClick={this.openIconMaker} title={intl.get('fontmanager.title.iconfont')}></span>
+              <span onClick={this.openFontEditor} title={intl.get('fontmanager.title.fonteditor')}></span>
             </span>
           </div>
           <div ref="directory" className="app-directory">

@@ -14,12 +14,17 @@
     "fontmanager.title.facebook": "facebook",        
     "fontmanager.title.twitter": "twitter",        
     "fontmanager.title.github": "github",        
+    "fontmanager.title.iconfont": "Icon Font",            
+    "fontmanager.title.fonteditor": "Font Editor",        
 
     "directorymanager.title.addDirectory" : "Add Directory",
     "directorymanager.title.refresh" : "Refresh",
     
     "searchtoolbar.title.favorite": "Favorite",
-    "searchtoolbar.title.directory": "Directory",    
+    "searchtoolbar.title.directory": "Directory",
+    
+    "searchfilterlayer.title.categories": "Categories",
+    "searchfilterlayer.title.division": "Division",
 
     "" : ""
 }

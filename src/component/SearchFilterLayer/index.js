@@ -1,3 +1,4 @@
+import intl from 'react-intl-universal'
 import React, { Component } from 'react';
 import './default.css';
 
@@ -106,7 +107,7 @@ class SearchFilterLayer extends Component {
             <input type="range" max="250" min="10" defaultValue={this.state.fontSize} onChange={this.changeFontSize} />
           </span>
         </div>
-        <div className="search-header">Categories</div>
+        <div className="search-header">{intl.get('searchfilterlayer.title.categories')}</div>
         <div className="search-item">
           {cateKeys.map((key, index) => {
 
@@ -119,7 +120,7 @@ class SearchFilterLayer extends Component {
             return <label key={index} className={className} onClick={this.toggleCategory(key)} >{key}</label>
           })}
         </div>
-        <div className="search-header">Division</div>
+        <div className="search-header">{intl.get('searchfilterlayer.title.division')}</div>
         <div className="search-item">
           {divisionKeys.map((key, index) => {
 

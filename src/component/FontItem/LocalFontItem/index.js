@@ -171,7 +171,8 @@ class LocalFontItem extends Component {
                 </div>
                 
                 <div className="tools">
-                    <span className="link" onClick={this.toggleDescription} title="Open Description">{intl.get('fontmanager.title.detail')}</span>                    
+                    <span className="link" onClick={this.toggleDescription} title="Open Description">{intl.get('fontmanager.title.detail')}</span>     
+                    <span className="divider"></span>               
                     <span className="link"onClick={this.openFontFile} title="Open Font File">{intl.get('fontmanager.title.open')}</span>
                     <span className={favoriteClass}  onClick={this.toggleFavorite} title="Add Favorite">{favoriteIcon}</span>                    
                 </div>

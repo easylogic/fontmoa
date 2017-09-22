@@ -76,7 +76,7 @@
 .local-font-item .tools > span.divider {
     display: inline-block;
     height:10px;
-    border-right:1px solid #999;
+    border-right:1px solid #ccc;
     width:2px;
     box-sizing: border-box;
 }

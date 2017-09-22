@@ -24,7 +24,7 @@ class VariantsRadio extends Component {
                 { this.state.labels.map((label, index) => {
                     let realLabel = [label]; 
                     if (label.includes('italic')) {
-                        realLabel = [label.replace('italic', ' italic')]; 
+                        realLabel = [label.replace('italic', ' It')]; 
                     }
 
                     let attrs = {

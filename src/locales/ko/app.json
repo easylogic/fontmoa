@@ -8,18 +8,24 @@
     "fontmanager.category.system.folder.name": "시스템 디렉토리",
     "fontmanager.title.download": "다운로드",
     "fontmanager.title.detail": "자세히",
-    "fontmanager.title.license": "라이센스",    
-    "fontmanager.title.open": "열기",            
+    "fontmanager.title.license": "라이센스",
+    "fontmanager.title.open": "열기",
 
     "fontmanager.title.facebook": "페이스북",        
     "fontmanager.title.twitter": "트위터",        
     "fontmanager.title.github": "Github",        
+    "fontmanager.title.iconfont": "아이콘 폰트",
+    "fontmanager.title.fonteditor": "폰트 에디터",        
 
     "directorymanager.title.addDirectory" : "디렉토리 추가하기",
     "directorymanager.title.refresh" : "새로고침",
 
     "searchtoolbar.title.favorite": "좋아요",
     "searchtoolbar.title.directory": "폴더관리",
+
+    "searchfilterlayer.title.categories": "카테고리",
+    "searchfilterlayer.title.division": "폰트 리스트 구분",
+    
 
     "" : ""
 }
