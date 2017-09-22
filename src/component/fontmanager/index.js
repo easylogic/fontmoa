@@ -8,7 +8,6 @@ import { db }  from '../../util'
 import FontListView from '../FontListView'
 import DirectoryManager from '../DirectoryManager'
 import SearchFilterLayer from '../SearchFilterLayer'
-//import FontToolbar from '../FontToolbar'
 import SearchToolbar from '../SearchToolbar'
 
 const { shell } = window.require('electron').remote;
@@ -146,7 +145,6 @@ class FontManager extends Window {
         <div className="window fontmanager-window font-manager" id={this.props.id}>
           <div className="app-menu">
             <SearchToolbar ref="search" search={this.search} showDirectory={this.showDirectory} toggleSearchFilter={this.toggleSearchFilter}  />
-            {/*<FontToolbar search={this.search} /> */}
           </div>
           <div ref="searchFilter" className="app-search-filter">
             <div className="app-search-filter-background" onClick={this.hideSearchFilter}></div>
