@@ -1,3 +1,6 @@
+.google-early-access-font-item {
+    margin-bottom:20px;
+}
 .google-early-access-font-item .font-info {
     overflow: auto;
     display: flex; 
@@ -7,11 +10,9 @@
     text-align: center;
     margin-bottom:10px;
     font-size: 13px !important;
-    background-color: #f4f4f4;    
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.02) , rgba(0, 0, 0, 0));
 }
 
-.google-early-access-font-item .font-info .font-sub-family,
-.google-early-access-font-item .font-info .font-name,
 .google-early-access-font-item .font-info .tools .icon
 {
     pointer-events: none;
@@ -20,7 +21,7 @@
 .google-early-access-font-item .tools {
     position: absolute;
     right: 10px;
-    top:10px;
+    top:4px;
     display:inline-block;
     font-size:13px;
     z-index: 100;
@@ -41,14 +42,6 @@
     box-sizing: border-box;
 }
 
-
-.google-early-access-font-item .tools .icon {
-    pointer-events: none;
-}
-
-.google-early-access-font-item .tools .material-icons {
-    font-size:18px;
-}
 
 .google-early-access-font-item .font-info .font-name {
     flex : 10 ; 
@@ -76,10 +69,6 @@
     vertical-align: middle;
 }
 
-.google-early-access-font-item .font-info .font-sub-family {
-    display: none;
-}
-
 .google-early-access-font-item .font-item-preview {
     pointer-events: none;
     user-select: auto;
@@ -90,3 +79,25 @@
     padding-right:10px;
 }
 
+
+.google-early-access-font-item .font-description {
+    font-size: 13px;
+    color: #877D7D;
+    padding-left:20px;
+    padding-right:20px;
+    box-sizing:border-box;
+}
+
+.google-early-access-font-item .font-description h3 {
+    font-size:13px;
+}
+
+.google-early-access-font-item .font-description .desc-item {
+    margin-bottom:5px;
+    padding:5px;    
+
+    border:1px solid #e0e0e0;
+    color:black;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.01);
+}

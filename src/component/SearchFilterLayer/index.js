@@ -18,7 +18,9 @@ class SearchFilterLayer extends Component {
       },
       division : {
         'Google Fonts' : false, 
-        'Free Fonts' : false 
+        "Google Fonts Early Access" : false, 
+        'Free Fonts' : false,
+
       }
     }
   }
@@ -57,6 +59,7 @@ class SearchFilterLayer extends Component {
       division : {
         "GoogleFonts" : this.state.division['Google Fonts'],
         "FreeFonts" : this.state.division['Free Fonts'],        
+        "GoogleFontsEarlyAccess" : this.state.division['Google Fonts Early Access'],
       }
     }
   }

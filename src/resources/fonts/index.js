@@ -3,9 +3,9 @@ import GoogleFontEarlyAccessList from './google-font-early-access-list'
 import FreeFontList from './free-font-list'
 
 const fonts = { 
-    FreeFontList,
     GoogleFontList,
-    GoogleFontEarlyAccessList,
+    GoogleFontEarlyAccessList,    
+    FreeFontList,    
 }
 
 export default fonts 

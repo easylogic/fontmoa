@@ -64,6 +64,14 @@ class GoogleEarlyAccessItem extends Component {
         const fontObj = this.state.fontObj; 
         const name = fontObj.name || fontObj.family;
         const preview = {__html : fontObj.description || ""}
+        let cssLink = "";
+        let exampleItem = "";
+        if (fontObj.cssImport) {
+            let descItem = fontObj.cssImport.split(/\n/);
+            cssLink = descItem.shift();
+            exampleItem = descItem.join('\n')
+        }
+
 
         return (
             <div className="google-early-access-font-item">
@@ -78,6 +86,19 @@ class GoogleEarlyAccessItem extends Component {
                 <div className="font-item-preview">
                     <div dangerouslySetInnerHTML={preview} />
                 </div>      
+                {cssLink ? (
+                    <div className="font-description">
+                        <h3>Link</h3>
+                        <div className="desc-item">{cssLink}</div>
+                    </div>
+                ) : ""}
+                {exampleItem ? (
+                    <div className="font-description">
+                        <h3>Example</h3>
+                        <div className="desc-item">{exampleItem}</div>
+                    </div>
+                ) : ""}
+                
                 <LabelInput fontObj={fontObj} labels={fontObj.labels} readonly={true}/> 
             </div>
         )
