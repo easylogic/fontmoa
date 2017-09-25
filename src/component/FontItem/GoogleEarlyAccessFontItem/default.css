@@ -1,6 +1,13 @@
 .google-early-access-font-item {
     margin-bottom:20px;
 }
+
+.google-early-access-font-item .license-icon {
+    width :20px;
+    vertical-align: middle;
+    margin-right:5px;
+}
+
 .google-early-access-font-item .font-info {
     overflow: auto;
     display: flex; 

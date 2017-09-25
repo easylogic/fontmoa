@@ -80,6 +80,7 @@ class GoogleFontItem extends Component {
             window.open(link, name || '_link');
         }
     }    
+
    
     render () {
            

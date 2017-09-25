@@ -102,6 +102,14 @@ class LocalFontItem extends Component {
         return result; 
     }
 
+    getLicenseIcon = (license) => {
+        if (license && license.indexOf('SIL') > -1 ) {
+            return (<img className="license-icon" src='./license/OFLlogos/PNG/OFLLogoCircBW.png' alt="SIL, Open Font License" width="30px"/>)
+        } else {
+            return (<i className="material-icons license-icon">turned_in_not</i>)
+        }
+    }
+
     getDescriptionItem = (names) => {
 
         return Object.keys(names).map((key, index) => {
@@ -109,7 +117,7 @@ class LocalFontItem extends Component {
                 return (
                     <div key={index} className="desc-item">
                         <a href={names.licenseURL} target="_license">
-                            <i className="material-icons">turned_in_not</i>
+                            {this.getLicenseIcon(names.license)} 
                             {names.license}
                         </a>
                     </div>)
@@ -163,7 +171,7 @@ class LocalFontItem extends Component {
         return (
             <Observer className="local-font-item" onChange={inView => this.loadFontCss(inView)}>
                 <div className="font-info">
-                    <div className="font-family"onClick={this.showFontFile}>{font.currentFamilyName}</div>
+                    <div className="font-family"onClick={this.showFontFile}>{this.getLicenseIcon(names.license)} {font.currentFamilyName}</div>
                 </div>
                 <div className="directory-name">{dirname}</div>                
                 <div ref="description" className="font-description" title="Font Description"> 

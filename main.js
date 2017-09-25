@@ -47,8 +47,8 @@ function createWindow() {
 
   // Initialize the window to our specified dimensions
   win = new BrowserWindow({
-    width: 400, 
-    height: 500
+    width: 500, 
+    height: 600
   });
   win.setMenu(null);
 

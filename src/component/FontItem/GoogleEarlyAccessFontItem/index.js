@@ -57,6 +57,13 @@ class GoogleEarlyAccessItem extends Component {
         return results; 
     }
    
+    getLicenseIcon = (license) => {
+        if (license && license.indexOf('SIL') > -1 ) {
+            return (<img className="license-icon" src='./license/OFLlogos/PNG/OFLLogoCircBW.png' alt="license logo" width="30px"/>)
+        } else {
+            return (<i className="material-icons">cloud</i> )
+        }
+    }    
 
     render () {
            
@@ -77,7 +84,7 @@ class GoogleEarlyAccessItem extends Component {
             <div className="google-early-access-font-item">
                 <div className="font-info">
                     <div className="font-family" title={fontObj.family}>
-                        <i className="material-icons">cloud</i> {name} <span className="category">{fontObj.category}</span>
+                        {this.getLicenseIcon(fontObj.license)} {name} <span className="category">{fontObj.category}</span>
                     </div>
                 </div> 
                 <div className="tools">
