@@ -2,6 +2,26 @@
     "type" : "FreeFonts",
     "items": [
         {
+            "family": "Funhouse",
+            "name": "Darrell Flood",
+            "icon" : "",
+            "iconImageUrl" : "",
+            "description": "This font, created by Darrell Flood, is free to use for personal use (tho I appreciate donations!)\nPlease give as much as you honestly feel the font is worth to you.\n\nFor commercial use you must purchase a license here: https://www.creativefabrica.com/product/funhouse/ref/74273/ \nThank you for downloading this font and I hope you find a use for it!",
+            "link": "http://www.dafont.com/funhouse.font",
+            "downloadUrl" : "http://dl.dafont.com/dl/?f=funhouse",
+            "license": "For commercial use you must purchase a license",
+            "licenseDescription" : "For commercial use you must purchase a license here: https://www.creativefabrica.com/product/funhouse/ref/74273/",
+            "buyUrl" : "https://www.creativefabrica.com/product/funhouse/ref/74273/",
+            "labels" : ["Fancy", "Cartoon"],
+            "available" : [],
+            "unavailable" : [],
+            "author" : {
+                "name" : "Darrell Flood",
+                "company" : "",
+                "donateUrl" : "http://www.dafont.com/funhouse.font?text=%26%2312601%3B%26%2312596%3Bfdsaf&back=theme#null"
+            }
+        },        
+        {
             "family": "BMYEONSUNG",
             "name": "배달의 민족 연성체 (korean)",
             "icon" : "",
@@ -13,7 +33,11 @@
             "licenseDescription" : "배달의민족 글꼴의 지적재산권은 (주)우아한형제들에 있습니다.배달의민족 글꼴은 개인 및 기업 사용자를 포함한 모든 사용자에게 무료로 제공되며 자유롭게 수정, 재배포가 가능합니다.",
             "labels" : ["handwriting", "손글씨"],
             "available" : [],
-            "unavailable" : []
+            "unavailable" : [],
+            "author" : {
+                "name" : "",
+                "company" : ""
+            }
         },
         {
             "family": "Spoqa Han Sans",

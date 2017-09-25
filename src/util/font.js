@@ -39,14 +39,20 @@ const isFontFile = (file) => {
 }
 
 const downloadFile = (link, callback) => {
-    const targetFile = path.resolve(font_root, path.basename(link));
+    let targetFile = path.resolve(font_root, path.basename(link));
+
+    if (isZipFile(targetFile) || isFontFile(targetFile)) {
+
+    } else {
+        targetFile = path.resolve(font_root, Date.now() + ".zip");
+    }
 
     if (isZipFile(targetFile) || isFontFile(targetFile)) {
         // copy 하기 
         download.downloadFile(link, targetFile, () => {
             //console.log('download file', targetFile);
             if (isZipFile(targetFile)) { // 과연 압축 파일을 받아서 압축을 풀어주는게 맞을까? 
-                const dir  = path.dirname(targetFile)       
+                const dir  = path.resolve(path.dirname(targetFile), path.basename(targetFile, ".zip"))
                 let files = [];         
                 extract(targetFile, {
                     dir,
