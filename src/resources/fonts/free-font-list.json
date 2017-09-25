@@ -16,12 +16,12 @@
                 "description" : "Description; description of the typeface.",
                 "vendorURL" : "URL of the font vendor",
                 "designerURL" : "URL of the font designer ",
-                "downloadURL" : "Font File to download ",
                 "licenseURL": "License information URL",
                 "license": "SIL"
             },
             "previewImage" : "Font Preview Image",            
-            "buyUrl": "Buy Link",
+            "downloadURL" : "Font File to download ",            
+            "buyURL": "Buy Link",
             "labels" : [ "label",  "" ]    
         }
     ]

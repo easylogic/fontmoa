@@ -8,12 +8,26 @@ const filterType = (font, filter) => {
     return result; 
 }
 
+
 const filterText = (font, filter) => {
     const result = ( 
         filter.text.test(font.family) || 
         filter.text.test(font.name) ||  
         filter.text.test(font.category) ||
+        filterNamesText(font, filter) || 
         filterLabels(font, filter)
+    );
+
+    return result; 
+}
+
+
+const filterNamesText = (font, filter) => {
+    if (!font.names) return false; 
+
+    const result = (
+        filter.text.test(font.names.family) || 
+        filter.text.test(font.names.subFamily)
     );
 
     return result; 

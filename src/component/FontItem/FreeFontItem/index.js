@@ -94,6 +94,8 @@ class FreeFontItem extends Component {
                     </div>)
             }  else if (key === 'designer') {
                 return <div key={index} className="desc-item"><a href={names.designerURL} target="_designer"><i className="material-icons">turned_in_not</i> {names.designer}</a></div>
+            }  else if (key === 'manufacturer') {
+                return <div key={index} className="desc-item"><a href={names.vendorURL} target="_designer"><i className="material-icons">turned_in_not</i> {names.manufacturer}</a></div>                
             }  else if (key === 'copyright') {
                 return <div key={index} className="desc-item">{names.copyright}</div>
             }
@@ -108,6 +110,8 @@ class FreeFontItem extends Component {
 
         results.push(<span key={0} className="link" onClick={this.toggleDescription} title="Open Description">{intl.get('fontmanager.title.detail')}</span>)
         
+        console.log(fontObj);
+
         if (fontObj.downloadURL) { 
             results.push(<span key={1} className="link" title="Font Download" onClick={this.downloadUrl(fontObj.downloadURL)} >{intl.get('fontmanager.title.download')}</span>);
         }
