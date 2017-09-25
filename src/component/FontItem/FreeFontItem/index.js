@@ -44,58 +44,77 @@ class FreeFontItem extends Component {
         }
     }    
 
-    getLicense = (fontObj) => {
-        if (fontObj.license) {
-            return <div className="desc-item"> {fontObj.license} - {fontObj.licenseDescription}</div>
+   
+    getLicenseIcon = (license) => {
+        if (license && license.indexOf('SIL') > -1 ) {
+            return (<img className="license-icon" src='./license/OFLlogos/PNG/OFLLogoCircBW.png' alt="SIL, Open Font License" width="30px"/>)
+        } else {
+            return (<i className="material-icons license-icon">turned_in_not</i>)
         }
-
-        return "";
     }
 
-    getFontTitle = () => {
-        const fontObj = this.state.fontObj; 
+    getDescriptionItem = (names) => {
 
-        let icon = "";
-        
-        if (fontObj.icon) {
-            icon = <i key={0} className="material-icons">{fontObj.icon}</i> ;
-        } else if (fontObj.iconImageUrl) {
-            icon = <img key={1} alt="icon" src={fontObj.iconImageUrl} className="icon-image" />;
-        } else {
-            icon = <i key={2} className="material-icons">card_giftcard</i> ;
-        }
-
-        const linkText = [icon, <span key={4}>{fontObj.family} - {fontObj.name}</span>]
-
-        if (fontObj.link) {
-            return <a className="link" href={fontObj.link} target="_font_link">{linkText}</a>
-        } else {
-            return linkText
-        }
-
+        return Object.keys(names).map((key, index) => {
+            if (key === 'license') {
+                return (
+                    <div key={index} className="desc-item">
+                        <a href={names.licenseURL} target="_license">
+                            {this.getLicenseIcon(names.license)} 
+                            {names.license}
+                        </a>
+                    </div>)
+            }  else if (key === 'designer') {
+                return <div key={index} className="desc-item"><a href={names.designerURL} target="_designer"><i className="material-icons">turned_in_not</i> {names.designer}</a></div>
+            }  else if (key === 'copyright') {
+                return <div key={index} className="desc-item">{names.copyright}</div>
+            }
+            return "";
+        })
     }
+
+    getLicenseIcon = (license) => {
+        if (license && license.indexOf('SIL') > -1 ) {
+            return (<img className="license-icon" src='./license/OFLlogos/PNG/OFLLogoCircBW.png' alt="SIL, Open Font License" width="30px"/>)
+        } else {
+            return (<i className="material-icons license-icon">turned_in_not</i>)
+        }
+    }
+
+    getDescriptionItem = (names) => {
+
+        return Object.keys(names).map((key, index) => {
+            if (key === 'license') {
+                return (
+                    <div key={index} className="desc-item">
+                        <a href={names.licenseURL} target="_license">
+                            {this.getLicenseIcon(names.license)} 
+                            {names.license}
+                        </a>
+                    </div>)
+            }  else if (key === 'designer') {
+                return <div key={index} className="desc-item"><a href={names.designerURL} target="_designer"><i className="material-icons">turned_in_not</i> {names.designer}</a></div>
+            }  else if (key === 'copyright') {
+                return <div key={index} className="desc-item">{names.copyright}</div>
+            }
+            return "";
+        })
+    }
+
 
     getTools () { 
         const fontObj = this.state.fontObj; 
         let results = [];
+
+        results.push(<span key={0} className="link" onClick={this.toggleDescription} title="Open Description">{intl.get('fontmanager.title.detail')}</span>)
         
-        if (fontObj.downloadUrl) { 
-            results.push(<span key={0} className="link" title="Font Download" onClick={this.downloadUrl(fontObj.downloadUrl)} >{intl.get('fontmanager.title.download')}</span>);
+        if (fontObj.downloadURL) { 
+            results.push(<span key={1} className="link" title="Font Download" onClick={this.downloadUrl(fontObj.downloadURL)} >{intl.get('fontmanager.title.download')}</span>);
         }
 
-        if (fontObj.license) {
-            if (results.length) results.push(<span key={1} className="divider"></span>)
-            results.push(<span key={2} className="link" onClick={this.toggleDescription} title="Open Description">{intl.get('fontmanager.title.detail')}</span>);
-        }
-
-        if (fontObj.licenseUrl) { 
-            if (results.length) results.push(<span key={3} className="divider"></span>)            
-            results.push(<span key={4} className="link" title="View License" onClick={this.goUrl(fontObj.licenseUrl, 'License')} >License</span>)
-        }
-
-        if (fontObj.buyUrl) {
+        if (fontObj.buyURL) {
             if (results.length) results.push(<span key={5} className="divider"></span>)            
-            results.push(<span key={6} className="link" onClick={this.goUrl(fontObj.buyUrl, 'Buy')} >Buy</span>)
+            results.push(<span key={2} className="link" onClick={this.goUrl(fontObj.buyURL, 'Buy Font')} >Buy</span>)
         }
 
         return results; 
@@ -110,22 +129,28 @@ class FreeFontItem extends Component {
         return (
             <div className="free-font-item">
                 <div className="font-info">
-                    <div className="font-family" title={fontObj.family}>
-                        {this.getFontTitle()}                        
+                    <div className="font-family" title={fontObj.names.family}>
+                        {this.getLicenseIcon(fontObj.names.license)} {fontObj.names.family}                    
                     </div>
                 </div> 
                 <div className="tools">
                     {this.getTools()}
                 </div>   
                 <div ref="description" className="font-description" title="Font Description"> 
-                    {this.getLicense(fontObj)}
-                </div>       
-                <div className="preview-image">
-                    {fontObj.previewImage ? <img src={encodeURIComponent(fontObj.previewImage)} alt="Preview Font" /> : ""}
-                </div>                         
-                <div className="font-item-preview">
-                    <div dangerouslySetInnerHTML={preview} />
+                    {this.getDescriptionItem(fontObj.names)}
                 </div>
+
+                {fontObj.previewImage ?        
+                    (<div className="preview-image">
+                        <img src={encodeURIComponent(fontObj.previewImage)} alt="Preview Font" />
+                    </div>)  : ""
+                }       
+                {preview ? 
+                    (<div className="font-item-preview">
+                        <div dangerouslySetInnerHTML={preview} />
+                    </div>)
+                     : ""
+                }
                 <LabelInput fontObj={fontObj} labels={fontObj.labels} readonly={true}/>        
             </div>
         )
