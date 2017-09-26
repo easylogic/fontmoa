@@ -10,11 +10,15 @@
     background-color: #f4f4f4; 
 }
 
-.free-font-item .font-info .font-sub-family,
-.free-font-item .font-info .font-name,
-.free-font-item .font-info .tools .icon
-{
-    pointer-events: none;
+
+.free-font-item .license-icon {
+    width :20px;
+    vertical-align: middle;
+    margin-right:5px;
+}
+
+.free-font-item .material-icons {
+    font-size:13px; 
 }
 
 .free-font-item .tools {
