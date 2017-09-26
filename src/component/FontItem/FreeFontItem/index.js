@@ -24,25 +24,24 @@ class FreeFontItem extends Component {
         this.refs.description.classList.toggle('open');
     }
 
-    
-    downloadUrl = (link) => {
-        // 구글 early access 폰트, zip 파일로 압축된 폰트 다운로드 
-        // 중복 체크         
-        return (e) => {
-            this.props.app.showLoading("Downloading...");
+    downloadFont = (e) => {
+        const fontObj = this.state.fontObj; 
 
-            font.downloadFile(link, () => {
-                console.log('done');
-                this.props.app.hideLoading(1000);
-            });
-        }
+        this.props.app.showLoading("Downloading...");
+
+        font.downloadFile(fontObj.downloadURL, fontObj.downloadFileName, () => {
+            console.log('done');
+            this.props.app.hideLoading(1000);
+        });
     }
 
     goUrl = (link, name) => {
-        return () => {
-            window.open(link, name || '_link');
-        }
+        window.open(link, name || '_link');
     }    
+
+    goBuyLink = (e) => {
+        this.goUrl(this.state.fontObj.buyURL, 'Buy');
+    }
 
    
     getLicenseIcon = (license) => {
@@ -52,35 +51,7 @@ class FreeFontItem extends Component {
             return (<i className="material-icons license-icon">turned_in_not</i>)
         }
     }
-
-    getDescriptionItem = (names) => {
-
-        return Object.keys(names).map((key, index) => {
-            if (key === 'license') {
-                return (
-                    <div key={index} className="desc-item">
-                        <a href={names.licenseURL} target="_license">
-                            {this.getLicenseIcon(names.license)} 
-                            {names.license}
-                        </a>
-                    </div>)
-            }  else if (key === 'designer') {
-                return <div key={index} className="desc-item"><a href={names.designerURL} target="_designer"><i className="material-icons">turned_in_not</i> {names.designer}</a></div>
-            }  else if (key === 'copyright') {
-                return <div key={index} className="desc-item">{names.copyright}</div>
-            }
-            return "";
-        })
-    }
-
-    getLicenseIcon = (license) => {
-        if (license && license.indexOf('SIL') > -1 ) {
-            return (<img className="license-icon" src='./license/OFLlogos/PNG/OFLLogoCircBW.png' alt="SIL, Open Font License" width="30px"/>)
-        } else {
-            return (<i className="material-icons license-icon">turned_in_not</i>)
-        }
-    }
-
+    
     getDescriptionItem = (names) => {
 
         return Object.keys(names).map((key, index) => {
@@ -99,7 +70,8 @@ class FreeFontItem extends Component {
             }  else if (key === 'copyright') {
                 return <div key={index} className="desc-item">{names.copyright}</div>
             }
-            return "";
+
+            return <div key={index} className="desc-item hide"></div>;
         })
     }
 
@@ -109,16 +81,13 @@ class FreeFontItem extends Component {
         let results = [];
 
         results.push(<span key={0} className="link" onClick={this.toggleDescription} title="Open Description">{intl.get('fontmanager.title.detail')}</span>)
-        
-        console.log(fontObj);
-
         if (fontObj.downloadURL) { 
-            results.push(<span key={1} className="link" title="Font Download" onClick={this.downloadUrl(fontObj.downloadURL)} >{intl.get('fontmanager.title.download')}</span>);
+            results.push(<span key={1} className="link" title="Font Download" onClick={this.downloadFont} >{intl.get('fontmanager.title.download')}</span>);
         }
 
         if (fontObj.buyURL) {
-            if (results.length) results.push(<span key={5} className="divider"></span>)            
-            results.push(<span key={2} className="link" onClick={this.goUrl(fontObj.buyURL, 'Buy Font')} >Buy</span>)
+            if (results.length) results.push(<span key={3} className="divider"></span>)            
+            results.push(<span key={2} className="link" onClick={this.goBuyLink} >Buy</span>)
         }
 
         return results; 
@@ -127,14 +96,14 @@ class FreeFontItem extends Component {
     render () {
            
         const fontObj = this.state.fontObj; 
-        const preview = {__html : fontObj.description || ""}
+        const preview = {__html : fontObj.names.description || ""}
 
 
         return (
             <div className="free-font-item">
                 <div className="font-info">
                     <div className="font-family" title={fontObj.names.family}>
-                        {this.getLicenseIcon(fontObj.names.license)} {fontObj.names.family}                    
+                        {this.getLicenseIcon(fontObj.names.license)} {fontObj.names.family} - {fontObj.title}             
                     </div>
                 </div> 
                 <div className="tools">

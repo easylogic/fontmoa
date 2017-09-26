@@ -2,18 +2,21 @@ const request = window.require('request');
 const fs = window.require('fs')
 
 // reference to https://ourcodeworld.com/articles/read/228/how-to-download-a-webfile-with-electron-save-it-and-show-download-progress
-const _downloadFileUtil = (configuration, ) => {
+const _downloadFileUtil = ({remoteFile, localFile, onProgress}) => {
     return new Promise((resolve, reject) => {
          // Save variable to know progress
          var received_bytes = 0;
          var total_bytes = 0;
  
          var req = request({
-             method: 'GET',
-             uri: configuration.remoteFile
+            method: 'GET',
+            url: remoteFile,
+            headers: {
+                'User-Agent': 'FontMoa'
+            }
          });
  
-         var out = fs.createWriteStream(configuration.localFile);
+         var out = fs.createWriteStream(localFile);
          req.pipe(out);
  
          req.on('response', function ( data ) {
@@ -23,12 +26,12 @@ const _downloadFileUtil = (configuration, ) => {
          });
  
          // Get progress if callback exists
-         if(configuration.hasOwnProperty("onProgress")){
+         if(onProgress){
              req.on('data', function(chunk) {
                  // Update the received bytes
                  received_bytes += chunk.length;
  
-                 configuration.onProgress(received_bytes, total_bytes);
+                 onProgress(received_bytes, total_bytes);
              });
          }else{
              req.on('data', function(chunk) {

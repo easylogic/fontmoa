@@ -16,6 +16,11 @@
   font-size: 18px;
 }
 
+.app-menu .search-icon.active .material-icons {
+  color: rgba(116, 12, 210, 0.7);
+  font-weight:bold;
+}
+
 .app-menu > .search .logo {
   position: absolute;
   left:0px;

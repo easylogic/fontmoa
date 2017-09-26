@@ -190,8 +190,16 @@ const copy = (src, target, done) => {
     rs.pipe(wr);
 } 
 
+const getURL  = (url) => {
+    if (!url) return url; 
+    if (url.includes('https://')) return url; 
+    if (url.includes('http://')) return url;     
+
+    return "http://" + url;
+}
 
 const common = {
+    getURL,
     getPath,
     getUserData,
     copy,

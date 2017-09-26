@@ -3,26 +3,197 @@
     "items": [
         {
             "names" : {
-                "copyright" : "Copyright",
-                "family": "Font Family",
-                "subfamily": "Font Sub Family",
-                "uniqueSubFamily": "Unique subfamily identification.",
-                "fullName" : "Full name of the font.",
-                "version" : "Version of the name table.",
-                "postScriptName": "PostScript name of the font. All PostScript names in a font must be identical.",
-                "trademark" : "TradeMark",
-                "manufacturer" : "Manufacturer name.",
-                "designer" : "Designer; name of the designer of the typeface.",
-                "description" : "Description; description of the typeface.",
-                "vendorURL" : "URL of the font vendor",
-                "designerURL" : "URL of the font designer ",
-                "licenseURL": "License information URL",
-                "license": "SIL"
+                "family": "Youth",
+                "manufacturer" : "한국청소년 활동 진흥원",
+                "description" : "청소년들의 건강하고 창조적인 모습을 형상화하여 개발하였으며, 청소년체의 형태는 모던한 구조로 이루어진 고딕스타일로서 글줄이 상단에 위치하여 안정적이고 밝은 느낌으로 제작되었습니다. 또한 보통의 고딕글꼴보다 리듬감 있는 구조를 통해 청소년 특유의 밝고 진취적인 이미지를 생동감 있게 표현하였습니다.",
+                "vendorURL" : "https://www.kywa.or.kr/about/about08.jsp",
+                "license": "※ 청소년체는 누구나 무료로 다운로드 받아 자유롭게 사용할 수 있습니다.\n영상매체, 인쇄매체, 웹, 모바일 등 다양한 매체에 자유롭게 사용이 가능하며, 특별한 허가 절차 없이 사용할 수 있습니다.\n다만, 청소년체를 유료로 양도하거나 판매하는 등 상업적 행위는 금지하며 소스코드 수정 등 일부 혹은 전부를 임의로 변형할 수 없습니다."
             },
-            "previewImage" : "Font Preview Image",            
-            "downloadURL" : "Font File to download ",            
-            "buyURL": "Buy Link",
-            "labels" : [ "label",  "" ]    
+            "title" : "청소년체",
+            "downloadURL" : "https://www.kywa.or.kr/about/Youth_ttf.zip",           
+            "labels" : [ "청소년",  "모던한", "modern" ]    
+        },{
+            "names" : {
+                "family": "제주한라산, 제주명조, 제주고딕",
+                "manufacturer" : "제주 도청",
+                "description" : "제주 서체 \n제주 특별자치도의 상징성과 문화적 고유성을 살리고, \n국제도시로서 디자인 예술적 품격을 갖춘 문화예술의 이미지를 담은 미래 지향적 서체 개발을 통해 도민 및 국내외 관광객이 함께 한다는 시각적 친근감으로 활용도를 높이고 기능의 다양화로 공공 디자인 인프라 조성.",
+                "vendorURL" : "https://www.jeju.go.kr/jeju/symbol/font/infor.htm",
+                "license": "제주전용서체 저작권\n영상매체, 인쇄매체, 웹, 모바일 등 다양한 매체에 자유롭게 사용이 가능하며, 특별한 허가절차 없이 사용할 수 있습니다.\n다만, 제주전용서체를 유료로 양도하거나 판매하는 등 상업적 행위는 금지하고 있습니다."
+            },
+            "title" : "제주서체",
+            "downloadURL" : "https://www.jeju.go.kr/download.htm?act=download&seq=60060&no=2",           
+            "downloadFileName" : "jeju.zip",
+            "labels" : [ "제주",  "한라산", "명조", "고딕", "serif", "sans-serif" ]    
+        },{
+            "names" : {
+                "family": "한나는 11살체",
+                "manufacturer" : "우아한 형제",
+                "description" : "배달의민족 한나체는 아크릴 판 위에 시트지를 붙여 칼로 잘라낸 1960~70년대 간판을 모티브로 만들어 삐뚤빼뚤 조형성이 떨어지는 듯한 느낌이 특징인 서체입니다. 초기 한나체의 균일하지 못했던 글자 사이의 공간을 수정하여 더욱 완성도 있는 글씨체인 '한나는열한살'체로 거듭났습니다.",
+                "vendorURL" : "http://font.woowahan.com/hanna11yrs/",
+                "license": ""
+            },
+            "title" : "배달의 민족  한나체",
+            "downloadURL" : "http://pop.baemin.com/fonts/hanna11yrs/BMHANNA_11yrs_ttf.ttf",           
+            "labels" : [ "배달의민족", "우아한형제","한나체" ]    
+        },{
+            "names" : {
+                "family": "도현체",
+                "manufacturer" : "우아한 형제",
+                "description" : "배달의민족 도현체는 작도 후 아크릴판에 자를 대고 컷팅해서 만든 옛 간판을 모티브로 한 서체입니다. 자음과 모음의 획이 서로 이어지는 것이 특징이며, 한글 서체 최초로 'ㅅ,ㅈ,ㅎ' 등의 모양이 옆에 어떤 모음이 오느냐에 따라 자동으로 달라지는 글리프(glyph)를 적용하였습니다.\n(글리프는 포토샵, 일러스트, 키노트등 어도비 계열 프로그램에서만 확인 가능합니다.)",
+                "vendorURL" : "http://font.woowahan.com/dohyeon/",
+                "license": ""
+            },
+            "title" : "배달의 민족  도현체",
+            "downloadURL" : "http://pop.baemin.com/fonts/dohyeon/BMDOHYEON_ttf.ttf",           
+            "labels" : [ "배달의민족", "우아한형제","도현체" ]    
+        },{
+            "names" : {
+                "family": "주아체",
+                "manufacturer" : "우아한 형제",
+                "description" : "배달의민족 주아체는 붓으로 직접 그려서 만든 손글씨 간판을 모티브로 만들었습니다. 붓으로 그려 획의 굵기가 일정하지 않고 동글동글한 느낌을 주는 서체로 옛날 간판의 푸근함과 정겨움이 묻어나는 것이 특징입니다.",
+                "vendorURL" : "http://font.woowahan.com/jua/",
+                "license": ""
+            },
+            "title" : "배달의 민족 주아체",
+            "downloadURL" : "http://pop.baemin.com/fonts/jua/BMJUA_ttf.ttf",           
+            "labels" : [ "배달의민족", "우아한형제","주아체" ]    
+        },{
+            "names" : {
+                "family": "연성체",
+                "manufacturer" : "우아한 형제",
+                "description" : "배달의민족 연성체는 제주도 호박엿 가판대를 모티브로 만든 서체입니다. 어수룩하지만 또박또박 한 글자씩 정성스럽게 써 내려간 붓글씨체로, 울뚝불뚝 리듬감이 느껴지는 것이 특징입니다.",
+                "vendorURL" : "http://font.woowahan.com/yeonsung/",
+                "license": ""
+            },
+            "title" : "배달의 민족 연성체",
+            "downloadURL" : "http://pop.baemin.com/fonts/yeonsung/BMYEONSUNG_ttf.ttf",           
+            "labels" : [ "배달의민족", "우아한형제","연성체" ]    
+        },{
+            "names" : {
+                "family": "성동고딕",
+                "manufacturer" : "성동구청",
+                "description" : "성동구청에서 배포하는 서체입니다.",
+                "vendorURL" : "http://www.sd.go.kr/sd/main.do?op=mainSub&mCode=13G010030030",
+                "license": "성동고딕체, 성동명조체의 지적재산권은 성동구청에 있습니다.\n성동고딕체, 성동명조체 사용자들은 다른 이에게 자유롭게 배포할 수 있으나, 어떠한 경우에도 대가를 요구하거나 수정해서\n판매할 수 없으며, 배포된 그대로 사용해야 합니다."
+            },
+            "title" : "성동구청 서체",
+            "downloadURL" : "http://www.sd.go.kr/jsp/common/Download.jsp?fileType=application/x-zip-compressed&filePath=/seongdong/%BC%BA%B5%BF%B0%ED%B5%F1.zip&downName=%BC%BA%B5%BF%B0%ED%B5%F1.zip",
+            "downloadFileName" : "sungdonggothic.zip",
+            "labels" : [ "성동구청", "성동고딕"]    
+        },{
+            "names" : {
+                "family": "성동명조",
+                "manufacturer" : "성동구청",
+                "description" : "성동구청에서 배포하는 서체입니다.",
+                "vendorURL" : "http://www.seoul.go.kr/v2012/seoul/symbol/font.html",
+                "license": "성동고딕체, 성동명조체의 지적재산권은 성동구청에 있습니다.\n성동고딕체, 성동명조체 사용자들은 다른 이에게 자유롭게 배포할 수 있으나, 어떠한 경우에도 대가를 요구하거나 수정해서\n판매할 수 없으며, 배포된 그대로 사용해야 합니다."
+            },
+            "title" : "성동구청 서체",
+            "downloadURL" : "http://www.sd.go.kr/jsp/common/Download.jsp?fileType=application/x-zip-compressed&filePath=/seongdong/%BC%BA%B5%BF%B8%ED%C1%B6%C3%BC.zip&downName=%BC%BA%B5%BF%B8%ED%C1%B6.zip",
+            "downloadFileName" : "sungdongmyoungjo.zip",
+            "labels" : [ "성동구청", "성동명조"]    
+        },{
+            "names" : {
+                "family": "서울서체 정체",
+                "manufacturer" : "서울시",
+                "description" : "서울시는 서울의 고유글꼴로 널리 활용되며 도시정체성과 브랜드 가치를 높여줄 서울서체는 \n서울한강체 4종(Light, Medium, Bold, Extra Bold) \n서울남산체 4종(Light, Medium, Bold, Extra Bold), 세로쓰기1종, \n서울한강 장체 5종(Light, Medium, Bold, Extra Bold,black), \n서울남산 장체 5종((Light, Medium, Bold, Extra Bold,black) 등 총 19종을 개발했다 \n서울서체는 강직한 선비정신과 단아한 여백을 담고 있으며 조형적으로는 한옥의 열림과 기와의 곡선미를 \n표현하였다. 또한 이름으로는 서울의 대표적인 자산인 '한강'과 '남산'을 응용한 서울서체는 우리민족 \n고유의 아름다운 언어인 한글의 문화적 자긍심을 더욱 높일 것이다",
+                "vendorURL" : "http://www.seoul.go.kr/v2012/seoul/symbol/font.html",
+                "license": "※ 서울서체는 누구나 무료로 다운로드 받아 자유롭게 사용할 수 있습니다.\n영상매체,인쇄매체, 웹 등 다양한 매체에 자유롭게 사용이 가능하며,\n 특별한 허가 절차 없이 사용할 수 있습니다.\n 다만 서울서체를 유료로 양도하거나 판매하는 등 상업적 행위는 금지하고 있습니다."
+            },
+            "title" : "서울시 서체",
+            "downloadURL" : "http://www.seoul.go.kr/v2012/seoul/symbol/download.php?div=Zm9udDAy",
+            "downloadFileName" : "jungche.zip",
+            "labels" : [ "서울시", "서울한강체", "서울남산체", "서울서체 정체"]
+        },{
+            "names" : {
+                "family": "서울서체 장체",
+                "manufacturer" : "서울시",
+                "description" : "서울시는 서울의 고유글꼴로 널리 활용되며 도시정체성과 브랜드 가치를 높여줄 서울서체는 \n서울한강체 4종(Light, Medium, Bold, Extra Bold) \n서울남산체 4종(Light, Medium, Bold, Extra Bold), 세로쓰기1종, \n서울한강 장체 5종(Light, Medium, Bold, Extra Bold,black), \n서울남산 장체 5종((Light, Medium, Bold, Extra Bold,black) 등 총 19종을 개발했다 \n서울서체는 강직한 선비정신과 단아한 여백을 담고 있으며 조형적으로는 한옥의 열림과 기와의 곡선미를 \n표현하였다. 또한 이름으로는 서울의 대표적인 자산인 '한강'과 '남산'을 응용한 서울서체는 우리민족 \n고유의 아름다운 언어인 한글의 문화적 자긍심을 더욱 높일 것이다",
+                "vendorURL" : "http://www.sd.go.kr/sd/main.do?op=mainSub&mCode=13G010030030",
+                "license": "※ 서울서체는 누구나 무료로 다운로드 받아 자유롭게 사용할 수 있습니다.\n영상매체,인쇄매체, 웹 등 다양한 매체에 자유롭게 사용이 가능하며,\n 특별한 허가 절차 없이 사용할 수 있습니다.\n 다만 서울서체를 유료로 양도하거나 판매하는 등 상업적 행위는 금지하고 있습니다."
+            },
+            "title" : "서울시 서체",
+            "downloadURL" : "http://www.seoul.go.kr/v2012/seoul/symbol/download.php?div=Zm9udDA4",
+            "downloadFileName" : "jangche.zip",
+            "labels" : [ "서울시", "서울한강 장체", "서울남산 장체", "서울서체 장체"]
+        },{
+            "names" : {
+                "family": "푸른전남체",
+                "manufacturer" : "전라남도 도청",
+                "description" : "명칭 : 푸른전남체<br />‘푸른전남’은 ‘생명’, ‘청년’, ‘젊음’ 등 전남의 긍정적 비전을 포괄하는 순우리말로 이루어진 전라남도 전용서체 명칭<br/><br/>도 CI서체를 기본, 다도해의 출렁이는 바닷물결과 ‘젊은 전남’을 모티브로 역동성 있는 이미지 표현 및 사용성에 중점을 두어 정보 전달에 용이하고 지속적으로 활용할 수 있도록 개발<br/><br/>형태적 특징<br/>전체적으로 고딕의 형태를 이루며, 한글의 경우 ‘ㅅ,ㅈ,ㅊ’ 등의 자소에서 시원하게 쭉 뻗은 획의 스타일과 정원형의 ‘ㅇ’을 통해 젊음의 역동성을 표현하며, 한글과 조화를 이루는 영문은 높은 X-height로 인해 속공간이 시원하여 가독성 높도록 디자인 되었습니다.",
+                "vendorURL" : "http://www.jeonnam.go.kr/contentsView.do?menuId=jeonnam0603080000",
+                "license": "본 폰트는 누구나 무료로 다운로드 받아 자유롭게 사용할 수 있습니다. 영상매체, 인쇄매체, 웹 등 다양한 매체에 자유롭게 사용이 가능하며, 특별한 허가 절차 없이 사용할 수 있습니다. 다만, 푸른전남체를 유료 양도 및 판매하는 상업적 행위와 변형·배포 또는 상업적 재배포는 금지합니다. 참고 인쇄물(포스터, 브로슈어, 리플릿 등) 이나 출판용 서체, 웹사이트 등 저작권자를 밝히어 사용가능한 곳은 저작권자를 밝히고 사용하여 주시기 바랍니다. 예) 이 인쇄물(본문)은 푸른전남체를 사용하여 디자인되었습니다."
+            },
+            "title" : "전라남도 도청 서체",
+            "downloadURL" : "http://www.jeonnam.go.kr/home/site/jeonnam/file/06/TTF.zip",
+            "labels" : [ "전라남도", "전남의 상징", "도청 서체"]
+        },{
+            "names" : {
+                "family": "가비아 납작블럭체",
+                "manufacturer" : "가비아",
+                "description" : "펜 글씨는 납작한 펜촉이 만드는 두께의 차이와 기울기가 매력이다. 가비아 납작블럭체는 펜 글씨의 일반적인 매력과 함께 획 하나하나를 또박또박 끊어서 쓴 흔적이 특징인 글자꼴이다. 흔히 ‘필기체’라고 부르는 글씨체는 속도감을 나타내며 획이 서로 이어지거나 한 방향으로 뻗어나가곤 하는데, 가비아 납작블럭체는 이러한 통념에서 자유롭다. 이 글자꼴로 구성한 텍스트를 읽으면 한 글자, 한 자소씩 나눠서 이해해야 할 것만 같은 착각에 빠진다. 재빠르게 읽어내려가는 방식에 익숙한 우리에게 생경한 경험을 안겨주는 묘한 글자꼴이다.",
+                "vendorURL" : "https://company.gabia.com/font",
+                "license": "가비아 글꼴의 지적재산권은 ㈜가비아가 소유하고 있습니다.<br /> 가비아 글꼴은 개인 및 기업 사용자를 포함한 모든 사용자에게 무료로 제공되며 자유롭게 수정하고 재배포가 가능 합니다. 단, 가비아 글꼴 자체를 유료로 판매하는 것은 금지하며, 다른 소프트웨어와 번들하거나 재배포 또는 판매 하는 경우 가비아 글꼴의 출처 표기를 하여야 합니다.<br/><br/>가비아 글꼴을 사용한 인쇄물, 광고물(온라인 포함)의 이미지는 가비아 글꼴의 프로모션을 위해 활용될 수 있습니다. 다만, 이를 원치 않는 사용자는 언제든지 ㈜가비아에 요청하실 수 있습니다. 가비아 글꼴 ‘가비아 납작블럭체, 가비아 솔미체, 가비아 봄바람체’ 폰트명에 대한 저작권은 ㈜가비아에 있습니다."
+            },
+            "title" : "가비아 서체",
+            "downloadURL" : "https://company.gabia.com/assets/images/gabia_napjakBlock.ttf",
+            "labels" : [ "가비아", "납작블럭체", "펜글씨"]
+        },{
+            "names" : {
+                "family": "가비아 봄바람체",
+                "manufacturer" : "가비아",
+                "description" : "이 글자꼴은 봄바람에 날리는 듯한 경쾌한 붓 놀림이 특징이다. 글자를 구성하는 획은 얼핏 제멋대로인 듯 하지만, 자세히 보면 붓글씨의 속도와 터치가 만들어낸 일정한 모양새를 보인다. 서로 다른글자의 크기와 비례, 무게 중심을 일정하게 맞추는 데 중점을두어, 자칫 손글씨 글자꼴에서 나타나기 쉬운 불균형을 줄였다. 획들이 서로 이어지는 모양과 삐침이 위쪽을 향하는 모양은 빠른 붓글씨 특유의 유연함과 날렵함을 나타낸다. 특히 한번에 이어 쓰는 ’ㄹ’은 다른 글자꼴에서 보기 힘든 독특한 형태를 이룬다.",
+                "vendorURL" : "https://company.gabia.com/font",
+                "license": "가비아 글꼴의 지적재산권은 ㈜가비아가 소유하고 있습니다.<br /> 가비아 글꼴은 개인 및 기업 사용자를 포함한 모든 사용자에게 무료로 제공되며 자유롭게 수정하고 재배포가 가능 합니다. 단, 가비아 글꼴 자체를 유료로 판매하는 것은 금지하며, 다른 소프트웨어와 번들하거나 재배포 또는 판매 하는 경우 가비아 글꼴의 출처 표기를 하여야 합니다.<br/><br/>가비아 글꼴을 사용한 인쇄물, 광고물(온라인 포함)의 이미지는 가비아 글꼴의 프로모션을 위해 활용될 수 있습니다. 다만, 이를 원치 않는 사용자는 언제든지 ㈜가비아에 요청하실 수 있습니다. 가비아 글꼴 ‘가비아 납작블럭체, 가비아 솔미체, 가비아 봄바람체’ 폰트명에 대한 저작권은 ㈜가비아에 있습니다."
+            },
+            "title" : "가비아 서체",
+            "downloadURL" : "https://company.gabia.com/assets/images/gabia_bombaram.ttf",
+            "labels" : [ "가비아", "봄바람체", "바람","경쾌한","붓글씨"]
+        },{
+            "names" : {
+                "family": "가비아 솔미체",
+                "manufacturer" : "가비아",
+                "description" : "값싸고 흔한 싸인펜으로 쓴 글씨에서 착안한 글자꼴이다. 싸인펜은 다용도 도구일 뿐만 아니라, 눌러 썼을 때에 도톰한 두께와 적당한 마찰력으로 올망졸망한 글씨를 자아내는 매력적인 필기구이기도 하다. 요즘 사람들이 컴퓨터로 글을 쓰는데 익숙하다 하더라도, 종이 위에 쓰여진 싸인펜 글씨는 여전히 친숙하다. 가비아 솔미체는 이러한 필기구의 특징과 디자이너의 발랄한 성품을 담은 필적이 절묘하게 맞아 떨어져 귀여운 분위기를 연출하는 글자꼴이다. 매일 대하는 일상적인 글자가 식상할 때, 늦은 밤 폭발하는 감성을 억누르기 싫을 때, 가비아 솔미체를 추천한다.",
+                "vendorURL" : "https://company.gabia.com/font",
+                "license": "가비아 글꼴의 지적재산권은 ㈜가비아가 소유하고 있습니다.<br /> 가비아 글꼴은 개인 및 기업 사용자를 포함한 모든 사용자에게 무료로 제공되며 자유롭게 수정하고 재배포가 가능 합니다. 단, 가비아 글꼴 자체를 유료로 판매하는 것은 금지하며, 다른 소프트웨어와 번들하거나 재배포 또는 판매 하는 경우 가비아 글꼴의 출처 표기를 하여야 합니다.<br/><br/>가비아 글꼴을 사용한 인쇄물, 광고물(온라인 포함)의 이미지는 가비아 글꼴의 프로모션을 위해 활용될 수 있습니다. 다만, 이를 원치 않는 사용자는 언제든지 ㈜가비아에 요청하실 수 있습니다. 가비아 글꼴 ‘가비아 납작블럭체, 가비아 솔미체, 가비아 봄바람체’ 폰트명에 대한 저작권은 ㈜가비아에 있습니다."
+            },
+            "title" : "가비아 서체",
+            "downloadURL" : "https://company.gabia.com/assets/images/gabia_solmee.ttf",
+            "labels" : [ "가비아", "솔미체", "싸인펜","도톰"]
+        },{
+            "names" : {
+                "family": "EBS 훈민정음 새론체 ",
+                "manufacturer" : "EBS",
+                "description" : "EBS가 한글반포 570돌을 맞이하여, 새롭게 개발한 <EBS훈민정음 새론체>를 전 국민대상으로 무료 배포합니다.<br /><EBS훈민정음 새론체>는 훈민정음해례본 기본요소를 토대로 개발된 ‘EBS훈민정음(2014년)’의 가독성을 보완하여 현대적으로 개선하였습니다. 서체의 이름은 “더욱 새로워진 EBS훈민정음”이라는 의미를 함축하기 위하여 ‘새론’이라는 표현을 합성하였습니다.",
+                "vendorURL" : "https://about.ebs.co.kr/kor/organization/font?tabVal=hunminsaeron",
+                "license": "1. 저작권<br/><EBS훈민정음 새론체>의 저작권 및 소유권의 제반권리는 EBS한국교육방송공사에 있습니다.<br/><br/>2. 사용범위<br/>가. 학교, 개인, 공공기관 등 누구나 무료로 다운로드하여 사용할 수 있습니다.<br/>나. 영상매체, 인쇄매체, 웹, 모바일 등 다양한 매체와 용도에 제한 없이 사용이 가능합니다.<br/>3. 제한사항<br/><br/>가. EBS의 사전 서면승인 없이 <EBS훈민정음 새론체>의 소스코드 수정 및 역설계 등 일부 혹은 전부를 임의로 변형할 수 없습니다.<br/>나. EBS의 사전 서면승인 없이 임의개작, 개명을 통한 재배포나 재판매 등 상업 적 행위는 금지됩니다.<br/>다. 음란물, 반사회적 제작물 등 부정적 이미지의 제작물에 사용할 수 없습니다."
+            },
+            "title" : "EBS 서체",
+            "downloadURL" : "https://about.ebs.co.kr/files/about/files/pr/ci/TTF_saeron.zip",
+            "labels" : [ "EBS", "훈민정음 새론체"]
+        },{
+            "names" : {
+                "family": "EBS 훈민정음체 ",
+                "manufacturer" : "EBS",
+                "description" : "교육 한류와 올바른 언어사용을 선도하고 있는 EBS가 훈민정음 반포 568돌 기념 한글날을 맞아 새롭게 개발한 “EBS 훈민정음”을 전 국민대상으로 무료 배포합니다.<br/>EBS가 제작하여 무료 배포하는 “EBS 훈민정음”은 훈민정음 창제와 더불어 목판으로 제작된 해례본체의 기본형과 주요특징을 유지하면서 단순화한 획과 선으로 디자인하여 글꼴의 가독성을 높이고 데이터를 줄여 모바일과 웹 환경에 최적화하였습니다.",
+                "vendorURL" : "https://about.ebs.co.kr/kor/organization/font?tabVal=hunmin",
+                "license": "1. 저작권<br/><br/>EBS 훈민정음의 저작권 및 소유권의 제반권리는 EBS한국교육방송공사에 있습니다.<br/><br/>2. 사용범위<br/>가. 학교, 개인, 공공기관 등 누구나 무료로 다운로드하여 사용할 수 있습니다. <br/>나. 영상매체, 인쇄매체, 웹, 모바일 등 매체와 용도에 제한 없이 상업적으로도 사용이 가능합니다.<br/><br/>3. 제한사항<br/>가. EBS의 사전 서면승인 없이 <EBS훈민정음>의 소스코드 수정 및 역설계 등 일부 혹은 전부를 임의로 변형할 수 없습니다. <br/>나. EBS의 사전 서면승인 없이 서체자체의 임의개작, 개명을 통한 재배포나 재판매 등의 행위는 금지됩니다. <br/>다. 음란물, 반사회적 제작물 등 부정적 이미지의 제작물에 사용할 수 없습니다."
+            },
+            "title" : "EBS 서체",
+            "downloadURL" : "https://about.ebs.co.kr/files/about/files/pr/ci/TTF.zip",
+            "labels" : [ "EBS", "훈민정음 새론체"]
+        },{
+            "names" : {
+                "family": "부산체 ",
+                "manufacturer" : "부산시청",
+                "description" : "금번에 개발된 서체는 주로 문서나 인쇄물, 각종 안내판의 제목과 본문에 사용할 수 있도록 낱글자의 완성도 뿐 아니라, 글꼴의 전체적인 이미지 통일과 다양한 글꼴 적용을 고려하여 가독성 있는 고품격의 부산시 전용글꼴로 개발되었다.<br />서체의 명칭은 \"부산체\"로 정한다.<br/>부산시는 앞으로 고유글꼴의 추가개발을 통해 한글의 우수성과 아름다움을 해양수도의 이미지와 결합하여 디자인 도시로 거듭나기 위한 토대를 마련하고 문화적 자긍심을 높이는 데에 더욱 더 힘써 나갈 계획이다.",
+                "vendorURL" : "https://www.busan.go.kr/bhbusan",
+                "license": "부산체는 부산광역시가 배타적인 산업재산권을 가짐으로 지속적이며, 안정적으로 누구나 무료로 다운로드 받아 자유롭게 사용할 수 있으며, 영상매체, 인쇄매체, 웹, 모바일 등 다양한 매체에 자유롭게 사용이 가능하며, 특별한 허가 절차 없이 사용할 수 있습니다. 아울러, 부산체를 유료로 양도하거나 판매하는 등 상업적 행위는 부산광역시의 배타적인 산업재산권으로 인하여 금지되는 것입니다."
+            },
+            "title" : "부산시청 서체",
+            "downloadURL" : "https://www.busan.go.kr/PageDownload.do?savename=bFont_wProvisional_ttf.zip",
+            "downloadFileName": "bFont_wProvisional_ttf.zip",
+            "labels" : [ "부산시청", "부산체" ]
         }
     ]
 }

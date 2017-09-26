@@ -45,11 +45,12 @@ class FontManager extends Window {
     this.refs.fontlistview.refreshFiles(files);
   }
 
-  toggleSearchFilter = () => {
-    this.refs.searchFilter.classList.toggle('open');
+  toggleSearchFilter = (isActive) => {
+    this.refs.searchFilter.classList.toggle('open', isActive);
   }
 
   hideSearchFilter = () => {
+    this.refs.search.hideSearchFilter();
     this.refs.searchFilter.classList.remove('open');
   }  
 

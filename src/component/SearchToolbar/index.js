@@ -26,6 +26,19 @@ class SearchToolbar extends Component {
     this.props.showDirectory($dom.classList.contains('active'));
   }  
 
+  toggleSearchFilter = (e) => {
+
+    const icon = this.refs.searchIcon
+
+    icon.classList.toggle('active');
+
+    this.props.toggleSearchFilter(icon.classList.contains('active'));
+  }
+
+  hideSearchFilter = () => {
+    this.refs.searchIcon.classList.toggle('active', false);
+  }
+
 
   toggleFavoriteList = (e) => {
     const $dom = e.target;
@@ -46,7 +59,7 @@ class SearchToolbar extends Component {
           <img src="./icon.png" alt="FontMoa" width="30px" height="30px" /> FontMoa</span>
         <div className="search-input">           
           <input type="search" ref="searchText" onKeyUp={this.searchFont} onClick={this.searchFont} placeholder="Search" />
-          <span className="search-icon" onClick={this.props.toggleSearchFilter}><i className="material-icons">search</i></span>          
+          <span className="search-icon" ref="searchIcon" onClick={this.toggleSearchFilter}><i className="material-icons">search</i></span>          
         </div>
         <div className="tools">
           <span onClick={this.toggleFavoriteList} title={intl.get('searchtoolbar.title.favorite')}><i className="material-icons">favorite</i></span>

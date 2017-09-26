@@ -115,10 +115,6 @@ class GoogleFontItem extends Component {
                     <div ref="message" className="message" contentEditable={true} dangerouslySetInnerHTML={{__html : message}} />
                 </div>                
                 <VariantsRadio labels={labels} onChange={this.changeVariants} />
-                {/*
-                <div className="toolbar">
-                    <input type="range" max="250" min="10" defaultValue={this.state.fontSize} onChange={this.changeFontSize} />
-                </div> */}
             </Observer>
         )
     }
