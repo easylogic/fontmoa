@@ -20,6 +20,7 @@ const getMenu = (app) => {
     {
       label: 'Help',
       submenu : [
+        {role: 'reload'},        
         {role: 'toggledevtools'},
         {type: 'separator'},
         { label : 'About FontMoa'}

@@ -10,6 +10,7 @@ const {shell} = window.require('electron');
 
 const path = window.require('path');
 
+const MATCH_NUMBER = /[0-9]+/;
 
 class LocalFontItem extends Component {
 
@@ -90,7 +91,15 @@ class LocalFontItem extends Component {
         }
     }
 
-    static FIELDS = ['license', 'licenseURL', 'designer', 'designerURL', 'copyright']
+    static FIELDS = [
+        'license', 
+        'licenseURL', 
+        'designer', 
+        'designerURL', 
+        'copyright', 
+        'manufacturer',
+        'vendorURL'
+    ]
 
     getFontNames = (font) => {
         let result = {};
@@ -116,13 +125,13 @@ class LocalFontItem extends Component {
             if (key === 'license') {
                 return (
                     <div key={index} className="desc-item">
-                        <a href={names.licenseURL} target="_license">
+                        <a href={common.getURL(names.licenseURL)} target="_license">
                             {this.getLicenseIcon(names.license)} 
                             {names.license}
                         </a>
                     </div>)
             }  else if (key === 'designer') {
-                return <div key={index} className="desc-item"><a href={names.designerURL} target="_designer"><i className="material-icons">turned_in_not</i> {names.designer}</a></div>
+                return <div key={index} className="desc-item"><a href={common.getURL(names.designerURL)} target="_designer"><i className="material-icons">turned_in_not</i> {names.designer}</a></div>
             }  else if (key === 'copyright') {
                 return <div key={index} className="desc-item">{names.copyright}</div>
             }
@@ -166,15 +175,20 @@ class LocalFontItem extends Component {
             activeClass += " selected";
         }
 
+        if (style.fontFamily.match(MATCH_NUMBER)) {
+            style.fontFamily = style.fontFamily.split(',').map(f => {
+                return "'" + f + "'"
+            });
+        }
+        
         const names = this.getFontNames(fontObj.font);
-
         return (
             <Observer className="local-font-item" onChange={inView => this.loadFontCss(inView)}>
                 <div className="font-info">
                     <div className="font-family" onClick={this.showFontFile}>{this.getLicenseIcon(names.license)} {font.currentFamilyName}</div>
                 </div>
                 <div className="directory-name">{dirname}</div>                
-                <div ref="description" className="font-description" title="Font Description"> 
+                <div ref="description" className="font-description"> 
                     {this.getDescriptionItem(names)}
                 </div>
                 

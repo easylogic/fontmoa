@@ -82,7 +82,7 @@ class FontListView extends Component {
     }
 
     renderItem = (fontObj, index) => {
-        const key = (fontObj.file || fontObj.family || fontObj.name) + index;
+        const key = (fontObj.file ||  fontObj.family || fontObj.names.family || fontObj.name) + index;
         return (            
             <div 
                 key={key} 

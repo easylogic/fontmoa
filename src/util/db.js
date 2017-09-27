@@ -57,7 +57,10 @@ const getCurrentLanguage = (fontItem) => {
     }).pop() || 'en';
 
     if (currentLanguage !== locale) {
-        currentLanguage = fontItem.language.includes(locale) ? locale : 'en';
+        const hasFamilyLanguage = Object.keys(fontItem.name.fontFamily).includes(locale);
+        const hasLanguage = fontItem.language.includes(locale);
+
+        currentLanguage = ( hasFamilyLanguage || hasLanguage ) ? locale : 'en';
     }
 
     return currentLanguage;

@@ -64,6 +64,10 @@
     background-color: rgba(0, 0, 0, 0.05);
 }
 
+.local-font-item .font-description .desc-item:hover a {
+    text-decoration: underline;
+}
+
 .local-font-item .tools {
     position: absolute;
     right: 10px;
@@ -87,9 +91,6 @@
     width:2px;
     box-sizing: border-box;
 }
-
-
-
 
 .local-font-item .font-info .font-family {
     display: inline-block;
@@ -129,27 +130,6 @@
 .local-font-item .font-item-preview > .message:focus {
     background-color: rgba(0, 0, 0, 0.05);
 }
-
-/*
-.local-font-item .toolbar {
-    display:none;
-    position:absolute;
-    right:180px;
-    top:2px;
-    width:60px;
-}
-
-.local-font-item .toolbar input[type=range]:before {
-    content: attr(value) 'px';
-    position:absolute;
-    top:-7px;
-    left:-40px;
-    display:inline-block;
-}
-
-.local-font-item:hover .toolbar  {
-    display:block;
-}*/
 
 .local-font-item:hover .tools {
     display:block;

@@ -10,28 +10,6 @@
     background: linear-gradient(to right, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.02) , rgba(0, 0, 0, 0));
 }
 
-/*
-.google-font-item .toolbar {
-    display:none;
-    position:absolute;
-    right:150px;
-    top:4px;
-    width:80px;
-}
-
-.google-font-item .toolbar input[type=range]:before {
-    content: attr(value) 'px';
-    position:absolute;
-    top:-7px;
-    left:-40px;
-    display:inline-block;
-}
-
-.google-font-item:hover .toolbar  {
-    display:block;
-}
-*/
-
 .google-font-item .tools {
     position: absolute;
     right: 0px;
