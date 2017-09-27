@@ -109,8 +109,6 @@ class FreeFontItem extends Component {
         let results = [];
 
         results.push(<span key={0} className="link" onClick={this.toggleDescription} title="Open Description">{intl.get('fontmanager.title.detail')}</span>)
-        
-        console.log(fontObj);
 
         if (fontObj.downloadURL) { 
             results.push(<span key={1} className="link" title="Font Download" onClick={this.downloadUrl(fontObj.downloadURL)} >{intl.get('fontmanager.title.download')}</span>);
