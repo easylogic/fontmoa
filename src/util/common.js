@@ -85,53 +85,11 @@ const isInSystemFolders = (path) => {
     return !!checkList.length;
 }
 
-const createSpecialChars = () => {
-    return { 
-        type : 'specialChars', 
-        name: 'glyfmanager.fontlist.specialChars.title',                 
-        files : [
-            { 
-                type : 'specialChars',
-                currentFamilyName: 'glyfmanager.fontlist.specialChars.title', 
-                item : { path : ''},
-                collectStyle : {
-                    fontFamily : ''
-                }
-            }
-        ]
-    };
-}
-
-const caculateFontUnit = (font) => {
-
-    let pos = {};
-    const height = font.ascent + Math.abs(font.descent);
-    let baseline = (font.ascent / height) * 100;
-    //const lowUnit = 100 - baseline;
-
-    if (isNaN(baseline)) {
-        return pos;
-    }
-
-
-    ["ascent", "descent", "baseline", "capHeight", "xHeight"].forEach((field) => {
-        if (font[field]  > 0)  {
-            pos[field] = ((font.ascent - font[field]) / font.ascent) * 100;
-        } else if (font[field] < 0) {
-            pos[field] = ((font.ascent + Math.abs(font[field])) / height) * 100;
-        } else if (field === 'baseline') {
-            pos[field] = baseline; 
-        }
-    })
-
-    return pos; 
-}
-
-const getPangramMessage = (lang, isShort) => {
+const getPangramMessage = (lang) => {
 
     const message = Pangram[lang] || Pangram['en']
 
-    return message[isShort ? 'short' : 'long'];
+    return message;
 }
 
 const createDirectory = (dirname) => {
@@ -208,10 +166,8 @@ const common = {
     isInSystemFolders,
     createDirectory,
     getFontFamilyCollect,
-    caculateFontUnit,
     getFontStyleCollect,
     getPangramMessage,
-    createSpecialChars,
     PROTOCOL_PREFIX,
 }
 

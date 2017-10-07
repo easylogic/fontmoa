@@ -1,26 +1,20 @@
 export default {
-    "en" : {
-        short : "Ag",
-        long : "Bright vixens jump; dozy fowl quack."
-    },
-    "ko" : {
-        short : "한글",
-        long : "닭 잡아서 치킨파티 함."
-    },
-    "zh" : {
-        short : "太阳",
-        long : "太阳"
-    },
-    "ja" : {
-        short : "いろ",
-        long : "いろはにほへとちりぬるを"
-    },
-    "he" : {
-        short : "רה",
-        long : "דג סקרן שט בים מאוכזב ולפתע מצא לו חברה איך הקליטה"
-    },       
-    "ar" : {
-        short : "طارِ",
-        long : "طارِ"
-    },                
+    "en" : "Bright vixens jump; dozy fowl quack.",
+    "ko" : "닭 잡아서 치킨파티 함.",
+    "zh" : "1,000 原文 繁体字不重复 ; 但7个简笔字 (1 发 = 髮, 2 巨 =钜, 3 并 = 並 , 4 云 = 雲, 5 洁 = 潔, 6 戚 = 慼, 7 昆 = 崑 ) 重复。",
+    "ja" : "いろはにほへとちりぬるを わかよたれそつねならむ うゐのおくやまけふこえて あさきゆめみしゑひもせす",
+    "he" : "דג סקרן שט בים מאוכזב ולפתע מצא לו חברה איך הקליטה",
+    "iw" : "דג סקרן שט בים מאוכזב ולפתע מצא לו חברה איך הקליטה",           
+    "ar" : "صِف خَلقَ خَودِ كَمِثلِ الشَمسِ إِذ بَزَغَت — يَحظى الضَجيعُ بِها نَجلاءَ  ِعطارِ ",    
+    "da" : "Quizdeltagerne spiste jordbær med fløde, mens cirkusklovnen",                "de" : "Falsches Üben von Xylophonmusik quält jeden größeren Zwerg",
+    "el" : "Γαζέες καὶ μυρτιὲς δὲν θὰ βρῶ πιὰ στὸ χρυσαφὶ ξέφωτο",
+    "es" : "El pingüino Wenceslao hizo kilómetros bajo exhaustiva lluvia yfrío, añoraba a su querido cachorro",
+    "fr" : "Le cœur déçu mais l'âme plutôt naïve, Louÿs rêva de crapaüter en canoë au delà des îles, près du mälström où brûlent les novæ.",
+    "ga" : "D'fhuascail Íosa, Úrmhac na hÓighe Beannaithe, pór Éava agus Ádhaimh",
+    "hu" : "Árvíztűrő tükörfúrógép",
+    "is" : "Kæmi ný öxi hér ykist þjófum nú bæði víl og ádrepa",
+    "pl" : "Pchnąć w tę łódź jeża lub ośm skrzyń fig",
+    "ru" : "В чащах юга жил бы цитрус? Да, но фальшивый экземпляр!",
+    "th" : "เป็นมนุษย์สุดประเสริฐเลิศคุณค่า",
+    "tr" : "Pijamalı hasta, yağız şoföre çabucak güvendi."
 }

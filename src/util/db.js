@@ -71,8 +71,6 @@ const insertFont = (font, fontObj, done) => {
 
     try {
 
-        console.log(font, fontObj);
-
         const fontItem = {
             postscriptName : (font.name ? font.postscriptName : ''),
             fullName: (font.name ? font.fullName : ''),
@@ -83,7 +81,7 @@ const insertFont = (font, fontObj, done) => {
             language : getLanguage(font.name || {}),
             weight: (font['OS/2'] ? font['OS/2'].usWeightClass : 400),
         }
-    
+
         const  currentLanguage = fontItem.currentLanguage = getCurrentLanguage(fontItem)
 
         if (fontItem.name.fontFamily) {
