@@ -185,7 +185,11 @@ class LocalFontItem extends Component {
         return (
             <Observer className="local-font-item" onChange={inView => this.loadFontCss(inView)}>
                 <div className="font-info">
-                    <div className="font-family" onClick={this.showFontFile}>{this.getLicenseIcon(names.license)} {font.currentFamilyName}</div>
+                    <div className="font-family" onClick={this.showFontFile}>
+                        {this.getLicenseIcon(names.license)} 
+                        {font.currentFamilyName} 
+                        {font.currentFamilyNameEn ? ' - ' + font.currentFamilyNameEn : ''} 
+                    </div>
                 </div>
                 <div className="directory-name">{dirname}</div>                
                 <div ref="description" className="font-description"> 

@@ -8,10 +8,10 @@ const fs = window.require('fs');
 const path = window.require('path');
 const fontkit = window.require('fontkit');
 const DataStore  = window.require('nedb');
-const { remote } = window.require('electron'); 
+//const { remote } = window.require('electron'); 
 
 // locale 
-const locale = remote.app.getLocale()
+//const locale = remote.app.getLocale()
 
 const fontDB = new DataStore({ filename : common.getUserData('data/font.data') });
 fontDB.loadDatabase((err) => {});
@@ -26,18 +26,19 @@ const CACHE_LABEL_KEY = 'label';
 const exts = ['.ttf', '.otf', /*'.woff', */'.ttc'];
 
 const getLanguage = (name) => {
-    let list = ['en'];
+    let list = new Set(['en']);
 
     if (name && name.records) {
         const records = name.records;
-        const keys = Object.keys(records);
 
-        if (records[keys[0]]) {
-            list = Object.keys(records[keys[0]]);
-        }
+        ['copyright', 'fontFamily', 'fullName'].forEach((key) => {
+            Object.keys(records[key]).forEach(lang => {
+                list.add(lang);  
+            });
+        })
     }
     
-    return list;
+    return [...list];
 }
 
 const getNames = (name) => {
@@ -54,21 +55,24 @@ const getNames = (name) => {
 const getCurrentLanguage = (fontItem) => {
     let currentLanguage = fontItem.language.filter((l) => {
         return l !== 'en' && l !== '0-0'
-    }).pop() || 'en';
+    }).pop() || '';
 
+    /*
     if (currentLanguage !== locale) {
-        const hasFamilyLanguage = Object.keys(fontItem.name.fontFamily).includes(locale);
         const hasLanguage = fontItem.language.includes(locale);
 
-        currentLanguage = ( hasFamilyLanguage || hasLanguage ) ? locale : 'en';
-    }
+        currentLanguage = ( hasLanguage ) ? locale : 'en';
+    } */
 
-    return currentLanguage;
+    return currentLanguage || 'en';
 }
 
 const insertFont = (font, fontObj, done) => {
 
     try {
+
+        console.log(font, fontObj);
+
         const fontItem = {
             postscriptName : (font.name ? font.postscriptName : ''),
             fullName: (font.name ? font.fullName : ''),
@@ -86,6 +90,11 @@ const insertFont = (font, fontObj, done) => {
             const familyName = fontItem.name.fontFamily[currentLanguage] || fontItem.familyName;    
     
             fontItem.currentFamilyName = familyName;
+
+            if (currentLanguage !== 'en') {
+                fontItem.currentFamilyNameEn = fontItem.name.fontFamily['en'];
+            }
+
         }
     
     
