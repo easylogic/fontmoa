@@ -24,8 +24,17 @@ class AutoUpdater {
       if (text === 'Update available.') {
         self._isUpdateReady = true; 
         self.app.updateStatusForAutoUpdate();
-      } else {
-        console.log(text);
+
+      } else if (text === 'Checking for update...') { 
+
+      } else if (text === 'Update not available.') { 
+
+      } else if (text.includes('Error in auto-updater.')) { 
+
+      } else if (text.includes('Update downloaded')) {
+        self.app.hideLoading(0);
+      } else if (text.includes('Download')) {
+        self.app.showLoading("Update downloading...");
       }
     })
 

@@ -18,7 +18,6 @@ class SearchToolbar extends Component {
   goHome = () => {
 
     if (this.props.app.isUpdateReady()) {
-      console.log('updating');
       this.props.app.checkingForUpdate();
     } else {
       shell.openExternal('http://www.fontmoa.com/fontmoa/');
@@ -67,7 +66,7 @@ class SearchToolbar extends Component {
           ontMoa
         </span>
         {this.props.app.isUpdateReady() ? (
-          <span className="badge">U</span>
+          <span className="badge" title="Update fontmoa">U</span>
         ) : ''}
         <div className="search-input">           
           <input type="search" ref="searchText" onKeyUp={this.searchFont} onClick={this.searchFont} placeholder="Search" />

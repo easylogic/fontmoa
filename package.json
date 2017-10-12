@@ -39,7 +39,7 @@
     "electron": "electron .",
     "dev": "nf start",
     "postinstall": "electron-builder install-app-deps",
-    "dist:mac": "npm run build && electron-builder -m",    
+    "dist:mac": "npm run build && electron-builder -m",
     "dist": "npm run build && electron-builder -mwl",
     "pack": "npm run build && electron-builder -mwl --x64 --ia32 --dir",
     "pub": "npm run build && electron-builder -mwl --x64 --ia32 --publish=always",
@@ -65,7 +65,7 @@
       "provider": "github",
       "owner": "fontmoa"
     },
-    "deb" : {
+    "deb": {
       "compression": "gz"
     },
     "dmg": {
@@ -85,13 +85,14 @@
         }
       ]
     },
-    "mac" : {
+    "mac": {
       "category": "public.app-category.utilities",
-      "publish" : [
+      "publish": [
         "github"
       ],
-      "target" : [
-        "dmg", "zip"
+      "target": [
+        "dmg",
+        "zip"
       ]
     },
     "win": {

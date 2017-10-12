@@ -135,7 +135,7 @@ autoUpdater.on('download-progress', (progressObj) => {
   win.setProgressBar(progressObj.percent/100);
 })
 autoUpdater.on('update-downloaded', (info) => {
-  sendStatusToWindow('Update downloaded; will install in 5 seconds');
+  sendStatusToWindow('Update downloaded; will install in 2 seconds');
 });
 
 autoUpdater.on('update-downloaded', (info) => {
