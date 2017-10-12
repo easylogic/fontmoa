@@ -23,8 +23,10 @@ class AutoUpdater {
     ipcRenderer.on('message', function (event, text) {
       if (text === 'Update available.') {
         self._isUpdateReady = true; 
-        self.app.loadMenu();
-      } 
+        self.app.updateStatusForAutoUpdate();
+      } else {
+        console.log(text);
+      }
     })
 
     ipcRenderer.send('checking-for-available');

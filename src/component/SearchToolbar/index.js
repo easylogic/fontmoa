@@ -16,7 +16,14 @@ class SearchToolbar extends Component {
 
 
   goHome = () => {
-    shell.openExternal('http://www.fontmoa.com/fontmoa/');
+
+    if (this.props.app.isUpdateReady()) {
+      console.log('updating');
+      this.props.app.checkingForUpdate();
+    } else {
+      shell.openExternal('http://www.fontmoa.com/fontmoa/');
+    }
+
   }    
 
   showDirectory = (e) => {
@@ -56,7 +63,12 @@ class SearchToolbar extends Component {
     return ( 
       <div className="search">
         <span className="logo" onClick={this.goHome} title="Home Page">
-          <img src="./icon.png" alt="FontMoa" width="30px" height="30px" /> FontMoa</span>
+          <img src="./icon.png" alt="FontMoa" width="30px" height="30px" /> 
+          ontMoa
+        </span>
+        {this.props.app.isUpdateReady() ? (
+          <span className="badge">U</span>
+        ) : ''}
         <div className="search-input">           
           <input type="search" ref="searchText" onKeyUp={this.searchFont} onClick={this.searchFont} placeholder="Search" />
           <span className="search-icon" ref="searchIcon" onClick={this.toggleSearchFilter}><i className="material-icons">search</i></span>          

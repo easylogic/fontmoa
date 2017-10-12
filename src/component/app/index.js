@@ -21,6 +21,7 @@ class App extends Component {
 
     this.state = {
       initDone: false,
+      isUpdateReady : false, 
       locale : remote.app.getLocale()
     }
 
@@ -59,6 +60,10 @@ class App extends Component {
 
   changeSettings () {
     remote.getCurrentWindow().setSize(500, 600, true);
+
+    this.setState({
+      isUpdateReady : this.isUpdateReady()
+    })
   }
 
   loadMenu () {
@@ -74,6 +79,11 @@ class App extends Component {
       this.setState({ locale,  initDone: true });
       this.loadMenu();
     });
+  }
+
+  updateStatusForAutoUpdate () {
+    this.setState({ isUpdateReady: true })
+    this.loadMenu();
   }
 
   showLoading (title) {

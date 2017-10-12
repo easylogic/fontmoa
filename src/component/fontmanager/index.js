@@ -145,7 +145,7 @@ class FontManager extends Window {
     return ( 
         <div className="window fontmanager-window font-manager" id={this.props.id}>
           <div className="app-menu">
-            <SearchToolbar ref="search" search={this.search} showDirectory={this.showDirectory} toggleSearchFilter={this.toggleSearchFilter}  />
+            <SearchToolbar ref="search" app={this.props.app} search={this.search} showDirectory={this.showDirectory} toggleSearchFilter={this.toggleSearchFilter}  />
           </div>
           <div ref="searchFilter" className="app-search-filter">
             <div className="app-search-filter-background" onClick={this.hideSearchFilter}></div>
