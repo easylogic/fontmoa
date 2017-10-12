@@ -366,8 +366,46 @@ const refreshDirectory = (directory, done) => {
 }
 
 
+const getSubDirectories = (directory, level = 1) => {
+    let results = [];
+
+    if (fs.existsSync(directory) === false) {
+        return results;
+    }
+
+    let files = []; 
+    try {
+        files = fs.readdirSync(directory);
+    } catch (e) {
+        console.log(e.message);
+    }
+
+    files.forEach(f => {
+        const destFile = path.resolve(directory, f);
+        const stat = fs.statSync(destFile);
+        
+        if (stat.isDirectory()) {
+            results.push({ directory : destFile, name : f, level });
+
+            const subDirectories = getSubDirectories(destFile, level + 1);
+            results.push(...subDirectories);
+        }
+    })
+
+    return results;
+}
+
+
 const getDirectories = (callback) => {
     directoryDB.find({ }, (err, docs) => {
+
+        docs = docs.map((it) => {
+            
+            it.subDirectories = getSubDirectories(it.directory);
+
+            return it; 
+        })
+
         docs.sort(function(a, b) {
             if (a.type === 'system' && b.type !== 'system') return -1;
             if (b.type === 'system' && a.type !== 'system') return 1;

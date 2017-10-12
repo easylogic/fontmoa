@@ -14,6 +14,7 @@ const filterText = (font, filter) => {
         filter.text.test(font.family) || 
         filter.text.test(font.name) ||  
         filter.text.test(font.category) ||
+        filter.text.test(font.title) || 
         filterNamesText(font, filter) || 
         filterLabels(font, filter)
     );

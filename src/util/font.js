@@ -44,6 +44,8 @@ const extractZipFile = (zipFile, targetDir, callback ) => {
         dir: targetDir,
         onEntry : (entry, zipFile) => {
 
+            //console.log(entry, zipFile);
+
             if (entry.fileName && isFontFile(entry.fileName)) {
                 const fullpath = path.resolve(targetDir, entry.fileName);
                 //console.log(fullpath);

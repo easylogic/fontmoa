@@ -94,9 +94,21 @@ class DirectoryManager extends Component {
                 <div className={typeClassName}>
                   {this.renderDirectoryType(it)}
                 </div>
-                {it.name}
+                {it.name}                
               </div>
-              <div className="directory">{it.directory}</div>
+              <div>
+                <div className="directory-tree">
+                  <div className="root-node">{it.directory}</div>                  
+                  {it.subDirectories.map((dir, i) => {
+                    return (
+                      <div className="node" key={i} data-level={dir.level}>
+                        <span className="directory-name" title={dir.directory}  onClick={this.openDirectory(dir)}>{dir.name}</span>
+                        <span className="tool-item" title="Refresh Directory" onClick={this.refreshFontDirectory(dir)}><i className="material-icons">autorenew</i> {intl.get('directorymanager.title.refresh')}</span>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
               <div className="tools">
                 <span className="tool-item" title="Refresh Directory" onClick={this.refreshFontDirectory(it)}><i className="material-icons">autorenew</i> {intl.get('directorymanager.title.refresh')}</span>
               </div>

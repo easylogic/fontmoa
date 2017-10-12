@@ -69,6 +69,17 @@
             "downloadURL" : "http://pop.baemin.com/fonts/yeonsung/BMYEONSUNG_ttf.ttf",           
             "labels" : [ "배달의민족", "우아한형제","연성체" ]    
         },{
+                "names" : {
+                    "family": "기랑해랑체",
+                    "manufacturer" : "우아한 형제",
+                    "description" : "배달의민족 기랑해랑체는 한 자 한 자 집중해 그리려다 삐뚤어진 글자 테두리 모양 원형을 채워 만든 것입니다. 칠하고 보니 동그라미가 마음과 다르게 커진 것이 가장 큰 특징입니다.",
+                    "vendorURL" : "http://font.woowahan.com/kiranghaerang/",
+                    "license": ""
+                },
+                "title" : "배달의 민족 기랑해랑체",
+                "downloadURL" : "http://d1mphx2csg3pcg.cloudfront.net/fonts/BMKIRANGHAERANG-TTF.ttf",           
+                "labels" : [ "배달의민족", "우아한형제","기랑해랑체" ]      
+        },{
             "names" : {
                 "family": "성동고딕",
                 "manufacturer" : "성동구청",
