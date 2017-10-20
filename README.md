@@ -33,7 +33,6 @@ yarn dev
 
 * Font Activation (with Auto Activation)
 * Support Typekit 
-* Add more free font list
 
 # Change Log 
 
