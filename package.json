@@ -47,7 +47,7 @@
   },
   "devDependencies": {
     "cheerio": "^1.0.0-rc.2",
-    "electron": "^1.7.6",
+    "electron": "^9.4.0",
     "electron-builder": "^19.27.7",
     "foreman": "^2.0.0",
     "node-fetch": "^2.6.1"
