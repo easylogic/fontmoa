@@ -19,7 +19,7 @@
     "electron-updater": "^2.8.9",
     "extract-zip": "^1.6.5",
     "fontkit": "^1.7.7",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.21",
     "mime": "^1.4.0",
     "nedb": "^1.8.0",
     "react": "^15.6.1",
