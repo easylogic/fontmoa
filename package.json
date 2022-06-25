@@ -50,7 +50,7 @@
     "electron": "^1.7.6",
     "electron-builder": "^19.27.7",
     "foreman": "^2.0.0",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.7"
   },
   "build": {
     "productName": "Fontmoa",
